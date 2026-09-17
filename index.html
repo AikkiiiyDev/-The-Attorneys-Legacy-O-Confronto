@@ -11,19 +11,34 @@
 
   <div id="loginScreen" class="screen">
     <div class="card">
-      <h1>💥 The Attorneys Legacy: O Confronto</h1>
-      <p>Entre para começar!</p>
 
-      <input id="playerName" type="text" maxlength="20" placeholder="Seu nome">
+      <h1>💥 The Attorneys Legacy: O Confronto</h1>
+      <p>Crie seu personagem para entrar!</p>
+
+      <input
+        id="playerName"
+        type="text"
+        maxlength="20"
+        placeholder="Digite seu nome"
+      >
 
       <label class="upload">
         🖼️ Escolher imagem
-        <input id="avatarInput" type="file" accept="image/*">
+        <input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp">
       </label>
 
-      <img id="avatarPreview" class="preview" src="" alt="">
+      <div id="imageStatus" class="imageStatus">
+        Nenhuma imagem selecionada
+      </div>
 
-      <button onclick="enterGame()">ENTRAR NO LOBBY</button>
+      <img id="avatarPreview" class="preview" alt="Prévia">
+
+      <button id="enterButton" type="button">
+        ENTRAR NO LOBBY
+      </button>
+
+      <p id="errorMessage" class="error"></p>
+
     </div>
   </div>
 
@@ -35,6 +50,39 @@
       <span id="onlineText">1 jogador online</span>
     </header>
 
+    <main id="lobby">
+
+      <div class="info">
+        <h3>Bem-vindo ao lobby! 👋</h3>
+        <p>Ande usando <b>WASD</b> ou as setas.</p>
+        <p>O evento começará em breve...</p>
+      </div>
+
+      <div id="player">
+
+        <div id="playerAvatar"></div>
+
+        <div id="playerNameTag">
+          Jogador
+        </div>
+
+        <div class="character">
+          <div class="head"></div>
+          <div class="body"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
     <main id="lobby">
 
       <div class="info">
