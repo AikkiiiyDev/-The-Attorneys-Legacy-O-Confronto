@@ -1,40 +1,107 @@
-const personagem = document.getElementById("personagem");
+const loginScreen = document.getElementById("loginScreen");
+const gameScreen = document.getElementById("gameScreen");
 
-let x = window.innerWidth / 2;
-let y = window.innerHeight / 2;
+const nameInput = document.getElementById("playerName");
+const avatarInput = document.getElementById("avatarInput");
 
-const velocidade = 5;
+const avatarPreview = document.getElementById("avatarPreview");
+const playerAvatar = document.getElementById("playerAvatar");
+const playerNameTag = document.getElementById("playerNameTag");
 
-const teclas = {};
+const player = document.getElementById("player");
+const lobby = document.getElementById("lobby");
 
-document.addEventListener("keydown", function(event) {
-  teclas[event.key.toLowerCase()] = true;
+let playerX = 0;
+let playerY = 0;
+
+const speed = 5;
+
+let avatarURL = "";
+
+// Mostrar prévia da imagem
+avatarInput.addEventListener("change", function () {
+  const file = this.files[0];
+
+  if (!file) return;
+
+  avatarURL = URL.createObjectURL(file);
+
+  avatarPreview.src = avatarURL;
+  avatarPreview.style.display = "block";
 });
 
-document.addEventListener("keyup", function(event) {
-  teclas[event.key.toLowerCase()] = false;
-});
+// Entrar no jogo
+function enterGame() {
 
-function entrar() {
-  const nome = document.getElementById("nome").value.trim();
+  let name = nameInput.value.trim();
 
-  document.getElementById("nomeJogador").textContent =
-    nome || "ADM";
+  if (name === "") {
+    name = "Jogador";
+  }
 
-  document.getElementById("menu").style.display = "none";
-  document.getElementById("jogo").style.display = "block";
+  playerNameTag.textContent = name;
 
-  x = window.innerWidth / 2;
-  y = window.innerHeight / 2;
+  if (avatarURL !== "") {
+    playerAvatar.style.backgroundImage = `url("${avatarURL}")`;
+  }
 
-  atualizar();
+  loginScreen.classList.add("hidden");
+  gameScreen.classList.remove("hidden");
+
+  // Começa no centro
+  playerX = lobby.clientWidth / 2 - 40;
+  playerY = lobby.clientHeight / 2 - 50;
+
+  updatePlayer();
 }
 
-function atualizar() {
+// Movimento
+const keys = {};
 
-  if (
-    teclas["w"] ||
-    teclas["arrowup"]
+document.addEventListener("keydown", function (event) {
+
+  keys[event.key.toLowerCase()] = true;
+
+});
+
+document.addEventListener("keyup", function (event) {
+
+  keys[event.key.toLowerCase()] = false;
+
+});
+
+function updatePlayer() {
+
+  if (keys["w"] || keys["arrowup"]) {
+    playerY -= speed;
+  }
+
+  if (keys["s"] || keys["arrowdown"]) {
+    playerY += speed;
+  }
+
+  if (keys["a"] || keys["arrowleft"]) {
+    playerX -= speed;
+  }
+
+  if (keys["d"] || keys["arrowright"]) {
+    playerX += speed;
+  }
+
+  // Impede sair do mapa
+  const maxX = lobby.clientWidth - player.offsetWidth;
+  const maxY = lobby.clientHeight - player.offsetHeight;
+
+  playerX = Math.max(0, Math.min(playerX, maxX));
+  playerY = Math.max(0, Math.min(playerY, maxY));
+
+  player.style.left = playerX + "px";
+  player.style.top = playerY + "px";
+
+  requestAnimationFrame(updatePlayer);
+}
+
+updatePlayer();    teclas["arrowup"]
   ) {
     y -= velocidade;
   }
