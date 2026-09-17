@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>💥 The Attorneys Legacy: O Confronto</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -13,120 +15,241 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #17172b;
-    color: white;
+    background: #f7efe2;
+    color: #40372f;
 }
 
-/* ================= CRIADOR ================= */
+/* =========================================================
+   CRIADOR
+========================================================= */
 
-#creator {
-    width: min(1000px, 94%);
+#creatorScreen {
+    min-height: 100vh;
+    padding: 35px 20px;
+}
+
+.logo {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.logo span {
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    color: #8c7767;
+    margin-top: 8px;
+}
+
+.creatorContainer {
+    max-width: 1050px;
     margin: 30px auto;
-}
-
-h1 {
-    text-align: center;
-}
-
-.subtitle {
-    text-align: center;
-    color: #aaaac7;
-    margin-bottom: 25px;
-}
-
-.creator-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 25px;
 }
 
-.box {
-    background: #22223d;
-    border: 1px solid #3d3d63;
-    border-radius: 20px;
-    padding: 22px;
+/* CAIXAS */
+
+.panel {
+    background: #fffaf2;
+    border: 3px solid #e7d7c3;
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 8px 0 #dbc8b0;
 }
 
-.preview-area {
-    min-height: 500px;
+/* PREVIEW */
+
+.previewPanel {
+    min-height: 550px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.preview-character {
-    width: 180px;
-    height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#previewPNG {
-    max-width: 180px;
-    max-height: 280px;
-    object-fit: contain;
-    display: none;
-}
-
-.default-character {
-    width: 120px;
-    height: 230px;
+.previewGround {
+    width: 260px;
+    height: 120px;
+    background: #b9d88a;
+    border-radius: 50%;
     position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 30px;
+    border: 4px solid #93bd65;
 }
 
-.default-head {
-    width: 90px;
-    height: 90px;
-    background: #f0bd91;
+.previewShadow {
+    width: 115px;
+    height: 25px;
+    background: #86ae5e;
     border-radius: 50%;
     position: absolute;
-    left: 15px;
-    top: 0;
+    bottom: 10px;
 }
 
-.default-hair {
-    width: 98px;
+/* BICHINHO */
+
+.animal {
+    width: 120px;
+    height: 135px;
+    position: relative;
+    z-index: 5;
+    transform-origin: bottom center;
+}
+
+/* corpo */
+
+.animalBody {
+    position: absolute;
+    width: 82px;
+    height: 72px;
+    left: 19px;
+    bottom: 8px;
+    background: #e9a875;
+    border-radius: 45% 45% 35% 35%;
+    border: 4px solid #55453a;
+}
+
+/* cabeça */
+
+.animalHead {
+    position: absolute;
+    width: 92px;
+    height: 82px;
+    left: 14px;
+    top: 10px;
+    background: #e9a875;
+    border-radius: 48% 48% 44% 44%;
+    border: 4px solid #55453a;
+    z-index: 3;
+}
+
+/* orelhas */
+
+.ear {
+    position: absolute;
+    width: 38px;
     height: 48px;
-    background: #4b2b20;
-    border-radius: 50px 50px 15px 15px;
+    background: #e9a875;
+    border: 4px solid #55453a;
+    z-index: 1;
+}
+
+.ear.left {
+    left: 4px;
+    top: -12px;
+    transform: rotate(-25deg);
+    border-radius: 60% 40% 45% 40%;
+}
+
+.ear.right {
+    right: 4px;
+    top: -12px;
+    transform: rotate(25deg);
+    border-radius: 40% 60% 40% 45%;
+}
+
+/* olhos */
+
+.eye {
     position: absolute;
-    top: -4px;
-    left: -4px;
+    width: 11px;
+    height: 14px;
+    background: #40372f;
+    border-radius: 50%;
+    top: 35px;
 }
 
-.default-body {
-    width: 110px;
-    height: 100px;
-    background: #806cff;
-    border-radius: 25px;
+.eye.left {
+    left: 24px;
+}
+
+.eye.right {
+    right: 24px;
+}
+
+/* focinho */
+
+.muzzle {
     position: absolute;
-    top: 98px;
-    left: 5px;
+    width: 28px;
+    height: 20px;
+    background: #f8d2b3;
+    border-radius: 50%;
+    left: 28px;
+    top: 48px;
 }
 
-.default-leg {
-    width: 35px;
-    height: 65px;
-    background: #343447;
+.nose {
     position: absolute;
-    bottom: 0;
-    border-radius: 10px;
+    width: 10px;
+    height: 7px;
+    background: #40372f;
+    border-radius: 50%;
+    left: 9px;
+    top: 4px;
 }
 
-.default-leg.left {
-    left: 25px;
+/* patinhas */
+
+.paw {
+    position: absolute;
+    width: 27px;
+    height: 38px;
+    background: #e9a875;
+    border: 4px solid #55453a;
+    border-radius: 15px;
+    bottom: -14px;
+    z-index: 4;
 }
 
-.default-leg.right {
-    right: 25px;
+.paw.left {
+    left: 22px;
+}
+
+.paw.right {
+    right: 22px;
+}
+
+/* rabo */
+
+.tail {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border: 9px solid #e9a875;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    right: -8px;
+    bottom: 30px;
+    transform: rotate(30deg);
+    z-index: 0;
+}
+
+/* nome */
+
+#previewName {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* FORM */
+
+h2 {
+    margin-top: 0;
 }
 
 label {
     display: block;
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: 18px;
     margin-bottom: 7px;
 }
 
@@ -134,287 +257,744 @@ input[type="text"],
 select,
 input[type="file"] {
     width: 100%;
+    border: 2px solid #dfccb5;
+    background: white;
+    color: #40372f;
     padding: 12px;
-    border-radius: 10px;
-    border: none;
-    background: #303050;
-    color: white;
+    border-radius: 12px;
+    font-size: 15px;
 }
 
 input[type="file"] {
     padding: 9px;
 }
 
+.animalChoices {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.animalChoice {
+    border: 2px solid #e1cfb9;
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 4px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.animalChoice span {
+    display: block;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.animalChoice.selected {
+    border-color: #8fba61;
+    background: #edf7df;
+}
+
 .mode {
-    background: #303050;
-    border: 2px solid transparent;
-    padding: 14px;
-    margin-top: 9px;
-    border-radius: 12px;
+    border: 2px solid #dfccb5;
+    background: white;
+    padding: 13px;
+    border-radius: 13px;
+    margin-top: 8px;
     cursor: pointer;
 }
 
 .mode:hover {
-    background: #3a3a5d;
+    background: #faf4e9;
 }
 
 .mode.selected {
-    border-color: #9384ff;
+    border-color: #8fba61;
+    background: #edf7df;
 }
 
 #customOptions {
     display: none;
 }
 
-button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 12px;
-    background: #806cff;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #9585ff;
-}
-
 #imageStatus {
-    color: #8dffab;
+    color: #5d963e;
     font-size: 14px;
     margin-top: 7px;
 }
 
 #error {
-    color: #ff8585;
+    color: #c95c5c;
     margin-top: 10px;
 }
 
-/* ================= LOBBY ================= */
-
-#lobby {
-    display: none;
-    height: 100vh;
-    overflow: hidden;
+.mainButton {
+    width: 100%;
+    margin-top: 22px;
+    border: 0;
+    border-radius: 14px;
+    padding: 16px;
+    background: #8fba61;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #71994a;
 }
 
-.lobby-top {
-    height: 70px;
-    background: #20203a;
+.mainButton:hover {
+    background: #9fcf70;
+}
+
+.mainButton:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #71994a;
+}
+
+/* =========================================================
+   LOBBY
+========================================================= */
+
+#lobbyScreen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #a9d67b;
+}
+
+/* TOPO */
+
+.topBar {
+    height: 72px;
+    background: #fffaf2;
+    border-bottom: 4px solid #d7c5ad;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25px;
-    border-bottom: 2px solid #3b3b5b;
+    padding: 0 22px;
+    position: relative;
+    z-index: 100;
 }
 
-.lobby-top h2 {
-    margin: 0;
+.gameTitle {
+    font-size: 24px;
+    font-weight: 900;
 }
 
-.controls {
-    color: #bdbddd;
-    font-size: 14px;
+.playerInfo {
+    background: #edf7df;
+    border: 2px solid #c8dfa9;
+    padding: 8px 15px;
+    border-radius: 14px;
 }
 
-/* O MAPA */
+/* MAPA */
 
-#map {
+#gameMap {
     position: relative;
     width: 100%;
-    height: calc(100vh - 70px);
-    background:
-        radial-gradient(circle at 20% 20%, #37375d 0 2px, transparent 3px),
-        radial-gradient(circle at 70% 60%, #37375d 0 2px, transparent 3px),
-        #29294a;
+    height: calc(100vh - 72px);
     overflow: hidden;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.2) 0 3px, transparent 4px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.18) 0 3px, transparent 4px),
+        #a9d67b;
 }
 
-/* decoração */
+/* CAMINHOS */
 
-.decoration {
+.path {
     position: absolute;
-    border-radius: 15px;
-    background: #39395d;
-    border: 2px solid #484875;
+    background: #e8d2ad;
+    border: 4px solid #d2b98d;
+    z-index: 1;
 }
 
-.decor1 {
-    width: 180px;
-    height: 90px;
-    left: 8%;
-    top: 15%;
-}
-
-.decor2 {
-    width: 130px;
-    height: 130px;
-    right: 10%;
-    top: 25%;
-}
-
-.decor3 {
-    width: 220px;
-    height: 70px;
-    left: 35%;
-    bottom: 15%;
-}
-
-/* PERSONAGEM */
-
-#player {
-    position: absolute;
-    width: 90px;
-    height: 120px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 20;
-    user-select: none;
-}
-
-#player img {
+.pathHorizontal {
     width: 100%;
+    height: 105px;
+    left: 0;
+    top: 49%;
+    transform: translateY(-50%);
+}
+
+.pathVertical {
     height: 100%;
-    object-fit: contain;
-    pointer-events: none;
+    width: 105px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
 }
 
-/* personagem padrão andando */
+/* LAGO */
 
-#defaultPlayer {
-    width: 70px;
-    height: 110px;
-    position: relative;
-    margin: auto;
-}
-
-.player-head {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    background: #f0bd91;
+.lake {
     position: absolute;
-    left: 7px;
+    width: 260px;
+    height: 155px;
+    background: #82c9df;
+    border: 7px solid #65adbf;
+    border-radius: 50%;
+    left: 6%;
+    top: 12%;
+    z-index: 2;
+}
+
+.lake::after {
+    content: "〰 〰";
+    position: absolute;
+    color: #b8e8f0;
+    font-size: 35px;
+    left: 55px;
+    top: 40px;
+}
+
+/* ÁRVORES */
+
+.tree {
+    position: absolute;
+    width: 85px;
+    height: 120px;
+    z-index: 4;
+}
+
+.treeTrunk {
+    position: absolute;
+    width: 25px;
+    height: 60px;
+    background: #9b6944;
+    left: 30px;
+    bottom: 0;
+    border-radius: 8px;
+}
+
+.treeTop {
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    background: #639d50;
+    border: 5px solid #4f8441;
+    border-radius: 50%;
     top: 0;
 }
 
-.player-hair {
-    width: 60px;
-    height: 30px;
-    background: #4b2b20;
-    border-radius: 40px 40px 10px 10px;
+.treeTop::before,
+.treeTop::after {
+    content: "";
     position: absolute;
-    top: -3px;
-    left: -3px;
-}
-
-.player-body {
-    width: 65px;
+    width: 55px;
     height: 55px;
-    background: #806cff;
-    border-radius: 15px;
-    position: absolute;
-    left: 2px;
-    top: 58px;
+    background: #75ad59;
+    border-radius: 50%;
 }
 
-.name-tag {
+.treeTop::before {
+    left: -22px;
+    top: 25px;
+}
+
+.treeTop::after {
+    right: -20px;
+    top: 20px;
+}
+
+.tree1 {
+    left: 3%;
+    bottom: 7%;
+}
+
+.tree2 {
+    right: 5%;
+    top: 8%;
+}
+
+.tree3 {
+    right: 3%;
+    bottom: 5%;
+}
+
+.tree4 {
+    left: 25%;
+    top: 4%;
+}
+
+/* FLORES */
+
+.flower {
     position: absolute;
-    bottom: -23px;
+    font-size: 24px;
+    z-index: 3;
+}
+
+.flower1 {
+    left: 35%;
+    top: 18%;
+}
+
+.flower2 {
+    left: 15%;
+    bottom: 17%;
+}
+
+.flower3 {
+    right: 27%;
+    top: 17%;
+}
+
+.flower4 {
+    right: 15%;
+    bottom: 23%;
+}
+
+.flower5 {
+    left: 65%;
+    bottom: 10%;
+}
+
+/* CASINHA */
+
+.house {
+    position: absolute;
+    width: 180px;
+    height: 125px;
+    right: 15%;
+    bottom: 12%;
+    z-index: 3;
+}
+
+.houseBody {
+    position: absolute;
+    width: 145px;
+    height: 95px;
+    background: #fff1d7;
+    border: 5px solid #8e6850;
+    bottom: 0;
+    left: 18px;
+    border-radius: 8px;
+}
+
+.roof {
+    position: absolute;
+    width: 145px;
+    height: 80px;
+    background: #d97866;
+    border: 5px solid #8e5146;
+    transform: rotate(45deg);
+    top: 8px;
+    left: 18px;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.door {
+    position: absolute;
+    width: 35px;
+    height: 58px;
+    background: #9b6944;
+    bottom: 0;
+    left: 72px;
+    border-radius: 8px 8px 0 0;
+}
+
+.window {
+    position: absolute;
+    width: 35px;
+    height: 32px;
+    background: #8bd0df;
+    border: 4px solid #8e6850;
+    top: 25px;
+}
+
+.window.left {
+    left: 30px;
+}
+
+.window.right {
+    right: 30px;
+}
+
+/* ÁREA DA COMPETIÇÃO */
+
+.competition {
+    position: absolute;
+    width: 230px;
+    height: 125px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff7e9;
+    border: 6px solid #d7a84c;
+    border-radius: 20px;
+    z-index: 6;
+    text-align: center;
+    padding-top: 18px;
+    box-shadow: 0 7px 0 #c1913d;
+}
+
+.competition .trophy {
+    font-size: 35px;
+}
+
+.competition strong {
+    display: block;
+    font-size: 19px;
+}
+
+.competition small {
+    color: #8a7764;
+}
+
+/* JOGADOR */
+
+#player {
+    position: absolute;
+    width: 105px;
+    height: 125px;
+    left: 50%;
+    top: 68%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    user-select: none;
+}
+
+#playerPNG {
+    width: 105px;
+    height: 115px;
+    object-fit: contain;
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+}
+
+/* sombra do jogador */
+
+.playerShadow {
+    position: absolute;
+    width: 70px;
+    height: 17px;
+    background: rgba(72, 92, 46, .28);
+    border-radius: 50%;
+    bottom: 2px;
+    left: 18px;
+}
+
+/* bichinho jogador */
+
+#defaultPlayer {
+    width: 105px;
+    height: 120px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.playerAnimalBody {
+    position: absolute;
+    width: 70px;
+    height: 60px;
+    background: #e9a875;
+    border: 4px solid #55453a;
+    border-radius: 45%;
+    left: 18px;
+    bottom: 15px;
+}
+
+.playerAnimalHead {
+    position: absolute;
+    width: 78px;
+    height: 70px;
+    background: #e9a875;
+    border: 4px solid #55453a;
+    border-radius: 48%;
+    left: 14px;
+    top: 5px;
+    z-index: 3;
+}
+
+.playerEar {
+    position: absolute;
+    width: 32px;
+    height: 42px;
+    background: #e9a875;
+    border: 4px solid #55453a;
+    border-radius: 50%;
+    top: -9px;
+    z-index: 1;
+}
+
+.playerEar.left {
+    left: 3px;
+    transform: rotate(-25deg);
+}
+
+.playerEar.right {
+    right: 3px;
+    transform: rotate(25deg);
+}
+
+.playerEye {
+    position: absolute;
+    width: 9px;
+    height: 12px;
+    background: #40372f;
+    border-radius: 50%;
+    top: 29px;
+}
+
+.playerEye.left {
+    left: 20px;
+}
+
+.playerEye.right {
+    right: 20px;
+}
+
+.playerMuzzle {
+    position: absolute;
+    width: 25px;
+    height: 18px;
+    background: #f8d2b3;
+    border-radius: 50%;
+    left: 23px;
+    top: 42px;
+}
+
+.playerNose {
+    position: absolute;
+    width: 9px;
+    height: 6px;
+    background: #40372f;
+    border-radius: 50%;
+    left: 8px;
+    top: 4px;
+}
+
+.playerPaw {
+    position: absolute;
+    width: 24px;
+    height: 33px;
+    background: #e9a875;
+    border: 4px solid #55453a;
+    border-radius: 15px;
+    bottom: 4px;
+    z-index: 5;
+}
+
+.playerPaw.left {
+    left: 19px;
+}
+
+.playerPaw.right {
+    right: 19px;
+}
+
+/* nome */
+
+.nameTag {
+    position: absolute;
+    bottom: -22px;
     left: 50%;
     transform: translateX(-50%);
-    background: #17172b;
-    padding: 4px 9px;
-    border-radius: 8px;
-    font-size: 12px;
+    background: #fffaf2;
+    border: 2px solid #d7c5ad;
+    border-radius: 9px;
+    padding: 3px 9px;
     white-space: nowrap;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 /* mensagem */
 
-#lobbyMessage {
+.lobbyMessage {
     position: absolute;
     left: 50%;
-    top: 25px;
+    top: 18px;
     transform: translateX(-50%);
-    background: #17172bdd;
-    padding: 10px 18px;
-    border-radius: 12px;
-    z-index: 50;
+    background: #fffaf2;
+    border: 2px solid #dfccb5;
+    padding: 9px 17px;
+    border-radius: 13px;
+    z-index: 90;
+    box-shadow: 0 3px 0 #d7c5ad;
 }
 
-/* ================= RESPONSIVO ================= */
+/* CONTROLES */
 
-@media(max-width: 700px) {
-    .creator-grid {
+.controls {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    background: #fffaf2;
+    border: 2px solid #dfccb5;
+    border-radius: 13px;
+    padding: 10px 14px;
+    z-index: 90;
+    font-size: 13px;
+}
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media(max-width: 750px) {
+
+    .creatorContainer {
         grid-template-columns: 1fr;
     }
+
+    .animalChoices {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gameTitle {
+        font-size: 18px;
+    }
+
+    .controls {
+        display: none;
+    }
+
+    .lake {
+        width: 160px;
+        height: 100px;
+    }
+
+    .house {
+        transform: scale(.7);
+        transform-origin: bottom right;
+    }
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- ================= CRIADOR ================= -->
 
-<div id="creator">
+<!-- =======================================================
+     CRIADOR
+======================================================== -->
 
-    <h1>✨ Criador de Personagem</h1>
+<div id="creatorScreen">
 
-    <div class="subtitle">
-        Crie seu personagem para entrar na competição!
+    <div class="logo">
+        🐾 THE ATTORNEYS
+        <span>Crie seu bichinho e prepare-se para competir!</span>
     </div>
 
-    <div class="creator-grid">
+
+    <div class="creatorContainer">
+
 
         <!-- PREVIEW -->
 
-        <div class="box preview-area">
+        <div class="panel previewPanel">
 
-            <div class="preview-character">
+            <div class="previewGround">
 
-                <img id="previewPNG">
+                <div class="previewShadow"></div>
 
-                <div id="previewDefault" class="default-character">
 
-                    <div class="default-head">
-                        <div class="default-hair"></div>
+                <div id="previewAnimal" class="animal">
+
+                    <div class="tail"></div>
+
+                    <div class="animalHead">
+
+                        <div class="ear left"></div>
+                        <div class="ear right"></div>
+
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+
+                        <div class="muzzle">
+                            <div class="nose"></div>
+                        </div>
+
                     </div>
 
-                    <div class="default-body"></div>
+                    <div class="animalBody"></div>
 
-                    <div class="default-leg left"></div>
-                    <div class="default-leg right"></div>
+                    <div class="paw left"></div>
+                    <div class="paw right"></div>
 
                 </div>
 
+
+                <img id="previewPNG">
+
             </div>
 
-            <h2 id="previewName">Seu personagem</h2>
+
+            <h2 id="previewName">
+                Seu bichinho
+            </h2>
 
         </div>
 
 
         <!-- CONFIGURAÇÕES -->
 
-        <div class="box">
+        <div class="panel">
 
-            <label>✏️ Nome</label>
+            <h2>✨ Criar personagem</h2>
+
+
+            <label>Nome</label>
 
             <input
                 type="text"
-                id="name"
+                id="playerName"
                 maxlength="20"
                 placeholder="Digite seu nome..."
             >
 
 
-            <label>🖼️ Seu PNG</label>
+            <label>🐾 Escolha seu bichinho</label>
+
+            <div class="animalChoices">
+
+                <div
+                    class="animalChoice selected"
+                    onclick="chooseAnimal('cat', this)"
+                >
+                    🐱
+                    <span>Gato</span>
+                </div>
+
+                <div
+                    class="animalChoice"
+                    onclick="chooseAnimal('dog', this)"
+                >
+                    🐶
+                    <span>Cachorro</span>
+                </div>
+
+                <div
+                    class="animalChoice"
+                    onclick="chooseAnimal('bunny', this)"
+                >
+                    🐰
+                    <span>Coelho</span>
+                </div>
+
+                <div
+                    class="animalChoice"
+                    onclick="chooseAnimal('fox', this)"
+                >
+                    🦊
+                    <span>Raposa</span>
+                </div>
+
+            </div>
+
+
+            <label>🖼️ Seu próprio personagem</label>
 
             <input
                 type="file"
@@ -425,67 +1005,97 @@ button:hover {
             <div id="imageStatus"></div>
 
 
-            <label>Como será seu personagem?</label>
+            <label>Como você quer aparecer?</label>
+
 
             <div
                 class="mode selected"
+                id="modeAnimal"
+                onclick="chooseMode('animal')"
+            >
+                🐾 Usar meu bichinho
+            </div>
+
+
+            <div
+                class="mode"
                 id="modePNG"
-                onclick="selectMode('png')"
+                onclick="chooseMode('png')"
             >
                 🖼️ Usar meu PNG
             </div>
 
-            <div
-                class="mode"
-                id="modeDefault"
-                onclick="selectMode('default')"
-            >
-                🧍 Usar personagem padrão
-            </div>
 
             <div
                 class="mode"
                 id="modeCustom"
-                onclick="selectMode('custom')"
+                onclick="chooseMode('custom')"
             >
-                🎨 Customizar personagem
+                🎨 Customizar meu bichinho
             </div>
 
 
             <div id="customOptions">
 
-                <label>🎨 Pele</label>
+                <label>Cor do pelo</label>
 
-                <select id="skin">
-                    <option value="#f0bd91">Clara</option>
-                    <option value="#d89b6b">Morena clara</option>
-                    <option value="#a8663f">Morena</option>
-                    <option value="#70402b">Escura</option>
+                <select id="furColor">
+
+                    <option value="#e9a875">
+                        Caramelo
+                    </option>
+
+                    <option value="#ffffff">
+                        Branco
+                    </option>
+
+                    <option value="#555555">
+                        Cinza
+                    </option>
+
+                    <option value="#222222">
+                        Preto
+                    </option>
+
+                    <option value="#d889a8">
+                        Rosa
+                    </option>
+
+                    <option value="#8c75c9">
+                        Roxo
+                    </option>
+
+                    <option value="#80b7d4">
+                        Azul
+                    </option>
+
                 </select>
 
 
-                <label>💇 Cabelo</label>
+                <label>Cor dos olhos</label>
 
-                <select id="hair">
-                    <option value="#4b2b20">Castanho</option>
-                    <option value="#171717">Preto</option>
-                    <option value="#d6a642">Loiro</option>
-                    <option value="#e85b87">Rosa</option>
-                    <option value="#7354d9">Roxo</option>
-                    <option value="#4da6ff">Azul</option>
-                </select>
+                <select id="eyeColor">
 
+                    <option value="#40372f">
+                        Preto
+                    </option>
 
-                <label>👕 Roupa</label>
+                    <option value="#5b3b24">
+                        Castanho
+                    </option>
 
-                <select id="clothes">
-                    <option value="#806cff">Roxo</option>
-                    <option value="#ff5c7c">Rosa</option>
-                    <option value="#5c9cff">Azul</option>
-                    <option value="#5cd68c">Verde</option>
-                    <option value="#ff9f43">Laranja</option>
-                    <option value="#eeeeee">Branco</option>
-                    <option value="#222222">Preto</option>
+                    <option value="#66a7d9">
+                        Azul
+                    </option>
+
+                    <option value="#75ad59">
+                        Verde
+                    </option>
+
+                    <option value="#d7a83f">
+                        Dourado
+                    </option>
+
                 </select>
 
             </div>
@@ -493,280 +1103,584 @@ button:hover {
 
             <div id="error"></div>
 
-            <button onclick="enterLobby()">
-                🚪 Entrar no Lobby
+
+            <button
+                class="mainButton"
+                onclick="enterLobby()"
+            >
+                🐾 Entrar no Lobby
             </button>
 
         </div>
 
     </div>
+
 </div>
 
 
-<!-- ================= LOBBY ================= -->
 
-<div id="lobby">
+<!-- =======================================================
+     LOBBY
+======================================================== -->
 
-    <div class="lobby-top">
+<div id="lobbyScreen">
 
-        <h2>🏆 Lobby</h2>
 
-        <div class="controls">
-            WASD ou SETAS para andar
+    <div class="topBar">
+
+        <div class="gameTitle">
+            🐾 THE ATTORNEYS
+        </div>
+
+        <div
+            class="playerInfo"
+            id="topPlayerName"
+        >
+            Jogador
         </div>
 
     </div>
 
 
-    <div id="map">
+    <div id="gameMap">
 
-        <div id="lobbyMessage">
-            Bem-vindo ao lobby! 💗
+
+        <!-- CAMINHOS -->
+
+        <div class="path pathHorizontal"></div>
+        <div class="path pathVertical"></div>
+
+
+        <!-- LAGO -->
+
+        <div class="lake"></div>
+
+
+        <!-- ÁRVORES -->
+
+        <div class="tree tree1">
+
+            <div class="treeTop"></div>
+            <div class="treeTrunk"></div>
+
         </div>
 
-        <div class="decoration decor1"></div>
-        <div class="decoration decor2"></div>
-        <div class="decoration decor3"></div>
+
+        <div class="tree tree2">
+
+            <div class="treeTop"></div>
+            <div class="treeTrunk"></div>
+
+        </div>
+
+
+        <div class="tree tree3">
+
+            <div class="treeTop"></div>
+            <div class="treeTrunk"></div>
+
+        </div>
+
+
+        <div class="tree tree4">
+
+            <div class="treeTop"></div>
+            <div class="treeTrunk"></div>
+
+        </div>
+
+
+        <!-- FLORES -->
+
+        <div class="flower flower1">🌼</div>
+        <div class="flower flower2">🌷</div>
+        <div class="flower flower3">🌸</div>
+        <div class="flower flower4">🌻</div>
+        <div class="flower flower5">🌼</div>
+
+
+        <!-- CASINHA -->
+
+        <div class="house">
+
+            <div class="roof"></div>
+
+            <div class="houseBody">
+
+                <div class="window left"></div>
+                <div class="window right"></div>
+
+                <div class="door"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ÁREA DA COMPETIÇÃO -->
+
+        <div class="competition">
+
+            <div class="trophy">
+                🏆
+            </div>
+
+            <strong>
+                ÁREA DA COMPETIÇÃO
+            </strong>
+
+            <small>
+                Próxima prova em breve...
+            </small>
+
+        </div>
+
+
+        <!-- MENSAGEM -->
+
+        <div class="lobbyMessage">
+            🌳 Bem-vindo ao lobby!
+        </div>
 
 
         <!-- JOGADOR -->
 
         <div id="player">
 
+            <div class="playerShadow"></div>
+
+
             <img id="playerPNG">
+
 
             <div id="defaultPlayer">
 
-                <div class="player-head">
-                    <div class="player-hair"></div>
+                <div class="playerAnimalHead">
+
+                    <div class="playerEar left"></div>
+                    <div class="playerEar right"></div>
+
+                    <div class="playerEye left"></div>
+                    <div class="playerEye right"></div>
+
+                    <div class="playerMuzzle">
+
+                        <div class="playerNose"></div>
+
+                    </div>
+
                 </div>
 
-                <div class="player-body"></div>
+
+                <div class="playerAnimalBody"></div>
+
+
+                <div class="playerPaw left"></div>
+                <div class="playerPaw right"></div>
 
             </div>
 
-            <div class="name-tag" id="playerNameTag">
+
+            <div
+                class="nameTag"
+                id="nameTag"
+            >
                 Jogador
             </div>
 
         </div>
+
+
+        <!-- CONTROLES -->
+
+        <div class="controls">
+            🎮 WASD ou setinhas para andar
+        </div>
+
 
     </div>
 
 </div>
 
 
+
 <script>
 
-/* ================= VARIÁVEIS ================= */
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
 
-let selectedMode = "png";
-let pngData = null;
+let selectedMode = "animal";
+
+let selectedAnimal = "cat";
+
+let uploadedPNG = null;
 
 let playerX = 50;
-let playerY = 50;
+let playerY = 68;
 
 let keys = {};
 
-let skinColor = "#f0bd91";
-let hairColor = "#4b2b20";
-let clothesColor = "#806cff";
+let furColor = "#e9a875";
+let eyeColor = "#40372f";
 
 
-/* ================= NOME ================= */
+/* =========================================================
+   NOME
+========================================================= */
 
-document.getElementById("name").addEventListener("input", function() {
+document
+.getElementById("playerName")
+.addEventListener("input", function() {
 
     document.getElementById("previewName").textContent =
-        this.value || "Seu personagem";
+        this.value || "Seu bichinho";
 
 });
 
 
-/* ================= PNG ================= */
+/* =========================================================
+   ESCOLHER ANIMAL
+========================================================= */
 
-document.getElementById("pngInput").addEventListener("change", function() {
+function chooseAnimal(animal, element) {
+
+    selectedAnimal = animal;
+
+
+    document
+    .querySelectorAll(".animalChoice")
+    .forEach(function(choice) {
+
+        choice.classList.remove("selected");
+
+    });
+
+
+    element.classList.add("selected");
+
+
+    /*
+       Por enquanto o estilo principal continua
+       sendo um bichinho fofo.
+       Depois podemos criar sprites diferentes
+       de verdade para cada espécie.
+    */
+
+}
+
+
+/* =========================================================
+   PNG
+========================================================= */
+
+document
+.getElementById("pngInput")
+.addEventListener("change", function() {
 
     const file = this.files[0];
 
     if (!file) return;
 
+
     const reader = new FileReader();
+
 
     reader.onload = function(event) {
 
-        pngData = event.target.result;
+        uploadedPNG = event.target.result;
 
-        document.getElementById("previewPNG").src = pngData;
 
-        document.getElementById("previewPNG").style.display = "block";
+        document
+        .getElementById("previewPNG")
+        .src = uploadedPNG;
 
-        document.getElementById("previewDefault").style.display = "none";
 
-        document.getElementById("imageStatus").textContent =
-            "✓ PNG carregado!";
+        document
+        .getElementById("previewPNG")
+        .style.display = "block";
+
+
+        document
+        .getElementById("previewAnimal")
+        .style.display = "none";
+
+
+        document
+        .getElementById("imageStatus")
+        .textContent =
+            "✓ PNG carregado com sucesso!";
+
+
+        /*
+           Se a pessoa enviar um PNG,
+           automaticamente selecionamos
+           a opção PNG.
+        */
+
+        chooseMode("png");
 
     };
+
 
     reader.readAsDataURL(file);
 
 });
 
 
-/* ================= MODOS ================= */
+/* =========================================================
+   MODO
+========================================================= */
 
-function selectMode(mode) {
+function chooseMode(mode) {
 
     selectedMode = mode;
 
-    document.getElementById("modePNG").classList.remove("selected");
-    document.getElementById("modeDefault").classList.remove("selected");
-    document.getElementById("modeCustom").classList.remove("selected");
 
-    document.getElementById("customOptions").style.display = "none";
+    document
+    .querySelectorAll(".mode")
+    .forEach(function(option) {
+
+        option.classList.remove("selected");
+
+    });
+
+
+    if (mode === "animal") {
+
+        document
+        .getElementById("modeAnimal")
+        .classList.add("selected");
+
+
+        document
+        .getElementById("customOptions")
+        .style.display = "none";
+
+
+        document
+        .getElementById("previewPNG")
+        .style.display = "none";
+
+
+        document
+        .getElementById("previewAnimal")
+        .style.display = "block";
+
+    }
 
 
     if (mode === "png") {
 
-        document.getElementById("modePNG").classList.add("selected");
+        document
+        .getElementById("modePNG")
+        .classList.add("selected");
 
-        if (pngData) {
 
-            document.getElementById("previewPNG").style.display = "block";
-            document.getElementById("previewDefault").style.display = "none";
+        document
+        .getElementById("customOptions")
+        .style.display = "none";
+
+
+        if (uploadedPNG) {
+
+            document
+            .getElementById("previewPNG")
+            .style.display = "block";
+
+
+            document
+            .getElementById("previewAnimal")
+            .style.display = "none";
 
         }
 
     }
 
 
-    if (mode === "default") {
-
-        document.getElementById("modeDefault").classList.add("selected");
-
-        document.getElementById("previewPNG").style.display = "none";
-        document.getElementById("previewDefault").style.display = "block";
-
-    }
-
-
     if (mode === "custom") {
 
-        document.getElementById("modeCustom").classList.add("selected");
+        document
+        .getElementById("modeCustom")
+        .classList.add("selected");
 
-        document.getElementById("customOptions").style.display = "block";
 
-        document.getElementById("previewPNG").style.display = "none";
-        document.getElementById("previewDefault").style.display = "block";
+        document
+        .getElementById("customOptions")
+        .style.display = "block";
+
+
+        document
+        .getElementById("previewPNG")
+        .style.display = "none";
+
+
+        document
+        .getElementById("previewAnimal")
+        .style.display = "block";
 
     }
 
 }
 
 
-/* ================= CUSTOMIZAÇÃO ================= */
+/* =========================================================
+   CUSTOMIZAÇÃO
+========================================================= */
 
-document.getElementById("skin").addEventListener("change", function() {
+document
+.getElementById("furColor")
+.addEventListener("change", function() {
 
-    skinColor = this.value;
+    furColor = this.value;
 
-    document.querySelector(".default-head").style.background = skinColor;
+
+    document
+    .querySelectorAll(".animalHead, .animalBody, .paw, .ear")
+    .forEach(function(part) {
+
+        part.style.background = furColor;
+
+    });
+
+
+    document
+    .querySelectorAll(".playerAnimalHead, .playerAnimalBody, .playerPaw, .playerEar")
+    .forEach(function(part) {
+
+        part.style.background = furColor;
+
+    });
 
 });
 
 
-document.getElementById("hair").addEventListener("change", function() {
+document
+.getElementById("eyeColor")
+.addEventListener("change", function() {
 
-    hairColor = this.value;
+    eyeColor = this.value;
 
-    document.querySelector(".default-hair").style.background = hairColor;
+
+    document
+    .querySelectorAll(".eye, .playerEye")
+    .forEach(function(eye) {
+
+        eye.style.background = eyeColor;
+
+    });
 
 });
 
 
-document.getElementById("clothes").addEventListener("change", function() {
-
-    clothesColor = this.value;
-
-    document.querySelector(".default-body").style.background = clothesColor;
-
-});
-
-
-/* ================= ENTRAR ================= */
+/* =========================================================
+   ENTRAR NO LOBBY
+========================================================= */
 
 function enterLobby() {
 
-    const name = document.getElementById("name").value.trim();
+    const name =
+        document
+        .getElementById("playerName")
+        .value
+        .trim();
+
 
     if (!name) {
 
-        document.getElementById("error").textContent =
-            "Digite um nome primeiro!";
+        document
+        .getElementById("error")
+        .textContent =
+            "Digite um nome primeiro! 🐾";
 
         return;
 
     }
 
 
-    if (selectedMode === "png" && !pngData) {
+    if (selectedMode === "png" && !uploadedPNG) {
 
-        document.getElementById("error").textContent =
-            "Envie um PNG para usar seu próprio personagem!";
+        document
+        .getElementById("error")
+        .textContent =
+            "Envie seu PNG primeiro! 🖼️";
 
         return;
 
     }
 
 
-    document.getElementById("error").textContent = "";
+    document
+    .getElementById("error")
+    .textContent = "";
 
 
-    document.getElementById("creator").style.display = "none";
+    /* troca de tela */
 
-    document.getElementById("lobby").style.display = "block";
+    document
+    .getElementById("creatorScreen")
+    .style.display = "none";
 
 
-    document.getElementById("playerNameTag").textContent = name;
+    document
+    .getElementById("lobbyScreen")
+    .style.display = "block";
 
 
-    const playerPNG = document.getElementById("playerPNG");
+    /* nome */
 
-    const defaultPlayer = document.getElementById("defaultPlayer");
+    document
+    .getElementById("nameTag")
+    .textContent = name;
+
+
+    document
+    .getElementById("topPlayerName")
+    .textContent =
+        "🐾 " + name;
+
+
+    /* personagem */
+
+    const png =
+        document.getElementById("playerPNG");
+
+
+    const animal =
+        document.getElementById("defaultPlayer");
 
 
     if (selectedMode === "png") {
 
-        playerPNG.src = pngData;
+        png.src = uploadedPNG;
 
-        playerPNG.style.display = "block";
+        png.style.display = "block";
 
-        defaultPlayer.style.display = "none";
+        animal.style.display = "none";
 
     }
 
     else {
 
-        playerPNG.style.display = "none";
+        png.style.display = "none";
 
-        defaultPlayer.style.display = "block";
-
-        document.querySelector(".player-head").style.background = skinColor;
-        document.querySelector(".player-hair").style.background = hairColor;
-        document.querySelector(".player-body").style.background = clothesColor;
+        animal.style.display = "block";
 
     }
 
 
     playerX = 50;
-    playerY = 50;
+    playerY = 68;
+
 
     updatePlayer();
 
 }
 
 
-/* ================= MOVIMENTO ================= */
+/* =========================================================
+   TECLADO
+========================================================= */
 
 document.addEventListener("keydown", function(event) {
 
@@ -782,37 +1696,71 @@ document.addEventListener("keyup", function(event) {
 });
 
 
+/* =========================================================
+   MOVIMENTO
+========================================================= */
+
 function updatePlayer() {
 
-    let speed = 0.45;
+    const speed = 0.42;
+
 
     if (keys["w"] || keys["arrowup"]) {
+
         playerY -= speed;
+
     }
+
 
     if (keys["s"] || keys["arrowdown"]) {
+
         playerY += speed;
+
     }
+
 
     if (keys["a"] || keys["arrowleft"]) {
+
         playerX -= speed;
+
     }
+
 
     if (keys["d"] || keys["arrowright"]) {
+
         playerX += speed;
+
     }
 
 
-    /* limites do mapa */
+    /*
+       Não deixa o personagem
+       sair do mapa.
+    */
 
-    playerX = Math.max(5, Math.min(95, playerX));
-    playerY = Math.max(8, Math.min(90, playerY));
+    playerX =
+        Math.max(
+            5,
+            Math.min(95, playerX)
+        );
 
 
-    document.getElementById("player").style.left =
+    playerY =
+        Math.max(
+            8,
+            Math.min(90, playerY)
+        );
+
+
+    document
+    .getElementById("player")
+    .style.left =
         playerX + "%";
 
-    document.getElementById("player").style.top =
+
+    document
+    .getElementById("player")
+    .style.top =
         playerY + "%";
 
 
