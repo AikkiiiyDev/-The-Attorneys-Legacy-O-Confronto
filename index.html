@@ -3,38 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADM CUP</title>
+  <title>💥 The Attorneys Legacy: O Confronto</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div id="menu">
-    <h1>⚔️ ADM CUP</h1>
-    <p>A arena está esperando...</p>
+  <div id="loginScreen" class="screen">
+    <div class="card">
+      <h1>💥 The Attorneys Legacy: O Confronto</h1>
+      <p>Entre para começar!</p>
 
-    <input id="nome" type="text" maxlength="20" placeholder="Seu nome">
+      <input id="playerName" type="text" maxlength="20" placeholder="Seu nome">
 
-    <button onclick="entrar()">ENTRAR NA ARENA</button>
+      <label class="upload">
+        🖼️ Escolher imagem
+        <input id="avatarInput" type="file" accept="image/*">
+      </label>
+
+      <img id="avatarPreview" class="preview" src="" alt="">
+
+      <button onclick="enterGame()">ENTRAR NO LOBBY</button>
+    </div>
   </div>
 
-  <div id="jogo">
-    <div id="hud">
-      <span id="nomeJogador">ADM</span>
-      <span>❤️ 100 HP</span>
-    </div>
 
-    <div id="arena">
-      <div id="personagem"></div>
+  <div id="gameScreen" class="hidden">
 
-      <div class="obstaculo obstaculo1"></div>
-      <div class="obstaculo obstaculo2"></div>
-      <div class="arvore arvore1">🌳</div>
-      <div class="arvore arvore2">🌳</div>
+    <header>
+      <h2>🏠 LOBBY</h2>
+      <span id="onlineText">1 jogador online</span>
+    </header>
 
-      <div id="inicio">🏁</div>
-    </div>
+    <main id="lobby">
 
+      <div class="info">
+        <h3>Bem-vindo ao lobby!</h3>
+        <p>Ande pelo mapa usando <b>WASD</b> ou as setas.</p>
+        <p>O evento começará em breve...</p>
+      </div>
+
+      <div id="player">
+        <div id="playerAvatar"></div>
+        <div id="playerNameTag">Jogador</div>
+
+        <div class="character">
+          <div class="head"></div>
+          <div class="body"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
     <p id="controles">WASD ou setas para andar</p>
   </div>
 
