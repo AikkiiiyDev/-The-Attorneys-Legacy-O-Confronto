@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADM CUP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="menu">
+    <h1>⚔️ ADM CUP</h1>
+    <p>A arena está esperando...</p>
+
+    <input id="nome" type="text" maxlength="20" placeholder="Seu nome">
+
+    <button onclick="entrar()">ENTRAR NA ARENA</button>
+  </div>
+
+  <div id="jogo">
+    <div id="hud">
+      <span id="nomeJogador">ADM</span>
+      <span>❤️ 100 HP</span>
+    </div>
+
+    <div id="arena">
+      <div id="personagem"></div>
+
+      <div class="obstaculo obstaculo1"></div>
+      <div class="obstaculo obstaculo2"></div>
+      <div class="arvore arvore1">🌳</div>
+      <div class="arvore arvore2">🌳</div>
+
+      <div id="inicio">🏁</div>
+    </div>
+
+    <p id="controles">WASD ou setas para andar</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
