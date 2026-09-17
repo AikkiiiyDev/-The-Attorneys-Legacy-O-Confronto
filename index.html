@@ -1,118 +1,829 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💥 The Attorneys Legacy: O Confronto</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💥 The Attorneys Legacy: O Confronto</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #17172b;
+    color: white;
+}
+
+/* ================= CRIADOR ================= */
+
+#creator {
+    width: min(1000px, 94%);
+    margin: 30px auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+    color: #aaaac7;
+    margin-bottom: 25px;
+}
+
+.creator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.box {
+    background: #22223d;
+    border: 1px solid #3d3d63;
+    border-radius: 20px;
+    padding: 22px;
+}
+
+.preview-area {
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-character {
+    width: 180px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#previewPNG {
+    max-width: 180px;
+    max-height: 280px;
+    object-fit: contain;
+    display: none;
+}
+
+.default-character {
+    width: 120px;
+    height: 230px;
+    position: relative;
+}
+
+.default-head {
+    width: 90px;
+    height: 90px;
+    background: #f0bd91;
+    border-radius: 50%;
+    position: absolute;
+    left: 15px;
+    top: 0;
+}
+
+.default-hair {
+    width: 98px;
+    height: 48px;
+    background: #4b2b20;
+    border-radius: 50px 50px 15px 15px;
+    position: absolute;
+    top: -4px;
+    left: -4px;
+}
+
+.default-body {
+    width: 110px;
+    height: 100px;
+    background: #806cff;
+    border-radius: 25px;
+    position: absolute;
+    top: 98px;
+    left: 5px;
+}
+
+.default-leg {
+    width: 35px;
+    height: 65px;
+    background: #343447;
+    position: absolute;
+    bottom: 0;
+    border-radius: 10px;
+}
+
+.default-leg.left {
+    left: 25px;
+}
+
+.default-leg.right {
+    right: 25px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 7px;
+}
+
+input[type="text"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #303050;
+    color: white;
+}
+
+input[type="file"] {
+    padding: 9px;
+}
+
+.mode {
+    background: #303050;
+    border: 2px solid transparent;
+    padding: 14px;
+    margin-top: 9px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.mode:hover {
+    background: #3a3a5d;
+}
+
+.mode.selected {
+    border-color: #9384ff;
+}
+
+#customOptions {
+    display: none;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 12px;
+    background: #806cff;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #9585ff;
+}
+
+#imageStatus {
+    color: #8dffab;
+    font-size: 14px;
+    margin-top: 7px;
+}
+
+#error {
+    color: #ff8585;
+    margin-top: 10px;
+}
+
+/* ================= LOBBY ================= */
+
+#lobby {
+    display: none;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.lobby-top {
+    height: 70px;
+    background: #20203a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 2px solid #3b3b5b;
+}
+
+.lobby-top h2 {
+    margin: 0;
+}
+
+.controls {
+    color: #bdbddd;
+    font-size: 14px;
+}
+
+/* O MAPA */
+
+#map {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background:
+        radial-gradient(circle at 20% 20%, #37375d 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 60%, #37375d 0 2px, transparent 3px),
+        #29294a;
+    overflow: hidden;
+}
+
+/* decoração */
+
+.decoration {
+    position: absolute;
+    border-radius: 15px;
+    background: #39395d;
+    border: 2px solid #484875;
+}
+
+.decor1 {
+    width: 180px;
+    height: 90px;
+    left: 8%;
+    top: 15%;
+}
+
+.decor2 {
+    width: 130px;
+    height: 130px;
+    right: 10%;
+    top: 25%;
+}
+
+.decor3 {
+    width: 220px;
+    height: 70px;
+    left: 35%;
+    bottom: 15%;
+}
+
+/* PERSONAGEM */
+
+#player {
+    position: absolute;
+    width: 90px;
+    height: 120px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    user-select: none;
+}
+
+#player img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* personagem padrão andando */
+
+#defaultPlayer {
+    width: 70px;
+    height: 110px;
+    position: relative;
+    margin: auto;
+}
+
+.player-head {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #f0bd91;
+    position: absolute;
+    left: 7px;
+    top: 0;
+}
+
+.player-hair {
+    width: 60px;
+    height: 30px;
+    background: #4b2b20;
+    border-radius: 40px 40px 10px 10px;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+}
+
+.player-body {
+    width: 65px;
+    height: 55px;
+    background: #806cff;
+    border-radius: 15px;
+    position: absolute;
+    left: 2px;
+    top: 58px;
+}
+
+.name-tag {
+    position: absolute;
+    bottom: -23px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #17172b;
+    padding: 4px 9px;
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* mensagem */
+
+#lobbyMessage {
+    position: absolute;
+    left: 50%;
+    top: 25px;
+    transform: translateX(-50%);
+    background: #17172bdd;
+    padding: 10px 18px;
+    border-radius: 12px;
+    z-index: 50;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media(max-width: 700px) {
+    .creator-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 </head>
 
 <body>
 
-  <div id="loginScreen" class="screen">
-    <div class="card">
+<!-- ================= CRIADOR ================= -->
 
-      <h1>💥 The Attorneys Legacy: O Confronto</h1>
-      <p>Crie seu personagem para entrar!</p>
+<div id="creator">
 
-      <input
-        id="playerName"
-        type="text"
-        maxlength="20"
-        placeholder="Digite seu nome"
-      >
+    <h1>✨ Criador de Personagem</h1>
 
-      <label class="upload">
-        🖼️ Escolher imagem
-        <input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp">
-      </label>
+    <div class="subtitle">
+        Crie seu personagem para entrar na competição!
+    </div>
 
-      <div id="imageStatus" class="imageStatus">
-        Nenhuma imagem selecionada
-      </div>
+    <div class="creator-grid">
 
-      <img id="avatarPreview" class="preview" alt="Prévia">
+        <!-- PREVIEW -->
 
-      <button id="enterButton" type="button">
-        ENTRAR NO LOBBY
-      </button>
+        <div class="box preview-area">
 
-      <p id="errorMessage" class="error"></p>
+            <div class="preview-character">
+
+                <img id="previewPNG">
+
+                <div id="previewDefault" class="default-character">
+
+                    <div class="default-head">
+                        <div class="default-hair"></div>
+                    </div>
+
+                    <div class="default-body"></div>
+
+                    <div class="default-leg left"></div>
+                    <div class="default-leg right"></div>
+
+                </div>
+
+            </div>
+
+            <h2 id="previewName">Seu personagem</h2>
+
+        </div>
+
+
+        <!-- CONFIGURAÇÕES -->
+
+        <div class="box">
+
+            <label>✏️ Nome</label>
+
+            <input
+                type="text"
+                id="name"
+                maxlength="20"
+                placeholder="Digite seu nome..."
+            >
+
+
+            <label>🖼️ Seu PNG</label>
+
+            <input
+                type="file"
+                id="pngInput"
+                accept="image/png,image/webp,image/jpeg"
+            >
+
+            <div id="imageStatus"></div>
+
+
+            <label>Como será seu personagem?</label>
+
+            <div
+                class="mode selected"
+                id="modePNG"
+                onclick="selectMode('png')"
+            >
+                🖼️ Usar meu PNG
+            </div>
+
+            <div
+                class="mode"
+                id="modeDefault"
+                onclick="selectMode('default')"
+            >
+                🧍 Usar personagem padrão
+            </div>
+
+            <div
+                class="mode"
+                id="modeCustom"
+                onclick="selectMode('custom')"
+            >
+                🎨 Customizar personagem
+            </div>
+
+
+            <div id="customOptions">
+
+                <label>🎨 Pele</label>
+
+                <select id="skin">
+                    <option value="#f0bd91">Clara</option>
+                    <option value="#d89b6b">Morena clara</option>
+                    <option value="#a8663f">Morena</option>
+                    <option value="#70402b">Escura</option>
+                </select>
+
+
+                <label>💇 Cabelo</label>
+
+                <select id="hair">
+                    <option value="#4b2b20">Castanho</option>
+                    <option value="#171717">Preto</option>
+                    <option value="#d6a642">Loiro</option>
+                    <option value="#e85b87">Rosa</option>
+                    <option value="#7354d9">Roxo</option>
+                    <option value="#4da6ff">Azul</option>
+                </select>
+
+
+                <label>👕 Roupa</label>
+
+                <select id="clothes">
+                    <option value="#806cff">Roxo</option>
+                    <option value="#ff5c7c">Rosa</option>
+                    <option value="#5c9cff">Azul</option>
+                    <option value="#5cd68c">Verde</option>
+                    <option value="#ff9f43">Laranja</option>
+                    <option value="#eeeeee">Branco</option>
+                    <option value="#222222">Preto</option>
+                </select>
+
+            </div>
+
+
+            <div id="error"></div>
+
+            <button onclick="enterLobby()">
+                🚪 Entrar no Lobby
+            </button>
+
+        </div>
 
     </div>
-  </div>
+</div>
 
 
-  <div id="gameScreen" class="hidden">
+<!-- ================= LOBBY ================= -->
 
-    <header>
-      <h2>🏠 LOBBY</h2>
-      <span id="onlineText">1 jogador online</span>
-    </header>
+<div id="lobby">
 
-    <main id="lobby">
+    <div class="lobby-top">
 
-      <div class="info">
-        <h3>Bem-vindo ao lobby! 👋</h3>
-        <p>Ande usando <b>WASD</b> ou as setas.</p>
-        <p>O evento começará em breve...</p>
-      </div>
+        <h2>🏆 Lobby</h2>
 
-      <div id="player">
-
-        <div id="playerAvatar"></div>
-
-        <div id="playerNameTag">
-          Jogador
+        <div class="controls">
+            WASD ou SETAS para andar
         </div>
 
-        <div class="character">
-          <div class="head"></div>
-          <div class="body"></div>
-          <div class="leg left"></div>
-          <div class="leg right"></div>
+    </div>
+
+
+    <div id="map">
+
+        <div id="lobbyMessage">
+            Bem-vindo ao lobby! 💗
         </div>
 
-      </div>
+        <div class="decoration decor1"></div>
+        <div class="decoration decor2"></div>
+        <div class="decoration decor3"></div>
 
-    </main>
 
-  </div>
+        <!-- JOGADOR -->
 
-  <script src="script.js"></script>
+        <div id="player">
 
-</body>
-</html>
-    <main id="lobby">
+            <img id="playerPNG">
 
-      <div class="info">
-        <h3>Bem-vindo ao lobby!</h3>
-        <p>Ande pelo mapa usando <b>WASD</b> ou as setas.</p>
-        <p>O evento começará em breve...</p>
-      </div>
+            <div id="defaultPlayer">
 
-      <div id="player">
-        <div id="playerAvatar"></div>
-        <div id="playerNameTag">Jogador</div>
+                <div class="player-head">
+                    <div class="player-hair"></div>
+                </div>
 
-        <div class="character">
-          <div class="head"></div>
-          <div class="body"></div>
-          <div class="leg left"></div>
-          <div class="leg right"></div>
+                <div class="player-body"></div>
+
+            </div>
+
+            <div class="name-tag" id="playerNameTag">
+                Jogador
+            </div>
+
         </div>
-      </div>
 
-    </main>
+    </div>
 
-  </div>
+</div>
 
-  <script src="script.js"></script>
-</body>
-</html>
-    <p id="controles">WASD ou setas para andar</p>
-  </div>
 
-<script src="script.js"></script>
+<script>
+
+/* ================= VARIÁVEIS ================= */
+
+let selectedMode = "png";
+let pngData = null;
+
+let playerX = 50;
+let playerY = 50;
+
+let keys = {};
+
+let skinColor = "#f0bd91";
+let hairColor = "#4b2b20";
+let clothesColor = "#806cff";
+
+
+/* ================= NOME ================= */
+
+document.getElementById("name").addEventListener("input", function() {
+
+    document.getElementById("previewName").textContent =
+        this.value || "Seu personagem";
+
+});
+
+
+/* ================= PNG ================= */
+
+document.getElementById("pngInput").addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+        pngData = event.target.result;
+
+        document.getElementById("previewPNG").src = pngData;
+
+        document.getElementById("previewPNG").style.display = "block";
+
+        document.getElementById("previewDefault").style.display = "none";
+
+        document.getElementById("imageStatus").textContent =
+            "✓ PNG carregado!";
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/* ================= MODOS ================= */
+
+function selectMode(mode) {
+
+    selectedMode = mode;
+
+    document.getElementById("modePNG").classList.remove("selected");
+    document.getElementById("modeDefault").classList.remove("selected");
+    document.getElementById("modeCustom").classList.remove("selected");
+
+    document.getElementById("customOptions").style.display = "none";
+
+
+    if (mode === "png") {
+
+        document.getElementById("modePNG").classList.add("selected");
+
+        if (pngData) {
+
+            document.getElementById("previewPNG").style.display = "block";
+            document.getElementById("previewDefault").style.display = "none";
+
+        }
+
+    }
+
+
+    if (mode === "default") {
+
+        document.getElementById("modeDefault").classList.add("selected");
+
+        document.getElementById("previewPNG").style.display = "none";
+        document.getElementById("previewDefault").style.display = "block";
+
+    }
+
+
+    if (mode === "custom") {
+
+        document.getElementById("modeCustom").classList.add("selected");
+
+        document.getElementById("customOptions").style.display = "block";
+
+        document.getElementById("previewPNG").style.display = "none";
+        document.getElementById("previewDefault").style.display = "block";
+
+    }
+
+}
+
+
+/* ================= CUSTOMIZAÇÃO ================= */
+
+document.getElementById("skin").addEventListener("change", function() {
+
+    skinColor = this.value;
+
+    document.querySelector(".default-head").style.background = skinColor;
+
+});
+
+
+document.getElementById("hair").addEventListener("change", function() {
+
+    hairColor = this.value;
+
+    document.querySelector(".default-hair").style.background = hairColor;
+
+});
+
+
+document.getElementById("clothes").addEventListener("change", function() {
+
+    clothesColor = this.value;
+
+    document.querySelector(".default-body").style.background = clothesColor;
+
+});
+
+
+/* ================= ENTRAR ================= */
+
+function enterLobby() {
+
+    const name = document.getElementById("name").value.trim();
+
+    if (!name) {
+
+        document.getElementById("error").textContent =
+            "Digite um nome primeiro!";
+
+        return;
+
+    }
+
+
+    if (selectedMode === "png" && !pngData) {
+
+        document.getElementById("error").textContent =
+            "Envie um PNG para usar seu próprio personagem!";
+
+        return;
+
+    }
+
+
+    document.getElementById("error").textContent = "";
+
+
+    document.getElementById("creator").style.display = "none";
+
+    document.getElementById("lobby").style.display = "block";
+
+
+    document.getElementById("playerNameTag").textContent = name;
+
+
+    const playerPNG = document.getElementById("playerPNG");
+
+    const defaultPlayer = document.getElementById("defaultPlayer");
+
+
+    if (selectedMode === "png") {
+
+        playerPNG.src = pngData;
+
+        playerPNG.style.display = "block";
+
+        defaultPlayer.style.display = "none";
+
+    }
+
+    else {
+
+        playerPNG.style.display = "none";
+
+        defaultPlayer.style.display = "block";
+
+        document.querySelector(".player-head").style.background = skinColor;
+        document.querySelector(".player-hair").style.background = hairColor;
+        document.querySelector(".player-body").style.background = clothesColor;
+
+    }
+
+
+    playerX = 50;
+    playerY = 50;
+
+    updatePlayer();
+
+}
+
+
+/* ================= MOVIMENTO ================= */
+
+document.addEventListener("keydown", function(event) {
+
+    keys[event.key.toLowerCase()] = true;
+
+});
+
+
+document.addEventListener("keyup", function(event) {
+
+    keys[event.key.toLowerCase()] = false;
+
+});
+
+
+function updatePlayer() {
+
+    let speed = 0.45;
+
+    if (keys["w"] || keys["arrowup"]) {
+        playerY -= speed;
+    }
+
+    if (keys["s"] || keys["arrowdown"]) {
+        playerY += speed;
+    }
+
+    if (keys["a"] || keys["arrowleft"]) {
+        playerX -= speed;
+    }
+
+    if (keys["d"] || keys["arrowright"]) {
+        playerX += speed;
+    }
+
+
+    /* limites do mapa */
+
+    playerX = Math.max(5, Math.min(95, playerX));
+    playerY = Math.max(8, Math.min(90, playerY));
+
+
+    document.getElementById("player").style.left =
+        playerX + "%";
+
+    document.getElementById("player").style.top =
+        playerY + "%";
+
+
+    requestAnimationFrame(updatePlayer);
+
+}
+
+
+updatePlayer();
+
+</script>
+
 </body>
 </html>
