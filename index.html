@@ -707,7 +707,7 @@ button,input{
     <input
       type="text"
       id="playerNameInput"
-      maxlength="90"
+      maxlength="20"
       placeholder="Digite seu nome"
     >
 
@@ -1122,11 +1122,7 @@ button,input{
 
       <div id="dialogText"></div>
 
-
-      <!-- PLAYER DO MYINSTANTS -->
-
       <div id="audioContainer"></div>
-
 
       <div class="dialog-buttons">
 
@@ -1204,7 +1200,8 @@ const AUDIO_IFRAMES = {
       height="200"
       src="https://www.myinstants.com/instant/wubba-lubba-dub-dub-2-23931/embed/"
       frameborder="0"
-      scrolling="no">
+      scrolling="no"
+      allow="autoplay">
     </iframe>
   `,
 
@@ -1214,7 +1211,8 @@ const AUDIO_IFRAMES = {
       height="200"
       src="https://www.myinstants.com/instant/pringels-morty-39542/embed/"
       frameborder="0"
-      scrolling="no">
+      scrolling="no"
+      allow="autoplay">
     </iframe>
   `,
 
@@ -1224,7 +1222,8 @@ const AUDIO_IFRAMES = {
       height="200"
       src="https://www.myinstants.com/instant/onionioni-rip-oliver-tree-74616/embed/"
       frameborder="0"
-      scrolling="no">
+      scrolling="no"
+      allow="autoplay">
     </iframe>
   `,
 
@@ -1234,7 +1233,8 @@ const AUDIO_IFRAMES = {
       height="200"
       src="https://www.myinstants.com/instant/mac-quack-83896/embed/"
       frameborder="0"
-      scrolling="no">
+      scrolling="no"
+      allow="autoplay">
     </iframe>
   `,
 
@@ -1242,17 +1242,45 @@ const AUDIO_IFRAMES = {
     <iframe
       width="110"
       height="200"
-      src="https://www.myinstants.com/instant/foquita-78469/embed/"
+      src="https://www.myinstants.com/instant/abuelita-open-the-door-83986/embed/"
       frameborder="0"
-      scrolling="no">
+      scrolling="no"
+      allow="autoplay">
     </iframe>
   `,
 
-  yume: "",
+  yume: `
+    <iframe
+      width="110"
+      height="200"
+      src="https://www.myinstants.com/instant/full-powerrobotic-voice/embed/"
+      frameborder="0"
+      scrolling="no"
+      allow="autoplay">
+    </iframe>
+  `,
 
-  robot: "",
+  robot: `
+    <iframe
+      width="110"
+      height="200"
+      src="https://www.myinstants.com/instant/full-powerrobotic-voice/embed/"
+      frameborder="0"
+      scrolling="no"
+      allow="autoplay">
+    </iframe>
+  `,
 
-  jotaro: ""
+  jotaro: `
+    <iframe
+      width="110"
+      height="200"
+      src="https://www.myinstants.com/instant/yare-yare-daze-jotaro-kujo-444/embed/"
+      frameborder="0"
+      scrolling="no"
+      allow="autoplay">
+    </iframe>
+  `
 
 };
 
@@ -1276,10 +1304,10 @@ const NPC_TEXT = {
     "ONINONINON",
 
   rick:
-    "P-porra, Rick! Onde é que a gente tá, cara?!",
+    "Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!",
 
   morty:
-    "Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!",
+    "P-porra, Rick! Onde é que a gente tá, cara?!",
 
   robot:
     "Olá. Posso te informar sobre provas, regras, mapa, participantes e calendário.",
@@ -1348,6 +1376,15 @@ const audioContainer =
 const replayButton =
   document.getElementById("replay");
 
+const chatInput =
+  document.getElementById("chatInput");
+
+const chatLog =
+  document.getElementById("chatLog");
+
+const chatSend =
+  document.getElementById("chatSend");
+
 
 /* =====================================================
    ESTADO
@@ -1367,6 +1404,11 @@ let lastNpc = null;
 let portalOpen = false;
 
 let endTime = 0;
+
+let cameraX = 0;
+let cameraY = 0;
+
+const speed = 6;
 
 
 /* =====================================================
@@ -1497,36 +1539,51 @@ function startGame(){
 
 /* =====================================================
    TECLADO
+   CORREÇÃO:
+   NÃO bloqueia letras quando o usuário
+   está digitando no campo do nome/chat.
 ===================================================== */
 
 window.addEventListener(
   "keydown",
   function(event){
 
-    // Se estiver digitando em um campo, não controla o personagem
-    const tag = document.activeElement?.tagName;
+    const active =
+      document.activeElement;
 
     if(
-      tag === "INPUT" ||
-      tag === "TEXTAREA"
+      active &&
+      (
+        active.tagName === "INPUT" ||
+        active.tagName === "TEXTAREA" ||
+        active.isContentEditable
+      )
     ){
+
       return;
+
     }
 
+
     const movementKeys = [
+
       "ArrowUp",
       "ArrowDown",
       "ArrowLeft",
       "ArrowRight",
+
       "w",
       "a",
       "s",
       "d",
+
       "W",
       "A",
       "S",
       "D"
+
     ];
+
 
     if(
       movementKeys.includes(
@@ -1542,6 +1599,7 @@ window.addEventListener(
 
     }
 
+
     if(
       event.key.toLowerCase() === "e"
     ){
@@ -1552,6 +1610,7 @@ window.addEventListener(
 
   }
 );
+
 
 window.addEventListener(
   "keyup",
@@ -1573,260 +1632,56 @@ document
   .querySelectorAll(
     "#mobileControls button"
   )
-  .forEach(button => {
+  .forEach(
+    function(button){
 
-    button.addEventListener(
-      "pointerdown",
-      function(){
+      button.addEventListener(
+        "pointerdown",
+        function(event){
 
-        keys.add(
-          button.dataset.key
-        );
+          event.preventDefault();
 
-      }
-    );
+          keys.add(
+            button.dataset.key
+          );
 
-    button.addEventListener(
-      "pointerup",
-      function(){
-
-        keys.delete(
-          button.dataset.key
-        );
-
-      }
-    );
-
-    button.addEventListener(
-      "pointercancel",
-      function(){
-
-        keys.delete(
-          button.dataset.key
-        );
-
-      }
-    );
-
-    button.addEventListener(
-      "pointerleave",
-      function(){
-
-        keys.delete(
-          button.dataset.key
-        );
-
-      }
-    );
-
-  });
-
-
-/* =====================================================
-   NPC MAIS PRÓXIMO
-===================================================== */
-
-function nearestNpc(){
-
-  let nearest = null;
-
-  let bestDistance =
-    Infinity;
-
-
-  document
-    .querySelectorAll(".npc")
-    .forEach(npc => {
-
-      const npcX =
-        npc.offsetLeft + 75;
-
-      const npcY =
-        npc.offsetTop + 65;
-
-      const distance =
-        Math.hypot(
-          npcX - x,
-          npcY - y
-        );
-
-      if(
-        distance < bestDistance
-      ){
-
-        bestDistance =
-          distance;
-
-        nearest =
-          npc;
-
-      }
-
-    });
-
-
-  if(bestDistance < 190){
-
-    return nearest;
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =====================================================
-   INTERAGIR
-===================================================== */
-
-document
-  .getElementById("interact")
-  .addEventListener(
-    "click",
-    interact
-  );
-
-
-function interact(){
-
-  const npc =
-    nearestNpc();
-
-
-  if(!npc){
-    return;
-  }
-
-
-  lastNpc =
-    npc.dataset.id;
-
-
-  dialogTitle.textContent =
-    npc.querySelector(
-      ".npc-name"
-    ).textContent;
-
-
-  dialogText.textContent =
-    NPC_TEXT[lastNpc] ||
-    "Olá!";
-
-
-  /*
-     LIMPA O PLAYER DE ÁUDIO ANTERIOR
-  */
-
-  audioContainer.innerHTML =
-    "";
-
-
-  audioContainer.classList.remove(
-    "show"
-  );
-
-
-  replayButton.style.display =
-    "none";
-
-
-  /*
-     COLOCA O IFRAME DO NPC
-  */
-
-  if(
-    AUDIO_IFRAMES[lastNpc]
-  ){
-
-    audioContainer.innerHTML =
-      AUDIO_IFRAMES[lastNpc];
-
-    audioContainer.classList.add(
-      "show"
-    );
-
-    replayButton.style.display =
-      "block";
-
-  }
-
-
-  dialog.classList.add(
-    "show"
-  );
-
-}
-
-
-/* =====================================================
-   REPETIR
-===================================================== */
-
-replayButton.addEventListener(
-  "click",
-  function(){
-
-    if(!lastNpc){
-      return;
-    }
-
-
-    /*
-       Recarrega o iframe para
-       reiniciar o áudio do MyInstants.
-    */
-
-    const iframe =
-      audioContainer.querySelector(
-        "iframe"
+        }
       );
 
-    if(!iframe){
-      return;
-    }
 
+      button.addEventListener(
+        "pointerup",
+        function(){
 
-    const originalSrc =
-      iframe.src;
+          keys.delete(
+            button.dataset.key
+          );
 
-    iframe.src =
-      "";
-
-    setTimeout(
-      function(){
-
-        iframe.src =
-          originalSrc;
-
-      },
-      50
-    );
-
-  }
-);
-
-
-/* =====================================================
-   FECHAR
-===================================================== */
-
-document
-  .getElementById("closeDialog")
-  .addEventListener(
-    "click",
-    function(){
-
-      dialog.classList.remove(
-        "show"
+        }
       );
 
-      audioContainer.innerHTML =
-        "";
 
-      audioContainer.classList.remove(
-        "show"
+      button.addEventListener(
+        "pointercancel",
+        function(){
+
+          keys.delete(
+            button.dataset.key
+          );
+
+        }
+      );
+
+
+      button.addEventListener(
+        "pointerleave",
+        function(){
+
+          keys.delete(
+            button.dataset.key
+          );
+
+        }
       );
 
     }
@@ -1834,31 +1689,13 @@ document
 
 
 /* =====================================================
-   MOVIMENTO + CÂMERA
+   MOVIMENTO
 ===================================================== */
 
-function loop(){
+function updateMovement(){
 
   let dx = 0;
   let dy = 0;
-
-
-  if(
-    keys.has("ArrowLeft") ||
-    keys.has("a") ||
-    keys.has("A")
-  ){
-    dx--;
-  }
-
-
-  if(
-    keys.has("ArrowRight") ||
-    keys.has("d") ||
-    keys.has("D")
-  ){
-    dx++;
-  }
 
 
   if(
@@ -1866,7 +1703,7 @@ function loop(){
     keys.has("w") ||
     keys.has("W")
   ){
-    dy--;
+    dy -= speed;
   }
 
 
@@ -1875,70 +1712,68 @@ function loop(){
     keys.has("s") ||
     keys.has("S")
   ){
-    dy++;
+    dy += speed;
   }
 
 
-  if(dx || dy){
-
-    const length =
-      Math.hypot(
-        dx,
-        dy
-      );
-
-
-    x +=
-      (dx / length) * 5;
+  if(
+    keys.has("ArrowLeft") ||
+    keys.has("a") ||
+    keys.has("A")
+  ){
+    dx -= speed;
+  }
 
 
-    y +=
-      (dy / length) * 5;
+  if(
+    keys.has("ArrowRight") ||
+    keys.has("d") ||
+    keys.has("D")
+  ){
+    dx += speed;
+  }
+
+
+  if(dx !== 0 && dy !== 0){
+
+    dx *= 0.707;
+    dy *= 0.707;
 
   }
 
 
-  /* LIMITES */
+  x += dx;
+  y += dy;
+
+
+  /* LIMITES DO MUNDO */
 
   x =
     Math.max(
-      180,
+      170,
       Math.min(
-        3420,
+        3350,
         x
       )
     );
-
 
   y =
     Math.max(
       150,
       Math.min(
-        2450,
+        2380,
         y
       )
     );
 
-
-  /* PLAYER */
-
-  player.style.left =
-    (x - 52) + "px";
-
-  player.style.top =
-    (y - 62) + "px";
+}
 
 
-  /* NOME */
+/* =====================================================
+   CÂMERA
+===================================================== */
 
-  playerNameTag.style.left =
-    x + "px";
-
-  playerNameTag.style.top =
-    (y - 66) + "px";
-
-
-  /* CÂMERA */
+function updateCamera(){
 
   const screenWidth =
     game.clientWidth;
@@ -1947,30 +1782,24 @@ function loop(){
     game.clientHeight;
 
 
-  const worldWidth = 3600;
-  const worldHeight = 2600;
+  cameraX =
+    x -
+    screenWidth / 2;
+
+
+  cameraY =
+    y -
+    screenHeight / 2;
 
 
   const maxCameraX =
-    Math.max(
-      0,
-      worldWidth - screenWidth
-    );
+    3600 -
+    screenWidth;
 
 
   const maxCameraY =
-    Math.max(
-      0,
-      worldHeight - screenHeight
-    );
-
-
-  let cameraX =
-    x - screenWidth / 2;
-
-
-  let cameraY =
-    y - screenHeight / 2;
+    2600 -
+    screenHeight;
 
 
   cameraX =
@@ -1994,80 +1823,262 @@ function loop(){
 
 
   world.style.transform =
-    "translate(" +
-    (-cameraX) +
-    "px," +
-    (-cameraY) +
-    "px)";
+    `translate(${-cameraX}px, ${-cameraY}px)`;
+
+}
 
 
-  /* PORTAL */
+/* =====================================================
+   POSIÇÃO DO PLAYER
+===================================================== */
 
-  if(!portalOpen){
+function updatePlayer(){
 
-    const seconds =
-      Math.max(
-        0,
-        Math.ceil(
-          (
-            endTime -
-            Date.now()
-          ) / 1000
-        )
-      );
+  player.style.left =
+    `${x - 52}px`;
+
+  player.style.top =
+    `${y - 62}px`;
 
 
-    timer.textContent =
-      "PORTAL EM " +
-      seconds +
-      "s";
+  playerNameTag.style.left =
+    `${x}px`;
+
+  playerNameTag.style.top =
+    `${y - 68}px`;
+
+}
 
 
-    if(seconds <= 0){
+/* =====================================================
+   NPC MAIS PRÓXIMO
+===================================================== */
 
-      portalOpen =
-        true;
+function getNearestNPC(){
 
-      portal.classList.remove(
-        "hidden"
-      );
+  const npcs =
+    document.querySelectorAll(
+      ".npc"
+    );
 
-      timer.textContent =
-        "PORTAL ABERTO!";
+
+  let nearest = null;
+
+  let nearestDistance =
+    Infinity;
+
+
+  npcs.forEach(
+    function(npc){
+
+      const nx =
+        parseFloat(
+          npc.style.left
+        ) + 75;
+
+      const ny =
+        parseFloat(
+          npc.style.top
+        ) + 65;
+
+
+      const distance =
+        Math.hypot(
+          x - nx,
+          y - ny
+        );
+
+
+      if(
+        distance <
+        nearestDistance
+      ){
+
+        nearestDistance =
+          distance;
+
+        nearest =
+          npc;
+
+      }
 
     }
+  );
+
+
+  if(
+    nearestDistance <= 190
+  ){
+
+    return nearest;
 
   }
 
 
-  requestAnimationFrame(
-    loop
+  return null;
+
+}
+
+
+/* =====================================================
+   INTERAÇÃO
+===================================================== */
+
+function interact(){
+
+  if(game.hidden){
+    return;
+  }
+
+
+  const npc =
+    getNearestNPC();
+
+
+  if(!npc){
+
+    closeDialog();
+
+    return;
+
+  }
+
+
+  const id =
+    npc.dataset.id;
+
+
+  lastNpc =
+    id;
+
+
+  dialogTitle.textContent =
+    npc.querySelector(
+      ".npc-name"
+    ).textContent;
+
+
+  dialogText.textContent =
+    NPC_TEXT[id] ||
+    "...";
+
+
+  audioContainer.innerHTML =
+    AUDIO_IFRAMES[id] || "";
+
+
+  if(
+    AUDIO_IFRAMES[id]
+  ){
+
+    audioContainer.classList.add(
+      "show"
+    );
+
+    replayButton.style.display =
+      "block";
+
+  }else{
+
+    audioContainer.classList.remove(
+      "show"
+    );
+
+    replayButton.style.display =
+      "none";
+
+  }
+
+
+  dialog.classList.add(
+    "show"
   );
 
 }
 
 
 /* =====================================================
+   FECHAR DIÁLOGO
+===================================================== */
+
+document
+  .getElementById("closeDialog")
+  .addEventListener(
+    "click",
+    closeDialog
+  );
+
+
+function closeDialog(){
+
+  dialog.classList.remove(
+    "show"
+  );
+
+  audioContainer.innerHTML =
+    "";
+
+  audioContainer.classList.remove(
+    "show"
+  );
+
+  replayButton.style.display =
+    "none";
+
+  lastNpc =
+    null;
+
+}
+
+
+/* =====================================================
+   REPETIR ÁUDIO
+===================================================== */
+
+replayButton.addEventListener(
+  "click",
+  function(){
+
+    if(!lastNpc){
+      return;
+    }
+
+
+    const html =
+      AUDIO_IFRAMES[lastNpc];
+
+
+    if(!html){
+      return;
+    }
+
+
+    audioContainer.innerHTML =
+      "";
+
+
+    setTimeout(
+      function(){
+
+        audioContainer.innerHTML =
+          html;
+
+      },
+      30
+    );
+
+  }
+);
+
+
+/* =====================================================
    CHAT
 ===================================================== */
 
-const chatInput =
-  document.getElementById(
-    "chatInput"
-  );
-
-const chatLog =
-  document.getElementById(
-    "chatLog"
-  );
-
-
-document
-  .getElementById("chatSend")
-  .addEventListener(
-    "click",
-    sendChat
-  );
+chatSend.addEventListener(
+  "click",
+  sendChat
+);
 
 
 chatInput.addEventListener(
@@ -2077,6 +2088,8 @@ chatInput.addEventListener(
     if(
       event.key === "Enter"
     ){
+
+      event.preventDefault();
 
       sendChat();
 
@@ -2097,36 +2110,18 @@ function sendChat(){
   }
 
 
-  const line =
+  const row =
     document.createElement(
       "div"
     );
 
 
-  const bold =
-    document.createElement(
-      "b"
-    );
-
-
-  bold.textContent =
-    playerName + ": ";
-
-
-  line.appendChild(
-    bold
-  );
-
-
-  line.appendChild(
-    document.createTextNode(
-      message
-    )
-  );
+  row.textContent =
+    `${playerName}: ${message}`;
 
 
   chatLog.appendChild(
-    line
+    row
   );
 
 
@@ -2138,6 +2133,102 @@ function sendChat(){
     "";
 
 }
+
+
+/* =====================================================
+   PORTAL / TIMER
+===================================================== */
+
+function updateTimer(){
+
+  const remaining =
+    Math.max(
+      0,
+      Math.ceil(
+        (endTime - Date.now()) /
+        1000
+      )
+    );
+
+
+  if(
+    remaining > 0
+  ){
+
+    timer.textContent =
+      `PORTAL EM ${remaining}s`;
+
+  }else{
+
+    if(!portalOpen){
+
+      portalOpen =
+        true;
+
+      portal.classList.remove(
+        "hidden"
+      );
+
+    }
+
+    timer.textContent =
+      "PORTAL ABERTO!";
+
+  }
+
+}
+
+
+/* =====================================================
+   LOOP PRINCIPAL
+===================================================== */
+
+function loop(){
+
+  updateMovement();
+
+  updatePlayer();
+
+  updateCamera();
+
+  updateTimer();
+
+
+  requestAnimationFrame(
+    loop
+  );
+
+}
+
+
+/* =====================================================
+   INTERAGIR PELO BOTÃO
+===================================================== */
+
+document
+  .getElementById("interact")
+  .addEventListener(
+    "click",
+    interact
+  );
+
+
+/* =====================================================
+   AJUSTAR CÂMERA AO REDIMENSIONAR
+===================================================== */
+
+window.addEventListener(
+  "resize",
+  function(){
+
+    if(!game.hidden){
+
+      updateCamera();
+
+    }
+
+  }
+);
 
 </script>
 
