@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Attorneys</title>
+<title>Attorneys</title>
 
 <style>
 *{
@@ -18,11 +18,10 @@ html,body{
   overflow:hidden;
   font-family:Arial,Helvetica,sans-serif;
   background:#17111f;
-  color:#fff;
+  color:white;
 }
 
-button,
-input{
+button,input{
   font:inherit;
 }
 
@@ -68,13 +67,13 @@ input{
   margin:12px 0 6px;
 }
 
-.menu-box input[type="text"]{
+#playerNameInput{
   width:100%;
   padding:13px;
   border:2px solid #75558e;
   border-radius:12px;
   background:#1b1423;
-  color:#fff;
+  color:white;
   outline:none;
 }
 
@@ -82,23 +81,20 @@ input{
   border:2px dashed #80619a;
   border-radius:14px;
   padding:14px;
-  margin-top:7px;
   background:#21172c;
 }
 
-.file-box input[type="file"]{
+.file-box input{
   width:100%;
   color:#ddd;
-  font-size:14px;
 }
 
 .preview-area{
-  margin-top:12px;
   display:none;
-  justify-content:center;
   flex-direction:column;
   align-items:center;
   gap:5px;
+  margin-top:12px;
 }
 
 .preview-area.show{
@@ -131,10 +127,6 @@ input{
   color:#21152b;
   font-weight:900;
   cursor:pointer;
-}
-
-#startGame:hover{
-  filter:brightness(1.08);
 }
 
 
@@ -172,7 +164,6 @@ input{
   height:100%;
   object-fit:cover;
   opacity:.30;
-  image-rendering:auto;
   pointer-events:none;
 }
 
@@ -210,8 +201,7 @@ input{
   position:absolute;
   background:#c89a60;
   border:7px solid #a87546;
-  box-shadow:
-    inset 0 0 0 5px #dcb477;
+  box-shadow:inset 0 0 0 5px #dcb477;
 }
 
 .path.horizontal{
@@ -234,9 +224,7 @@ input{
   background:#63b8d2;
   border:12px solid #397e9a;
   border-radius:50%;
-
-  box-shadow:
-    inset 0 0 0 7px #8dd1dd;
+  box-shadow:inset 0 0 0 7px #8dd1dd;
 }
 
 
@@ -275,9 +263,7 @@ input{
   height:48px;
   border-radius:50%;
   background:#777;
-
-  box-shadow:
-    inset -8px -5px #555;
+  box-shadow:inset -8px -5px #555;
 }
 
 
@@ -291,7 +277,6 @@ input{
   height:70px;
   border-radius:50%;
   background:#3e7e47;
-
   box-shadow:
     20px -15px #4d914f,
     45px -5px #397642,
@@ -316,22 +301,13 @@ input{
   object-fit:contain;
   display:block;
   margin:0 auto;
-
-  filter:
-    drop-shadow(0 8px 4px #0008);
+  filter:drop-shadow(0 8px 4px #0008);
 }
-
-
-/*
-   NOME AGORA FICA EM CIMA
-*/
 
 .npc-name{
   position:absolute;
-
   left:50%;
   bottom:125px;
-
   transform:translateX(-50%);
 
   padding:6px 10px;
@@ -339,14 +315,12 @@ input{
   border-radius:10px;
 
   background:#171322e8;
-
   border:2px solid #ffffff45;
 
   font-size:14px;
   font-weight:900;
 
   white-space:nowrap;
-
   pointer-events:none;
 }
 
@@ -365,34 +339,23 @@ input{
 
   z-index:30;
 
-  filter:
-    drop-shadow(0 8px 4px #0008);
+  filter:drop-shadow(0 8px 4px #0008);
 }
-
-
-/*
-   NOME DO PLAYER EM CIMA
-*/
 
 #playerNameTag{
   position:absolute;
-
   z-index:31;
 
   padding:6px 10px;
 
   background:#171322ee;
-
   border:2px solid #ffffff45;
-
   border-radius:10px;
 
   font-size:14px;
-
   font-weight:900;
 
   white-space:nowrap;
-
   pointer-events:none;
 
   transform:translate(-50%,-100%);
@@ -409,8 +372,7 @@ input{
   width:180px;
   height:220px;
 
-  border-radius:
-    50% 50% 18% 18%;
+  border-radius:50% 50% 18% 18%;
 
   background:
     radial-gradient(
@@ -422,8 +384,7 @@ input{
       transparent 72%
     );
 
-  box-shadow:
-    0 0 45px #c889ff;
+  box-shadow:0 0 45px #c889ff;
 
   z-index:15;
 
@@ -435,11 +396,9 @@ input{
 
   font-weight:900;
 
-  text-shadow:
-    0 2px 5px #000;
+  text-shadow:0 2px 5px #000;
 
-  animation:
-    portalPulse 1.5s infinite;
+  animation:portalPulse 1.5s infinite;
 }
 
 #portal.hidden{
@@ -447,11 +406,9 @@ input{
 }
 
 @keyframes portalPulse{
-
   50%{
     transform:scale(1.07);
   }
-
 }
 
 
@@ -462,22 +419,17 @@ input{
 #hud{
   position:absolute;
   inset:0;
-
   z-index:100;
-
   pointer-events:none;
 }
 
 #top-left{
   position:absolute;
-
   top:12px;
   left:12px;
 
   background:#171322e8;
-
   border:2px solid #ffffff35;
-
   border-radius:12px;
 
   padding:10px 14px;
@@ -487,14 +439,11 @@ input{
 
 #timer{
   position:absolute;
-
   top:12px;
   right:12px;
 
   background:#171322e8;
-
   border:2px solid #ffffff35;
-
   border-radius:12px;
 
   padding:10px 14px;
@@ -509,7 +458,6 @@ input{
 
 #chat{
   position:absolute;
-
   right:12px;
   top:62px;
 
@@ -518,9 +466,7 @@ input{
   padding:10px;
 
   background:#171322dd;
-
   border:2px solid #ffffff25;
-
   border-radius:13px;
 
   pointer-events:auto;
@@ -528,11 +474,8 @@ input{
 
 #chatLog{
   height:80px;
-
   overflow-y:auto;
-
   font-size:12px;
-
   margin-bottom:7px;
 }
 
@@ -548,23 +491,17 @@ input{
   padding:7px;
 
   border-radius:8px;
-
   border:1px solid #ffffff25;
 
   background:#ffffff10;
-
   color:white;
-
   outline:none;
 }
 
 #chatSend{
   border:0;
-
   border-radius:8px;
-
   padding:7px;
-
   cursor:pointer;
 }
 
@@ -578,13 +515,11 @@ input{
 
   left:8%;
   right:8%;
-
   bottom:75px;
 
-  background:#171322f5;
+  background:#171322f7;
 
   border:2px solid #ffffff35;
-
   border-radius:17px;
 
   padding:16px;
@@ -610,6 +545,23 @@ input{
   white-space:pre-line;
 }
 
+#audioContainer{
+  margin-top:12px;
+  display:none;
+}
+
+#audioContainer.show{
+  display:block;
+}
+
+#audioContainer iframe{
+  display:block;
+  width:110px;
+  height:200px;
+  border:0;
+  margin:0;
+}
+
 .dialog-buttons{
   display:flex;
   gap:8px;
@@ -618,13 +570,9 @@ input{
 
 .dialog-buttons button{
   padding:9px 13px;
-
   border-radius:10px;
-
   border:0;
-
   cursor:pointer;
-
   font-weight:bold;
 }
 
@@ -635,8 +583,7 @@ input{
 #closeDialog{
   background:#ffffff18;
   color:white;
-
-  border:1px solid #ffffff25 !important;
+  border:1px solid #ffffff25;
 }
 
 
@@ -653,7 +600,6 @@ input{
   padding:13px 18px;
 
   border:0;
-
   border-radius:12px;
 
   background:#bd8eea;
@@ -663,7 +609,6 @@ input{
   font-weight:bold;
 
   pointer-events:auto;
-
   cursor:pointer;
 }
 
@@ -675,8 +620,7 @@ input{
 
   display:grid;
 
-  grid-template-columns:
-    48px 48px 48px;
+  grid-template-columns:48px 48px 48px;
 
   gap:5px;
 
@@ -688,15 +632,12 @@ input{
   height:48px;
 
   border-radius:11px;
-
   border:1px solid #ffffff30;
 
   background:#171322cc;
-
   color:white;
 
   font-size:19px;
-
   font-weight:bold;
 }
 
@@ -741,7 +682,6 @@ input{
 </style>
 </head>
 
-
 <body>
 
 
@@ -753,17 +693,12 @@ input{
 
   <div class="menu-box">
 
-    <h1>
-      THE ATTORNEYS
-    </h1>
+    <h1>THE ATTORNEYS</h1>
 
     <p>
       Bem-vindo ao lobby.<br>
       Explore a ilha enquanto espera a próxima prova.
     </p>
-
-
-    <!-- NOME -->
 
     <label for="playerNameInput">
       Seu nome
@@ -775,9 +710,6 @@ input{
       maxlength="20"
       placeholder="Digite seu nome"
     >
-
-
-    <!-- IMAGEM DO PLAYER -->
 
     <label for="playerImageInput">
       Sua imagem/personagem
@@ -807,7 +739,6 @@ input{
 
     </div>
 
-
     <button id="startGame">
       ENTRAR NO LOBBY
     </button>
@@ -825,7 +756,6 @@ input{
 
   <div id="world">
 
-
     <!-- GRAMA -->
 
     <img
@@ -840,51 +770,29 @@ input{
     <div id="island"></div>
 
 
-    <!-- CAMINHO HORIZONTAL -->
+    <!-- CAMINHOS -->
 
     <div
       class="path horizontal"
-      style="
-        left:450px;
-        top:1180px;
-        width:2750px;
-      "
+      style="left:450px;top:1180px;width:2750px;"
     ></div>
-
-
-    <!-- CAMINHO VERTICAL -->
 
     <div
       class="path vertical"
-      style="
-        left:1740px;
-        top:300px;
-        height:1800px;
-      "
+      style="left:1740px;top:300px;height:1800px;"
     ></div>
 
 
-    <!-- LAGO -->
+    <!-- LAGOS -->
 
     <div
       class="pond"
-      style="
-        left:420px;
-        top:410px;
-        width:430px;
-        height:300px;
-      "
+      style="left:420px;top:410px;width:430px;height:300px;"
     ></div>
 
-
     <div
       class="pond"
-      style="
-        left:2660px;
-        top:1650px;
-        width:390px;
-        height:300px;
-      "
+      style="left:2660px;top:1650px;width:390px;height:300px;"
     ></div>
 
 
@@ -893,10 +801,7 @@ input{
     <div
       id="portal"
       class="hidden"
-      style="
-        left:1660px;
-        top:1010px;
-      "
+      style="left:1660px;top:1010px;"
     >
       PORTAL
     </div>
@@ -977,16 +882,13 @@ input{
 
 
     <!-- ==================================================
-         NPC BURGUINHO
+         BURGUINHO
     ================================================== -->
 
     <div
       class="npc"
       data-id="burguinho"
-      style="
-        left:560px;
-        top:1060px;
-      "
+      style="left:560px;top:1060px;"
     >
 
       <div class="npc-name">
@@ -1002,16 +904,13 @@ input{
 
 
     <!-- ==================================================
-         NPC YUME
+         YUME
     ================================================== -->
 
     <div
       class="npc"
       data-id="yume"
-      style="
-        left:900px;
-        top:470px;
-      "
+      style="left:900px;top:470px;"
     >
 
       <div class="npc-name">
@@ -1027,16 +926,13 @@ input{
 
 
     <!-- ==================================================
-         MELANIE MARTINEZ
+         MELANIE
     ================================================== -->
 
     <div
       class="npc"
       data-id="melanie"
-      style="
-        left:1200px;
-        top:1250px;
-      "
+      style="left:1200px;top:1250px;"
     >
 
       <div class="npc-name">
@@ -1052,16 +948,13 @@ input{
 
 
     <!-- ==================================================
-         OLIVER TREE
+         OLIVER
     ================================================== -->
 
     <div
       class="npc"
       data-id="oliver"
-      style="
-        left:2250px;
-        top:1200px;
-      "
+      style="left:2250px;top:1200px;"
     >
 
       <div class="npc-name">
@@ -1083,10 +976,7 @@ input{
     <div
       class="npc"
       data-id="rick"
-      style="
-        left:650px;
-        top:1750px;
-      "
+      style="left:650px;top:1750px;"
     >
 
       <div class="npc-name">
@@ -1108,10 +998,7 @@ input{
     <div
       class="npc"
       data-id="morty"
-      style="
-        left:2800px;
-        top:650px;
-      "
+      style="left:2800px;top:650px;"
     >
 
       <div class="npc-name">
@@ -1133,10 +1020,7 @@ input{
     <div
       class="npc"
       data-id="robot"
-      style="
-        left:1800px;
-        top:500px;
-      "
+      style="left:1800px;top:500px;"
     >
 
       <div class="npc-name">
@@ -1158,10 +1042,7 @@ input{
     <div
       class="npc"
       data-id="jotaro"
-      style="
-        left:2700px;
-        top:1150px;
-      "
+      style="left:2700px;top:1150px;"
     >
 
       <div class="npc-name">
@@ -1176,9 +1057,7 @@ input{
     </div>
 
 
-    <!-- ==================================================
-         PLAYER
-    ================================================== -->
+    <!-- PLAYER -->
 
     <div
       id="playerNameTag"
@@ -1233,7 +1112,9 @@ input{
     </div>
 
 
-    <!-- DIÁLOGO -->
+    <!-- ==================================================
+         DIÁLOGO
+    ================================================== -->
 
     <div id="dialog">
 
@@ -1241,9 +1122,18 @@ input{
 
       <div id="dialogText"></div>
 
+
+      <!-- PLAYER DO MYINSTANTS -->
+
+      <div id="audioContainer"></div>
+
+
       <div class="dialog-buttons">
 
-        <button id="replay">
+        <button
+          id="replay"
+          style="display:none;"
+        >
           🔊 Repetir áudio
         </button>
 
@@ -1256,7 +1146,7 @@ input{
     </div>
 
 
-    <!-- CONTROLES MOBILE -->
+    <!-- CONTROLES -->
 
     <div id="mobileControls">
 
@@ -1303,39 +1193,66 @@ input{
 <script>
 
 /* =====================================================
-   IMAGENS
+   ÁUDIOS DO MYINSTANTS
 ===================================================== */
 
-const ASSETS = {
+const AUDIO_IFRAMES = {
 
-  flower:
-    "https://png.pngtree.com/png-clipart/20231024/ourmid/pngtree-flower-pixel-morada-png-image_10066281.png",
+  rick: `
+    <iframe
+      width="110"
+      height="200"
+      src="https://www.myinstants.com/instant/wubba-lubba-dub-dub-2-23931/embed/"
+      frameborder="0"
+      scrolling="no">
+    </iframe>
+  `,
 
-  grass:
-    "https://wallpapercave.com/wp/wp10944792.png",
+  morty: `
+    <iframe
+      width="110"
+      height="200"
+      src="https://www.myinstants.com/instant/pringels-morty-39542/embed/"
+      frameborder="0"
+      scrolling="no">
+    </iframe>
+  `,
 
-  jotaro:
-    "https://static.wikia.nocookie.net/shonen-heroes/images/4/4b/Jotaro_Kujo.png/revision/latest?cb=20231223053813"
+  oliver: `
+    <iframe
+      width="110"
+      height="200"
+      src="https://www.myinstants.com/instant/onionioni-rip-oliver-tree-74616/embed/"
+      frameborder="0"
+      scrolling="no">
+    </iframe>
+  `,
 
-};
+  burguinho: `
+    <iframe
+      width="110"
+      height="200"
+      src="https://www.myinstants.com/instant/mac-quack-83896/embed/"
+      frameborder="0"
+      scrolling="no">
+    </iframe>
+  `,
 
-
-/* =====================================================
-   ÁUDIO
-
-   SOMENTE YUME E ROBÔ FICAM PREPARADOS.
-
-   Cole depois os links DIRETOS dos arquivos de áudio:
-
-   yume: "https://.../audio.mp3"
-   robot: "https://.../audio.mp3"
-===================================================== */
-
-const AUDIO = {
+  melanie: `
+    <iframe
+      width="110"
+      height="200"
+      src="https://www.myinstants.com/instant/foquita-78469/embed/"
+      frameborder="0"
+      scrolling="no">
+    </iframe>
+  `,
 
   yume: "",
 
-  robot: ""
+  robot: "",
+
+  jotaro: ""
 
 };
 
@@ -1425,41 +1342,35 @@ const dialogTitle =
 const dialogText =
   document.getElementById("dialogText");
 
+const audioContainer =
+  document.getElementById("audioContainer");
+
+const replayButton =
+  document.getElementById("replay");
+
 
 /* =====================================================
    ESTADO
 ===================================================== */
 
-let playerImage =
-  "";
+let playerImage = "";
 
-let playerName =
-  "Jogador";
+let playerName = "Jogador";
 
-let x =
-  1750;
+let x = 1750;
+let y = 1250;
 
-let y =
-  1250;
+let keys = new Set();
 
-let keys =
-  new Set();
+let lastNpc = null;
 
-let lastNpc =
-  null;
+let portalOpen = false;
 
-let lastAudio =
-  null;
-
-let portalOpen =
-  false;
-
-let endTime =
-  0;
+let endTime = 0;
 
 
 /* =====================================================
-   ESCOLHER IMAGEM DO PLAYER
+   IMAGEM DO PLAYER
 ===================================================== */
 
 playerImageInput.addEventListener(
@@ -1470,11 +1381,8 @@ playerImageInput.addEventListener(
       playerImageInput.files[0];
 
     if(!file){
-
       return;
-
     }
-
 
     if(!file.type.startsWith("image/")){
 
@@ -1482,17 +1390,13 @@ playerImageInput.addEventListener(
         "Escolha uma imagem PNG, JPG, WEBP ou GIF."
       );
 
-      playerImageInput.value =
-        "";
+      playerImageInput.value = "";
 
       return;
-
     }
-
 
     const reader =
       new FileReader();
-
 
     reader.onload =
       function(){
@@ -1512,10 +1416,7 @@ playerImageInput.addEventListener(
 
       };
 
-
-    reader.readAsDataURL(
-      file
-    );
+    reader.readAsDataURL(file);
 
   }
 );
@@ -1539,11 +1440,6 @@ function startGame(){
     playerNameInput.value.trim() ||
     "Jogador";
 
-
-  /*
-     Se o usuário não escolheu imagem,
-     usa uma imagem de fallback.
-  */
 
   if(playerImage){
 
@@ -1577,14 +1473,11 @@ function startGame(){
   playerNameTag.textContent =
     playerName;
 
-
   nameBadge.textContent =
     playerName;
 
-
   playerNameTag.style.display =
     "block";
-
 
   menu.style.display =
     "none";
@@ -1592,10 +1485,8 @@ function startGame(){
   game.hidden =
     false;
 
-
   endTime =
     Date.now() + 15000;
-
 
   requestAnimationFrame(
     loop
@@ -1613,24 +1504,19 @@ window.addEventListener(
   function(event){
 
     const movementKeys = [
-
       "ArrowUp",
       "ArrowDown",
       "ArrowLeft",
       "ArrowRight",
-
       "w",
       "a",
       "s",
       "d",
-
       "W",
       "A",
       "S",
       "D"
-
     ];
-
 
     if(
       movementKeys.includes(
@@ -1648,8 +1534,7 @@ window.addEventListener(
 
 
     if(
-      event.key.toLowerCase()
-      === "e"
+      event.key.toLowerCase() === "e"
     ){
 
       interact();
@@ -1693,7 +1578,6 @@ document
       }
     );
 
-
     button.addEventListener(
       "pointerup",
       function(){
@@ -1705,7 +1589,6 @@ document
       }
     );
 
-
     button.addEventListener(
       "pointercancel",
       function(){
@@ -1716,7 +1599,6 @@ document
 
       }
     );
-
 
     button.addEventListener(
       "pointerleave",
@@ -1738,8 +1620,7 @@ document
 
 function nearestNpc(){
 
-  let nearest =
-    null;
+  let nearest = null;
 
   let bestDistance =
     Infinity;
@@ -1755,13 +1636,11 @@ function nearestNpc(){
       const npcY =
         npc.offsetTop + 65;
 
-
       const distance =
         Math.hypot(
           npcX - x,
           npcY - y
         );
-
 
       if(
         distance < bestDistance
@@ -1778,9 +1657,7 @@ function nearestNpc(){
     });
 
 
-  if(
-    bestDistance < 190
-  ){
+  if(bestDistance < 190){
 
     return nearest;
 
@@ -1793,7 +1670,7 @@ function nearestNpc(){
 
 
 /* =====================================================
-   INTERAÇÃO
+   INTERAGIR
 ===================================================== */
 
 document
@@ -1811,9 +1688,7 @@ function interact(){
 
 
   if(!npc){
-
     return;
-
   }
 
 
@@ -1832,109 +1707,101 @@ function interact(){
     "Olá!";
 
 
-  dialog.classList.add(
+  /*
+     LIMPA O PLAYER DE ÁUDIO ANTERIOR
+  */
+
+  audioContainer.innerHTML =
+    "";
+
+
+  audioContainer.classList.remove(
     "show"
   );
 
 
+  replayButton.style.display =
+    "none";
+
+
   /*
-     Somente Yume e Robô
-     possuem áudio neste momento.
+     COLOCA O IFRAME DO NPC
   */
 
-  playNpcAudio(
-    lastNpc
-  );
-
-}
-
-
-/* =====================================================
-   ÁUDIO
-===================================================== */
-
-function playNpcAudio(id){
-
-  if(lastAudio){
-
-    lastAudio.pause();
-
-    lastAudio.currentTime =
-      0;
-
-    lastAudio =
-      null;
-
-  }
-
-
   if(
-    id !== "yume" &&
-    id !== "robot"
+    AUDIO_IFRAMES[lastNpc]
   ){
 
-    return;
+    audioContainer.innerHTML =
+      AUDIO_IFRAMES[lastNpc];
 
-  }
-
-
-  const src =
-    AUDIO[id];
-
-
-  if(!src){
-
-    return;
-
-  }
-
-
-  lastAudio =
-    new Audio(src);
-
-
-  lastAudio.preload =
-    "auto";
-
-
-  lastAudio.play()
-    .catch(
-      function(){
-
-        console.log(
-          "O áudio não pôde ser reproduzido."
-        );
-
-      }
+    audioContainer.classList.add(
+      "show"
     );
+
+    replayButton.style.display =
+      "block";
+
+  }
+
+
+  dialog.classList.add(
+    "show"
+  );
 
 }
 
 
 /* =====================================================
-   REPETIR ÁUDIO
+   REPETIR
 ===================================================== */
 
-document
-  .getElementById("replay")
-  .addEventListener(
-    "click",
-    function(){
+replayButton.addEventListener(
+  "click",
+  function(){
 
-      if(lastNpc){
-
-        playNpcAudio(
-          lastNpc
-        );
-
-      }
-
+    if(!lastNpc){
+      return;
     }
-  );
+
+
+    /*
+       Recarrega o iframe para
+       reiniciar o áudio do MyInstants.
+    */
+
+    const iframe =
+      audioContainer.querySelector(
+        "iframe"
+      );
+
+    if(!iframe){
+      return;
+    }
+
+
+    const originalSrc =
+      iframe.src;
+
+    iframe.src =
+      "";
+
+    setTimeout(
+      function(){
+
+        iframe.src =
+          originalSrc;
+
+      },
+      50
+    );
+
+  }
+);
 
 
 /* =====================================================
-   FECHAR DIÁLOGO
+   FECHAR
 ===================================================== */
 
 document
@@ -1947,76 +1814,62 @@ document
         "show"
       );
 
+      audioContainer.innerHTML =
+        "";
+
+      audioContainer.classList.remove(
+        "show"
+      );
+
     }
   );
 
 
 /* =====================================================
-   LOOP PRINCIPAL
+   MOVIMENTO + CÂMERA
 ===================================================== */
 
 function loop(){
 
-  let dx =
-    0;
+  let dx = 0;
+  let dy = 0;
 
-  let dy =
-    0;
-
-
-  /* ESQUERDA */
 
   if(
     keys.has("ArrowLeft") ||
     keys.has("a") ||
     keys.has("A")
   ){
-
     dx--;
-
   }
 
-
-  /* DIREITA */
 
   if(
     keys.has("ArrowRight") ||
     keys.has("d") ||
     keys.has("D")
   ){
-
     dx++;
-
   }
 
-
-  /* CIMA */
 
   if(
     keys.has("ArrowUp") ||
     keys.has("w") ||
     keys.has("W")
   ){
-
     dy--;
-
   }
 
-
-  /* BAIXO */
 
   if(
     keys.has("ArrowDown") ||
     keys.has("s") ||
     keys.has("S")
   ){
-
     dy++;
-
   }
 
-
-  /* MOVIMENTO */
 
   if(dx || dy){
 
@@ -2037,7 +1890,7 @@ function loop(){
   }
 
 
-  /* LIMITES DO MUNDO */
+  /* LIMITES */
 
   x =
     Math.max(
@@ -2059,33 +1912,25 @@ function loop(){
     );
 
 
-  /* POSIÇÃO DO PLAYER */
+  /* PLAYER */
 
   player.style.left =
-    (x - 52) +
-    "px";
-
+    (x - 52) + "px";
 
   player.style.top =
-    (y - 62) +
-    "px";
+    (y - 62) + "px";
 
 
-  /* POSIÇÃO DO NOME */
+  /* NOME */
 
   playerNameTag.style.left =
-    x +
-    "px";
-
+    x + "px";
 
   playerNameTag.style.top =
-    (y - 66) +
-    "px";
+    (y - 66) + "px";
 
 
-  /* =====================
-     CÂMERA
-  ===================== */
+  /* CÂMERA */
 
   const screenWidth =
     game.clientWidth;
@@ -2094,37 +1939,30 @@ function loop(){
     game.clientHeight;
 
 
-  const worldWidth =
-    3600;
-
-  const worldHeight =
-    2600;
+  const worldWidth = 3600;
+  const worldHeight = 2600;
 
 
   const maxCameraX =
     Math.max(
       0,
-      worldWidth -
-      screenWidth
+      worldWidth - screenWidth
     );
 
 
   const maxCameraY =
     Math.max(
       0,
-      worldHeight -
-      screenHeight
+      worldHeight - screenHeight
     );
 
 
   let cameraX =
-    x -
-    screenWidth / 2;
+    x - screenWidth / 2;
 
 
   let cameraY =
-    y -
-    screenHeight / 2;
+    y - screenHeight / 2;
 
 
   cameraX =
@@ -2155,9 +1993,7 @@ function loop(){
     "px)";
 
 
-  /* =====================
-     PORTAL
-  ===================== */
+  /* PORTAL */
 
   if(!portalOpen){
 
@@ -2184,11 +2020,9 @@ function loop(){
       portalOpen =
         true;
 
-
       portal.classList.remove(
         "hidden"
       );
-
 
       timer.textContent =
         "PORTAL ABERTO!";
@@ -2251,9 +2085,7 @@ function sendChat(){
 
 
   if(!message){
-
     return;
-
   }
 
 
@@ -2270,8 +2102,7 @@ function sendChat(){
 
 
   bold.textContent =
-    playerName +
-    ": ";
+    playerName + ": ";
 
 
   line.appendChild(
