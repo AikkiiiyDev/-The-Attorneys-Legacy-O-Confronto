@@ -2,734 +2,414 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>💥 The Attorneys Legacy: O Confronto</title>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#111}
-button,input{font:inherit}
-button{cursor:pointer}
-
-/* =====================================================
-   MENU — ESTRANHO / BONITO
-===================================================== */
-
-#menu{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 18% 20%,rgba(153,204,136,.18),transparent 24%),
-    radial-gradient(circle at 80% 70%,rgba(161,92,142,.16),transparent 28%),
-    linear-gradient(135deg,#101710,#19131b 55%,#0d1110);
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-#menu::before{
-  content:"";
-  position:absolute;
-  inset:-20%;
-  background:
-    repeating-linear-gradient(
-      112deg,
-      transparent 0 90px,
-      rgba(255,255,255,.025) 91px 93px
-    );
-  transform:rotate(-4deg);
-  pointer-events:none;
-}
-
-.eye-decoration{
-  position:absolute;
-  width:90px;
-  height:125px;
-  border:3px solid rgba(211,228,194,.22);
-  border-radius:50%;
-  transform:rotate(18deg);
-}
-
-.eye-decoration::after{
-  content:"";
-  position:absolute;
-  width:22px;
-  height:36px;
-  border-radius:50%;
-  background:#b8d59f;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 25px rgba(184,213,159,.4);
-}
-
-.eye1{left:8%;top:15%}
-.eye2{right:8%;bottom:12%;transform:rotate(-20deg) scale(.7)}
-
-.menu-box{
-  position:relative;
-  z-index:2;
-  width:min(92%,490px);
-  padding:36px;
-  color:#eee;
-  background:rgba(18,21,18,.91);
-  border:1px solid rgba(213,231,197,.2);
-  border-radius:7px 30px 12px 25px;
-  box-shadow:
-    0 30px 100px rgba(0,0,0,.65),
-    8px 8px 0 rgba(118,91,111,.12);
-}
-
-.logo{
-  font-size:clamp(38px,9vw,65px);
-  font-weight:950;
-  letter-spacing:-4px;
-  transform:rotate(-2deg);
-}
-
-.logo span{color:#bdd7a8}
-
-.subtitle{
-  color:#a9aaa5;
-  margin:5px 0 28px;
-  font-size:14px;
-  letter-spacing:1px;
-}
-
-.menu-button{
-  width:100%;
-  min-height:58px;
-  margin-top:11px;
-  border:0;
-  border-radius:9px 16px 8px 13px;
-  background:#c7d9b9;
-  color:#171a17;
-  font-weight:900;
-  font-size:17px;
-  transition:.15s;
-}
-
-.menu-button:hover{
-  transform:rotate(-1deg) translateY(-2px);
-  background:#d8e6cc;
-}
-
-.menu-button.secondary{
-  background:#292a2a;
-  color:#ddd;
-}
-
-/* =====================================================
-   CRIADOR
-===================================================== */
-
-#creator{
-  display:none;
-  position:fixed;
-  inset:0;
-  overflow:auto;
-  padding:20px;
-  color:#eee;
-  background:
-    radial-gradient(circle at 25% 15%,rgba(148,190,127,.17),transparent 28%),
-    linear-gradient(135deg,#101510,#1b141b);
-}
-
-.creator-box{
-  width:min(100%,900px);
-  margin:auto;
-  padding:25px;
-  background:rgba(18,20,18,.95);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:8px 25px 10px 22px;
-}
-
-.creator-title{
-  text-align:center;
-  font-size:32px;
-  font-weight:950;
-  margin-bottom:24px;
-}
-
-.creator-layout{
-  display:grid;
-  grid-template-columns:270px 1fr;
-  gap:25px;
-}
-
-.preview{
-  height:350px;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  border-radius:14px;
-  background:
-    radial-gradient(circle at center,#394638,#151815 70%);
-  border:1px solid #454945;
-}
-
-.preview::before,
-.preview::after{
-  content:"";
-  position:absolute;
-  width:70px;
-  height:100px;
-  border:2px solid rgba(215,230,200,.12);
-  border-radius:50%;
-}
-
-.preview::before{left:-30px;top:25px;transform:rotate(25deg)}
-.preview::after{right:-35px;bottom:15px;transform:rotate(-30deg)}
-
-.preview img{
-  position:relative;
-  z-index:2;
-  width:175px;
-  height:175px;
-  object-fit:contain;
-  filter:drop-shadow(8px 12px 5px rgba(0,0,0,.4));
-}
-
-.preview-name{
-  position:absolute;
-  bottom:15px;
-  z-index:4;
-  padding:8px 15px;
-  border-radius:4px 12px 6px 10px;
-  background:rgba(0,0,0,.72);
-  font-weight:bold;
-}
-
-.creator-section{
-  margin-bottom:20px;
-}
-
-.creator-section label{
-  display:block;
-  font-weight:800;
-  margin-bottom:8px;
-}
-
-#playerName{
-  width:100%;
-  height:48px;
-  padding:0 14px;
-  border:2px solid #343834;
-  border-radius:8px;
-  outline:none;
-  color:white;
-  background:#171917;
-}
-
-#playerName:focus{border-color:#aeca9c}
-
-.animal-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:9px;
-}
-
-.animal{
-  aspect-ratio:1;
-  border:2px solid transparent;
-  border-radius:8px;
-  background:#202320;
-  padding:5px;
-}
-
-.animal.selected{
-  border-color:#bdd7a8;
-  background:#313a30;
-}
-
-.animal img{
+html,body{
   width:100%;
   height:100%;
-  object-fit:contain;
+  overflow:hidden;
+  font-family:Arial,sans-serif;
+  background:#241536;
 }
 
-.creator-buttons{
-  display:flex;
-  gap:10px;
-}
-
-.creator-buttons button{
-  flex:1;
-  min-height:52px;
-  border:0;
-  border-radius:9px;
-  font-weight:900;
-}
-
-#saveCharacter{background:#c7d9b9;color:#151815}
-#backCreator{background:#292a2a;color:white}
-
-/* =====================================================
+/* =========================
    JOGO
-===================================================== */
+========================= */
 
 #game{
-  display:none;
-  position:fixed;
-  inset:0;
+  position:relative;
+  width:100vw;
+  height:100vh;
   overflow:hidden;
-  background:#6e9e59;
-}
-
-#viewport{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
+  background:#241536;
 }
 
 #world{
   position:absolute;
   left:0;
   top:0;
-  width:14000px;
-  height:9000px;
-  overflow:hidden;
-  background-color:#709d58;
-  background-image:
-    radial-gradient(circle at 20px 25px,rgba(255,255,255,.08) 1px,transparent 2px),
-    radial-gradient(circle at 70px 70px,rgba(0,0,0,.08) 1px,transparent 2px);
-  background-size:95px 95px,130px 130px;
-  transform:translate3d(0,0,0);
+  width:5000px;
+  height:3500px;
+  background:
+    radial-gradient(circle at 15% 20%,#6f4194 0 2px,transparent 3px),
+    radial-gradient(circle at 70% 70%,#593276 0 2px,transparent 3px),
+    #43235f;
+  background-size:120px 120px;
   will-change:transform;
 }
 
-#grassTexture{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  background-repeat:repeat;
-  background-size:220px 220px;
-  opacity:.72;
-  pointer-events:none;
-}
-
-/* =====================================================
-   ÁREAS
-===================================================== */
+/* áreas do mapa */
 
 .zone{
   position:absolute;
+  border-radius:40px;
+  border:5px solid rgba(255,255,255,.12);
+  box-shadow:0 15px 35px rgba(0,0,0,.15);
 }
 
-.lake{
-  background:
-    radial-gradient(circle at 35% 25%,rgba(255,255,255,.22),transparent 15%),
-    linear-gradient(135deg,#54b6c4,#286e91);
-  border:14px solid rgba(33,75,65,.4);
-  border-radius:48% 52% 55% 45%;
-  box-shadow:inset 0 0 80px rgba(0,0,0,.18);
+.zone.grass{
+  background:#628c62;
 }
 
-.lake1{
-  left:900px;
-  top:900px;
-  width:2800px;
-  height:1700px;
+.zone.purple{
+  background:#754c91;
 }
 
-.lake2{
-  left:8000px;
-  top:5700px;
-  width:3100px;
-  height:1500px;
-  transform:rotate(-8deg);
+.zone.blue{
+  background:#477b9d;
 }
+
+.zone.pink{
+  background:#9b5d83;
+}
+
+.zone.dark{
+  background:#35304e;
+}
+
+/* caminhos */
 
 .path{
   position:absolute;
-  background:#a89b75;
-  opacity:.8;
-  border-radius:999px;
-  box-shadow:inset 0 0 20px rgba(0,0,0,.12);
+  background:#b79772;
+  border-radius:50px;
+  opacity:.95;
 }
 
-.path1{
-  width:10500px;
-  height:180px;
-  left:700px;
-  top:4300px;
-  transform:rotate(-4deg);
-}
+/* lago */
 
-.path2{
-  width:180px;
-  height:7600px;
-  left:5700px;
-  top:600px;
-  transform:rotate(4deg);
-}
-
-.plaza{
+.lake{
   position:absolute;
-  width:1200px;
-  height:1000px;
-  left:5100px;
-  top:3800px;
+  background:#4386a5;
+  border:10px solid #315b78;
   border-radius:50%;
-  background:
-    radial-gradient(circle,#aaa187 0 4%,transparent 4.5%),
-    radial-gradient(circle,#a09782,#7c7766);
-  background-size:110px 110px;
-  box-shadow:inset 0 0 60px rgba(0,0,0,.25);
+  box-shadow:inset 0 0 0 8px rgba(255,255,255,.08);
 }
 
-.strange-area{
-  position:absolute;
-  width:1800px;
-  height:1300px;
-  left:10500px;
-  top:1200px;
-  background:
-    radial-gradient(circle,rgba(119,49,104,.55),transparent 55%),
-    #405638;
-  border-radius:42% 58% 35% 65%;
-}
+/* ilha */
 
-.strange-area::before{
-  content:"";
+.island{
   position:absolute;
-  inset:100px;
-  border:3px dashed rgba(205,224,168,.3);
+  background:#61865d;
+  border:8px solid #456c48;
   border-radius:50%;
-  animation:spin 20s linear infinite;
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-/* =====================================================
-   OBJETOS
-===================================================== */
-
-.object{
-  position:absolute;
-  user-select:none;
-  pointer-events:auto;
-}
+/* árvores */
 
 .tree{
-  width:145px;
-  height:190px;
-  object-fit:contain;
-  filter:drop-shadow(10px 15px 5px rgba(0,0,0,.3));
+  position:absolute;
+  width:85px;
+  height:120px;
 }
+
+.tree .trunk{
+  position:absolute;
+  width:25px;
+  height:55px;
+  left:30px;
+  bottom:0;
+  background:#70472f;
+  border-radius:10px;
+}
+
+.tree .leaves{
+  position:absolute;
+  width:80px;
+  height:80px;
+  left:2px;
+  top:5px;
+  border-radius:50%;
+  background:#315c42;
+  box-shadow:
+    25px -12px 0 #3f714c,
+    45px 10px 0 #294d39,
+    10px 20px 0 #477a4d;
+}
+
+/* flores */
 
 .flower{
-  width:48px;
-  height:48px;
-  object-fit:contain;
-  transition:.2s;
-  cursor:pointer;
+  position:absolute;
+  width:30px;
+  height:30px;
 }
 
-.flower:hover{
-  transform:scale(1.35) rotate(8deg);
+.flower span{
+  position:absolute;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:#f3b5dc;
 }
+
+.flower span:nth-child(1){left:9px;top:0}
+.flower span:nth-child(2){left:18px;top:9px}
+.flower span:nth-child(3){left:9px;top:18px}
+.flower span:nth-child(4){left:0;top:9px}
+
+.flower i{
+  position:absolute;
+  width:9px;
+  height:9px;
+  background:#ffd95e;
+  border-radius:50%;
+  left:10px;
+  top:10px;
+}
+
+/* pedras */
 
 .rock{
-  width:75px;
-  height:48px;
-  border-radius:60% 40% 50% 45%;
-  background:#64665e;
-  box-shadow:inset 10px 8px 0 rgba(255,255,255,.1);
+  position:absolute;
+  width:55px;
+  height:35px;
+  background:#696273;
+  border-radius:55% 45% 40% 50%;
+  box-shadow:inset 8px 5px rgba(255,255,255,.1);
 }
 
-/* =====================================================
-   PLAYER — BIZARRO
-===================================================== */
+/* placas */
+
+.sign{
+  position:absolute;
+  padding:12px 20px;
+  background:#35253e;
+  color:white;
+  border:3px solid #9f78ad;
+  border-radius:15px;
+  font-weight:bold;
+  font-size:18px;
+}
+
+/* =========================
+   JOGADOR
+========================= */
 
 #player{
   position:absolute;
-  width:120px;
-  height:145px;
-  z-index:1000;
-  pointer-events:none;
-  transform-origin:center bottom;
-}
-
-.player-shadow{
-  position:absolute;
-  width:82px;
-  height:24px;
-  bottom:4px;
-  left:19px;
-  background:rgba(0,0,0,.3);
-  border-radius:50%;
-  filter:blur(3px);
+  width:70px;
+  height:70px;
+  z-index:50;
 }
 
 .player-body{
   position:absolute;
-  left:29px;
-  bottom:17px;
-  width:63px;
-  height:75px;
-  background:#827e69;
-  border-radius:47% 53% 35% 45%;
-  transform:rotate(4deg);
-  box-shadow:
-    inset -10px -8px rgba(0,0,0,.18),
-    7px 9px rgba(0,0,0,.2);
-}
-
-.player-head{
-  position:absolute;
-  left:15px;
+  width:58px;
+  height:58px;
+  left:6px;
   top:8px;
-  width:91px;
-  height:85px;
-  background:#aaa187;
-  border-radius:45% 55% 42% 58%;
-  transform:rotate(-7deg);
-  box-shadow:7px 8px rgba(0,0,0,.2);
+  background:#e6c4e9;
+  border:5px solid #301c3d;
+  border-radius:48% 52% 45% 55%;
 }
 
-.player-head:before{
-  content:"";
+.player-ear{
   position:absolute;
-  width:27px;
-  height:45px;
-  left:-10px;
-  top:-24px;
-  background:#aaa187;
-  border-radius:80% 20% 70% 30%;
-  transform:rotate(-30deg);
+  width:22px;
+  height:25px;
+  background:#e6c4e9;
+  border:5px solid #301c3d;
+  top:0;
+  z-index:-1;
 }
 
-.player-head:after{
-  content:"";
-  position:absolute;
-  width:31px;
-  height:51px;
-  right:-10px;
-  top:-20px;
-  background:#aaa187;
-  border-radius:20% 80% 30% 70%;
-  transform:rotate(24deg);
-}
-
-.p-eye{
-  position:absolute;
-  border-radius:50%;
-  background:#e9ead8;
-  border:4px solid #171717;
-}
-
-.p-eye.one{
-  width:39px;
-  height:47px;
-  left:11px;
-  top:21px;
-}
-
-.p-eye.two{
-  width:26px;
-  height:34px;
-  right:13px;
-  top:37px;
-}
-
-.p-eye::after{
-  content:"";
-  position:absolute;
-  width:11px;
-  height:17px;
-  border-radius:50%;
-  background:#111;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-}
-
-.p-mouth{
-  position:absolute;
-  width:46px;
-  height:20px;
-  left:25px;
-  bottom:10px;
-  background:#171111;
-  border-radius:30% 60% 60% 25%;
-  transform:rotate(4deg);
-}
-
-.p-mouth::after{
-  content:"";
-  position:absolute;
+.player-ear.left{
   left:8px;
-  top:1px;
-  width:28px;
-  height:7px;
-  background:#c7a99d;
-  border-radius:0 0 50% 50%;
+  transform:rotate(-25deg);
 }
 
-.leg{
+.player-ear.right{
+  right:8px;
+  transform:rotate(25deg);
+}
+
+.eye{
   position:absolute;
-  bottom:0;
-  width:15px;
-  height:40px;
-  background:#716d5d;
-  border-radius:40%;
-}
-
-.leg.left{
-  left:36px;
-  transform:rotate(8deg);
-}
-
-.leg.right{
-  left:69px;
-  transform:rotate(-9deg);
-}
-
-.arm{
-  position:absolute;
-  width:15px;
-  height:53px;
-  background:#7a7562;
+  width:10px;
+  height:15px;
+  background:#301c3d;
   border-radius:50%;
-  top:69px;
+  top:27px;
 }
 
-.arm.left{
-  left:17px;
-  transform:rotate(27deg);
-}
+.eye.left{left:19px}
+.eye.right{right:19px}
 
-.arm.right{
-  right:17px;
-  transform:rotate(-31deg);
-}
-
-.player-name{
+.mouth{
   position:absolute;
-  top:-31px;
-  left:50%;
-  transform:translateX(-50%);
-  white-space:nowrap;
-  background:rgba(10,10,10,.72);
-  color:white;
-  padding:5px 9px;
-  border-radius:5px;
-  font-size:12px;
+  width:18px;
+  height:9px;
+  border-bottom:4px solid #301c3d;
+  border-radius:50%;
+  left:20px;
+  top:44px;
 }
 
-/* =====================================================
+/* =========================
    HUD
-===================================================== */
+========================= */
 
 #hud{
   position:fixed;
   left:15px;
   top:15px;
-  z-index:3000;
+  z-index:200;
+  padding:12px 18px;
+  background:rgba(31,20,40,.85);
   color:white;
-  background:rgba(15,15,15,.68);
-  padding:10px 14px;
-  border-radius:8px;
+  border:2px solid #9e73b2;
+  border-radius:14px;
   backdrop-filter:blur(5px);
 }
 
 #hud strong{
-  color:#cfe5bc;
+  color:#e8baff;
 }
 
-#backGame{
-  position:fixed;
-  right:15px;
-  top:15px;
-  z-index:3000;
-  border:0;
-  padding:11px 15px;
-  border-radius:8px;
-  background:rgba(15,15,15,.75);
-  color:white;
-  font-weight:bold;
+#coordinates{
+  font-size:12px;
+  opacity:.7;
+  margin-top:4px;
 }
 
-/* =====================================================
+/* =========================
    JOYSTICK
-===================================================== */
+========================= */
 
 #joystick{
   position:fixed;
   left:25px;
   bottom:25px;
-  width:145px;
-  height:145px;
-  z-index:4000;
+  width:135px;
+  height:135px;
   border-radius:50%;
-  background:rgba(20,20,20,.28);
-  border:2px solid rgba(255,255,255,.22);
+  background:rgba(20,15,30,.45);
+  border:3px solid rgba(255,255,255,.25);
+  z-index:300;
   touch-action:none;
 }
 
 #stick{
   position:absolute;
-  width:62px;
-  height:62px;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
+  width:60px;
+  height:60px;
+  left:37px;
+  top:37px;
   border-radius:50%;
-  background:rgba(215,229,204,.72);
-  border:3px solid rgba(255,255,255,.4);
+  background:#b783c7;
+  border:4px solid #e3b5ed;
+  box-shadow:0 5px 15px rgba(0,0,0,.3);
 }
 
-/* =====================================================
-   INTERAÇÃO
-===================================================== */
+/* =========================
+   MINIMAPA
+========================= */
 
-#interaction{
+#minimap{
   position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%);
-  z-index:3500;
-  display:none;
-  background:rgba(15,15,15,.85);
-  color:white;
-  padding:12px 18px;
-  border-radius:8px;
+  right:18px;
+  top:18px;
+  width:170px;
+  height:120px;
+  background:#382044;
+  border:3px solid #a77bb8;
+  border-radius:15px;
+  z-index:200;
+  overflow:hidden;
 }
 
-/* =====================================================
-   RESPONSIVO
-===================================================== */
+#miniPlayer{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#fff;
+}
 
-@media(max-width:700px){
+/* =========================
+   MENU
+========================= */
 
-  .menu-box{
-    padding:25px;
+#menu{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:#241536;
+}
+
+.menu-box{
+  width:min(90%,480px);
+  padding:40px;
+  background:#39204d;
+  border:3px solid #a16bb5;
+  border-radius:25px;
+  text-align:center;
+  color:white;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+.menu-box h1{
+  font-size:42px;
+  color:#efc7ff;
+  margin-bottom:10px;
+}
+
+.menu-box p{
+  opacity:.75;
+  margin-bottom:25px;
+}
+
+.menu-box button{
+  width:100%;
+  padding:16px;
+  margin-top:10px;
+  border:0;
+  border-radius:14px;
+  background:#a76fbb;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.menu-box button:hover{
+  background:#bc85cf;
+}
+
+/* responsivo */
+
+@media(max-width:600px){
+  #minimap{
+    width:120px;
+    height:85px;
   }
 
-  .creator-layout{
-    grid-template-columns:1fr;
-  }
-
-  .preview{
-    height:270px;
-  }
-
-  .animal-grid{
-    grid-template-columns:repeat(5,1fr);
+  #hud{
+    font-size:13px;
   }
 
   #joystick{
-    width:130px;
-    height:130px;
-    left:20px;
-    bottom:20px;
+    width:125px;
+    height:125px;
+  }
+
+  #stick{
+    width:56px;
+    height:56px;
+    left:34px;
+    top:34px;
   }
 }
 </style>
@@ -737,935 +417,478 @@ button{cursor:pointer}
 
 <body>
 
-<!-- =========================
-     MENU
-========================= -->
+<div id="game">
 
-<section id="menu">
+  <div id="world">
 
-  <div class="eye-decoration eye1"></div>
-  <div class="eye-decoration eye2"></div>
+    <!-- ÁREAS -->
 
-  <div class="menu-box">
+    <div class="zone grass"
+         style="left:250px;top:250px;width:1800px;height:1200px;"></div>
 
-    <div class="logo">
-      THE <span>ATTORNEYS</span>
+    <div class="zone purple"
+         style="left:2250px;top:250px;width:1200px;height:1000px;"></div>
+
+    <div class="zone pink"
+         style="left:3600px;top:300px;width:1000px;height:900px;"></div>
+
+    <div class="zone dark"
+         style="left:400px;top:1900px;width:1500px;height:1000px;"></div>
+
+    <div class="zone grass"
+         style="left:2200px;top:1700px;width:1600px;height:1100px;"></div>
+
+    <!-- CAMINHOS -->
+
+    <div class="path"
+         style="left:0;top:850px;width:5000px;height:120px;"></div>
+
+    <div class="path"
+         style="left:2350px;top:0;width:120px;height:3500px;"></div>
+
+    <div class="path"
+         style="left:1000px;top:1400px;width:120px;height:900px;transform:rotate(-25deg);"></div>
+
+    <!-- LAGO -->
+
+    <div class="lake"
+         style="left:1050px;top:300px;width:650px;height:500px;"></div>
+
+    <div class="island"
+         style="left:1280px;top:470px;width:190px;height:130px;"></div>
+
+    <!-- FLORES -->
+
+    <div class="flower" style="left:500px;top:450px">
+      <span></span><span></span><span></span><span></span><i></i>
     </div>
 
-    <div class="subtitle">
-      alguma coisa está observando.
+    <div class="flower" style="left:650px;top:1100px">
+      <span></span><span></span><span></span><span></span><i></i>
     </div>
 
-    <button class="menu-button" id="playButton">
-      ENTRAR NO MUNDO
-    </button>
+    <div class="flower" style="left:1850px;top:500px">
+      <span></span><span></span><span></span><span></span><i></i>
+    </div>
 
-    <button class="menu-button secondary" id="creatorButton">
-      CRIAR PERSONAGEM
-    </button>
+    <div class="flower" style="left:2800px;top:650px">
+      <span></span><span></span><span></span><span></span><i></i>
+    </div>
+
+    <div class="flower" style="left:4100px;top:700px">
+      <span></span><span></span><span></span><span></span><i></i>
+    </div>
+
+    <div class="flower" style="left:3300px;top:2200px">
+      <span></span><span></span><span></span><span></span><i></i>
+    </div>
+
+    <!-- ÁRVORES -->
+
+    <div class="tree" style="left:400px;top:350px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:800px;top:500px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:1850px;top:300px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:2000px;top:1100px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:2700px;top:350px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:3200px;top:500px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:3900px;top:350px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:4300px;top:1050px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:600px;top:2100px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:1100px;top:2500px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:2800px;top:2300px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <div class="tree" style="left:3500px;top:2500px">
+      <div class="leaves"></div><div class="trunk"></div>
+    </div>
+
+    <!-- PEDRAS -->
+
+    <div class="rock" style="left:550px;top:900px"></div>
+    <div class="rock" style="left:900px;top:1250px"></div>
+    <div class="rock" style="left:1950px;top:750px"></div>
+    <div class="rock" style="left:2900px;top:950px"></div>
+    <div class="rock" style="left:3700px;top:850px"></div>
+    <div class="rock" style="left:2500px;top:2500px"></div>
+
+    <!-- PLACAS -->
+
+    <div class="sign" style="left:700px;top:780px">
+      🌳 Praça
+    </div>
+
+    <div class="sign" style="left:2550px;top:700px">
+      🏆 Arena
+    </div>
+
+    <div class="sign" style="left:3700px;top:650px">
+      🌸 Jardim
+    </div>
+
+    <!-- PLAYER -->
+
+    <div id="player">
+      <div class="player-ear left"></div>
+      <div class="player-ear right"></div>
+
+      <div class="player-body">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="mouth"></div>
+      </div>
+    </div>
 
   </div>
 
-</section>
-
-<!-- =========================
-     CRIADOR
-========================= -->
-
-<section id="creator">
-
-  <div class="creator-box">
-
-    <div class="creator-title">
-      QUEM É VOCÊ?
-    </div>
-
-    <div class="creator-layout">
-
-      <div class="preview">
-
-        <div class="creature-preview">
-          <img id="previewImage" alt="Seu personagem">
-        </div>
-
-        <div class="preview-name" id="previewName">
-          Sem nome
-        </div>
-
-      </div>
-
-      <div>
-
-        <div class="creator-section">
-
-          <label for="playerName">
-            Nome
-          </label>
-
-          <input
-            id="playerName"
-            maxlength="18"
-            placeholder="digite seu nome..."
-          >
-
-        </div>
-
-        <div class="creator-section">
-
-          <label>
-            Escolha sua criatura
-          </label>
-
-          <div class="animal-grid" id="animalGrid"></div>
-
-        </div>
-
-        <div class="creator-buttons">
-
-          <button id="backCreator">
-            VOLTAR
-          </button>
-
-          <button id="saveCharacter">
-            SALVAR
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- =========================
-     JOGO
-========================= -->
-
-<section id="game">
-
-  <div id="viewport">
-
-    <div id="world">
-
-      <div id="grassTexture"></div>
-
-      <div class="zone lake lake1"></div>
-      <div class="zone lake lake2"></div>
-
-      <div class="path path1"></div>
-      <div class="path path2"></div>
-
-      <div class="plaza"></div>
-
-      <div class="strange-area"></div>
-
-      <!-- objetos serão criados pelo JavaScript -->
-
-      <div id="player">
-
-        <div class="player-name" id="playerLabel">
-          Jogador
-        </div>
-
-        <div class="player-shadow"></div>
-
-        <div class="player-head">
-
-          <div class="p-eye one"></div>
-          <div class="p-eye two"></div>
-
-          <div class="p-mouth"></div>
-
-        </div>
-
-        <div class="player-body"></div>
-
-        <div class="arm left"></div>
-        <div class="arm right"></div>
-
-        <div class="leg left"></div>
-        <div class="leg right"></div>
-
-      </div>
-
-    </div>
-
-  </div>
+  <!-- HUD -->
 
   <div id="hud">
-    <strong>THE ATTORNEYS</strong><br>
-    <span id="positionText">0 / 0</span>
+    🐾 <strong>Você</strong>
+    <div id="coordinates">X: 2500 | Y: 1750</div>
   </div>
 
-  <button id="backGame">
-    MENU
-  </button>
+  <!-- MINIMAPA -->
 
-  <div id="interaction">
-    Interagir
+  <div id="minimap">
+    <div id="miniPlayer"></div>
   </div>
+
+  <!-- JOYSTICK -->
 
   <div id="joystick">
     <div id="stick"></div>
   </div>
 
-</section>
+</div>
+
+<!-- MENU -->
+
+<div id="menu">
+  <div class="menu-box">
+    <h1>Creative World</h1>
+    <p>Entre no mundo e explore o mapa.</p>
+
+    <button id="playButton">
+      ENTRAR NO MUNDO
+    </button>
+  </div>
+</div>
 
 <script>
+/* =========================
+   CONFIGURAÇÃO
+========================= */
 
-/* =====================================================
-   IMAGENS
-   COLOQUE AQUI OS LINKS DIRETOS DO IMGUR
-   Exemplo:
-   https://i.imgur.com/xxxxx.png
-===================================================== */
+const WORLD_WIDTH = 5000;
+const WORLD_HEIGHT = 3500;
 
-const IMAGENS = {
-
-  // 🌱 CENÁRIO
-  grama: "",
-  grama2: "",
-
-  // 🌸 FLORES
-  flor1: "",
-  flor2: "",
-  flor3: "",
-
-  // 🌳 ÁRVORES
-  arvore1: "",
-  arvore2: "",
-
-  // 🐾 BICHOS
-  gato: "",
-  cachorro: "",
-  raposa: "",
-  coelho: "",
-  urso: ""
-
-};
-
-
-/* =====================================================
-   ELEMENTOS
-===================================================== */
-
-const menu = document.getElementById("menu");
-const creator = document.getElementById("creator");
-const game = document.getElementById("game");
-
-const playButton = document.getElementById("playButton");
-const creatorButton = document.getElementById("creatorButton");
-
-const backCreator = document.getElementById("backCreator");
-const saveCharacter = document.getElementById("saveCharacter");
-
-const playerNameInput = document.getElementById("playerName");
-const previewName = document.getElementById("previewName");
-const previewImage = document.getElementById("previewImage");
-
-const animalGrid = document.getElementById("animalGrid");
-
-const world = document.getElementById("world");
 const player = document.getElementById("player");
-const playerLabel = document.getElementById("playerLabel");
-const positionText = document.getElementById("positionText");
-
-const grassTexture = document.getElementById("grassTexture");
-
-const joystick = document.getElementById("joystick");
-const stick = document.getElementById("stick");
-
-const backGame = document.getElementById("backGame");
-
-
-/* =====================================================
-   CONFIGURAÇÃO DO MUNDO
-===================================================== */
-
-const WORLD_WIDTH = 14000;
-const WORLD_HEIGHT = 9000;
+const world = document.getElementById("world");
+const coordinates = document.getElementById("coordinates");
+const miniPlayer = document.getElementById("miniPlayer");
 
 let playerX = WORLD_WIDTH / 2;
 let playerY = WORLD_HEIGHT / 2;
 
-let cameraX = 0;
-let cameraY = 0;
-
-const speed = 5;
-
-
-/* =====================================================
-   CRIATURAS
-===================================================== */
-
-const animais = [
-  "gato",
-  "cachorro",
-  "raposa",
-  "coelho",
-  "urso"
-];
-
-let selectedAnimal = "gato";
-
-
-/* =====================================================
-   IMAGEM FALLBACK
-   Caso ainda não tenha colocado imagem,
-   o personagem continua aparecendo.
-===================================================== */
-
-function fallbackCreature(){
-
-  return `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-
-    <path
-      d="M54 56
-         C37 35 47 15 66 34
-         C92 12 126 20 143 42
-         C170 27 180 49 154 69
-         C166 103 145 133 111 135
-         C91 158 59 146 52 119
-         C28 104 31 72 54 56Z"
-      fill="#8e876f"
-    />
-
-    <ellipse
-      cx="82"
-      cy="76"
-      rx="19"
-      ry="25"
-      fill="#f0f0d9"
-    />
-
-    <ellipse
-      cx="126"
-      cy="67"
-      rx="13"
-      ry="19"
-      fill="#f0f0d9"
-    />
-
-    <ellipse
-      cx="83"
-      cy="77"
-      rx="7"
-      ry="13"
-      fill="#111"
-    />
-
-    <ellipse
-      cx="126"
-      cy="68"
-      rx="5"
-      ry="10"
-      fill="#111"
-    />
-
-    <path
-      d="M75 111
-         Q103 96 133 111
-         Q115 135 89 125Z"
-      fill="#1b1113"
-    />
-
-    <path
-      d="M87 111 L96 120 L103 108 L112 119"
-      fill="none"
-      stroke="#d8b6aa"
-      stroke-width="4"
-    />
-
-  </svg>
-  `;
-}
-
-
-/* =====================================================
-   CRIADOR
-===================================================== */
-
-function imagemAnimal(nome){
-
-  if(IMAGENS[nome]){
-    return IMAGENS[nome];
-  }
-
-  return "data:image/svg+xml;charset=UTF-8," +
-    encodeURIComponent(fallbackCreature());
-}
-
-
-function criarBotoesAnimais(){
-
-  animalGrid.innerHTML = "";
-
-  animais.forEach(nome => {
-
-    const button = document.createElement("button");
-
-    button.className = "animal";
-
-    if(nome === selectedAnimal){
-      button.classList.add("selected");
-    }
-
-    const img = document.createElement("img");
-
-    img.src = imagemAnimal(nome);
-    img.alt = nome;
-
-    img.onerror = () => {
-      img.src =
-        "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(fallbackCreature());
-    };
-
-    button.appendChild(img);
-
-    button.addEventListener("click", () => {
-
-      selectedAnimal = nome;
-
-      document
-        .querySelectorAll(".animal")
-        .forEach(x => x.classList.remove("selected"));
-
-      button.classList.add("selected");
-
-      atualizarPreview();
-
-    });
-
-    animalGrid.appendChild(button);
-
-  });
-
-}
-
-
-function atualizarPreview(){
-
-  previewName.textContent =
-    playerNameInput.value.trim() || "Sem nome";
-
-  previewImage.src = imagemAnimal(selectedAnimal);
-
-  previewImage.onerror = () => {
-    previewImage.src =
-      "data:image/svg+xml;charset=UTF-8," +
-      encodeURIComponent(fallbackCreature());
-  };
-
-}
-
-
-playerNameInput.addEventListener("input", atualizarPreview);
-
-
-/* =====================================================
-   MENU
-===================================================== */
-
-creatorButton.addEventListener("click", () => {
-
-  menu.style.display = "none";
-  creator.style.display = "block";
-
-  atualizarPreview();
-
-});
-
-
-backCreator.addEventListener("click", () => {
-
-  creator.style.display = "none";
-  menu.style.display = "flex";
-
-});
-
-
-saveCharacter.addEventListener("click", () => {
-
-  const nome =
-    playerNameInput.value.trim() || "Criatura";
-
-  localStorage.setItem(
-    "attorneysCharacter",
-    JSON.stringify({
-      name:nome,
-      animal:selectedAnimal
-    })
-  );
-
-  entrarNoJogo();
-
-});
-
-
-playButton.addEventListener("click", () => {
-
-  const saved =
-    localStorage.getItem("attorneysCharacter");
-
-  if(saved){
-
-    try{
-
-      const data = JSON.parse(saved);
-
-      playerNameInput.value = data.name || "Criatura";
-      selectedAnimal = data.animal || "gato";
-
-    }catch(e){}
-
-  }
-
-  entrarNoJogo();
-
-});
-
-
-/* =====================================================
-   ENTRAR NO JOGO
-===================================================== */
-
-function entrarNoJogo(){
-
-  const nome =
-    playerNameInput.value.trim() || "Criatura";
-
-  playerLabel.textContent = nome;
-
-  menu.style.display = "none";
-  creator.style.display = "none";
-  game.style.display = "block";
-
-  atualizarPreview();
-
-  iniciarMundo();
-
-}
-
-
-/* =====================================================
-   GRAMA
-===================================================== */
-
-function configurarGrama(){
-
-  if(IMAGENS.grama){
-
-    grassTexture.style.backgroundImage =
-      `url("${IMAGENS.grama}")`;
-
-  }else{
-
-    grassTexture.style.backgroundImage = "none";
-
-  }
-
-}
-
-
-/* =====================================================
-   OBJETOS DO MUNDO
-===================================================== */
-
-function criarObjetoImagem(tipo,src,x,y,tamanho){
-
-  if(!src) return;
-
-  const img = document.createElement("img");
-
-  img.className =
-    tipo === "flor"
-      ? "object flower"
-      : "object tree";
-
-  img.src = src;
-
-  img.style.left = x + "px";
-  img.style.top = y + "px";
-
-  if(tipo === "flor"){
-
-    img.style.width = tamanho + "px";
-    img.style.height = tamanho + "px";
-
-  }else{
-
-    img.style.width = tamanho + "px";
-    img.style.height = tamanho * 1.3 + "px";
-
-  }
-
-  img.draggable = false;
-
-  img.addEventListener("click", () => {
-
-    if(tipo === "flor"){
-
-      img.style.transform = "scale(1.5) rotate(15deg)";
-
-      setTimeout(() => {
-        img.style.transform = "";
-      },300);
-
-    }
-
-  });
-
-  world.appendChild(img);
-
-}
-
-
-function criarCenario(){
-
-  const flores = [
-    IMAGENS.flor1,
-    IMAGENS.flor2,
-    IMAGENS.flor3
-  ];
-
-  const arvores = [
-    IMAGENS.arvore1,
-    IMAGENS.arvore2
-  ];
-
-
-  /* árvores */
-
-  if(arvores.some(Boolean)){
-
-    for(let i=0;i<150;i++){
-
-      const imagem =
-        arvores[
-          Math.floor(Math.random()*arvores.length)
-        ];
-
-      if(!imagem) continue;
-
-      const x =
-        250 + Math.random()*(WORLD_WIDTH-500);
-
-      const y =
-        250 + Math.random()*(WORLD_HEIGHT-500);
-
-      criarObjetoImagem(
-        "arvore",
-        imagem,
-        x,
-        y,
-        130 + Math.random()*70
-      );
-
-    }
-
-  }
-
-
-  /* flores */
-
-  if(flores.some(Boolean)){
-
-    for(let i=0;i<450;i++){
-
-      const imagem =
-        flores[
-          Math.floor(Math.random()*flores.length)
-        ];
-
-      if(!imagem) continue;
-
-      const x =
-        100 + Math.random()*(WORLD_WIDTH-200);
-
-      const y =
-        100 + Math.random()*(WORLD_HEIGHT-200);
-
-      criarObjetoImagem(
-        "flor",
-        imagem,
-        x,
-        y,
-        30 + Math.random()*25
-      );
-
-    }
-
-  }
-
-
-  /* pedras estranhas */
-
-  for(let i=0;i<100;i++){
-
-    const rock = document.createElement("div");
-
-    rock.className = "object rock";
-
-    rock.style.left =
-      Math.random()*(WORLD_WIDTH-100)+"px";
-
-    rock.style.top =
-      Math.random()*(WORLD_HEIGHT-100)+"px";
-
-    rock.style.transform =
-      `rotate(${Math.random()*180}deg)`;
-
-    world.appendChild(rock);
-
-  }
-
-}
-
-
-/* =====================================================
-   MOVIMENTO
-===================================================== */
-
-const keys = {};
-
-window.addEventListener("keydown", e => {
-
-  keys[e.key.toLowerCase()] = true;
-
-});
-
-window.addEventListener("keyup", e => {
-
-  keys[e.key.toLowerCase()] = false;
-
-});
-
+let speed = 6;
+
+const keys = {
+  up:false,
+  down:false,
+  left:false,
+  right:false
+};
 
 let joystickX = 0;
 let joystickY = 0;
-let draggingJoystick = false;
 
+/* =========================
+   TECLADO
+========================= */
 
-function moverJoystick(clientX,clientY){
+document.addEventListener("keydown", e => {
 
-  const rect =
-    joystick.getBoundingClientRect();
+  if(
+    e.key === "ArrowUp" ||
+    e.key.toLowerCase() === "w"
+  ){
+    keys.up = true;
+  }
 
-  const centerX =
-    rect.left + rect.width/2;
+  if(
+    e.key === "ArrowDown" ||
+    e.key.toLowerCase() === "s"
+  ){
+    keys.down = true;
+  }
 
-  const centerY =
-    rect.top + rect.height/2;
+  if(
+    e.key === "ArrowLeft" ||
+    e.key.toLowerCase() === "a"
+  ){
+    keys.left = true;
+  }
 
-  let dx = clientX-centerX;
-  let dy = clientY-centerY;
+  if(
+    e.key === "ArrowRight" ||
+    e.key.toLowerCase() === "d"
+  ){
+    keys.right = true;
+  }
 
-  const max =
-    rect.width/2-31;
+});
 
-  const distancia =
-    Math.sqrt(dx*dx+dy*dy);
+document.addEventListener("keyup", e => {
 
-  if(distancia>max){
+  if(
+    e.key === "ArrowUp" ||
+    e.key.toLowerCase() === "w"
+  ){
+    keys.up = false;
+  }
 
-    dx = dx/distancia*max;
-    dy = dy/distancia*max;
+  if(
+    e.key === "ArrowDown" ||
+    e.key.toLowerCase() === "s"
+  ){
+    keys.down = false;
+  }
+
+  if(
+    e.key === "ArrowLeft" ||
+    e.key.toLowerCase() === "a"
+  ){
+    keys.left = false;
+  }
+
+  if(
+    e.key === "ArrowRight" ||
+    e.key.toLowerCase() === "d"
+  ){
+    keys.right = false;
+  }
+
+});
+
+/* =========================
+   JOYSTICK
+========================= */
+
+const joystick = document.getElementById("joystick");
+const stick = document.getElementById("stick");
+
+let joystickActive = false;
+
+function moveJoystick(clientX, clientY){
+
+  const rect = joystick.getBoundingClientRect();
+
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  let dx = clientX - centerX;
+  let dy = clientY - centerY;
+
+  const maxDistance = 38;
+
+  const distance = Math.sqrt(dx * dx + dy * dy);
+
+  if(distance > maxDistance){
+
+    dx = dx / distance * maxDistance;
+    dy = dy / distance * maxDistance;
 
   }
 
-  joystickX = dx/max;
-  joystickY = dy/max;
+  joystickX = dx / maxDistance;
+  joystickY = dy / maxDistance;
 
   stick.style.transform =
-    `translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`;
-
+    `translate(${dx}px,${dy}px)`;
 }
 
+function resetJoystick(){
 
-joystick.addEventListener("pointerdown",e=>{
+  joystickActive = false;
 
-  draggingJoystick=true;
+  joystickX = 0;
+  joystickY = 0;
+
+  stick.style.transform = "translate(0,0)";
+}
+
+joystick.addEventListener("pointerdown", e => {
+
+  joystickActive = true;
+
   joystick.setPointerCapture(e.pointerId);
 
-  moverJoystick(e.clientX,e.clientY);
+  moveJoystick(e.clientX,e.clientY);
 
 });
 
+joystick.addEventListener("pointermove", e => {
 
-joystick.addEventListener("pointermove",e=>{
+  if(!joystickActive) return;
 
-  if(draggingJoystick){
-
-    moverJoystick(e.clientX,e.clientY);
-
-  }
+  moveJoystick(e.clientX,e.clientY);
 
 });
 
+joystick.addEventListener("pointerup", resetJoystick);
+joystick.addEventListener("pointercancel", resetJoystick);
 
-function soltarJoystick(){
+/* =========================
+   MOVIMENTO
+========================= */
 
-  draggingJoystick=false;
+function update(){
 
-  joystickX=0;
-  joystickY=0;
+  let dx = 0;
+  let dy = 0;
 
-  stick.style.transform =
-    "translate(-50%,-50%)";
-
-}
-
-
-joystick.addEventListener("pointerup",soltarJoystick);
-joystick.addEventListener("pointercancel",soltarJoystick);
-
-
-/* =====================================================
-   LOOP
-===================================================== */
-
-function atualizar(){
-
-  let dx=0;
-  let dy=0;
-
-  if(keys["w"] || keys["arrowup"]) dy-=1;
-  if(keys["s"] || keys["arrowdown"]) dy+=1;
-  if(keys["a"] || keys["arrowleft"]) dx-=1;
-  if(keys["d"] || keys["arrowright"]) dx+=1;
+  if(keys.left) dx -= 1;
+  if(keys.right) dx += 1;
+  if(keys.up) dy -= 1;
+  if(keys.down) dy += 1;
 
   dx += joystickX;
   dy += joystickY;
 
-  const magnitude =
-    Math.sqrt(dx*dx+dy*dy);
+  const length = Math.sqrt(dx * dx + dy * dy);
 
-  if(magnitude>1){
+  if(length > 0){
 
-    dx/=magnitude;
-    dy/=magnitude;
+    dx /= length;
+    dy /= length;
+
+    playerX += dx * speed;
+    playerY += dy * speed;
 
   }
 
-  playerX += dx*speed;
-  playerY += dy*speed;
+  /* limites do mapa */
 
-  const margin=100;
+  playerX = Math.max(
+    35,
+    Math.min(WORLD_WIDTH - 35, playerX)
+  );
 
-  playerX =
-    Math.max(
-      margin,
-      Math.min(WORLD_WIDTH-margin,playerX)
-    );
+  playerY = Math.max(
+    35,
+    Math.min(WORLD_HEIGHT - 35, playerY)
+  );
 
-  playerY =
-    Math.max(
-      margin,
-      Math.min(WORLD_HEIGHT-margin,playerY)
-    );
+  updateCamera();
 
+  requestAnimationFrame(update);
+}
 
-  /* posição do personagem */
+/* =========================
+   CÂMERA
+========================= */
 
-  player.style.left =
-    (playerX-60)+"px";
+function updateCamera(){
 
-  player.style.top =
-    (playerY-145)+"px";
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
 
+  let cameraX =
+    playerX - screenWidth / 2;
 
-  /* câmera */
+  let cameraY =
+    playerY - screenHeight / 2;
 
-  const screenW=window.innerWidth;
-  const screenH=window.innerHeight;
+  cameraX = Math.max(
+    0,
+    Math.min(
+      WORLD_WIDTH - screenWidth,
+      cameraX
+    )
+  );
 
-  cameraX =
-    playerX-screenW/2;
-
-  cameraY =
-    playerY-screenH/2;
-
-  cameraX =
-    Math.max(
-      0,
-      Math.min(
-        WORLD_WIDTH-screenW,
-        cameraX
-      )
-    );
-
-  cameraY =
-    Math.max(
-      0,
-      Math.min(
-        WORLD_HEIGHT-screenH,
-        cameraY
-      )
-    );
-
+  cameraY = Math.max(
+    0,
+    Math.min(
+      WORLD_HEIGHT - screenHeight,
+      cameraY
+    )
+  );
 
   world.style.transform =
     `translate3d(${-cameraX}px,${-cameraY}px,0)`;
 
+  player.style.left =
+    `${playerX - 35}px`;
 
-  positionText.textContent =
-    Math.round(playerX)+" / "+Math.round(playerY);
+  player.style.top =
+    `${playerY - 35}px`;
 
+  coordinates.textContent =
+    `X: ${Math.round(playerX)} | Y: ${Math.round(playerY)}`;
 
-  requestAnimationFrame(atualizar);
+  /* minimapa */
 
+  const mapWidth = 170;
+  const mapHeight = 120;
+
+  miniPlayer.style.left =
+    `${(playerX / WORLD_WIDTH) * mapWidth}px`;
+
+  miniPlayer.style.top =
+    `${(playerY / WORLD_HEIGHT) * mapHeight}px`;
 }
 
+/* =========================
+   BOTÃO
+========================= */
 
-/* =====================================================
-   INICIALIZAÇÃO
-===================================================== */
+document.getElementById("playButton").addEventListener(
+  "click",
+  () => {
 
-let mundoCriado=false;
-
-function iniciarMundo(){
-
-  configurarGrama();
-
-  if(!mundoCriado){
-
-    criarCenario();
-
-    mundoCriado=true;
+    document.getElementById("menu").style.display = "none";
 
   }
+);
 
-  playerX=WORLD_WIDTH/2;
-  playerY=WORLD_HEIGHT/2;
+/* =========================
+   INICIAR
+========================= */
 
-  atualizar();
-
-}
-
-
-/* =====================================================
-   VOLTAR AO MENU
-===================================================== */
-
-backGame.addEventListener("click",()=>{
-
-  game.style.display="none";
-  menu.style.display="flex";
-
-});
-
-
-/* =====================================================
-   INÍCIO
-===================================================== */
-
-criarBotoesAnimais();
-atualizarPreview();
+updateCamera();
+update();
 
 </script>
 
