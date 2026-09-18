@@ -3,1774 +3,969 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>💥 The Attorneys Legacy: O Confronto</title>
 
 <style>
-
 * {
     box-sizing: border-box;
-}
-
-body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f7efe2;
-    color: #40372f;
+    padding: 0;
 }
 
-/* =========================================================
-   CRIADOR
-========================================================= */
-
-#creatorScreen {
-    min-height: 100vh;
-    padding: 35px 20px;
-}
-
-.logo {
-    text-align: center;
-    font-size: 42px;
-    font-weight: 900;
-    margin-bottom: 5px;
-}
-
-.logo span {
-    display: block;
-    font-size: 16px;
-    font-weight: normal;
-    color: #8c7767;
-    margin-top: 8px;
-}
-
-.creatorContainer {
-    max-width: 1050px;
-    margin: 30px auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-}
-
-/* CAIXAS */
-
-.panel {
-    background: #fffaf2;
-    border: 3px solid #e7d7c3;
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: 0 8px 0 #dbc8b0;
-}
-
-/* PREVIEW */
-
-.previewPanel {
-    min-height: 550px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.previewGround {
-    width: 260px;
-    height: 120px;
-    background: #b9d88a;
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    margin-bottom: 30px;
-    border: 4px solid #93bd65;
-}
-
-.previewShadow {
-    width: 115px;
-    height: 25px;
-    background: #86ae5e;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 10px;
-}
-
-/* BICHINHO */
-
-.animal {
-    width: 120px;
-    height: 135px;
-    position: relative;
-    z-index: 5;
-    transform-origin: bottom center;
-}
-
-/* corpo */
-
-.animalBody {
-    position: absolute;
-    width: 82px;
-    height: 72px;
-    left: 19px;
-    bottom: 8px;
-    background: #e9a875;
-    border-radius: 45% 45% 35% 35%;
-    border: 4px solid #55453a;
-}
-
-/* cabeça */
-
-.animalHead {
-    position: absolute;
-    width: 92px;
-    height: 82px;
-    left: 14px;
-    top: 10px;
-    background: #e9a875;
-    border-radius: 48% 48% 44% 44%;
-    border: 4px solid #55453a;
-    z-index: 3;
-}
-
-/* orelhas */
-
-.ear {
-    position: absolute;
-    width: 38px;
-    height: 48px;
-    background: #e9a875;
-    border: 4px solid #55453a;
-    z-index: 1;
-}
-
-.ear.left {
-    left: 4px;
-    top: -12px;
-    transform: rotate(-25deg);
-    border-radius: 60% 40% 45% 40%;
-}
-
-.ear.right {
-    right: 4px;
-    top: -12px;
-    transform: rotate(25deg);
-    border-radius: 40% 60% 40% 45%;
-}
-
-/* olhos */
-
-.eye {
-    position: absolute;
-    width: 11px;
-    height: 14px;
-    background: #40372f;
-    border-radius: 50%;
-    top: 35px;
-}
-
-.eye.left {
-    left: 24px;
-}
-
-.eye.right {
-    right: 24px;
-}
-
-/* focinho */
-
-.muzzle {
-    position: absolute;
-    width: 28px;
-    height: 20px;
-    background: #f8d2b3;
-    border-radius: 50%;
-    left: 28px;
-    top: 48px;
-}
-
-.nose {
-    position: absolute;
-    width: 10px;
-    height: 7px;
-    background: #40372f;
-    border-radius: 50%;
-    left: 9px;
-    top: 4px;
-}
-
-/* patinhas */
-
-.paw {
-    position: absolute;
-    width: 27px;
-    height: 38px;
-    background: #e9a875;
-    border: 4px solid #55453a;
-    border-radius: 15px;
-    bottom: -14px;
-    z-index: 4;
-}
-
-.paw.left {
-    left: 22px;
-}
-
-.paw.right {
-    right: 22px;
-}
-
-/* rabo */
-
-.tail {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    border: 9px solid #e9a875;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    right: -8px;
-    bottom: 30px;
-    transform: rotate(30deg);
-    z-index: 0;
-}
-
-/* nome */
-
-#previewName {
-    margin: 0;
-    font-size: 24px;
-}
-
-/* FORM */
-
-h2 {
-    margin-top: 0;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-top: 18px;
-    margin-bottom: 7px;
-}
-
-input[type="text"],
-select,
-input[type="file"] {
+html, body {
     width: 100%;
-    border: 2px solid #dfccb5;
-    background: white;
-    color: #40372f;
-    padding: 12px;
-    border-radius: 12px;
-    font-size: 15px;
-}
-
-input[type="file"] {
-    padding: 9px;
-}
-
-.animalChoices {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-}
-
-.animalChoice {
-    border: 2px solid #e1cfb9;
-    background: #fff;
-    border-radius: 14px;
-    padding: 10px 4px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 25px;
-}
-
-.animalChoice span {
-    display: block;
-    font-size: 11px;
-    margin-top: 4px;
-}
-
-.animalChoice.selected {
-    border-color: #8fba61;
-    background: #edf7df;
-}
-
-.mode {
-    border: 2px solid #dfccb5;
-    background: white;
-    padding: 13px;
-    border-radius: 13px;
-    margin-top: 8px;
-    cursor: pointer;
-}
-
-.mode:hover {
-    background: #faf4e9;
-}
-
-.mode.selected {
-    border-color: #8fba61;
-    background: #edf7df;
-}
-
-#customOptions {
-    display: none;
-}
-
-#imageStatus {
-    color: #5d963e;
-    font-size: 14px;
-    margin-top: 7px;
-}
-
-#error {
-    color: #c95c5c;
-    margin-top: 10px;
-}
-
-.mainButton {
-    width: 100%;
-    margin-top: 22px;
-    border: 0;
-    border-radius: 14px;
-    padding: 16px;
-    background: #8fba61;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 5px 0 #71994a;
-}
-
-.mainButton:hover {
-    background: #9fcf70;
-}
-
-.mainButton:active {
-    transform: translateY(3px);
-    box-shadow: 0 2px 0 #71994a;
-}
-
-/* =========================================================
-   LOBBY
-========================================================= */
-
-#lobbyScreen {
-    display: none;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: #a9d67b;
-}
-
-/* TOPO */
-
-.topBar {
-    height: 72px;
-    background: #fffaf2;
-    border-bottom: 4px solid #d7c5ad;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 22px;
-    position: relative;
-    z-index: 100;
-}
-
-.gameTitle {
-    font-size: 24px;
-    font-weight: 900;
-}
-
-.playerInfo {
-    background: #edf7df;
-    border: 2px solid #c8dfa9;
-    padding: 8px 15px;
-    border-radius: 14px;
-}
-
-/* MAPA */
-
-#gameMap {
-    position: relative;
-    width: 100%;
-    height: calc(100vh - 72px);
-    overflow: hidden;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.2) 0 3px, transparent 4px),
-        radial-gradient(circle at 80% 70%, rgba(255,255,255,.18) 0 3px, transparent 4px),
-        #a9d67b;
-}
-
-/* CAMINHOS */
-
-.path {
-    position: absolute;
-    background: #e8d2ad;
-    border: 4px solid #d2b98d;
-    z-index: 1;
-}
-
-.pathHorizontal {
-    width: 100%;
-    height: 105px;
-    left: 0;
-    top: 49%;
-    transform: translateY(-50%);
-}
-
-.pathVertical {
     height: 100%;
-    width: 105px;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: #18251c;
 }
 
-/* LAGO */
+/* =========================
+   JOGO
+========================= */
 
-.lake {
+#game {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: #8bcf68;
+}
+
+/* Câmera */
+#world {
     position: absolute;
-    width: 260px;
-    height: 155px;
-    background: #82c9df;
-    border: 7px solid #65adbf;
-    border-radius: 50%;
-    left: 6%;
-    top: 12%;
-    z-index: 2;
-}
-
-.lake::after {
-    content: "〰 〰";
-    position: absolute;
-    color: #b8e8f0;
-    font-size: 35px;
-    left: 55px;
-    top: 40px;
-}
-
-/* ÁRVORES */
-
-.tree {
-    position: absolute;
-    width: 85px;
-    height: 120px;
-    z-index: 4;
-}
-
-.treeTrunk {
-    position: absolute;
-    width: 25px;
-    height: 60px;
-    background: #9b6944;
-    left: 30px;
-    bottom: 0;
-    border-radius: 8px;
-}
-
-.treeTop {
-    position: absolute;
-    width: 85px;
-    height: 85px;
-    background: #639d50;
-    border: 5px solid #4f8441;
-    border-radius: 50%;
-    top: 0;
-}
-
-.treeTop::before,
-.treeTop::after {
-    content: "";
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    background: #75ad59;
-    border-radius: 50%;
-}
-
-.treeTop::before {
-    left: -22px;
-    top: 25px;
-}
-
-.treeTop::after {
-    right: -20px;
-    top: 20px;
-}
-
-.tree1 {
-    left: 3%;
-    bottom: 7%;
-}
-
-.tree2 {
-    right: 5%;
-    top: 8%;
-}
-
-.tree3 {
-    right: 3%;
-    bottom: 5%;
-}
-
-.tree4 {
-    left: 25%;
-    top: 4%;
-}
-
-/* FLORES */
-
-.flower {
-    position: absolute;
-    font-size: 24px;
-    z-index: 3;
-}
-
-.flower1 {
-    left: 35%;
-    top: 18%;
-}
-
-.flower2 {
-    left: 15%;
-    bottom: 17%;
-}
-
-.flower3 {
-    right: 27%;
-    top: 17%;
-}
-
-.flower4 {
-    right: 15%;
-    bottom: 23%;
-}
-
-.flower5 {
-    left: 65%;
-    bottom: 10%;
-}
-
-/* CASINHA */
-
-.house {
-    position: absolute;
-    width: 180px;
-    height: 125px;
-    right: 15%;
-    bottom: 12%;
-    z-index: 3;
-}
-
-.houseBody {
-    position: absolute;
-    width: 145px;
-    height: 95px;
-    background: #fff1d7;
-    border: 5px solid #8e6850;
-    bottom: 0;
-    left: 18px;
-    border-radius: 8px;
-}
-
-.roof {
-    position: absolute;
-    width: 145px;
-    height: 80px;
-    background: #d97866;
-    border: 5px solid #8e5146;
-    transform: rotate(45deg);
-    top: 8px;
-    left: 18px;
-    border-radius: 10px;
-    z-index: -1;
-}
-
-.door {
-    position: absolute;
-    width: 35px;
-    height: 58px;
-    background: #9b6944;
-    bottom: 0;
-    left: 72px;
-    border-radius: 8px 8px 0 0;
-}
-
-.window {
-    position: absolute;
-    width: 35px;
-    height: 32px;
-    background: #8bd0df;
-    border: 4px solid #8e6850;
-    top: 25px;
-}
-
-.window.left {
-    left: 30px;
-}
-
-.window.right {
-    right: 30px;
-}
-
-/* ÁREA DA COMPETIÇÃO */
-
-.competition {
-    position: absolute;
-    width: 230px;
-    height: 125px;
+    width: 5000px;
+    height: 3600px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: #fff7e9;
-    border: 6px solid #d7a84c;
+}
+
+/* =========================
+   TERRENO
+========================= */
+
+.ground {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.10) 0 3px, transparent 4px),
+        radial-gradient(circle at 70% 60%, rgba(0,0,0,.06) 0 3px, transparent 4px),
+        #78bd5c;
+    background-size: 110px 110px, 150px 150px, auto;
+}
+
+/* =========================
+   CAMINHOS
+========================= */
+
+.path {
+    position: absolute;
+    background: #d8bd8c;
+    border: 5px solid rgba(130,98,60,.25);
+    box-shadow: inset 0 0 20px rgba(80,50,20,.12);
+}
+
+.path.main-horizontal {
+    left: 0;
+    top: 1740px;
+    width: 5000px;
+    height: 220px;
+}
+
+.path.main-vertical {
+    left: 2390px;
+    top: 0;
+    width: 220px;
+    height: 3600px;
+}
+
+.path.northwest {
+    left: 650px;
+    top: 850px;
+    width: 180px;
+    height: 1050px;
+    transform: rotate(-35deg);
+    transform-origin: bottom;
+}
+
+.path.southeast {
+    left: 3350px;
+    top: 1900px;
+    width: 180px;
+    height: 1050px;
+    transform: rotate(-35deg);
+    transform-origin: top;
+}
+
+.path.beach {
+    left: 3550px;
+    top: 2850px;
+    width: 900px;
+    height: 160px;
+    transform: rotate(-12deg);
+}
+
+/* Pedrinhas */
+.path::after {
+    content: "";
+    position: absolute;
+    inset: 20px;
+    background-image:
+        radial-gradient(circle, rgba(90,70,45,.20) 0 3px, transparent 4px);
+    background-size: 55px 45px;
+}
+
+/* =========================
+   ÁGUA
+========================= */
+
+.lake {
+    position: absolute;
+    width: 950px;
+    height: 620px;
+    left: 850px;
+    top: 420px;
+    border-radius: 48% 52% 45% 55%;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.08) 0 8px,
+            transparent 8px 20px
+        ),
+        #55bddd;
+    border: 16px solid #d0c18d;
+    box-shadow: 0 20px 35px rgba(30,80,70,.25);
+}
+
+.lake::before,
+.lake::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.25);
+}
+
+.lake::before {
+    width: 100px;
+    height: 12px;
+    left: 180px;
+    top: 170px;
+}
+
+.lake::after {
+    width: 150px;
+    height: 12px;
+    right: 170px;
+    top: 330px;
+}
+
+/* Ilha */
+.island {
+    position: absolute;
+    width: 230px;
+    height: 150px;
+    left: 360px;
+    top: 220px;
+    border-radius: 50%;
+    background: #79c75f;
+    border: 10px solid #d0c18d;
+}
+
+/* Ponte */
+.bridge {
+    position: absolute;
+    width: 330px;
+    height: 120px;
+    left: 1180px;
+    top: 650px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #9a633e 0 28px,
+            #74462e 28px 34px
+        );
+    border: 8px solid #603b29;
     border-radius: 20px;
-    z-index: 6;
-    text-align: center;
-    padding-top: 18px;
-    box-shadow: 0 7px 0 #c1913d;
+    transform: rotate(8deg);
+    box-shadow: 0 12px 20px rgba(0,0,0,.18);
 }
 
-.competition .trophy {
-    font-size: 35px;
+/* =========================
+   DECORAÇÃO
+========================= */
+
+.tree {
+    position: absolute;
+    width: 100px;
+    height: 120px;
 }
 
-.competition strong {
-    display: block;
-    font-size: 19px;
+.tree .trunk {
+    position: absolute;
+    width: 28px;
+    height: 65px;
+    left: 36px;
+    bottom: 0;
+    background: #765035;
+    border-radius: 10px;
 }
 
-.competition small {
-    color: #8a7764;
+.tree .leaf1,
+.tree .leaf2,
+.tree .leaf3 {
+    position: absolute;
+    border-radius: 50%;
+    background: #3d914b;
+    box-shadow: inset -8px -10px 0 rgba(0,0,0,.08);
 }
 
-/* JOGADOR */
+.tree .leaf1 {
+    width: 70px;
+    height: 70px;
+    left: 15px;
+    top: 20px;
+}
+
+.tree .leaf2 {
+    width: 65px;
+    height: 65px;
+    left: 0;
+    top: 45px;
+}
+
+.tree .leaf3 {
+    width: 65px;
+    height: 65px;
+    right: 0;
+    top: 45px;
+}
+
+.tree.big {
+    transform: scale(1.5);
+}
+
+.flower {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+}
+
+.flower::before {
+    content: "✿";
+    color: #ff77a8;
+    font-size: 28px;
+}
+
+.flower.yellow::before {
+    color: #ffd34e;
+}
+
+.flower.white::before {
+    color: #fff;
+}
+
+/* =========================
+   CASAS
+========================= */
+
+.house {
+    position: absolute;
+    width: 280px;
+    height: 220px;
+    background: #f2d7a5;
+    border: 8px solid #8c6845;
+    border-radius: 12px;
+    box-shadow: 0 18px 25px rgba(0,0,0,.18);
+}
+
+.house .roof {
+    position: absolute;
+    width: 310px;
+    height: 120px;
+    left: -23px;
+    top: -85px;
+    background: #b85e4e;
+    border: 8px solid #794235;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.house .door {
+    position: absolute;
+    width: 55px;
+    height: 100px;
+    bottom: 0;
+    left: 110px;
+    background: #71452f;
+    border-radius: 10px 10px 0 0;
+}
+
+.house .window {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    top: 60px;
+    background: #8bd7e7;
+    border: 7px solid #694a37;
+}
+
+.house .window.left {
+    left: 35px;
+}
+
+.house .window.right {
+    right: 35px;
+}
+
+/* =========================
+   ÁREAS
+========================= */
+
+.area {
+    position: absolute;
+    border-radius: 35px;
+}
+
+.area-label {
+    position: absolute;
+    top: -65px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 22px;
+    background: rgba(30,40,30,.78);
+    color: white;
+    border-radius: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+/* Praça */
+.plaza {
+    left: 1750px;
+    top: 1350px;
+    width: 1300px;
+    height: 750px;
+    background: #d7c39b;
+    border: 16px solid #b09a70;
+    box-shadow: inset 0 0 50px rgba(80,50,20,.12);
+}
+
+/* Fonte */
+.fountain {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    left: 525px;
+    top: 245px;
+    border-radius: 50%;
+    background: #64bdd0;
+    border: 25px solid #b5b1a0;
+    box-shadow: inset 0 0 20px rgba(0,0,0,.18);
+}
+
+.fountain::before {
+    content: "💧";
+    position: absolute;
+    font-size: 70px;
+    left: 65px;
+    top: 55px;
+}
+
+/* Arena */
+.arena {
+    left: 1980px;
+    top: 2300px;
+    width: 1100px;
+    height: 700px;
+    background: #594f65;
+    border: 22px solid #312b3a;
+    border-radius: 50px;
+    box-shadow: 0 30px 45px rgba(0,0,0,.25);
+}
+
+.arena .center {
+    position: absolute;
+    width: 420px;
+    height: 250px;
+    left: 320px;
+    top: 220px;
+    border-radius: 50%;
+    background: #e2c65f;
+    border: 15px solid #f0df91;
+}
+
+.arena .banner {
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 44px;
+    font-weight: 900;
+}
+
+/* Floresta */
+.forest {
+    left: 50px;
+    top: 250px;
+    width: 800px;
+    height: 1250px;
+    background: rgba(56,137,66,.20);
+    border-radius: 50%;
+}
+
+/* Jardim */
+.garden {
+    left: 3150px;
+    top: 550px;
+    width: 800px;
+    height: 650px;
+    background: #9ed66b;
+    border: 15px solid #6eaa54;
+}
+
+/* Parque */
+.park {
+    left: 3350px;
+    top: 1250px;
+    width: 1000px;
+    height: 600px;
+    background: #8fcf6b;
+    border: 15px dashed #599b53;
+}
+
+.park::before {
+    content: "🎡";
+    position: absolute;
+    font-size: 190px;
+    left: 100px;
+    top: 170px;
+}
+
+.park::after {
+    content: "🎢";
+    position: absolute;
+    font-size: 190px;
+    right: 100px;
+    top: 170px;
+}
+
+/* Praia */
+.beach-zone {
+    left: 3600px;
+    top: 2850px;
+    width: 1250px;
+    height: 600px;
+    background:
+        radial-gradient(circle, rgba(200,170,80,.25) 0 3px, transparent 4px),
+        #f1d68c;
+    background-size: 45px 45px;
+    border-radius: 100px 0 0 0;
+}
+
+/* Montanha */
+.mountain {
+    position: absolute;
+    left: 3750px;
+    top: 150px;
+    width: 950px;
+    height: 700px;
+    background: #718b70;
+    clip-path: polygon(
+        0 100%,
+        20% 55%,
+        35% 70%,
+        55% 15%,
+        70% 60%,
+        85% 35%,
+        100% 100%
+    );
+    opacity: .9;
+}
+
+.mountain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,.12);
+    clip-path: polygon(55% 15%, 45% 45%, 58% 38%, 70% 60%);
+}
+
+/* Área abandonada */
+.abandoned {
+    left: 300px;
+    top: 2600px;
+    width: 900px;
+    height: 650px;
+    background: #59645b;
+    border: 18px solid #424b45;
+    border-radius: 25px;
+}
+
+.abandoned::before {
+    content: "⚠";
+    position: absolute;
+    font-size: 120px;
+    left: 380px;
+    top: 220px;
+    color: #e5c447;
+}
+
+/* Caverna */
+.cave {
+    left: 900px;
+    top: 2900px;
+    width: 650px;
+    height: 500px;
+    background: #343a39;
+    border-radius: 50% 50% 10% 10%;
+    border: 20px solid #4c5550;
+}
+
+.cave::before {
+    content: "🕳️";
+    position: absolute;
+    font-size: 180px;
+    left: 210px;
+    top: 140px;
+}
+
+/* Mercado */
+.market {
+    position: absolute;
+    left: 3350px;
+    top: 2050px;
+    width: 500px;
+    height: 350px;
+    background: #f3d17d;
+    border: 12px solid #9c683c;
+    border-radius: 20px;
+}
+
+.market::before {
+    content: "🛍️ MERCADO";
+    position: absolute;
+    font-size: 34px;
+    font-weight: bold;
+    top: 135px;
+    left: 80px;
+}
+
+/* =========================
+   JOGADOR
+========================= */
 
 #player {
     position: absolute;
-    width: 105px;
-    height: 125px;
-    left: 50%;
-    top: 68%;
+    width: 72px;
+    height: 72px;
+    z-index: 100;
     transform: translate(-50%, -50%);
-    z-index: 30;
-    user-select: none;
+    transition: transform .08s linear;
 }
 
-#playerPNG {
-    width: 105px;
-    height: 115px;
-    object-fit: contain;
-    display: none;
+.player-body {
+    width: 58px;
+    height: 58px;
     position: absolute;
-    bottom: 10px;
-    left: 0;
+    left: 7px;
+    top: 7px;
+    background: #f3b27c;
+    border: 5px solid #633f31;
+    border-radius: 45% 45% 50% 50%;
+    box-shadow: 0 8px 12px rgba(0,0,0,.25);
 }
 
-/* sombra do jogador */
-
-.playerShadow {
+.player-body::before {
+    content: "🐾";
     position: absolute;
-    width: 70px;
-    height: 17px;
-    background: rgba(72, 92, 46, .28);
-    border-radius: 50%;
-    bottom: 2px;
-    left: 18px;
+    font-size: 30px;
+    left: 10px;
+    top: 8px;
 }
 
-/* bichinho jogador */
-
-#defaultPlayer {
-    width: 105px;
-    height: 120px;
+.player-shadow {
     position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-.playerAnimalBody {
-    position: absolute;
-    width: 70px;
-    height: 60px;
-    background: #e9a875;
-    border: 4px solid #55453a;
-    border-radius: 45%;
-    left: 18px;
-    bottom: 15px;
-}
-
-.playerAnimalHead {
-    position: absolute;
-    width: 78px;
-    height: 70px;
-    background: #e9a875;
-    border: 4px solid #55453a;
-    border-radius: 48%;
-    left: 14px;
-    top: 5px;
-    z-index: 3;
-}
-
-.playerEar {
-    position: absolute;
-    width: 32px;
-    height: 42px;
-    background: #e9a875;
-    border: 4px solid #55453a;
-    border-radius: 50%;
-    top: -9px;
-    z-index: 1;
-}
-
-.playerEar.left {
+    width: 65px;
+    height: 20px;
+    bottom: -5px;
     left: 3px;
-    transform: rotate(-25deg);
-}
-
-.playerEar.right {
-    right: 3px;
-    transform: rotate(25deg);
-}
-
-.playerEye {
-    position: absolute;
-    width: 9px;
-    height: 12px;
-    background: #40372f;
+    background: rgba(0,0,0,.2);
     border-radius: 50%;
-    top: 29px;
+    z-index: -1;
 }
 
-.playerEye.left {
-    left: 20px;
+/* =========================
+   HUD
+========================= */
+
+#hud {
+    position: fixed;
+    left: 22px;
+    top: 22px;
+    z-index: 500;
+    padding: 14px 20px;
+    background: rgba(25,35,27,.82);
+    color: white;
+    border-radius: 18px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
 }
 
-.playerEye.right {
-    right: 20px;
+#hud strong {
+    font-size: 20px;
 }
 
-.playerMuzzle {
-    position: absolute;
-    width: 25px;
-    height: 18px;
-    background: #f8d2b3;
-    border-radius: 50%;
-    left: 23px;
-    top: 42px;
+#hud small {
+    display: block;
+    margin-top: 5px;
+    opacity: .75;
 }
 
-.playerNose {
-    position: absolute;
-    width: 9px;
-    height: 6px;
-    background: #40372f;
-    border-radius: 50%;
-    left: 8px;
-    top: 4px;
-}
-
-.playerPaw {
-    position: absolute;
-    width: 24px;
-    height: 33px;
-    background: #e9a875;
-    border: 4px solid #55453a;
+/* minimapa */
+#minimap {
+    position: fixed;
+    right: 22px;
+    top: 22px;
+    width: 190px;
+    height: 135px;
+    z-index: 500;
+    background: #78bd5c;
+    border: 5px solid white;
     border-radius: 15px;
-    bottom: 4px;
-    z-index: 5;
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+    overflow: hidden;
 }
 
-.playerPaw.left {
-    left: 19px;
-}
-
-.playerPaw.right {
-    right: 19px;
-}
-
-/* nome */
-
-.nameTag {
+#miniPlayer {
     position: absolute;
-    bottom: -22px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: red;
+    transform: translate(-50%, -50%);
+}
+
+/* dica */
+#controls {
+    position: fixed;
+    bottom: 22px;
     left: 50%;
     transform: translateX(-50%);
-    background: #fffaf2;
-    border: 2px solid #d7c5ad;
-    border-radius: 9px;
-    padding: 3px 9px;
-    white-space: nowrap;
-    font-size: 12px;
-    font-weight: bold;
+    z-index: 500;
+    padding: 12px 22px;
+    background: rgba(25,35,27,.82);
+    color: white;
+    border-radius: 18px;
+    backdrop-filter: blur(8px);
 }
 
-/* mensagem */
+/* =========================
+   TÍTULOS DO MAPA
+========================= */
 
-.lobbyMessage {
+.map-title {
     position: absolute;
-    left: 50%;
-    top: 18px;
-    transform: translateX(-50%);
-    background: #fffaf2;
-    border: 2px solid #dfccb5;
-    padding: 9px 17px;
-    border-radius: 13px;
-    z-index: 90;
-    box-shadow: 0 3px 0 #d7c5ad;
+    z-index: 20;
+    font-size: 42px;
+    font-weight: 900;
+    color: rgba(35,55,35,.72);
+    text-shadow: 2px 3px rgba(255,255,255,.25);
+    pointer-events: none;
 }
 
-/* CONTROLES */
-
-.controls {
-    position: absolute;
-    left: 18px;
-    bottom: 18px;
-    background: #fffaf2;
-    border: 2px solid #dfccb5;
-    border-radius: 13px;
-    padding: 10px 14px;
-    z-index: 90;
-    font-size: 13px;
-}
-
-/* =========================================================
+/* =========================
    RESPONSIVO
-========================================================= */
+========================= */
 
-@media(max-width: 750px) {
-
-    .creatorContainer {
-        grid-template-columns: 1fr;
-    }
-
-    .animalChoices {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .gameTitle {
-        font-size: 18px;
-    }
-
-    .controls {
+@media (max-width: 700px) {
+    #minimap {
         display: none;
     }
 
-    .lake {
-        width: 160px;
-        height: 100px;
-    }
-
-    .house {
-        transform: scale(.7);
-        transform-origin: bottom right;
+    #controls {
+        font-size: 13px;
+        padding: 10px 15px;
     }
 }
-
 </style>
 </head>
 
-
 <body>
 
+<div id="game">
 
-<!-- =======================================================
-     CRIADOR
-======================================================== -->
+    <div id="world">
 
-<div id="creatorScreen">
-
-    <div class="logo">
-        🐾 THE ATTORNEYS
-        <span>Crie seu bichinho e prepare-se para competir!</span>
-    </div>
-
-
-    <div class="creatorContainer">
-
-
-        <!-- PREVIEW -->
-
-        <div class="panel previewPanel">
-
-            <div class="previewGround">
-
-                <div class="previewShadow"></div>
-
-
-                <div id="previewAnimal" class="animal">
-
-                    <div class="tail"></div>
-
-                    <div class="animalHead">
-
-                        <div class="ear left"></div>
-                        <div class="ear right"></div>
-
-                        <div class="eye left"></div>
-                        <div class="eye right"></div>
-
-                        <div class="muzzle">
-                            <div class="nose"></div>
-                        </div>
-
-                    </div>
-
-                    <div class="animalBody"></div>
-
-                    <div class="paw left"></div>
-                    <div class="paw right"></div>
-
-                </div>
-
-
-                <img id="previewPNG">
-
-            </div>
-
-
-            <h2 id="previewName">
-                Seu bichinho
-            </h2>
-
-        </div>
-
-
-        <!-- CONFIGURAÇÕES -->
-
-        <div class="panel">
-
-            <h2>✨ Criar personagem</h2>
-
-
-            <label>Nome</label>
-
-            <input
-                type="text"
-                id="playerName"
-                maxlength="20"
-                placeholder="Digite seu nome..."
-            >
-
-
-            <label>🐾 Escolha seu bichinho</label>
-
-            <div class="animalChoices">
-
-                <div
-                    class="animalChoice selected"
-                    onclick="chooseAnimal('cat', this)"
-                >
-                    🐱
-                    <span>Gato</span>
-                </div>
-
-                <div
-                    class="animalChoice"
-                    onclick="chooseAnimal('dog', this)"
-                >
-                    🐶
-                    <span>Cachorro</span>
-                </div>
-
-                <div
-                    class="animalChoice"
-                    onclick="chooseAnimal('bunny', this)"
-                >
-                    🐰
-                    <span>Coelho</span>
-                </div>
-
-                <div
-                    class="animalChoice"
-                    onclick="chooseAnimal('fox', this)"
-                >
-                    🦊
-                    <span>Raposa</span>
-                </div>
-
-            </div>
-
-
-            <label>🖼️ Seu próprio personagem</label>
-
-            <input
-                type="file"
-                id="pngInput"
-                accept="image/png,image/webp,image/jpeg"
-            >
-
-            <div id="imageStatus"></div>
-
-
-            <label>Como você quer aparecer?</label>
-
-
-            <div
-                class="mode selected"
-                id="modeAnimal"
-                onclick="chooseMode('animal')"
-            >
-                🐾 Usar meu bichinho
-            </div>
-
-
-            <div
-                class="mode"
-                id="modePNG"
-                onclick="chooseMode('png')"
-            >
-                🖼️ Usar meu PNG
-            </div>
-
-
-            <div
-                class="mode"
-                id="modeCustom"
-                onclick="chooseMode('custom')"
-            >
-                🎨 Customizar meu bichinho
-            </div>
-
-
-            <div id="customOptions">
-
-                <label>Cor do pelo</label>
-
-                <select id="furColor">
-
-                    <option value="#e9a875">
-                        Caramelo
-                    </option>
-
-                    <option value="#ffffff">
-                        Branco
-                    </option>
-
-                    <option value="#555555">
-                        Cinza
-                    </option>
-
-                    <option value="#222222">
-                        Preto
-                    </option>
-
-                    <option value="#d889a8">
-                        Rosa
-                    </option>
-
-                    <option value="#8c75c9">
-                        Roxo
-                    </option>
-
-                    <option value="#80b7d4">
-                        Azul
-                    </option>
-
-                </select>
-
-
-                <label>Cor dos olhos</label>
-
-                <select id="eyeColor">
-
-                    <option value="#40372f">
-                        Preto
-                    </option>
-
-                    <option value="#5b3b24">
-                        Castanho
-                    </option>
-
-                    <option value="#66a7d9">
-                        Azul
-                    </option>
-
-                    <option value="#75ad59">
-                        Verde
-                    </option>
-
-                    <option value="#d7a83f">
-                        Dourado
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div id="error"></div>
-
-
-            <button
-                class="mainButton"
-                onclick="enterLobby()"
-            >
-                🐾 Entrar no Lobby
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- =======================================================
-     LOBBY
-======================================================== -->
-
-<div id="lobbyScreen">
-
-
-    <div class="topBar">
-
-        <div class="gameTitle">
-            🐾 THE ATTORNEYS
-        </div>
-
-        <div
-            class="playerInfo"
-            id="topPlayerName"
-        >
-            Jogador
-        </div>
-
-    </div>
-
-
-    <div id="gameMap">
-
+        <div class="ground"></div>
 
         <!-- CAMINHOS -->
+        <div class="path main-horizontal"></div>
+        <div class="path main-vertical"></div>
+        <div class="path northwest"></div>
+        <div class="path southeast"></div>
+        <div class="path beach"></div>
 
-        <div class="path pathHorizontal"></div>
-        <div class="path pathVertical"></div>
+        <!-- MONTANHA -->
+        <div class="mountain"></div>
 
+        <!-- FLORESTA -->
+        <div class="area forest">
+            <div class="area-label">🌲 Floresta</div>
+        </div>
 
         <!-- LAGO -->
+        <div class="lake">
+            <div class="island"></div>
+        </div>
 
-        <div class="lake"></div>
+        <div class="bridge"></div>
 
+        <!-- PRAÇA -->
+        <div class="area plaza">
+            <div class="area-label">🏙️ Praça Central</div>
+            <div class="fountain"></div>
+        </div>
+
+        <!-- JARDIM -->
+        <div class="area garden">
+            <div class="area-label">🌸 Jardim</div>
+        </div>
+
+        <!-- PARQUE -->
+        <div class="area park">
+            <div class="area-label">🎢 Parque</div>
+        </div>
+
+        <!-- PRAIA -->
+        <div class="area beach-zone">
+            <div class="area-label">🏖️ Praia</div>
+        </div>
+
+        <!-- ARENA -->
+        <div class="area arena">
+            <div class="area-label">🏆 Arena da Competição</div>
+            <div class="banner">ÁREA DA COMPETIÇÃO</div>
+            <div class="center"></div>
+        </div>
+
+        <!-- ABANDONADO -->
+        <div class="area abandoned">
+            <div class="area-label">🏚️ Área Abandonada</div>
+        </div>
+
+        <!-- CAVERNA -->
+        <div class="area cave">
+            <div class="area-label">🕳️ Caverna</div>
+        </div>
+
+        <!-- MERCADO -->
+        <div class="market"></div>
+
+        <!-- CASAS -->
+        <div class="house" style="left:3000px;top:450px;">
+            <div class="roof"></div>
+            <div class="window left"></div>
+            <div class="window right"></div>
+            <div class="door"></div>
+        </div>
+
+        <div class="house" style="left:2750px;top:750px;transform:scale(.85);">
+            <div class="roof"></div>
+            <div class="window left"></div>
+            <div class="window right"></div>
+            <div class="door"></div>
+        </div>
+
+        <div class="house" style="left:4250px;top:1050px;transform:scale(.8);">
+            <div class="roof"></div>
+            <div class="window left"></div>
+            <div class="window right"></div>
+            <div class="door"></div>
+        </div>
 
         <!-- ÁRVORES -->
-
-        <div class="tree tree1">
-
-            <div class="treeTop"></div>
-            <div class="treeTrunk"></div>
-
+        <div class="tree big" style="left:120px;top:500px;">
+            <div class="trunk"></div><div class="leaf1"></div><div class="leaf2"></div><div class="leaf3"></div>
         </div>
 
-
-        <div class="tree tree2">
-
-            <div class="treeTop"></div>
-            <div class="treeTrunk"></div>
-
+        <div class="tree" style="left:300px;top:900px;">
+            <div class="trunk"></div><div class="leaf1"></div><div class="leaf2"></div><div class="leaf3"></div>
         </div>
 
-
-        <div class="tree tree3">
-
-            <div class="treeTop"></div>
-            <div class="treeTrunk"></div>
-
+        <div class="tree" style="left:500px;top:1200px;">
+            <div class="trunk"></div><div class="leaf1"></div><div class="leaf2"></div><div class="leaf3"></div>
         </div>
 
-
-        <div class="tree tree4">
-
-            <div class="treeTop"></div>
-            <div class="treeTrunk"></div>
-
+        <div class="tree" style="left:4200px;top:500px;">
+            <div class="trunk"></div><div class="leaf1"></div><div class="leaf2"></div><div class="leaf3"></div>
         </div>
 
+        <div class="tree big" style="left:4500px;top:900px;">
+            <div class="trunk"></div><div class="leaf1"></div><div class="leaf2"></div><div class="leaf3"></div>
+        </div>
+
+        <div class="tree" style="left:3100px;top:2900px;">
+            <div class="trunk"></div><div class="leaf1"></div><div class="leaf2"></div><div class="leaf3"></div>
+        </div>
+
+        <div class="tree" style="left:1650px;top:2850px;">
+            <div class="trunk"></div><div class="leaf1"></div><div class="leaf2"></div><div class="leaf3"></div>
+        </div>
+
+        <div class="tree" style="left:1300px;top:2200px;">
+            <div class="trunk"></div><div class="leaf1"></div><div class="leaf2"></div><div class="leaf3"></div>
+        </div>
 
         <!-- FLORES -->
-
-        <div class="flower flower1">🌼</div>
-        <div class="flower flower2">🌷</div>
-        <div class="flower flower3">🌸</div>
-        <div class="flower flower4">🌻</div>
-        <div class="flower flower5">🌼</div>
-
-
-        <!-- CASINHA -->
-
-        <div class="house">
-
-            <div class="roof"></div>
-
-            <div class="houseBody">
-
-                <div class="window left"></div>
-                <div class="window right"></div>
-
-                <div class="door"></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ÁREA DA COMPETIÇÃO -->
-
-        <div class="competition">
-
-            <div class="trophy">
-                🏆
-            </div>
-
-            <strong>
-                ÁREA DA COMPETIÇÃO
-            </strong>
-
-            <small>
-                Próxima prova em breve...
-            </small>
-
-        </div>
-
-
-        <!-- MENSAGEM -->
-
-        <div class="lobbyMessage">
-            🌳 Bem-vindo ao lobby!
-        </div>
-
+        <div class="flower" style="left:1900px;top:1450px;"></div>
+        <div class="flower yellow" style="left:2150px;top:1500px;"></div>
+        <div class="flower white" style="left:2700px;top:1450px;"></div>
+        <div class="flower" style="left:3000px;top:1600px;"></div>
+        <div class="flower yellow" style="left:3450px;top:750px;"></div>
+        <div class="flower white" style="left:3650px;top:900px;"></div>
 
         <!-- JOGADOR -->
-
-        <div id="player">
-
-            <div class="playerShadow"></div>
-
-
-            <img id="playerPNG">
-
-
-            <div id="defaultPlayer">
-
-                <div class="playerAnimalHead">
-
-                    <div class="playerEar left"></div>
-                    <div class="playerEar right"></div>
-
-                    <div class="playerEye left"></div>
-                    <div class="playerEye right"></div>
-
-                    <div class="playerMuzzle">
-
-                        <div class="playerNose"></div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="playerAnimalBody"></div>
-
-
-                <div class="playerPaw left"></div>
-                <div class="playerPaw right"></div>
-
-            </div>
-
-
-            <div
-                class="nameTag"
-                id="nameTag"
-            >
-                Jogador
-            </div>
-
+        <div id="player" style="left:2500px;top:1750px;">
+            <div class="player-shadow"></div>
+            <div class="player-body"></div>
         </div>
-
-
-        <!-- CONTROLES -->
-
-        <div class="controls">
-            🎮 WASD ou setinhas para andar
-        </div>
-
 
     </div>
-
 </div>
 
+<!-- HUD -->
+<div id="hud">
+    <strong>🌎 Lobby</strong>
+    <small>Explore o mapa</small>
+</div>
 
+<!-- MINIMAPA -->
+<div id="minimap">
+    <div id="miniPlayer"></div>
+</div>
+
+<!-- CONTROLES -->
+<div id="controls">
+    ⌨️ WASD ou setas para andar
+</div>
 
 <script>
+const world = document.getElementById("world");
+const player = document.getElementById("player");
+const miniPlayer = document.getElementById("miniPlayer");
 
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
+const WORLD_WIDTH = 5000;
+const WORLD_HEIGHT = 3600;
 
-let selectedMode = "animal";
+let playerX = 2500;
+let playerY = 1750;
 
-let selectedAnimal = "cat";
+const speed = 8;
+const keys = {};
 
-let uploadedPNG = null;
-
-let playerX = 50;
-let playerY = 68;
-
-let keys = {};
-
-let furColor = "#e9a875";
-let eyeColor = "#40372f";
-
-
-/* =========================================================
-   NOME
-========================================================= */
-
-document
-.getElementById("playerName")
-.addEventListener("input", function() {
-
-    document.getElementById("previewName").textContent =
-        this.value || "Seu bichinho";
-
-});
-
-
-/* =========================================================
-   ESCOLHER ANIMAL
-========================================================= */
-
-function chooseAnimal(animal, element) {
-
-    selectedAnimal = animal;
-
-
-    document
-    .querySelectorAll(".animalChoice")
-    .forEach(function(choice) {
-
-        choice.classList.remove("selected");
-
-    });
-
-
-    element.classList.add("selected");
-
-
-    /*
-       Por enquanto o estilo principal continua
-       sendo um bichinho fofo.
-       Depois podemos criar sprites diferentes
-       de verdade para cada espécie.
-    */
-
-}
-
-
-/* =========================================================
-   PNG
-========================================================= */
-
-document
-.getElementById("pngInput")
-.addEventListener("change", function() {
-
-    const file = this.files[0];
-
-    if (!file) return;
-
-
-    const reader = new FileReader();
-
-
-    reader.onload = function(event) {
-
-        uploadedPNG = event.target.result;
-
-
-        document
-        .getElementById("previewPNG")
-        .src = uploadedPNG;
-
-
-        document
-        .getElementById("previewPNG")
-        .style.display = "block";
-
-
-        document
-        .getElementById("previewAnimal")
-        .style.display = "none";
-
-
-        document
-        .getElementById("imageStatus")
-        .textContent =
-            "✓ PNG carregado com sucesso!";
-
-
-        /*
-           Se a pessoa enviar um PNG,
-           automaticamente selecionamos
-           a opção PNG.
-        */
-
-        chooseMode("png");
-
-    };
-
-
-    reader.readAsDataURL(file);
-
-});
-
-
-/* =========================================================
-   MODO
-========================================================= */
-
-function chooseMode(mode) {
-
-    selectedMode = mode;
-
-
-    document
-    .querySelectorAll(".mode")
-    .forEach(function(option) {
-
-        option.classList.remove("selected");
-
-    });
-
-
-    if (mode === "animal") {
-
-        document
-        .getElementById("modeAnimal")
-        .classList.add("selected");
-
-
-        document
-        .getElementById("customOptions")
-        .style.display = "none";
-
-
-        document
-        .getElementById("previewPNG")
-        .style.display = "none";
-
-
-        document
-        .getElementById("previewAnimal")
-        .style.display = "block";
-
-    }
-
-
-    if (mode === "png") {
-
-        document
-        .getElementById("modePNG")
-        .classList.add("selected");
-
-
-        document
-        .getElementById("customOptions")
-        .style.display = "none";
-
-
-        if (uploadedPNG) {
-
-            document
-            .getElementById("previewPNG")
-            .style.display = "block";
-
-
-            document
-            .getElementById("previewAnimal")
-            .style.display = "none";
-
-        }
-
-    }
-
-
-    if (mode === "custom") {
-
-        document
-        .getElementById("modeCustom")
-        .classList.add("selected");
-
-
-        document
-        .getElementById("customOptions")
-        .style.display = "block";
-
-
-        document
-        .getElementById("previewPNG")
-        .style.display = "none";
-
-
-        document
-        .getElementById("previewAnimal")
-        .style.display = "block";
-
-    }
-
-}
-
-
-/* =========================================================
-   CUSTOMIZAÇÃO
-========================================================= */
-
-document
-.getElementById("furColor")
-.addEventListener("change", function() {
-
-    furColor = this.value;
-
-
-    document
-    .querySelectorAll(".animalHead, .animalBody, .paw, .ear")
-    .forEach(function(part) {
-
-        part.style.background = furColor;
-
-    });
-
-
-    document
-    .querySelectorAll(".playerAnimalHead, .playerAnimalBody, .playerPaw, .playerEar")
-    .forEach(function(part) {
-
-        part.style.background = furColor;
-
-    });
-
-});
-
-
-document
-.getElementById("eyeColor")
-.addEventListener("change", function() {
-
-    eyeColor = this.value;
-
-
-    document
-    .querySelectorAll(".eye, .playerEye")
-    .forEach(function(eye) {
-
-        eye.style.background = eyeColor;
-
-    });
-
-});
-
-
-/* =========================================================
-   ENTRAR NO LOBBY
-========================================================= */
-
-function enterLobby() {
-
-    const name =
-        document
-        .getElementById("playerName")
-        .value
-        .trim();
-
-
-    if (!name) {
-
-        document
-        .getElementById("error")
-        .textContent =
-            "Digite um nome primeiro! 🐾";
-
-        return;
-
-    }
-
-
-    if (selectedMode === "png" && !uploadedPNG) {
-
-        document
-        .getElementById("error")
-        .textContent =
-            "Envie seu PNG primeiro! 🖼️";
-
-        return;
-
-    }
-
-
-    document
-    .getElementById("error")
-    .textContent = "";
-
-
-    /* troca de tela */
-
-    document
-    .getElementById("creatorScreen")
-    .style.display = "none";
-
-
-    document
-    .getElementById("lobbyScreen")
-    .style.display = "block";
-
-
-    /* nome */
-
-    document
-    .getElementById("nameTag")
-    .textContent = name;
-
-
-    document
-    .getElementById("topPlayerName")
-    .textContent =
-        "🐾 " + name;
-
-
-    /* personagem */
-
-    const png =
-        document.getElementById("playerPNG");
-
-
-    const animal =
-        document.getElementById("defaultPlayer");
-
-
-    if (selectedMode === "png") {
-
-        png.src = uploadedPNG;
-
-        png.style.display = "block";
-
-        animal.style.display = "none";
-
-    }
-
-    else {
-
-        png.style.display = "none";
-
-        animal.style.display = "block";
-
-    }
-
-
-    playerX = 50;
-    playerY = 68;
-
-
-    updatePlayer();
-
-}
-
-
-/* =========================================================
-   TECLADO
-========================================================= */
-
-document.addEventListener("keydown", function(event) {
-
+document.addEventListener("keydown", (event) => {
     keys[event.key.toLowerCase()] = true;
 
+    // evita a página tentar rolar
+    if (
+        ["arrowup", "arrowdown", "arrowleft", "arrowright", "w", "a", "s", "d"]
+        .includes(event.key.toLowerCase())
+    ) {
+        event.preventDefault();
+    }
 });
 
-
-document.addEventListener("keyup", function(event) {
-
+document.addEventListener("keyup", (event) => {
     keys[event.key.toLowerCase()] = false;
-
 });
-
-
-/* =========================================================
-   MOVIMENTO
-========================================================= */
 
 function updatePlayer() {
 
-    const speed = 0.42;
-
+    let moving = false;
 
     if (keys["w"] || keys["arrowup"]) {
-
         playerY -= speed;
-
+        moving = true;
     }
-
 
     if (keys["s"] || keys["arrowdown"]) {
-
         playerY += speed;
-
+        moving = true;
     }
-
 
     if (keys["a"] || keys["arrowleft"]) {
-
         playerX -= speed;
-
+        moving = true;
     }
-
 
     if (keys["d"] || keys["arrowright"]) {
-
         playerX += speed;
-
+        moving = true;
     }
 
+    // Limites do mapa
+    playerX = Math.max(45, Math.min(WORLD_WIDTH - 45, playerX));
+    playerY = Math.max(45, Math.min(WORLD_HEIGHT - 45, playerY));
 
-    /*
-       Não deixa o personagem
-       sair do mapa.
-    */
+    player.style.left = playerX + "px";
+    player.style.top = playerY + "px";
 
-    playerX =
-        Math.max(
-            5,
-            Math.min(95, playerX)
-        );
+    // Pequena animação andando
+    if (moving) {
+        const bob = Math.sin(Date.now() / 70) * 3;
+        player.style.transform =
+            `translate(-50%, -50%) translateY(${bob}px)`;
+    } else {
+        player.style.transform =
+            "translate(-50%, -50%)";
+    }
 
-
-    playerY =
-        Math.max(
-            8,
-            Math.min(90, playerY)
-        );
-
-
-    document
-    .getElementById("player")
-    .style.left =
-        playerX + "%";
-
-
-    document
-    .getElementById("player")
-    .style.top =
-        playerY + "%";
-
+    updateCamera();
+    updateMinimap();
 
     requestAnimationFrame(updatePlayer);
-
 }
 
+function updateCamera() {
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    let cameraX = screenWidth / 2 - playerX;
+    let cameraY = screenHeight / 2 - playerY;
+
+    // Não deixa a câmera sair do mapa
+    const minX = screenWidth - WORLD_WIDTH;
+    const maxX = 0;
+
+    const minY = screenHeight - WORLD_HEIGHT;
+    const maxY = 0;
+
+    cameraX = Math.max(minX, Math.min(maxX, cameraX));
+    cameraY = Math.max(minY, Math.min(maxY, cameraY));
+
+    world.style.transform =
+        `translate(${cameraX}px, ${cameraY}px)`;
+}
+
+function updateMinimap() {
+
+    const mapWidth = 190;
+    const mapHeight = 135;
+
+    const x = (playerX / WORLD_WIDTH) * mapWidth;
+    const y = (playerY / WORLD_HEIGHT) * mapHeight;
+
+    miniPlayer.style.left = x + "px";
+    miniPlayer.style.top = y + "px";
+}
+
+window.addEventListener("resize", updateCamera);
 
 updatePlayer();
-
 </script>
 
 </body>
