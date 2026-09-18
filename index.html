@@ -28,7 +28,29 @@ html,body{
   overflow:hidden;
   touch-action:none;
 }
+<script>
+const IMAGENS = {
+  // 🌱 CENÁRIO
+  grama: "https://imgur.com/a/zXvea9Z",
+  grama2: "https://imgur.com/a/VnfpZ3g",
 
+  // 🌸 FLORES
+  flor1: "https://imgur.com/a/jXEivgD",
+  flor2: "https://imgur.com/a/5ViZBOQ",
+  flor3: "https://imgur.com/a/fBh7UKi",
+
+  // 🌳 ÁRVORES
+  arvore1: "https://imgur.com/a/mwwbJw4",
+  arvore2: "https://imgur.com/a/PWejMRA",
+
+  // 🐾 BICHOS
+  gato: "https://imgur.com/a/P5HoaV9",
+  cachorro: "https://imgur.com/a/80sd3fV",
+  raposa: "https://imgur.com/a/ZuNZMrU",
+  coelho: "https://imgur.com/a/3KJcTq7",
+  urso: "https://imgur.com/a/piQyAwj"
+};
+</script>
 /* =========================
    MUNDO
 ========================= */
@@ -78,228 +100,32 @@ html,body{
 }
 
 /* =========================
-   ÁGUA
-========================= */
+<script>
+const IMAGENS = {
+  // 🌱 CENÁRIO
+  grama: "https://imgur.com/a/zXvea9Z",
+  grama2: "https://imgur.com/a/VnfpZ3g",
 
-.water{
-  position:absolute;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,.08) 0 3px,
-      transparent 3px 18px
-    ),
-    #55a6bd;
+  // 🌸 FLORES
+  flor1: "https://imgur.com/a/jXEivgD",
+  flor2: "https://imgur.com/a/5ViZBOQ",
+  flor3: "https://imgur.com/a/fBh7UKi",
 
-  border:10px solid #40869a;
-  border-radius:45% 55% 50% 43%;
-  box-shadow:
-    inset 0 0 30px rgba(18,77,92,.18),
-    0 10px 25px rgba(22,65,45,.18);
-}
+  // 🌳 ÁRVORES
+  arvore1: "https://imgur.com/a/mwwbJw4",
+  arvore2: "https://imgur.com/a/PWejMRA",
 
-/* =========================
-   GRAMA DIFERENTE
-========================= */
+  // 🐾 BICHOS
+  gato: "https://imgur.com/a/P5HoaV9",
+  cachorro: "https://imgur.com/a/80sd3fV",
+  raposa: "https://imgur.com/a/ZuNZMrU",
+  coelho: "https://imgur.com/a/3KJcTq7",
+  urso: "https://imgur.com/a/piQyAwj"
+};
 
-.grassPatch{
-  position:absolute;
-  border-radius:50%;
-  background:rgba(108,161,70,.35);
-}
-
-/* =========================
-   ÁRVORES
-========================= */
-
-.tree{
-  position:absolute;
-  width:110px;
-  height:145px;
-  cursor:pointer;
-  filter:drop-shadow(0 8px 5px rgba(0,0,0,.18));
-  transform-origin:bottom center;
-  transition:transform .15s;
-}
-
-.tree:hover{
-  transform:scale(1.04);
-}
-
-.trunk{
-  position:absolute;
-  width:27px;
-  height:72px;
-  left:42px;
-  bottom:8px;
-  border-radius:10px;
-  background:
-    linear-gradient(
-      90deg,
-      #69462d,
-      #865a36 45%,
-      #68432b
-    );
-}
-
-.trunk:before{
-  content:"";
-  position:absolute;
-  width:9px;
-  height:47px;
-  left:7px;
-  top:8px;
-  background:rgba(255,255,255,.08);
-  border-radius:10px;
-}
-
-.leaf{
-  position:absolute;
-  border-radius:50%;
-}
-
-.leaf.a{
-  width:75px;
-  height:70px;
-  left:18px;
-  top:20px;
-  background:#397942;
-}
-
-.leaf.b{
-  width:70px;
-  height:68px;
-  left:0;
-  top:43px;
-  background:#478b47;
-}
-
-.leaf.c{
-  width:72px;
-  height:67px;
-  right:0;
-  top:44px;
-  background:#3f8240;
-}
-
-.leaf.d{
-  width:66px;
-  height:62px;
-  left:27px;
-  top:0;
-  background:#55994d;
-}
-
-.leaf.e{
-  width:43px;
-  height:43px;
-  left:34px;
-  top:32px;
-  background:#61a554;
-}
-
-/* =========================
-   FLORES
-========================= */
-
-.flower{
-  position:absolute;
-  width:34px;
-  height:34px;
-  cursor:pointer;
-  transition:transform .15s;
-}
-
-.flower:hover{
-  transform:scale(1.15);
-}
-
-.stem{
-  position:absolute;
-  width:4px;
-  height:19px;
-  background:#3e793c;
-  left:15px;
-  top:14px;
-  border-radius:4px;
-}
-
-.petal{
-  position:absolute;
-  width:12px;
-  height:17px;
-  border-radius:50%;
-}
-
-.p1{left:11px;top:0}
-.p2{left:20px;top:8px}
-.p3{left:5px;top:8px}
-.p4{left:11px;top:13px}
-
-.center{
-  position:absolute;
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  left:13px;
-  top:9px;
-  background:#f3c94f;
-  z-index:2;
-}
-
-/* =========================
-   PEDRAS
-========================= */
-
-.rock{
-  position:absolute;
-  width:48px;
-  height:31px;
-  background:linear-gradient(#9c9d91,#77796d);
-  border-radius:60% 45% 55% 40%;
-  box-shadow:0 6px 5px rgba(0,0,0,.14);
-}
-
-/* =========================
-   ARBUSTOS
-========================= */
-
-.bush{
-  position:absolute;
-  width:100px;
-  height:65px;
-}
-
-.bush span{
-  position:absolute;
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  background:#3e8144;
-}
-
-.bush span:nth-child(1){left:0;top:10px}
-.bush span:nth-child(2){left:25px;top:0;background:#4d934b}
-.bush span:nth-child(3){left:48px;top:12px;background:#37783e}
-
-/* =========================
-   ÁREAS
-========================= */
-
-.zone{
-  position:absolute;
-  border-radius:50px;
-  border:3px dashed rgba(255,255,255,.15);
-}
-
-.zoneTitle{
-  position:absolute;
-  color:rgba(255,255,255,.85);
-  font-size:28px;
-  font-weight:bold;
-  text-shadow:0 3px 5px rgba(0,0,0,.3);
-}
-
+// o resto do código vem aqui...
+</script>
+ 
 /* =========================
    PLAYER
 ========================= */
