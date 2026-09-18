@@ -2,41 +2,1486 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>💥 The Attorneys Legacy: O Confronto</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}html,body{width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#111}
-#game{position:relative;width:100vw;height:100vh;overflow:hidden;background:#17251a}
-#world{position:absolute;left:0;top:0;width:5000px;height:5000px;will-change:transform;overflow:hidden;background-color:#4f963f;background-image:radial-gradient(ellipse at 20% 30%,rgba(255,255,255,.08) 0 1px,transparent 2px),radial-gradient(ellipse at 70% 70%,rgba(20,75,25,.12) 0 2px,transparent 3px),repeating-linear-gradient(105deg,transparent 0 16px,rgba(35,115,42,.11) 17px,transparent 19px),repeating-linear-gradient(75deg,transparent 0 23px,rgba(231,245,180,.06) 24px,transparent 26px);background-size:73px 61px,117px 93px,31px 31px,47px 47px}
-#world:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(17,55,20,.16) 100%)}
-.path{position:absolute;background:#b99a72;border:8px solid rgba(127,92,56,.35);border-radius:90px;box-shadow:inset 0 0 25px rgba(116,78,43,.2)}.horizontal{width:5000px;height:180px;left:0;top:2450px}.vertical{width:180px;height:5000px;left:2410px;top:0}.diagonal{width:2400px;height:150px;left:1050px;top:1570px;transform:rotate(27deg)}
-.lake{position:absolute;left:600px;top:450px;width:1000px;height:700px;border-radius:50%;border:22px solid #327aa2;background:repeating-linear-gradient(170deg,#479dcc 0 17px,#5bb0d7 18px 23px);box-shadow:inset 0 0 35px rgba(11,57,89,.35),0 15px 25px rgba(20,60,25,.2)}.lake:after{content:"";position:absolute;width:120px;height:55px;left:230px;top:180px;border-radius:50%;border-top:4px solid rgba(255,255,255,.4);transform:rotate(-12deg);box-shadow:120px 80px 0 -5px rgba(255,255,255,.25)}
-.bridge{position:absolute;left:980px;top:755px;width:300px;height:120px;background:repeating-linear-gradient(90deg,#8f6035 0 34px,#a8733e 35px 39px);border:11px solid #5f3b22;border-radius:16px;z-index:3}
-.plaza{position:absolute;left:2150px;top:2175px;width:700px;height:550px;border-radius:50%;background:#d6c19a;border:18px solid #a78d64;box-shadow:0 10px 20px rgba(50,70,25,.2)}.fountain{position:absolute;left:2405px;top:2340px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,#91d7ec 0 48%,#6aacc7 49% 65%,#8d7658 66%);border:10px solid #765f42;z-index:4}
-.house{position:absolute;width:300px;height:240px;background:#d77b68;border:10px solid #743f38;border-radius:15px;z-index:2}.house:before{content:"";position:absolute;width:340px;height:170px;left:-30px;top:-110px;background:#713d6c;border:10px solid #4d2949;clip-path:polygon(50% 0,100% 100%,0 100%)}.house:after{content:"";position:absolute;width:55px;height:100px;bottom:0;left:120px;background:#593b2e}.house1{left:3100px;top:700px}.house2{left:3550px;top:950px}.house3{left:3250px;top:1400px}
-.tree{position:absolute;width:116px;height:145px;z-index:5;filter:drop-shadow(5px 9px 4px rgba(23,65,22,.25))}.tree .trunk{position:absolute;width:30px;height:72px;left:43px;bottom:0;background:linear-gradient(90deg,#53331e,#8b5930,#54331e);border-radius:8px;z-index:-1}.tree .leaves{position:absolute;left:8px;top:5px;width:96px;height:96px;border-radius:50%;background:#1d5b2b;border:9px solid #174523;box-shadow:30px -17px 0 #32743b,56px 13px 0 #245f31,20px 29px 0 #438846,-19px 19px 0 #2c6c35}.tree.small{transform:scale(.72);transform-origin:top left}.tree1{left:300px;top:1250px}.tree2{left:500px;top:1450px}.tree3{left:270px;top:1740px}.tree4{left:700px;top:1870px}.tree5{left:450px;top:2100px}.tree6{left:4000px;top:200px}.tree7{left:4230px;top:450px}.tree8{left:4310px;top:750px}.tree9{left:3850px;top:1200px}.tree10{left:4100px;top:1580px}.tree11{left:3650px;top:1850px}.tree12{left:4380px;top:2250px}.tree13{left:1700px;top:1700px}.tree14{left:1900px;top:2850px}
-.grass-tuft{position:absolute;width:25px;height:18px;border-left:3px solid #277038;border-right:3px solid #317d3c;transform:skew(-18deg);opacity:.9}.flower{position:absolute;width:25px;height:25px;z-index:6}.flower span{position:absolute;width:10px;height:10px;border-radius:50%;background:#f4b6dc}.flower span:nth-child(1){left:8px}.flower span:nth-child(2){left:16px;top:8px}.flower span:nth-child(3){left:8px;top:16px}.flower span:nth-child(4){top:8px}.flower i{position:absolute;left:9px;top:9px;width:8px;height:8px;border-radius:50%;background:#ffd85b}
-#player{position:absolute;width:70px;height:70px;z-index:50;pointer-events:none}.player-body{position:absolute;width:58px;height:58px;left:6px;top:8px;background:#f0c9f1;border:5px solid #301c3d;border-radius:48% 52% 45% 55%;box-shadow:0 7px 10px rgba(0,0,0,.25)}.player-ear{position:absolute;width:22px;height:25px;background:#f0c9f1;border:5px solid #301c3d;top:0;z-index:-1}.player-ear.left{left:8px;transform:rotate(-25deg)}.player-ear.right{right:8px;transform:rotate(25deg)}.eye{position:absolute;width:10px;height:15px;background:#301c3d;border-radius:50%;top:27px}.eye.left{left:19px}.eye.right{right:19px}.mouth{position:absolute;width:18px;height:9px;border-bottom:4px solid #301c3d;border-radius:50%;left:20px;top:44px}
-#hud,#minimap{position:fixed;z-index:200;background:rgba(25,38,25,.82);color:#fff;border:2px solid #b9df8a;border-radius:14px;backdrop-filter:blur(5px);box-shadow:0 5px 18px rgba(0,0,0,.25)}#hud{left:15px;top:15px;padding:12px 18px}#hud strong{color:#e4ffb6}#coordinates{font-size:12px;opacity:.8;margin-top:4px}#minimap{right:18px;top:18px;width:170px;height:120px;overflow:hidden;background-color:#4e9147;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.08) 0 2px,transparent 2px 8px)}#miniPlayer{position:absolute;width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #392044}
-#joystick{position:fixed;left:25px;bottom:25px;width:135px;height:135px;border-radius:50%;background:rgba(20,35,20,.5);border:3px solid rgba(255,255,255,.3);z-index:300;touch-action:none}#stick{position:absolute;width:60px;height:60px;left:37px;top:37px;border-radius:50%;background:#a9cf73;border:4px solid #e2f5b9;box-shadow:0 5px 15px rgba(0,0,0,.3)}
-#menu{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#527c46,#17251a 75%)}.menu-box{width:min(90%,480px);padding:40px;background:rgba(24,35,22,.94);border:3px solid #b9df8a;border-radius:25px;text-align:center;color:white;box-shadow:0 20px 60px rgba(0,0,0,.45)}.menu-box h1{font-size:42px;color:#eaffc9;margin-bottom:10px}.menu-box p{opacity:.8;margin-bottom:25px}.menu-box input{width:100%;padding:14px;border:0;border-radius:12px;margin-bottom:12px;font-size:16px}.menu-box button{width:100%;padding:16px;border:0;border-radius:14px;background:#76a94e;color:white;font-size:18px;font-weight:bold;cursor:pointer}.menu-box button:hover{background:#91c765}
-@media(max-width:600px){#minimap{width:125px;height:88px}#joystick{width:125px;height:125px}#stick{width:56px;height:56px;left:34px;top:34px}.menu-box h1{font-size:34px}}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #171020;
+}
+
+/* =========================
+   MENU
+========================= */
+
+#menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(190,120,255,.28), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(90,30,150,.4), transparent 35%),
+        linear-gradient(135deg, #26133d, #100c1d 70%);
+}
+
+.menuDecor {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: .35;
+}
+
+.decor1 {
+    width: 300px;
+    height: 300px;
+    background: #a85cff;
+    top: -100px;
+    left: -100px;
+}
+
+.decor2 {
+    width: 240px;
+    height: 240px;
+    background: #ff65c8;
+    bottom: -100px;
+    right: -60px;
+}
+
+.menuBox {
+    position: relative;
+    width: min(92vw, 500px);
+    padding: 42px 35px;
+    border-radius: 28px;
+
+    background: rgba(20, 12, 32, .82);
+    border: 2px solid rgba(255,255,255,.15);
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.5),
+        inset 0 0 40px rgba(255,255,255,.03);
+
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(14px);
+}
+
+.logo {
+    font-size: clamp(38px, 9vw, 66px);
+    font-weight: 1000;
+    letter-spacing: -3px;
+    text-shadow:
+        0 5px 0 #55208a,
+        0 12px 30px rgba(0,0,0,.5);
+}
+
+.subtitle {
+    margin-top: 5px;
+    color: #d9b9ff;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.nameInput {
+    width: 100%;
+    margin-top: 32px;
+    padding: 15px 18px;
+
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 14px;
+
+    outline: none;
+    background: rgba(255,255,255,.08);
+    color: white;
+    font-size: 16px;
+}
+
+.nameInput::placeholder {
+    color: #aaa0b4;
+}
+
+.startButton {
+    width: 100%;
+    margin-top: 14px;
+    padding: 16px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #b75cff, #7434cf);
+    color: white;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(130,50,220,.35);
+    transition: .2s;
+}
+
+.startButton:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+}
+
+.tip {
+    margin-top: 18px;
+    color: #aaa0b4;
+    font-size: 12px;
+}
+
+/* =========================
+   GAME
+========================= */
+
+#game {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    display: none;
+
+    background: #8bcf7a;
+}
+
+/* céu */
+
+#sky {
+    position: absolute;
+    inset: 0 0 42% 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #75bdf0 0%,
+            #bce8ff 65%,
+            #e9f8ff 100%
+        );
+
+    z-index: 0;
+}
+
+/* nuvens */
+
+.cloud {
+    position: absolute;
+    width: 130px;
+    height: 45px;
+    border-radius: 50px;
+    background: rgba(255,255,255,.7);
+    filter: blur(1px);
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: inherit;
+}
+
+.cloud::before {
+    width: 55px;
+    height: 55px;
+    left: 20px;
+    top: -22px;
+}
+
+.cloud::after {
+    width: 70px;
+    height: 70px;
+    right: 15px;
+    top: -30px;
+}
+
+.cloud1 {
+    top: 12%;
+    left: 8%;
+}
+
+.cloud2 {
+    top: 18%;
+    right: 12%;
+    transform: scale(.75);
+}
+
+/* =========================
+   CAMPO EM PERSPECTIVA
+========================= */
+
+#field {
+    position: absolute;
+
+    left: -15%;
+    right: -15%;
+    top: 31%;
+    bottom: -35%;
+
+    z-index: 2;
+
+    /*
+       Essa é a parte que cria a sensação
+       de chão visto em perspectiva.
+    */
+
+    transform:
+        perspective(650px)
+        rotateX(48deg);
+
+    transform-origin: center top;
+
+    background-image:
+        url("COLE_AQUI_A_URL_DA_GRAMA_REAL");
+
+    background-size: 420px 420px;
+    background-repeat: repeat;
+
+    box-shadow:
+        inset 0 80px 100px rgba(255,255,255,.15);
+}
+
+/* sombra de profundidade */
+
+#field::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,.2),
+            transparent 15%,
+            rgba(0,0,0,.08) 100%
+        );
+}
+
+/* =========================
+   MUNDO
+========================= */
+
+#world {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+
+    pointer-events: none;
+}
+
+/*
+   Todos os objetos usam coordenadas
+   de profundidade.
+*/
+
+.object {
+    position: absolute;
+    transform-origin: center bottom;
+    pointer-events: none;
+}
+
+/* árvores */
+
+.tree {
+    width: 115px;
+    height: 150px;
+
+    background-image:
+        url("https://png.pngtree.com/png-clipart/20240510/original/pngtree-a-tree-in-pixel-art-style-png-image_15060072.png");
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+
+    filter: drop-shadow(0 15px 8px rgba(0,0,0,.22));
+}
+
+/* flores */
+
+.flower {
+    width: 42px;
+    height: 42px;
+
+    background-image:
+        url("https://png.pngtree.com/png-clipart/20231026/original/pngtree-flower-pixel-morada-png-image_13436332.png");
+
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* pedras */
+
+.rock {
+    width: 55px;
+    height: 35px;
+
+    background-image:
+        url("https://static.vecteezy.com/system/resources/previews/019/527/056/non_2x/an-8-bit-retro-styled-pixel-art-illustration-of-a-stone-rock-free-png.png");
+
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* =========================
+   ARENA
+========================= */
+
+#arena {
+    position: absolute;
+
+    width: 330px;
+    height: 150px;
+
+    left: 50%;
+    top: 40%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            #e8d7a3 0%,
+            #c5a56c 62%,
+            #967343 100%
+        );
+
+    border: 12px solid #5b3c25;
+
+    box-shadow:
+        0 18px 25px rgba(0,0,0,.3);
+
+    z-index: 4;
+}
+
+.arenaInner {
+    position: absolute;
+    inset: 15px;
+
+    border: 4px dashed rgba(255,255,255,.7);
+    border-radius: 50%;
+}
+
+.arenaTitle {
+    position: absolute;
+    left: 50%;
+    top: -42px;
+
+    transform: translateX(-50%);
+
+    padding: 7px 18px;
+
+    border-radius: 20px;
+
+    background: #42224f;
+    color: white;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+/* =========================
+   BANDEIRAS
+========================= */
+
+.flag {
+    position: absolute;
+
+    width: 70px;
+    height: 120px;
+
+    z-index: 6;
+}
+
+.flagPole {
+    position: absolute;
+    bottom: 0;
+    left: 32px;
+
+    width: 6px;
+    height: 100px;
+
+    background: #5b3827;
+    border-radius: 5px;
+}
+
+.flagCloth {
+    position: absolute;
+
+    left: 37px;
+    top: 8px;
+
+    width: 42px;
+    height: 30px;
+
+    background: #8c42d4;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        80% 50%,
+        100% 100%,
+        0 100%
+    );
+}
+
+/* =========================
+   PERSONAGEM
+========================= */
+
+#player {
+    position: absolute;
+
+    width: 90px;
+    height: 125px;
+
+    left: 50%;
+    top: 67%;
+
+    transform:
+        translate(-50%, -100%);
+
+    z-index: 100;
+
+    transition: filter .1s;
+}
+
+#player img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    filter:
+        drop-shadow(0 9px 5px rgba(0,0,0,.35));
+}
+
+/*
+   Caso você ainda não coloque uma imagem,
+   aparece um personagem temporário.
+*/
+
+.playerFallback {
+    width: 62px;
+    height: 90px;
+
+    margin: auto;
+
+    border-radius: 35px 35px 20px 20px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #f0c5a8 0 30%,
+            #8d48bd 30% 70%,
+            #33243c 70%
+        );
+
+    border: 3px solid rgba(255,255,255,.6);
+}
+
+/* =========================
+   NPC
+========================= */
+
+.npc {
+    position: absolute;
+
+    width: 90px;
+    height: 120px;
+
+    z-index: 80;
+
+    transform: translate(-50%, -100%);
+
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.npc img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 9px 5px rgba(0,0,0,.35));
+}
+
+.npcName {
+    position: absolute;
+
+    left: 50%;
+    bottom: -7px;
+
+    transform: translateX(-50%);
+
+    padding: 5px 9px;
+
+    border-radius: 10px;
+
+    background: rgba(20,10,30,.8);
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+/* =========================
+   HUD
+========================= */
+
+#hud {
+    position: absolute;
+
+    top: 15px;
+    left: 15px;
+    right: 15px;
+
+    z-index: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    pointer-events: none;
+}
+
+.hudBox {
+    padding: 10px 14px;
+
+    border-radius: 14px;
+
+    background: rgba(25,15,35,.78);
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    backdrop-filter: blur(8px);
+}
+
+.hudTitle {
+    font-size: 11px;
+    color: #cdb3dc;
+}
+
+.hudValue {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* =========================
+   EVENTO
+========================= */
+
+#eventBanner {
+    position: absolute;
+
+    left: 50%;
+    top: 16px;
+
+    transform: translateX(-50%);
+
+    z-index: 600;
+
+    padding: 10px 22px;
+
+    border-radius: 30px;
+
+    background: rgba(45,20,60,.85);
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    pointer-events: none;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+#chat {
+    position: absolute;
+
+    left: 15px;
+    bottom: 15px;
+
+    width: min(330px, 70vw);
+
+    z-index: 700;
+
+    pointer-events: auto;
+}
+
+.chatMessages {
+    height: 100px;
+
+    overflow-y: auto;
+
+    padding: 10px;
+
+    border-radius: 14px 14px 0 0;
+
+    background: rgba(20,12,30,.75);
+
+    color: white;
+
+    font-size: 12px;
+}
+
+.chatInput {
+    width: 100%;
+
+    padding: 11px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 0 0 14px 14px;
+
+    background: rgba(255,255,255,.9);
+}
+
+/* =========================
+   CONTROLES MOBILE
+========================= */
+
+#mobileControls {
+    position: absolute;
+
+    right: 20px;
+    bottom: 20px;
+
+    z-index: 800;
+
+    display: none;
+
+    width: 130px;
+    height: 130px;
+}
+
+.control {
+    position: absolute;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 13px;
+
+    border: 1px solid rgba(255,255,255,.2);
+
+    background: rgba(35,20,45,.75);
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.up {
+    left: 42px;
+    top: 0;
+}
+
+.down {
+    left: 42px;
+    bottom: 0;
+}
+
+.left {
+    left: 0;
+    top: 42px;
+}
+
+.right {
+    right: 0;
+    top: 42px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+#modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 2000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,.55);
+}
+
+.modalBox {
+    width: min(90vw, 430px);
+
+    padding: 28px;
+
+    border-radius: 24px;
+
+    background: #24152e;
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    box-shadow: 0 20px 70px rgba(0,0,0,.5);
+
+    text-align: center;
+}
+
+.modalBox h2 {
+    margin-bottom: 12px;
+}
+
+.modalBox p {
+    color: #d4c5da;
+    line-height: 1.5;
+}
+
+.closeButton {
+    margin-top: 20px;
+
+    border: none;
+
+    padding: 11px 22px;
+
+    border-radius: 12px;
+
+    background: #8e45c9;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 700px) {
+
+    #mobileControls {
+        display: block;
+    }
+
+    #chat {
+        width: 55vw;
+    }
+
+    #arena {
+        width: 260px;
+        height: 120px;
+    }
+
+    #player {
+        width: 75px;
+        height: 105px;
+    }
+
+    .npc {
+        width: 70px;
+        height: 95px;
+    }
+
+    .eventBanner {
+        max-width: 80vw;
+        text-align: center;
+    }
+}
 </style>
 </head>
+
 <body>
-<div id="game"><div id="world">
-<div class="path horizontal"></div><div class="path vertical"></div><div class="path diagonal"></div><div class="lake"></div><div class="bridge"></div><div class="plaza"></div><div class="fountain"></div>
-<div class="house house1"></div><div class="house house2"></div><div class="house house3"></div>
-<div class="tree tree1"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree2"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree3"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree4"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree5"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree6"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree7"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree8"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree9"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree10"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree11"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree12"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree13 small"><div class="leaves"></div><div class="trunk"></div></div><div class="tree tree14 small"><div class="leaves"></div><div class="trunk"></div></div>
-<div id="decorations"></div>
-<div id="player"><div class="player-ear left"></div><div class="player-ear right"></div><div class="player-body"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div></div>
-</div><div id="hud">🐾 <strong>Você</strong><div id="coordinates"></div></div><div id="minimap"><div id="miniPlayer"></div></div><div id="joystick"><div id="stick"></div></div></div>
-<div id="menu"><div class="menu-box"><h1>💥 The Attorneys Legacy: O Confronto</h1><p>Explore o mundo, atravesse a ponte e conheça a praça.</p><input id="playerName" placeholder="Seu nome" maxlength="20"><button id="playButton">ENTRAR NO MUNDO</button></div></div>
+
+<!-- =========================
+     MENU
+========================= -->
+
+<div id="menu">
+
+    <div class="menuDecor decor1"></div>
+    <div class="menuDecor decor2"></div>
+
+    <div class="menuBox">
+
+        <div class="logo">
+           💥 The Attorneys Legacy: O Confronto
+        </div>
+
+        <div class="subtitle">
+            torneio oficial
+        </div>
+
+        <input
+            id="nameInput"
+            class="nameInput"
+            placeholder="Digite seu nome..."
+            maxlength="20"
+        >
+
+        <button
+            class="startButton"
+            onclick="startGame()"
+        >
+            ENTRAR NO TORNEIO
+        </button>
+
+        <div class="tip">
+            Use WASD ou as setinhas para andar
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     JOGO
+========================= -->
+
+<div id="game">
+
+    <div id="sky">
+
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+
+    </div>
+
+
+    <!-- CHÃO -->
+
+    <div id="field"></div>
+
+
+    <!-- MUNDO -->
+
+    <div id="world">
+
+        <!-- ARENA -->
+
+        <div id="arena">
+
+            <div class="arenaInner"></div>
+
+            <div class="arenaTitle">
+                ARENA PRINCIPAL
+            </div>
+
+        </div>
+
+
+        <!-- BANDEIRAS -->
+
+        <div
+            class="flag"
+            style="left:22%; top:43%;"
+        >
+            <div class="flagPole"></div>
+            <div class="flagCloth"></div>
+        </div>
+
+        <div
+            class="flag"
+            style="left:76%; top:43%;"
+        >
+            <div class="flagPole"></div>
+            <div class="flagCloth"></div>
+        </div>
+
+
+        <!-- ÁRVORES -->
+
+        <div
+            class="object tree"
+            style="left:10%; top:39%;"
+        ></div>
+
+        <div
+            class="object tree"
+            style="left:85%; top:40%;"
+        ></div>
+
+        <div
+            class="object tree"
+            style="left:16%; top:59%;"
+        ></div>
+
+        <div
+            class="object tree"
+            style="left:79%; top:60%;"
+        ></div>
+
+
+        <!-- FLORES -->
+
+        <div
+            class="object flower"
+            style="left:30%; top:53%;"
+        ></div>
+
+        <div
+            class="object flower"
+            style="left:67%; top:55%;"
+        ></div>
+
+        <div
+            class="object flower"
+            style="left:24%; top:70%;"
+        ></div>
+
+        <div
+            class="object flower"
+            style="left:73%; top:70%;"
+        ></div>
+
+
+        <!-- PEDRAS -->
+
+        <div
+            class="object rock"
+            style="left:35%; top:62%;"
+        ></div>
+
+        <div
+            class="object rock"
+            style="left:63%; top:64%;"
+        ></div>
+
+
+        <!-- NPCs -->
+
+        <div
+            class="npc"
+            id="npcBurguinho"
+            style="left:28%; top:48%;"
+            onclick="openNPC('Burguinho')"
+        >
+
+            <img
+                src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png"
+                alt="Burguinho"
+            >
+
+            <div class="npcName">
+                Burguinho
+            </div>
+
+        </div>
+
+
+        <div
+            class="npc"
+            style="left:72%; top:48%;"
+            onclick="openNPC('Informações')"
+        >
+
+            <img
+                src="COLE_AQUI_A_URL_DO_ROBO"
+                alt="Robô"
+            >
+
+            <div class="npcName">
+                Informações
+            </div>
+
+        </div>
+
+
+        <!-- PLAYER -->
+
+        <div id="player">
+
+            <img
+                id="playerImage"
+                src="https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png"
+                alt="Seu personagem"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- HUD -->
+
+    <div id="hud">
+
+        <div class="hudBox">
+
+            <div class="hudTitle">
+                JOGADOR
+            </div>
+
+            <div
+                class="hudValue"
+                id="playerName"
+            >
+                Jogador
+            </div>
+
+        </div>
+
+
+        <div class="hudBox">
+
+            <div class="hudTitle">
+                PRÓXIMA PROVA
+            </div>
+
+            <div class="hudValue">
+                02:00:00
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="eventBanner">
+        🏆 CAMPO DE TORNEIO
+    </div>
+
+
+    <!-- CHAT -->
+
+    <div id="chat">
+
+        <div
+            id="chatMessages"
+            class="chatMessages"
+        >
+            <div>
+                <b>Sistema:</b> Bem-vindo ao The Attorneys!
+            </div>
+
+            <div>
+                <b>Sistema:</b> A próxima prova começará em breve.
+            </div>
+        </div>
+
+        <input
+            id="chatInput"
+            class="chatInput"
+            placeholder="Digite uma mensagem..."
+            maxlength="100"
+        >
+
+    </div>
+
+
+    <!-- CONTROLES CELULAR -->
+
+    <div id="mobileControls">
+
+        <div
+            class="control up"
+            data-key="ArrowUp"
+        >
+            ▲
+        </div>
+
+        <div
+            class="control down"
+            data-key="ArrowDown"
+        >
+            ▼
+        </div>
+
+        <div
+            class="control left"
+            data-key="ArrowLeft"
+        >
+            ◀
+        </div>
+
+        <div
+            class="control right"
+            data-key="ArrowRight"
+        >
+            ▶
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MODAL NPC
+========================= -->
+
+<div id="modal">
+
+    <div class="modalBox">
+
+        <h2 id="modalTitle">
+            NPC
+        </h2>
+
+        <p id="modalText">
+            ...
+        </p>
+
+        <button
+            class="closeButton"
+            onclick="closeNPC()"
+        >
+            FECHAR
+        </button>
+
+    </div>
+
+</div>
+
+
 <script>
-const W=5000,H=5000,world=document.getElementById('world'),player=document.getElementById('player'),coords=document.getElementById('coordinates'),mini=document.getElementById('miniPlayer');let x=W/2,y=H/2,speed=6,joyX=0,joyY=0,active=false;const keys={up:false,down:false,left:false,right:false};
-const deco=document.getElementById('decorations');for(let i=0;i<260;i++){const el=document.createElement('div');el.className=Math.random()<.13?'flower':'grass-tuft';el.style.left=(80+Math.random()*4800)+'px';el.style.top=(80+Math.random()*4800)+'px';if(el.className==='flower')el.innerHTML='<span></span><span></span><span></span><span></span><i></i>';deco.appendChild(el)}
-document.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='w'||e.key==='ArrowUp')keys.up=true;if(k==='s'||e.key==='ArrowDown')keys.down=true;if(k==='a'||e.key==='ArrowLeft')keys.left=true;if(k==='d'||e.key==='ArrowRight')keys.right=true});document.addEventListener('keyup',e=>{const k=e.key.toLowerCase();if(k==='w'||e.key==='ArrowUp')keys.up=false;if(k==='s'||e.key==='ArrowDown')keys.down=false;if(k==='a'||e.key==='ArrowLeft')keys.left=false;if(k==='d'||e.key==='ArrowRight')keys.right=false});
-const joy=document.getElementById('joystick'),stick=document.getElementById('stick');function moveJoy(px,py){const r=joy.getBoundingClientRect(),dx0=px-(r.left+r.width/2),dy0=py-(r.top+r.height/2),max=38,d=Math.hypot(dx0,dy0),scale=d>max?max/d:1,dx=dx0*scale,dy=dy0*scale;joyX=dx/max;joyY=dy/max;stick.style.transform=`translate(${dx}px,${dy}px)`}function resetJoy(){active=false;joyX=joyY=0;stick.style.transform='translate(0,0)'}joy.addEventListener('pointerdown',e=>{active=true;joy.setPointerCapture(e.pointerId);moveJoy(e.clientX,e.clientY)});joy.addEventListener('pointermove',e=>{if(active)moveJoy(e.clientX,e.clientY)});joy.addEventListener('pointerup',resetJoy);joy.addEventListener('pointercancel',resetJoy);
-document.getElementById('playButton').onclick=()=>{const n=document.getElementById('playerName').value.trim();document.querySelector('#hud strong').textContent=n||'Você';document.getElementById('menu').style.display='none'};
-function camera(){const cw=innerWidth,ch=innerHeight;let cx=Math.max(0,Math.min(W-cw,x-cw/2)),cy=Math.max(0,Math.min(H-ch,y-ch/2));world.style.transform=`translate3d(${-cx}px,${-cy}px,0)`;player.style.left=(x-35)+'px';player.style.top=(y-35)+'px';coords.textContent=`X: ${Math.round(x)} | Y: ${Math.round(y)}`;mini.style.left=(x/W*170)+'px';mini.style.top=(y/H*120)+'px'}function loop(){let dx=(keys.right?1:0)-(keys.left?1:0)+joyX,dy=(keys.down?1:0)-(keys.up?1:0)+joyY,l=Math.hypot(dx,dy);if(l){x+=dx/l*speed;y+=dy/l*speed}x=Math.max(35,Math.min(W-35,x));y=Math.max(35,Math.min(H-35,y));camera();requestAnimationFrame(loop)}addEventListener('resize',camera);camera();loop();
-</script></body></html>
+
+/* =========================
+   CONFIGURAÇÃO
+========================= */
+
+let playerName = "Jogador";
+
+let playerX = 50;
+let playerY = 67;
+
+let speed = 0.45;
+
+const keys = {};
+
+
+/* =========================
+   COMEÇAR
+========================= */
+
+function startGame() {
+
+    const input =
+        document.getElementById("nameInput");
+
+    if (input.value.trim() !== "") {
+        playerName = input.value.trim();
+    }
+
+    document.getElementById("playerName")
+        .textContent = playerName;
+
+    document.getElementById("menu")
+        .style.display = "none";
+
+    document.getElementById("game")
+        .style.display = "block";
+
+    updatePlayer();
+}
+
+
+/* =========================
+   TECLADO
+========================= */
+
+window.addEventListener(
+    "keydown",
+    function(event) {
+
+        keys[event.key.toLowerCase()] = true;
+
+        if (
+            [
+                "ArrowUp",
+                "ArrowDown",
+                "ArrowLeft",
+                "ArrowRight"
+            ].includes(event.key)
+        ) {
+            event.preventDefault();
+        }
+    }
+);
+
+
+window.addEventListener(
+    "keyup",
+    function(event) {
+
+        keys[event.key.toLowerCase()] = false;
+
+    }
+);
+
+
+/* =========================
+   MOVIMENTO
+========================= */
+
+function movePlayer() {
+
+    let moved = false;
+
+    if (
+        keys["w"] ||
+        keys["arrowup"]
+    ) {
+        playerY -= speed;
+        moved = true;
+    }
+
+    if (
+        keys["s"] ||
+        keys["arrowdown"]
+    ) {
+        playerY += speed;
+        moved = true;
+    }
+
+    if (
+        keys["a"] ||
+        keys["arrowleft"]
+    ) {
+        playerX -= speed;
+        moved = true;
+    }
+
+    if (
+        keys["d"] ||
+        keys["arrowright"]
+    ) {
+        playerX += speed;
+        moved = true;
+    }
+
+
+    /* limites */
+
+    playerX = Math.max(
+        5,
+        Math.min(95, playerX)
+    );
+
+    playerY = Math.max(
+        42,
+        Math.min(92, playerY)
+    );
+
+
+    if (moved) {
+        updatePlayer();
+    }
+
+    requestAnimationFrame(movePlayer);
+}
+
+
+/* =========================
+   PERSPECTIVA DO PLAYER
+========================= */
+
+function updatePlayer() {
+
+    const player =
+        document.getElementById("player");
+
+    /*
+       Quanto mais para baixo,
+       maior o personagem.
+
+       Isso cria o efeito de profundidade.
+    */
+
+    const depth =
+        (playerY - 42) / 50;
+
+    const scale =
+        0.72 + depth * 0.45;
+
+    player.style.left =
+        playerX + "%";
+
+    player.style.top =
+        playerY + "%";
+
+    player.style.transform =
+        `translate(-50%, -100%) scale(${scale})`;
+}
+
+
+/* =========================
+   NPC
+========================= */
+
+function openNPC(name) {
+
+    const modal =
+        document.getElementById("modal");
+
+    const title =
+        document.getElementById("modalTitle");
+
+    const text =
+        document.getElementById("modalText");
+
+
+    title.textContent = name;
+
+
+    if (name === "Burguinho") {
+
+        text.textContent =
+            "Piu! Bem-vindo ao campo do The Attorneys! Aqui você poderá descobrir informações sobre as provas e os eventos.";
+
+    } else {
+
+        text.textContent =
+            "Eu sou o centro de informações do torneio. Em uma versão futura você poderá consultar regras, próximas provas, calendário, participantes e muito mais.";
+
+    }
+
+
+    modal.style.display = "flex";
+}
+
+
+function closeNPC() {
+
+    document.getElementById("modal")
+        .style.display = "none";
+
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+const chatInput =
+    document.getElementById("chatInput");
+
+const chatMessages =
+    document.getElementById("chatMessages");
+
+
+chatInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            chatInput.value.trim() !== ""
+        ) {
+
+            const message =
+                document.createElement("div");
+
+            message.innerHTML =
+                `<b>${escapeHTML(playerName)}:</b> ${escapeHTML(chatInput.value)}`;
+
+            chatMessages.appendChild(message);
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+            chatInput.value = "";
+        }
+
+    }
+);
+
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+
+/* =========================
+   CONTROLES MOBILE
+========================= */
+
+document
+    .querySelectorAll(".control")
+    .forEach(button => {
+
+        const key =
+            button.dataset.key.toLowerCase();
+
+
+        button.addEventListener(
+            "touchstart",
+            function(event) {
+
+                event.preventDefault();
+
+                keys[key] = true;
+
+            },
+            { passive: false }
+        );
+
+
+        button.addEventListener(
+            "touchend",
+            function(event) {
+
+                event.preventDefault();
+
+                keys[key] = false;
+
+            },
+            { passive: false }
+        );
+
+    });
+
+
+/* =========================
+   INICIAR LOOP
+========================= */
+
+movePlayer();
+
+</script>
+
+</body>
+</html>
