@@ -16,8 +16,8 @@ html,body{
   width:100%;
   height:100%;
   overflow:hidden;
-  font-family:monospace;
   background:#171329;
+  font-family:monospace;
   color:white;
 }
 
@@ -36,68 +36,65 @@ button{
 #menu{
   position:fixed;
   inset:0;
-  z-index:100;
+  z-index:999;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   padding:20px;
-  background:
-    radial-gradient(circle at 20% 20%,#49326d 0 4%,transparent 5%),
-    radial-gradient(circle at 80% 70%,#302153 0 5%,transparent 6%),
-    #171329;
   overflow:auto;
+  background:
+    radial-gradient(circle at 15% 20%,#4b356b 0 4%,transparent 5%),
+    radial-gradient(circle at 80% 75%,#30244f 0 5%,transparent 6%),
+    #171329;
 }
 
 .menu-box{
   width:min(900px,96vw);
   max-height:94vh;
   overflow:auto;
-  border:5px solid #0b0912;
   background:#252039;
+  border:5px solid #0b0912;
   box-shadow:10px 10px 0 #0b0912;
   padding:24px;
 }
 
 .title{
-  font-size:clamp(28px,6vw,54px);
   text-align:center;
+  font-size:clamp(30px,6vw,55px);
   color:#fff1a8;
   text-shadow:4px 4px #0b0912;
-  margin-bottom:6px;
 }
 
 .subtitle{
   text-align:center;
-  color:#cfc7e9;
-  margin-bottom:22px;
+  color:#d0c8e8;
+  margin:6px 0 22px;
 }
 
 .menu-section{
+  background:#1a1629;
   border:3px solid #51456e;
-  background:#1b172b;
-  padding:16px;
+  padding:15px;
   margin-top:14px;
 }
 
 .menu-section h2{
   color:#fff1a8;
-  font-size:18px;
   margin-bottom:12px;
-}
-
-label{
-  display:block;
-  color:#dcd6ef;
-  margin:10px 0 6px;
 }
 
 input[type="text"],
 input[type="file"]{
   width:100%;
-  background:#0f0d18;
-  border:2px solid #655984;
-  color:white;
   padding:10px;
+  background:#0e0c16;
+  color:white;
+  border:2px solid #655984;
+}
+
+label{
+  display:block;
+  margin:10px 0 5px;
 }
 
 .npc-upload{
@@ -107,27 +104,31 @@ input[type="file"]{
 }
 
 .npc-card{
-  border:2px solid #51456e;
   padding:12px;
   background:#211c34;
+  border:2px solid #51456e;
 }
 
 .npc-card strong{
-  display:block;
   color:#fff1a8;
-  margin-bottom:8px;
+}
+
+.npc-card small{
+  display:block;
+  color:#aaa;
+  margin-top:7px;
 }
 
 .start-btn{
   width:100%;
   margin-top:20px;
   padding:16px;
-  border:4px solid #0b0912;
   background:#fff1a8;
   color:#171329;
+  border:4px solid #0b0912;
+  box-shadow:6px 6px 0 #0b0912;
   font-weight:bold;
   font-size:20px;
-  box-shadow:6px 6px 0 #0b0912;
 }
 
 .start-btn:active{
@@ -140,39 +141,55 @@ input[type="file"]{
 ========================= */
 
 #game{
-  display:none;
   position:fixed;
   inset:0;
+  display:none;
   overflow:hidden;
-  background:#6fa7a0;
+  background:#57949c;
 }
 
+/*
+  O world é MUITO maior que a tela.
+  A câmera move o world inteiro.
+*/
 #world{
   position:absolute;
-  width:3600px;
-  height:2600px;
   left:0;
   top:0;
-  overflow:hidden;
+  width:3600px;
+  height:2600px;
+  will-change:transform;
 }
 
-/* Água */
+/* =========================
+   ÁGUA
+========================= */
+
 .water{
   position:absolute;
   inset:0;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.08) 25%,
-      transparent 25% 50%,
-      rgba(255,255,255,.06) 50% 75%,
-      transparent 75%
-    );
-  background-size:42px 42px;
-  background-color:#57949c;
+  background:#57949c;
 }
 
-/* Ilha principal */
+/* pequenas ondas */
+.water::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.25;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 28px,
+      #b4e0d9 29px 31px,
+      transparent 32px 58px
+    );
+}
+
+/* =========================
+   ILHA
+========================= */
+
 .island{
   position:absolute;
   left:180px;
@@ -180,69 +197,80 @@ input[type="file"]{
   width:3240px;
   height:2300px;
 
-  /* chão mais orgânico, sem aquele padrão de bolinhas */
   background:
-    radial-gradient(ellipse at 20% 30%,rgba(255,255,255,.07),transparent 18%),
-    radial-gradient(ellipse at 75% 60%,rgba(0,0,0,.06),transparent 20%),
-    radial-gradient(ellipse at 45% 80%,rgba(255,255,255,.05),transparent 15%),
+    radial-gradient(
+      ellipse at 20% 30%,
+      rgba(255,255,255,.07),
+      transparent 18%
+    ),
+    radial-gradient(
+      ellipse at 75% 65%,
+      rgba(30,70,30,.08),
+      transparent 22%
+    ),
     #79a95d;
 
   border:18px solid #31583c;
-  border-radius:48% 52% 45% 55% / 50% 44% 56% 48%;
+  border-radius:
+    48% 52% 45% 55% /
+    50% 44% 56% 48%;
+
   box-shadow:
     inset 0 0 0 8px #96bd70,
     inset 0 0 0 14px #527d49;
 }
 
-/* pequenas manchas orgânicas no chão */
-.ground-patch{
+/* =========================
+   MANCHAS DO CHÃO
+========================= */
+
+.patch{
   position:absolute;
-  background:#6c994f;
+  background:#6b984f;
   opacity:.55;
-  image-rendering:pixelated;
+  border-radius:50%;
 }
 
 .patch1{
-  width:160px;
+  width:180px;
   height:70px;
-  left:480px;
+  left:500px;
   top:500px;
-  border-radius:70% 30% 60% 40%;
-  transform:rotate(-12deg);
+  transform:rotate(-15deg);
 }
 
 .patch2{
-  width:230px;
+  width:240px;
   height:90px;
   left:1800px;
   top:350px;
-  border-radius:40% 60% 30% 70%;
-  transform:rotate(8deg);
+  transform:rotate(10deg);
 }
 
 .patch3{
-  width:190px;
+  width:180px;
   height:100px;
   left:2450px;
   top:1450px;
-  border-radius:65% 35% 55% 45%;
 }
 
 .patch4{
-  width:140px;
-  height:65px;
-  left:800px;
-  top:1750px;
-  border-radius:30% 70% 60% 40%;
+  width:150px;
+  height:70px;
+  left:850px;
+  top:1800px;
 }
 
-/* Caminhos */
+/* =========================
+   CAMINHOS
+========================= */
+
 .path{
   position:absolute;
   background:#d4b477;
   border:5px solid #96764c;
   box-shadow:inset 0 0 0 4px #e2c68f;
-  border-radius:45px;
+  border-radius:60px;
 }
 
 .path.main{
@@ -269,7 +297,10 @@ input[type="file"]{
   transform:rotate(23deg);
 }
 
-/* Água interna */
+/* =========================
+   LAGOAS
+========================= */
+
 .pond{
   position:absolute;
   background:#4d8e9c;
@@ -292,22 +323,24 @@ input[type="file"]{
 }
 
 /* =========================
-   ÁRVORES
+   ÁRVORES PROVISÓRIAS
+   depois você pode trocar por
+   imagens no ASSETS
 ========================= */
 
 .tree{
   position:absolute;
-  width:70px;
-  height:110px;
+  width:80px;
+  height:120px;
 }
 
 .tree::before{
   content:"";
   position:absolute;
+  left:26px;
+  bottom:0;
   width:28px;
   height:55px;
-  left:21px;
-  bottom:0;
   background:#704a35;
   border:4px solid #493024;
 }
@@ -315,13 +348,13 @@ input[type="file"]{
 .tree::after{
   content:"";
   position:absolute;
-  width:72px;
-  height:72px;
   left:0;
   top:0;
+  width:80px;
+  height:80px;
   background:#356b43;
   border:6px solid #244d32;
-  border-radius:45% 55% 48% 52%;
+  border-radius:50%;
   box-shadow:
     -18px 18px 0 #447d48,
     18px 16px 0 #2e603c;
@@ -356,7 +389,7 @@ input[type="file"]{
 }
 
 /* =========================
-   CENTRO / PORTAL
+   PORTAL
 ========================= */
 
 .portal-area{
@@ -364,7 +397,6 @@ input[type="file"]{
   left:1350px;
   top:930px;
   width:430px;
-  height:400px;
   text-align:center;
 }
 
@@ -372,33 +404,43 @@ input[type="file"]{
   width:250px;
   height:250px;
   margin:auto;
+
   border:12px solid #33204e;
   border-radius:50%;
+
   background:
-    radial-gradient(circle,#f5d5ff 0 8%,#a77bd8 9% 20%,#5b397d 21% 35%,#241b3b 36% 100%);
+    radial-gradient(
+      circle,
+      #f5d5ff 0 8%,
+      #a77bd8 9% 20%,
+      #5b397d 21% 35%,
+      #241b3b 36% 100%
+    );
+
   box-shadow:
     0 0 0 12px #8e68b8,
     0 0 50px rgba(207,150,255,.7);
+
   animation:pulse 2s infinite alternate;
 }
 
 .portal.closed{
   filter:grayscale(.8);
-  opacity:.55;
+  opacity:.5;
   animation:none;
-}
-
-.portal-label{
-  margin-top:25px;
-  background:#171329;
-  border:3px solid #fff1a8;
-  padding:10px;
-  color:#fff1a8;
 }
 
 @keyframes pulse{
   from{transform:scale(.96)}
   to{transform:scale(1.04)}
+}
+
+.portal-label{
+  margin-top:25px;
+  padding:10px;
+  background:#171329;
+  border:3px solid #fff1a8;
+  color:#fff1a8;
 }
 
 /* =========================
@@ -407,38 +449,34 @@ input[type="file"]{
 
 .npc{
   position:absolute;
-  width:120px;
-  height:145px;
+  width:125px;
+  min-height:145px;
   transform:translate(-50%,-50%);
-  z-index:20;
   text-align:center;
+  z-index:30;
 }
 
 .npc-image{
-  width:100px;
-  height:100px;
-  margin:auto;
+  width:105px;
+  height:105px;
   object-fit:contain;
-  image-rendering:auto;
-  filter:drop-shadow(5px 6px 0 rgba(0,0,0,.35));
+  filter:drop-shadow(6px 6px 0 rgba(0,0,0,.35));
 }
 
 .npc-fallback{
-  width:85px;
-  height:85px;
+  width:90px;
+  height:90px;
   margin:auto;
-  border:5px solid #171329;
   background:#f0c98d;
+  border:5px solid #171329;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:12px;
   color:#171329;
 }
 
 .npc-name{
   display:inline-block;
-  margin-top:5px;
   padding:4px 7px;
   background:#171329;
   border:2px solid #fff1a8;
@@ -447,10 +485,10 @@ input[type="file"]{
 }
 
 .npc.near .npc-name{
-  animation:blink .7s infinite alternate;
+  animation:bounce .5s infinite alternate;
 }
 
-@keyframes blink{
+@keyframes bounce{
   from{transform:translateY(0)}
   to{transform:translateY(-4px)}
 }
@@ -459,14 +497,20 @@ input[type="file"]{
    PLAYER
 ========================= */
 
+/*
+  IMPORTANTE:
+  O player está DENTRO do #world.
+  Portanto ele se move junto com o mundo
+  e a câmera acompanha ele.
+*/
+
 #player{
   position:absolute;
-  width:110px;
-  height:110px;
-  transform:translate(-50%,-50%);
-  z-index:50;
+  width:115px;
+  height:115px;
   object-fit:contain;
-  image-rendering:auto;
+  transform:translate(-50%,-50%);
+  z-index:60;
   filter:drop-shadow(6px 7px 0 rgba(0,0,0,.4));
 }
 
@@ -476,7 +520,7 @@ input[type="file"]{
 
 #hud{
   position:fixed;
-  z-index:80;
+  z-index:100;
   top:12px;
   left:12px;
   right:12px;
@@ -493,49 +537,31 @@ input[type="file"]{
   box-shadow:4px 4px 0 #0b0912;
 }
 
-#chatButton,
-#mapButton{
-  border:2px solid #fff1a8;
+.hud-box button{
   background:#30274a;
   color:white;
+  border:2px solid #fff1a8;
   padding:8px 12px;
-  margin-left:5px;
 }
 
 /* =========================
-   CHAT
+   EVENTO
 ========================= */
 
-#chatPanel{
+#eventBar{
   position:fixed;
-  z-index:90;
-  right:15px;
-  bottom:15px;
-  width:min(360px,90vw);
-  display:none;
-  background:#171329;
-  border:4px solid #fff1a8;
-  padding:12px;
+  z-index:100;
+  top:75px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#171329e8;
+  border:3px solid #fff1a8;
+  padding:9px 16px;
+  text-align:center;
 }
 
-#messages{
-  height:180px;
-  overflow:auto;
-  background:#0c0a13;
-  padding:8px;
-  margin-bottom:8px;
-}
-
-.chat-row{
-  margin-bottom:6px;
-}
-
-#chatInput{
-  width:100%;
-  padding:9px;
-  background:#29223e;
-  border:2px solid #62557e;
-  color:white;
+#eventStatus{
+  color:#fff1a8;
 }
 
 /* =========================
@@ -544,7 +570,7 @@ input[type="file"]{
 
 #dialogue{
   position:fixed;
-  z-index:120;
+  z-index:200;
   left:50%;
   bottom:25px;
   transform:translateX(-50%);
@@ -582,12 +608,48 @@ input[type="file"]{
 }
 
 /* =========================
-   MOBILE
+   CHAT
+========================= */
+
+#chatPanel{
+  position:fixed;
+  z-index:150;
+  right:15px;
+  bottom:15px;
+  width:min(360px,90vw);
+  display:none;
+  background:#171329;
+  border:4px solid #fff1a8;
+  padding:12px;
+}
+
+#messages{
+  height:180px;
+  overflow:auto;
+  background:#0c0a13;
+  padding:8px;
+  margin-bottom:8px;
+}
+
+.chat-row{
+  margin-bottom:6px;
+}
+
+#chatInput{
+  width:100%;
+  padding:9px;
+  background:#29223e;
+  border:2px solid #62557e;
+  color:white;
+}
+
+/* =========================
+   CONTROLES MOBILE
 ========================= */
 
 #mobileControls{
   position:fixed;
-  z-index:100;
+  z-index:150;
   left:15px;
   bottom:15px;
   display:grid;
@@ -612,48 +674,25 @@ input[type="file"]{
 
 #interactBtn{
   position:fixed;
-  z-index:100;
+  z-index:160;
   right:18px;
   bottom:18px;
+  display:none;
   border:4px solid #0b0912;
   background:#fff1a8;
   color:#171329;
   padding:15px 18px;
   font-weight:bold;
-  display:none;
 }
 
 /* =========================
-   EVENT BAR
-========================= */
-
-#eventBar{
-  position:fixed;
-  z-index:80;
-  top:75px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#171329e8;
-  border:3px solid #fff1a8;
-  padding:9px 16px;
-  text-align:center;
-}
-
-#eventStatus{
-  color:#fff1a8;
-}
-
-/* =========================
-   RESPONSIVE
+   RESPONSIVO
 ========================= */
 
 @media(max-width:600px){
+
   .npc-upload{
     grid-template-columns:1fr;
-  }
-
-  .npc{
-    width:90px;
   }
 
   .npc-image{
@@ -667,453 +706,714 @@ input[type="file"]{
   }
 
   #eventBar{
-    top:70px;
     width:90%;
   }
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
+<!-- =====================================================
      MENU
-========================= -->
+===================================================== -->
 
 <div id="menu">
 
-  <div class="menu-box">
+<div class="menu-box">
 
-    <div class="title">THE ATTORNEYS</div>
-    <div class="subtitle">
-      O torneio começa aqui.
-    </div>
+<div class="title">THE ATTORNEYS</div>
 
-    <div class="menu-section">
+<div class="subtitle">
+  O torneio começa aqui.
+</div>
 
-      <h2>🐾 SEU PARTICIPANTE</h2>
+<div class="menu-section">
 
-      <label>Nome</label>
-      <input id="playerName" type="text" maxlength="20" placeholder="Seu nome...">
+<h2>🐾 PARTICIPANTE</h2>
 
-      <label>Imagem do seu personagem</label>
-      <input id="playerImageInput" type="file" accept="image/*">
+<label>Nome</label>
 
-      <p style="margin-top:8px;color:#aaa">
-        A imagem escolhida será o próprio personagem andando pelo mapa.
-      </p>
+<input
+  id="playerName"
+  type="text"
+  maxlength="20"
+  placeholder="Seu nome..."
+>
 
-    </div>
-
-    <div class="menu-section">
-
-      <h2>🔊 VOZES DOS NPCs</h2>
-
-      <div class="npc-upload">
-
-        <div class="npc-card">
-          <strong>🦆 Burguinho</strong>
-          <label>Imagem</label>
-          <input id="imgBurguinho" type="file" accept="image/*">
-          <label>Som / voz</label>
-          <input id="audioBurguinho" type="file" accept="audio/*">
-          <small>Sem áudio: o jogo faz um “QUACK!” automaticamente.</small>
-        </div>
-
-        <div class="npc-card">
-          <strong>🌙 Yume</strong>
-          <label>Imagem</label>
-          <input id="imgYume" type="file" accept="image/*">
-          <label>Som / voz</label>
-          <input id="audioYume" type="file" accept="audio/*">
-        </div>
-
-        <div class="npc-card">
-          <strong>🎀 Melanie</strong>
-          <label>Imagem</label>
-          <input id="imgMelanie" type="file" accept="image/*">
-          <label>Som / voz</label>
-          <input id="audioMelanie" type="file" accept="audio/*">
-          <small>Escolha aqui o trecho de “Play Date” que você quiser usar.</small>
-        </div>
-
-        <div class="npc-card">
-          <strong>🫀 Oliver</strong>
-          <label>Imagem</label>
-          <input id="imgOliver" type="file" accept="image/*">
-          <label>Som / voz</label>
-          <input id="audioOliver" type="file" accept="audio/*">
-          <small>Sem áudio: ele manda um “oninoninon”.</small>
-        </div>
-
-        <div class="npc-card">
-          <strong>👽 Rick</strong>
-          <label>Imagem</label>
-          <input id="imgRick" type="file" accept="image/*">
-          <label>Som / voz</label>
-          <input id="audioRick" type="file" accept="audio/*">
-        </div>
-
-        <div class="npc-card">
-          <strong>🧪 Morty</strong>
-          <label>Imagem</label>
-          <input id="imgMorty" type="file" accept="image/*">
-          <label>Som / voz</label>
-          <input id="audioMorty" type="file" accept="audio/*">
-        </div>
-
-        <div class="npc-card">
-          <strong>🤖 Robô de Informações</strong>
-          <label>Imagem</label>
-          <input id="imgRobot" type="file" accept="image/*">
-          <label>Som / voz</label>
-          <input id="audioRobot" type="file" accept="audio/*">
-        </div>
-
-      </div>
-    </div>
-
-    <button class="start-btn" id="startGame">
-      ▶ ENTRAR NO TORNEIO
-    </button>
-
-  </div>
 </div>
 
 
-<!-- =========================
+<div class="menu-section">
+
+<h2>🔊 NPCs</h2>
+
+<div class="npc-upload">
+
+<div class="npc-card">
+<strong>🦆 Burguinho</strong>
+</div>
+
+<div class="npc-card">
+<strong>🌙 Yume</strong>
+</div>
+
+<div class="npc-card">
+<strong>🎀 Melanie</strong>
+</div>
+
+<div class="npc-card">
+<strong>🫀 Oliver</strong>
+</div>
+
+<div class="npc-card">
+<strong>👽 Rick</strong>
+</div>
+
+<div class="npc-card">
+<strong>🧪 Morty</strong>
+</div>
+
+<div class="npc-card">
+<strong>🤖 Robô</strong>
+</div>
+
+</div>
+
+<p style="margin-top:12px;color:#aaa">
+As imagens dos NPCs já estão configuradas no código.
+</p>
+
+</div>
+
+
+<button
+  class="start-btn"
+  id="startGame"
+>
+▶ ENTRAR NO TORNEIO
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
      GAME
-========================= -->
+===================================================== -->
 
 <div id="game">
 
-  <div id="world">
+<div id="world">
 
-    <div class="water"></div>
+<div class="water"></div>
 
-    <div class="island">
+<div class="island">
 
-      <div class="ground-patch patch1"></div>
-      <div class="ground-patch patch2"></div>
-      <div class="ground-patch patch3"></div>
-      <div class="ground-patch patch4"></div>
+<div class="patch patch1"></div>
+<div class="patch patch2"></div>
+<div class="patch patch3"></div>
+<div class="patch patch4"></div>
 
-      <div class="pond one"></div>
-      <div class="pond two"></div>
 
-      <div class="path main"></div>
-      <div class="path vertical"></div>
-      <div class="path diagonal"></div>
+<div class="pond one"></div>
+<div class="pond two"></div>
 
-      <!-- árvores -->
-      <div class="tree t1"></div>
-      <div class="tree t2"></div>
-      <div class="tree t3"></div>
-      <div class="tree t4"></div>
-      <div class="tree t5"></div>
-      <div class="tree t6"></div>
-      <div class="tree t7"></div>
-      <div class="tree t8"></div>
-      <div class="tree t9"></div>
-      <div class="tree t10"></div>
-      <div class="tree t11"></div>
 
-      <!-- flores -->
-      <div class="flower" style="left:600px;top:500px"></div>
-      <div class="flower" style="left:720px;top:800px"></div>
-      <div class="flower" style="left:1100px;top:1450px"></div>
-      <div class="flower" style="left:1900px;top:600px"></div>
-      <div class="flower" style="left:2300px;top:1100px"></div>
-      <div class="flower" style="left:2700px;top:1500px"></div>
-      <div class="flower" style="left:1800px;top:1800px"></div>
-      <div class="flower" style="left:850px;top:1900px"></div>
+<div class="path main"></div>
+<div class="path vertical"></div>
+<div class="path diagonal"></div>
 
-      <!-- PORTAL -->
-      <div class="portal-area">
-        <div id="portal" class="portal closed"></div>
-        <div class="portal-label" id="portalLabel">
-          PORTAL FECHADO<br>
-          Aguarde a próxima prova.
-        </div>
-      </div>
 
-      <!-- NPCs -->
-      <div class="npc" id="npcBurguinho" data-name="Burguinho" style="left:700px;top:950px">
-        <div class="npc-fallback">DUCK</div>
-        <div class="npc-name">Burguinho</div>
-      </div>
+<!-- ÁRVORES -->
+<div class="tree t1"></div>
+<div class="tree t2"></div>
+<div class="tree t3"></div>
+<div class="tree t4"></div>
+<div class="tree t5"></div>
+<div class="tree t6"></div>
+<div class="tree t7"></div>
+<div class="tree t8"></div>
+<div class="tree t9"></div>
+<div class="tree t10"></div>
+<div class="tree t11"></div>
 
-      <div class="npc" id="npcYume" data-name="Yume" style="left:1050px;top:1300px">
-        <div class="npc-fallback">YUME</div>
-        <div class="npc-name">Yume</div>
-      </div>
 
-      <div class="npc" id="npcMelanie" data-name="Melanie" style="left:2200px;top:850px">
-        <div class="npc-fallback">MEL</div>
-        <div class="npc-name">Melanie</div>
-      </div>
+<!-- FLORES -->
+<div class="flower" style="left:600px;top:500px"></div>
+<div class="flower" style="left:720px;top:800px"></div>
+<div class="flower" style="left:1100px;top:1450px"></div>
+<div class="flower" style="left:1900px;top:600px"></div>
+<div class="flower" style="left:2300px;top:1100px"></div>
+<div class="flower" style="left:2700px;top:1500px"></div>
+<div class="flower" style="left:1800px;top:1800px"></div>
+<div class="flower" style="left:850px;top:1900px"></div>
 
-      <div class="npc" id="npcOliver" data-name="Oliver" style="left:2500px;top:1250px">
-        <div class="npc-fallback">OT</div>
-        <div class="npc-name">Oliver</div>
-      </div>
 
-      <div class="npc" id="npcRick" data-name="Rick" style="left:600px;top:1550px">
-        <div class="npc-fallback">RICK</div>
-        <div class="npc-name">Rick</div>
-      </div>
+<!-- PORTAL -->
 
-      <div class="npc" id="npcMorty" data-name="Morty" style="left:2750px;top:600px">
-        <div class="npc-fallback">MORTY</div>
-        <div class="npc-name">Morty</div>
-      </div>
+<div class="portal-area">
 
-      <div class="npc" id="npcRobot" data-name="Robô de Informações" style="left:1800px;top:1450px">
-        <div class="npc-fallback">INFO</div>
-        <div class="npc-name">Robô</div>
-      </div>
+<div
+  id="portal"
+  class="portal closed"
+></div>
 
-      <!-- PLAYER -->
-      <img id="player" alt="Seu personagem" style="left:1530px;top:1120px">
-
-    </div>
-  </div>
-
-  <!-- HUD -->
-  <div id="hud">
-
-    <div class="hud-box">
-      🏆 <span id="hudName">Participante</span>
-    </div>
-
-    <div class="hud-box">
-      <button id="chatButton">💬 CHAT</button>
-      <button id="mapButton">🗺 MAPA</button>
-    </div>
-
-  </div>
-
-  <div id="eventBar">
-    PRÓXIMA PROVA:
-    <span id="eventStatus">aguardando...</span>
-  </div>
-
-  <!-- CHAT -->
-  <div id="chatPanel">
-
-    <div id="messages">
-      <div class="chat-row"><b>Sistema:</b> Bem-vindo ao The Attorneys!</div>
-    </div>
-
-    <input id="chatInput" placeholder="Escreva uma mensagem e aperte Enter">
-
-  </div>
-
-  <!-- DIALOGUE -->
-  <div id="dialogue">
-
-    <div id="dialogueName">NPC</div>
-
-    <div id="dialogueText">
-      ...
-    </div>
-
-    <div class="dialogue-actions">
-      <button id="replayAudio">🔊 REPETIR FALA</button>
-      <button id="closeDialogue">FECHAR</button>
-    </div>
-
-  </div>
-
-  <!-- MOBILE -->
-  <div id="mobileControls">
-
-    <button class="ctrl up" data-dir="up">▲</button>
-    <button class="ctrl left" data-dir="left">◀</button>
-    <button class="ctrl down" data-dir="down">▼</button>
-    <button class="ctrl right" data-dir="right">▶</button>
-
-  </div>
-
-  <button id="interactBtn">💬 INTERAGIR</button>
+<div
+  id="portalLabel"
+  class="portal-label"
+>
+PORTAL FECHADO<br>
+Aguarde a próxima prova.
+</div>
 
 </div>
 
 
+<!-- =====================================================
+     NPCs
+===================================================== -->
+
+<div
+  class="npc"
+  id="npcBurguinho"
+  data-name="Burguinho"
+  style="left:700px;top:950px"
+>
+<img
+  class="npc-image"
+  src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png"
+  alt="Burguinho"
+>
+<div class="npc-name">Burguinho</div>
+</div>
+
+
+<div
+  class="npc"
+  id="npcYume"
+  data-name="Yume"
+  style="left:1050px;top:1300px"
+>
+<div class="npc-fallback">YUME</div>
+<div class="npc-name">Yume</div>
+</div>
+
+
+<div
+  class="npc"
+  id="npcMelanie"
+  data-name="Melanie"
+  style="left:2200px;top:850px"
+>
+<img
+  class="npc-image"
+  src="https://i.pinimg.com/736x/a1/26/60/a12660f3c13e52558b47d0fc39963556.jpg"
+  alt="Melanie"
+>
+<div class="npc-name">Melanie</div>
+</div>
+
+
+<div
+  class="npc"
+  id="npcOliver"
+  data-name="Oliver"
+  style="left:2500px;top:1250px"
+>
+<img
+  class="npc-image"
+  src="https://i.pinimg.com/736x/c7/f3/7f/c7f37f8a6488b8f5fd78eb124e1d5b7d.jpg"
+  alt="Oliver Tree"
+>
+<div class="npc-name">Oliver</div>
+</div>
+
+
+<div
+  class="npc"
+  id="npcRick"
+  data-name="Rick"
+  style="left:600px;top:1550px"
+>
+<img
+  class="npc-image"
+  src="https://pngimg.com/uploads/rick_morty/rick_morty_PNG8.png"
+  alt="Rick"
+>
+<div class="npc-name">Rick</div>
+</div>
+
+
+<div
+  class="npc"
+  id="npcMorty"
+  data-name="Morty"
+  style="left:2750px;top:600px"
+>
+<img
+  class="npc-image"
+  src="https://www.pngall.com/wp-content/uploads/15/Morty-PNG-Clipart.png"
+  alt="Morty"
+>
+<div class="npc-name">Morty</div>
+</div>
+
+
+<div
+  class="npc"
+  id="npcRobot"
+  data-name="Robô de Informações"
+  style="left:1800px;top:1450px"
+>
+<div class="npc-fallback">INFO</div>
+<div class="npc-name">Robô</div>
+</div>
+
+
+<!-- =====================================================
+     PLAYER
+===================================================== -->
+
+<img
+  id="player"
+  alt="Seu personagem"
+>
+
+</div>
+</div>
+
+
+<!-- =====================================================
+     HUD
+===================================================== -->
+
+<div id="hud">
+
+<div class="hud-box">
+🏆 <span id="hudName">Participante</span>
+</div>
+
+<div class="hud-box">
+
+<button id="chatButton">
+💬 CHAT
+</button>
+
+<button id="mapButton">
+🗺 MAPA
+</button>
+
+</div>
+
+</div>
+
+
+<div id="eventBar">
+PRÓXIMA PROVA:
+<span id="eventStatus">aguardando...</span>
+</div>
+
+
+<!-- =====================================================
+     DIALOGUE
+===================================================== -->
+
+<div id="dialogue">
+
+<div id="dialogueName">
+NPC
+</div>
+
+<div id="dialogueText">
+...
+</div>
+
+<div class="dialogue-actions">
+
+<button id="replayAudio">
+🔊 REPETIR FALA
+</button>
+
+<button id="closeDialogue">
+FECHAR
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     CHAT
+===================================================== -->
+
+<div id="chatPanel">
+
+<div id="messages">
+<div class="chat-row">
+<b>Sistema:</b>
+Bem-vindo ao The Attorneys!
+</div>
+</div>
+
+<input
+  id="chatInput"
+  placeholder="Escreva uma mensagem..."
+>
+
+</div>
+
+
+<!-- =====================================================
+     MOBILE
+===================================================== -->
+
+<div id="mobileControls">
+
+<button class="ctrl up" data-dir="up">▲</button>
+<button class="ctrl left" data-dir="left">◀</button>
+<button class="ctrl down" data-dir="down">▼</button>
+<button class="ctrl right" data-dir="right">▶</button>
+
+</div>
+
+
+<button id="interactBtn">
+💬 INTERAGIR
+</button>
+
+
 <script>
-/* =========================================================
-   THE ATTORNEYS
-========================================================= */
 
-const menu = document.getElementById("menu");
-const game = document.getElementById("game");
+/* =====================================================
+   ASSETS
+   AQUI VOCÊ VAI COLOCAR OS PRÓXIMOS LINKS
+===================================================== */
 
-const world = document.getElementById("world");
-const island = document.querySelector(".island");
-const player = document.getElementById("player");
+const ASSETS = {
 
-const playerNameInput = document.getElementById("playerName");
-const playerImageInput = document.getElementById("playerImageInput");
+  /* NPCs */
 
-const hudName = document.getElementById("hudName");
+  oliver:
+    "https://i.pinimg.com/736x/c7/f3/7f/c7f37f8a6488b8f5fd78eb124e1d5b7d.jpg",
 
-const dialogue = document.getElementById("dialogue");
-const dialogueName = document.getElementById("dialogueName");
-const dialogueText = document.getElementById("dialogueText");
+  melanie:
+    "https://i.pinimg.com/736x/a1/26/60/a12660f3c13e52558b47d0fc39963556.jpg",
 
-const interactBtn = document.getElementById("interactBtn");
+  burguinho:
+    "https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png",
 
-const portal = document.getElementById("portal");
-const portalLabel = document.getElementById("portalLabel");
+  rick:
+    "https://pngimg.com/uploads/rick_morty/rick_morty_PNG8.png",
+
+  morty:
+    "https://www.pngall.com/wp-content/uploads/15/Morty-PNG-Clipart.png",
 
 
-/* =========================================================
-   PLAYER
-========================================================= */
+  /* ADICIONE DEPOIS */
 
-const playerState = {
-  x:1530,
-  y:1120,
-  speed:5
+  yume:
+    "",
+
+  robot:
+    "",
+
+
+  /* PLAYER */
+
+  player:
+    "",
+
+
+  /* CENÁRIO */
+
+  tree:
+    "",
+
+  flower:
+    "",
+
+  rock:
+    "",
+
+  bush:
+    "",
+
+  grass:
+    ""
+
 };
 
-let playerImageURL = null;
 
-playerImageInput.addEventListener("change",()=>{
-  const file = playerImageInput.files[0];
+/* =====================================================
+   ELEMENTOS
+===================================================== */
 
-  if(!file) return;
+const menu =
+  document.getElementById("menu");
 
-  if(playerImageURL){
-    URL.revokeObjectURL(playerImageURL);
-  }
+const game =
+  document.getElementById("game");
 
-  playerImageURL = URL.createObjectURL(file);
-  player.src = playerImageURL;
-});
+const world =
+  document.getElementById("world");
+
+const player =
+  document.getElementById("player");
+
+const playerNameInput =
+  document.getElementById("playerName");
+
+const hudName =
+  document.getElementById("hudName");
+
+const dialogue =
+  document.getElementById("dialogue");
+
+const dialogueName =
+  document.getElementById("dialogueName");
+
+const dialogueText =
+  document.getElementById("dialogueText");
+
+const interactBtn =
+  document.getElementById("interactBtn");
+
+const portal =
+  document.getElementById("portal");
+
+const portalLabel =
+  document.getElementById("portalLabel");
 
 
-/* =========================================================
+/* =====================================================
+   PLAYER
+===================================================== */
+
+const playerState = {
+
+  x:1530,
+  y:1120,
+
+  speed:5
+
+};
+
+
+/*
+  Se você colocar o link do player em ASSETS.player,
+  ele já aparece automaticamente.
+*/
+
+if(ASSETS.player){
+
+  player.src = ASSETS.player;
+
+}
+
+
+/* =====================================================
    NPC DATA
-========================================================= */
+===================================================== */
 
 const npcs = {
 
   Burguinho:{
-    element:document.getElementById("npcBurguinho"),
-    imageInput:document.getElementById("imgBurguinho"),
-    audioInput:document.getElementById("audioBurguinho"),
-    fallbackText:"QUACK!",
-    dialogue:"QUACK! QUACK! 🦆"
+
+    element:
+      document.getElementById("npcBurguinho"),
+
+    dialogue:
+      "QUACK! QUACK! 🦆"
+
   },
 
   Yume:{
-    element:document.getElementById("npcYume"),
-    imageInput:document.getElementById("imgYume"),
-    audioInput:document.getElementById("audioYume"),
-    fallbackText:"Oi! :33",
-    dialogue:"Oiii! Bem-vindo ao The Attorneys :33"
+
+    element:
+      document.getElementById("npcYume"),
+
+    dialogue:
+      "Oiii! Bem-vindo ao The Attorneys :33"
+
   },
 
   Melanie:{
-    element:document.getElementById("npcMelanie"),
-    imageInput:document.getElementById("imgMelanie"),
-    audioInput:document.getElementById("audioMelanie"),
-    fallbackText:"",
-    dialogue:"♪ ... ♪"
+
+    element:
+      document.getElementById("npcMelanie"),
+
+    dialogue:
+      "♪ ... ♪"
+
   },
 
   Oliver:{
-    element:document.getElementById("npcOliver"),
-    imageInput:document.getElementById("imgOliver"),
-    audioInput:document.getElementById("audioOliver"),
-    fallbackText:"oninoninon",
-    dialogue:"ONINONINON 🫀"
+
+    element:
+      document.getElementById("npcOliver"),
+
+    dialogue:
+      "ONINONINON 🫀"
+
   },
 
   Rick:{
-    element:document.getElementById("npcRick"),
-    imageInput:document.getElementById("imgRick"),
-    audioInput:document.getElementById("audioRick"),
-    fallbackText:"...",
-    dialogue:"Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!"
+
+    element:
+      document.getElementById("npcRick"),
+
+    dialogue:
+      "Ei. Você já encontrou o portal?"
+
   },
 
   Morty:{
-    element:document.getElementById("npcMorty"),
-    imageInput:document.getElementById("imgMorty"),
-    audioInput:document.getElementById("audioMorty"),
-    fallbackText:"...",
-    dialogue:"— P-porra, Rick! Onde é que a gente tá, cara?!"
+
+    element:
+      document.getElementById("npcMorty"),
+
+    dialogue:
+      "R-Rick! Acho que o portal abriu!"
+
   },
 
   Robot:{
-    element:document.getElementById("npcRobot"),
-    imageInput:document.getElementById("imgRobot"),
-    audioInput:document.getElementById("audioRobot"),
-    fallbackText:"INFO",
-    dialogue:"Olá, participante. Posso fornecer informações sobre o torneio."
+
+    element:
+      document.getElementById("npcRobot"),
+
+    dialogue:
+      "Olá, participante. Posso fornecer informações sobre o torneio."
+
   }
 
 };
 
 
-/* =========================================================
+/* =====================================================
    ÁUDIO
-========================================================= */
+===================================================== */
+
+let currentNPC = null;
 
 let currentAudio = null;
-let currentNPC = null;
+
 
 function stopAudio(){
 
   if(currentAudio){
+
     currentAudio.pause();
 
-    try{
-      currentAudio.currentTime = 0;
-    }catch(e){}
+    currentAudio.currentTime = 0;
 
     currentAudio = null;
+
   }
 
 }
 
 
-/* Arquivos de áudio escolhidos no menu */
+/*
+  Sons provisórios.
 
-function getAudioFile(npc){
+  Depois podemos colocar arquivos de áudio
+  diretamente no ASSETS também.
+*/
 
-  if(!npc || !npc.audioInput) return null;
+function playNPCSound(name){
 
-  const file = npc.audioInput.files[0];
+  stopAudio();
 
-  if(!file) return null;
 
-  return file;
+  if(name === "Burguinho"){
+
+    makeQuack();
+
+    return;
+
+  }
+
+
+  if(name === "Oliver"){
+
+    speak("oninoninon");
+
+    return;
+
+  }
+
+
+  if(name === "Yume"){
+
+    speak("Oiii! Bem-vindo ao The Attorneys!");
+
+    return;
+
+  }
+
+
+  if(name === "Rick"){
+
+    speak("Ei. Você já encontrou o portal?");
+
+    return;
+
+  }
+
+
+  if(name === "Morty"){
+
+    speak("Rick! Acho que o portal abriu!");
+
+    return;
+
+  }
+
+
+  if(name === "Robot"){
+
+    speak(
+      "Olá, participante. Posso fornecer informações sobre o torneio."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Melanie:
+    aqui vamos colocar o áudio que você quiser
+    quando você tiver o arquivo/link.
+  */
 
 }
 
 
-/* Voz sintetizada */
+function speak(text){
 
-function speakText(text){
-
-  if(!("speechSynthesis" in window)) return;
+  if(!("speechSynthesis" in window))
+    return;
 
   speechSynthesis.cancel();
 
-  const utterance = new SpeechSynthesisUtterance(text);
+  const voice =
+    new SpeechSynthesisUtterance(text);
 
-  utterance.lang = "pt-BR";
-  utterance.rate = 1;
-  utterance.pitch = 1;
+  voice.lang = "pt-BR";
+  voice.rate = 1;
+  voice.pitch = 1;
 
-  speechSynthesis.speak(utterance);
+  speechSynthesis.speak(voice);
+
 }
 
 
-/* QUACK */
 function makeQuack(){
 
   try{
@@ -1122,25 +1422,40 @@ function makeQuack(){
       window.AudioContext ||
       window.webkitAudioContext;
 
-    if(!AudioContext) return;
+    if(!AudioContext)
+      return;
 
-    const ctx = new AudioContext();
+    const ctx =
+      new AudioContext();
 
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    const osc =
+      ctx.createOscillator();
+
+    const gain =
+      ctx.createGain();
+
 
     osc.type = "sawtooth";
 
-    osc.frequency.setValueAtTime(480,ctx.currentTime);
+    osc.frequency.setValueAtTime(
+      500,
+      ctx.currentTime
+    );
+
     osc.frequency.exponentialRampToValueAtTime(
       170,
       ctx.currentTime + .18
     );
 
-    gain.gain.setValueAtTime(.001,ctx.currentTime);
+
+    gain.gain.setValueAtTime(
+      .001,
+      ctx.currentTime
+    );
+
     gain.gain.exponentialRampToValueAtTime(
       .35,
-      ctx.currentTime + .025
+      ctx.currentTime + .02
     );
 
     gain.gain.exponentialRampToValueAtTime(
@@ -1148,134 +1463,44 @@ function makeQuack(){
       ctx.currentTime + .22
     );
 
+
     osc.connect(gain);
     gain.connect(ctx.destination);
 
     osc.start();
-    osc.stop(ctx.currentTime + .23);
+
+    osc.stop(
+      ctx.currentTime + .23
+    );
 
   }catch(e){
 
-    speakText("Quack!");
+    speak("Quack!");
 
   }
 
 }
 
 
-/* =========================================================
-   FALA DO NPC
-========================================================= */
-
-function playNPCSound(name){
-
-  const npc = npcs[name];
-
-  if(!npc) return;
-
-  stopAudio();
-
-  const file = getAudioFile(npc);
-
-  if(file){
-
-    const url = URL.createObjectURL(file);
-
-    currentAudio = new Audio(url);
-
-    currentAudio.volume = 1;
-
-    currentAudio.play().catch(()=>{});
-
-    currentAudio.addEventListener("ended",()=>{
-      URL.revokeObjectURL(url);
-    },{
-      once:true
-    });
-
-    return;
-  }
-
-  /* sons padrão */
-
-  if(name === "Burguinho"){
-    makeQuack();
-    return;
-  }
-
-  if(name === "Oliver"){
-    speakText("oninoninon");
-    return;
-  }
-
-  if(name === "Yume"){
-    speakText("Oiii! Bem-vindo ao The Attorneys!");
-    return;
-  }
-
-  if(name === "Rick"){
-    speakText("Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!");
-    return;
-  }
-
-  if(name === "Morty"){
-    speakText("— P-porra, Rick! Onde é que a gente tá, cara?!");
-    return;
-  }
-
-  if(name === "Robot"){
-    speakText("Olá, participante. Posso fornecer informações sobre o torneio.");
-    return;
-  }
-
-  /* Melanie sem arquivo não toca nada,
-     porque o áudio dela será selecionado pelo usuário. */
-
-}
-
-
-/* =========================================================
-   IMAGENS DOS NPCs
-========================================================= */
-
-for(const name in npcs){
-
-  const npc = npcs[name];
-
-  npc.imageInput.addEventListener("change",()=>{
-
-    const file = npc.imageInput.files[0];
-
-    if(!file) return;
-
-    const old = npc.element.querySelector(".npc-image");
-
-    if(old) old.remove();
-
-    const fallback =
-      npc.element.querySelector(".npc-fallback");
-
-    if(fallback) fallback.remove();
-
-    const img = document.createElement("img");
-
-    img.className = "npc-image";
-    img.alt = name;
-
-    img.src = URL.createObjectURL(file);
-
-    npc.element.prepend(img);
-
-  });
-
-}
-
-
-/* =========================================================
+/* =====================================================
    INTERAÇÃO
-========================================================= */
+===================================================== */
 
 let nearbyNPC = null;
+
+
+function getNPCPosition(element){
+
+  return {
+
+    x:parseFloat(element.style.left),
+
+    y:parseFloat(element.style.top)
+
+  };
+
+}
+
 
 function distance(a,b){
 
@@ -1286,65 +1511,77 @@ function distance(a,b){
 
 }
 
-function getNPCPosition(element){
-
-  return {
-    x:parseFloat(element.style.left),
-    y:parseFloat(element.style.top)
-  };
-
-}
-
 
 function updateNearbyNPC(){
 
   let closest = null;
-  let closestDistance = Infinity;
+
+  let closestDistance =
+    Infinity;
+
 
   for(const name in npcs){
 
-    const pos = getNPCPosition(npcs[name].element);
+    const pos =
+      getNPCPosition(
+        npcs[name].element
+      );
 
-    const d = distance(
-      playerState,
-      pos
-    );
+
+    const d =
+      distance(
+        playerState,
+        pos
+      );
+
 
     if(d < closestDistance){
 
       closestDistance = d;
+
       closest = name;
 
     }
 
   }
 
+
   if(closestDistance < 190){
 
     nearbyNPC = closest;
 
+    interactBtn.style.display =
+      "block";
+
+
     for(const name in npcs){
 
-      npcs[name].element.classList.toggle(
-        "near",
-        name === closest
-      );
+      npcs[name]
+        .element
+        .classList
+        .toggle(
+          "near",
+          name === closest
+        );
 
     }
-
-    interactBtn.style.display = "block";
 
   }else{
 
     nearbyNPC = null;
 
+    interactBtn.style.display =
+      "none";
+
+
     for(const name in npcs){
 
-      npcs[name].element.classList.remove("near");
+      npcs[name]
+        .element
+        .classList
+        .remove("near");
 
     }
-
-    interactBtn.style.display = "none";
 
   }
 
@@ -1353,145 +1590,244 @@ function updateNearbyNPC(){
 
 function interact(){
 
-  if(!nearbyNPC) return;
+  if(!nearbyNPC)
+    return;
 
-  const npc = npcs[nearbyNPC];
 
-  currentNPC = nearbyNPC;
+  currentNPC =
+    nearbyNPC;
+
+
+  const npc =
+    npcs[nearbyNPC];
+
 
   dialogueName.textContent =
     npc.element.dataset.name;
 
+
   dialogueText.textContent =
     npc.dialogue;
 
-  dialogue.style.display = "block";
+
+  dialogue.style.display =
+    "block";
+
 
   playNPCSound(nearbyNPC);
 
 }
 
 
-/* PC */
+/* tecla E */
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener(
+  "keydown",
+  e=>{
 
-  if(e.key.toLowerCase() === "e"){
+    if(
+      e.key.toLowerCase()
+      === "e"
+    ){
 
-    interact();
-
-  }
-
-});
-
-
-interactBtn.addEventListener("click",interact);
-
-
-/* repetir */
-
-document.getElementById("replayAudio")
-  .addEventListener("click",()=>{
-
-    if(currentNPC){
-
-      playNPCSound(currentNPC);
+      interact();
 
     }
 
-  });
+  }
+);
 
 
-document.getElementById("closeDialogue")
-  .addEventListener("click",()=>{
-
-    dialogue.style.display = "none";
-
-    stopAudio();
-
-  });
+interactBtn.addEventListener(
+  "click",
+  interact
+);
 
 
-/* =========================================================
+document
+  .getElementById("replayAudio")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      if(currentNPC){
+
+        playNPCSound(
+          currentNPC
+        );
+
+      }
+
+    }
+  );
+
+
+document
+  .getElementById("closeDialogue")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      dialogue.style.display =
+        "none";
+
+      stopAudio();
+
+    }
+  );
+
+
+/* =====================================================
    MOVIMENTO
-========================================================= */
+===================================================== */
 
 const keys = {
+
   up:false,
   down:false,
   left:false,
   right:false
+
 };
 
 
-window.addEventListener("keydown",(e)=>{
+window.addEventListener(
+  "keydown",
+  e=>{
 
-  if(e.key === "ArrowUp" || e.key.toLowerCase()==="w")
-    keys.up=true;
-
-  if(e.key === "ArrowDown" || e.key.toLowerCase()==="s")
-    keys.down=true;
-
-  if(e.key === "ArrowLeft" || e.key.toLowerCase()==="a")
-    keys.left=true;
-
-  if(e.key === "ArrowRight" || e.key.toLowerCase()==="d")
-    keys.right=true;
-
-});
+    const key =
+      e.key.toLowerCase();
 
 
-window.addEventListener("keyup",(e)=>{
-
-  if(e.key === "ArrowUp" || e.key.toLowerCase()==="w")
-    keys.up=false;
-
-  if(e.key === "ArrowDown" || e.key.toLowerCase()==="s")
-    keys.down=false;
-
-  if(e.key === "ArrowLeft" || e.key.toLowerCase()==="a")
-    keys.left=false;
-
-  if(e.key === "ArrowRight" || e.key.toLowerCase()==="d")
-    keys.right=false;
-
-});
+    if(
+      e.key === "ArrowUp" ||
+      key === "w"
+    )
+      keys.up=true;
 
 
-/* controles mobile */
-
-document.querySelectorAll(".ctrl").forEach(button=>{
-
-  const dir = button.dataset.dir;
-
-  const start = (e)=>{
-    e.preventDefault();
-    keys[dir]=true;
-  };
-
-  const stop = (e)=>{
-    e.preventDefault();
-    keys[dir]=false;
-  };
-
-  button.addEventListener("pointerdown",start);
-  button.addEventListener("pointerup",stop);
-  button.addEventListener("pointercancel",stop);
-  button.addEventListener("pointerleave",stop);
-
-});
+    if(
+      e.key === "ArrowDown" ||
+      key === "s"
+    )
+      keys.down=true;
 
 
-/* =========================================================
-   LIMITES DO MUNDO
-========================================================= */
+    if(
+      e.key === "ArrowLeft" ||
+      key === "a"
+    )
+      keys.left=true;
+
+
+    if(
+      e.key === "ArrowRight" ||
+      key === "d"
+    )
+      keys.right=true;
+
+  }
+);
+
+
+window.addEventListener(
+  "keyup",
+  e=>{
+
+    const key =
+      e.key.toLowerCase();
+
+
+    if(
+      e.key === "ArrowUp" ||
+      key === "w"
+    )
+      keys.up=false;
+
+
+    if(
+      e.key === "ArrowDown" ||
+      key === "s"
+    )
+      keys.down=false;
+
+
+    if(
+      e.key === "ArrowLeft" ||
+      key === "a"
+    )
+      keys.left=false;
+
+
+    if(
+      e.key === "ArrowRight" ||
+      key === "d"
+    )
+      keys.right=false;
+
+  }
+);
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+document
+  .querySelectorAll(".ctrl")
+  .forEach(button=>{
+
+    const dir =
+      button.dataset.dir;
+
+
+    button.addEventListener(
+      "pointerdown",
+      e=>{
+
+        e.preventDefault();
+
+        keys[dir]=true;
+
+      }
+    );
+
+
+    button.addEventListener(
+      "pointerup",
+      e=>{
+
+        e.preventDefault();
+
+        keys[dir]=false;
+
+      }
+    );
+
+
+    button.addEventListener(
+      "pointercancel",
+      ()=>{
+        keys[dir]=false;
+      }
+    );
+
+
+    button.addEventListener(
+      "pointerleave",
+      ()=>{
+        keys[dir]=false;
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   LIMITES
+===================================================== */
 
 function clampPlayer(){
-
-  /*
-    A ilha começa em 180,150.
-    O player não pode sair dela.
-  */
 
   const minX = 300;
   const maxX = 3300;
@@ -1499,57 +1835,90 @@ function clampPlayer(){
   const minY = 270;
   const maxY = 2330;
 
+
   playerState.x =
-    Math.max(minX,
-      Math.min(maxX,playerState.x));
+    Math.max(
+      minX,
+      Math.min(
+        maxX,
+        playerState.x
+      )
+    );
+
 
   playerState.y =
-    Math.max(minY,
-      Math.min(maxY,playerState.y));
+    Math.max(
+      minY,
+      Math.min(
+        maxY,
+        playerState.y
+      )
+    );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    CÂMERA
-========================================================= */
+===================================================== */
 
 function updateCamera(){
 
+  const screenW =
+    window.innerWidth;
+
+  const screenH =
+    window.innerHeight;
+
+
   /*
-    A câmera NÃO fica presa na parte de baixo.
-
-    Ela calcula onde o player está no mundo
-    e tenta mantê-lo no centro da tela.
-
-    Só para quando chega no verdadeiro limite
-    do mapa.
+    O player fica aproximadamente
+    no centro da tela.
   */
 
-  const screenW = window.innerWidth;
-  const screenH = window.innerHeight;
-
   let cameraX =
-    playerState.x - screenW / 2;
+    playerState.x -
+    screenW / 2;
+
 
   let cameraY =
-    playerState.y - screenH / 2;
+    playerState.y -
+    screenH / 2;
 
 
-  const maxCameraX =
-    world.offsetWidth - screenW;
+  /*
+    A câmera só para nos limites
+    REAIS do mapa.
+  */
 
-  const maxCameraY =
-    world.offsetHeight - screenH;
+  const maxX =
+    world.offsetWidth -
+    screenW;
+
+
+  const maxY =
+    world.offsetHeight -
+    screenH;
 
 
   cameraX =
-    Math.max(0,
-      Math.min(maxCameraX,cameraX));
+    Math.max(
+      0,
+      Math.min(
+        maxX,
+        cameraX
+      )
+    );
+
 
   cameraY =
-    Math.max(0,
-      Math.min(maxCameraY,cameraY));
+    Math.max(
+      0,
+      Math.min(
+        maxY,
+        cameraY
+      )
+    );
 
 
   world.style.transform =
@@ -1558,224 +1927,300 @@ function updateCamera(){
 }
 
 
-/* =========================================================
-   GAME LOOP
-========================================================= */
+/* =====================================================
+   LOOP
+===================================================== */
 
 function gameLoop(){
 
   let dx=0;
   let dy=0;
 
-  if(keys.up) dy-=1;
-  if(keys.down) dy+=1;
-  if(keys.left) dx-=1;
-  if(keys.right) dx+=1;
+
+  if(keys.up)
+    dy--;
 
 
-  /* movimento diagonal não fica mais rápido */
+  if(keys.down)
+    dy++;
+
+
+  if(keys.left)
+    dx--;
+
+
+  if(keys.right)
+    dx++;
+
+
+  /*
+    Evita ficar mais rápido andando
+    na diagonal.
+  */
 
   if(dx !== 0 && dy !== 0){
 
     const factor =
       1 / Math.sqrt(2);
 
-    dx*=factor;
-    dy*=factor;
+    dx *= factor;
+    dy *= factor;
 
   }
 
 
-  playerState.x += dx * playerState.speed;
-  playerState.y += dy * playerState.speed;
+  playerState.x +=
+    dx * playerState.speed;
+
+
+  playerState.y +=
+    dy * playerState.speed;
+
 
   clampPlayer();
 
 
+  /*
+    O PLAYER É POSICIONADO
+    DENTRO DO WORLD.
+  */
+
   player.style.left =
-    playerState.x+"px";
+    playerState.x + "px";
+
 
   player.style.top =
-    playerState.y+"px";
+    playerState.y + "px";
 
 
   updateNearbyNPC();
+
   updateCamera();
 
 
-  requestAnimationFrame(gameLoop);
+  requestAnimationFrame(
+    gameLoop
+  );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PORTAL
-========================================================= */
-
-let portalOpen = false;
+===================================================== */
 
 function openPortal(){
 
-  portalOpen = true;
+  portal.classList.remove(
+    "closed"
+  );
 
-  portal.classList.remove("closed");
 
   portalLabel.innerHTML =
-    "✨ PORTAL ABERTO ✨<br>ENTRE PARA A PRÓXIMA PROVA!";
+    "✨ PORTAL ABERTO ✨<br>"+
+    "ENTRE PARA A PRÓXIMA PROVA!";
 
-  document.getElementById("eventStatus")
+
+  document
+    .getElementById("eventStatus")
     .textContent =
     "PORTAL ABERTO!";
 
 }
 
 
-/* temporariamente abre depois de 15 segundos */
+/* teste: abre depois de 15 segundos */
 
-setTimeout(openPortal,15000);
+setTimeout(
+  openPortal,
+  15000
+);
 
 
-/* =========================================================
-   MENU → JOGO
-========================================================= */
+/* =====================================================
+   ENTRAR
+===================================================== */
 
-document.getElementById("startGame")
-  .addEventListener("click",()=>{
+document
+  .getElementById("startGame")
+  .addEventListener(
+    "click",
+    ()=>{
 
-    const name =
-      playerNameInput.value.trim() ||
-      "Participante";
+      const name =
+        playerNameInput.value.trim()
+        || "Participante";
 
-    hudName.textContent = name;
 
-    if(!player.src){
+      hudName.textContent =
+        name;
 
-      /* personagem padrão simples */
 
-      player.src =
-        "data:image/svg+xml;charset=UTF-8,"+
-        encodeURIComponent(`
+      /*
+        Se ainda não tiver imagem
+        de player, usa uma provisória.
+      */
+
+      if(!player.src){
+
+        player.src =
+          "data:image/svg+xml;charset=UTF-8,"+
+          encodeURIComponent(`
           <svg xmlns="http://www.w3.org/2000/svg"
                width="120"
-               height="120"
-               viewBox="0 0 120 120">
+               height="120">
 
-            <rect x="25" y="20"
-                  width="70" height="70"
-                  rx="18"
-                  fill="#f3d6a4"
-                  stroke="#171329"
-                  stroke-width="7"/>
+            <rect
+              x="25"
+              y="20"
+              width="70"
+              height="70"
+              rx="18"
+              fill="#f3d6a4"
+              stroke="#171329"
+              stroke-width="7"
+            />
 
-            <circle cx="48" cy="53"
-                    r="7"
-                    fill="#171329"/>
+            <circle
+              cx="48"
+              cy="53"
+              r="7"
+              fill="#171329"
+            />
 
-            <circle cx="72" cy="53"
-                    r="7"
-                    fill="#171329"/>
-
-            <path d="M48 72 Q60 82 72 72"
-                  fill="none"
-                  stroke="#171329"
-                  stroke-width="5"/>
+            <circle
+              cx="72"
+              cy="53"
+              r="7"
+              fill="#171329"
+            />
 
           </svg>
-        `);
+          `);
+
+      }
+
+
+      menu.style.display =
+        "none";
+
+
+      game.style.display =
+        "block";
+
+
+      gameLoop();
 
     }
-
-    menu.style.display="none";
-    game.style.display="block";
-
-    gameLoop();
-
-  });
+  );
 
 
-/* =========================================================
+/* =====================================================
    CHAT
-========================================================= */
+===================================================== */
 
 const chatPanel =
-  document.getElementById("chatPanel");
-
-document.getElementById("chatButton")
-  .addEventListener("click",()=>{
-
-    chatPanel.style.display =
-      chatPanel.style.display === "block"
-        ? "none"
-        : "block";
-
-  });
+  document.getElementById(
+    "chatPanel"
+  );
 
 
-document.getElementById("chatInput")
-  .addEventListener("keydown",(e)=>{
+document
+  .getElementById("chatButton")
+  .addEventListener(
+    "click",
+    ()=>{
 
-    if(e.key !== "Enter") return;
+      chatPanel.style.display =
+        chatPanel.style.display ===
+        "block"
+          ? "none"
+          : "block";
 
-    const text =
-      e.target.value.trim();
-
-    if(!text) return;
-
-    const row =
-      document.createElement("div");
-
-    row.className="chat-row";
-
-    row.innerHTML =
-      `<b>${escapeHTML(hudName.textContent)}:</b> ${escapeHTML(text)}`;
-
-    document.getElementById("messages")
-      .appendChild(row);
-
-    e.target.value="";
-
-    const messages =
-      document.getElementById("messages");
-
-    messages.scrollTop =
-      messages.scrollHeight;
-
-  });
+    }
+  );
 
 
-function escapeHTML(text){
+document
+  .getElementById("chatInput")
+  .addEventListener(
+    "keydown",
+    e=>{
 
-  return text
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
+      if(e.key !== "Enter")
+        return;
 
 
-/* =========================================================
-   MAP BUTTON
-========================================================= */
+      const text =
+        e.target.value.trim();
 
-document.getElementById("mapButton")
-  .addEventListener("click",()=>{
 
-    alert(
-      "🗺 MAPA\n\n"+
-      "Você está no Lobby do The Attorneys.\n\n"+
-      "🦆 Burguinho\n"+
-      "🌙 Yume\n"+
-      "🎀 Melanie\n"+
-      "🫀 Oliver\n"+
-      "👽 Rick\n"+
-      "🧪 Morty\n"+
-      "🤖 Robô\n\n"+
-      "✨ O portal leva para a próxima prova."
-    );
+      if(!text)
+        return;
 
-  });
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "chat-row";
+
+
+      row.textContent =
+        hudName.textContent +
+        ": " +
+        text;
+
+
+      document
+        .getElementById("messages")
+        .appendChild(row);
+
+
+      e.target.value = "";
+
+
+      const messages =
+        document.getElementById(
+          "messages"
+        );
+
+
+      messages.scrollTop =
+        messages.scrollHeight;
+
+    }
+  );
+
+
+/* =====================================================
+   MAPA
+===================================================== */
+
+document
+  .getElementById("mapButton")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      alert(
+        "🗺 THE ATTORNEYS\n\n"+
+        "Você está no LOBBY.\n\n"+
+        "🦆 Burguinho\n"+
+        "🌙 Yume\n"+
+        "🎀 Melanie Martinez\n"+
+        "🫀 Oliver Tree\n"+
+        "👽 Rick\n"+
+        "🧪 Morty\n"+
+        "🤖 Robô\n\n"+
+        "✨ O portal leva para a próxima prova."
+      );
+
+    }
+  );
 
 </script>
 
