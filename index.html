@@ -707,7 +707,7 @@ button,input{
     <input
       type="text"
       id="playerNameInput"
-      maxlength="20"
+      maxlength="90"
       placeholder="Digite seu nome"
     >
 
@@ -1270,10 +1270,10 @@ const NPC_TEXT = {
     "Oi! Explore o lobby enquanto espera a próxima prova.",
 
   melanie:
-    "Bem-vindo ao The Attorneys. Boa sorte na prova!",
+    "abuelita open the door",
 
   oliver:
-    "ONINONINON! O portal vai abrir!",
+    "ONINONINON",
 
   rick:
     "P-porra, Rick! Onde é que a gente tá, cara?!",
@@ -1503,6 +1503,16 @@ window.addEventListener(
   "keydown",
   function(event){
 
+    // Se estiver digitando em um campo, não controla o personagem
+    const tag = document.activeElement?.tagName;
+
+    if(
+      tag === "INPUT" ||
+      tag === "TEXTAREA"
+    ){
+      return;
+    }
+
     const movementKeys = [
       "ArrowUp",
       "ArrowDown",
@@ -1532,7 +1542,6 @@ window.addEventListener(
 
     }
 
-
     if(
       event.key.toLowerCase() === "e"
     ){
@@ -1543,7 +1552,6 @@ window.addEventListener(
 
   }
 );
-
 
 window.addEventListener(
   "keyup",
