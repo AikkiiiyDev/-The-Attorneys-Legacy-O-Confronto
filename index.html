@@ -2,27 +2,31 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Attorneys</title>
 
 <style>
 *{
   box-sizing:border-box;
-  image-rendering:pixelated;
-  -webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
 }
 
 html,body{
-  margin:0;
   width:100%;
   height:100%;
   overflow:hidden;
-  font-family:"Courier New",monospace;
-  background:#171229;
+  font-family:monospace;
+  background:#171329;
+  color:white;
 }
 
 button,input{
   font:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 /* =========================
@@ -32,157 +36,103 @@ button,input{
 #menu{
   position:fixed;
   inset:0;
-  z-index:1000;
+  z-index:100;
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:auto;
-  padding:25px;
+  padding:20px;
   background:
-    radial-gradient(circle at 20% 15%,#6d4ab5 0 4px,transparent 5px),
-    radial-gradient(circle at 80% 25%,#a16bd1 0 3px,transparent 4px),
-    radial-gradient(circle at 65% 80%,#543495 0 4px,transparent 5px),
-    #24163d;
+    radial-gradient(circle at 20% 20%,#49326d 0 4%,transparent 5%),
+    radial-gradient(circle at 80% 70%,#302153 0 5%,transparent 6%),
+    #171329;
+  overflow:auto;
 }
 
 .menu-box{
-  width:min(650px,96vw);
-  padding:26px;
-  border:6px solid #100b1e;
-  background:#7d55bd;
-  box-shadow:
-    8px 8px 0 #100b1e,
-    inset 0 0 0 4px #b88be8,
-    inset 0 0 0 8px #5a3690;
+  width:min(900px,96vw);
+  max-height:94vh;
+  overflow:auto;
+  border:5px solid #0b0912;
+  background:#252039;
+  box-shadow:10px 10px 0 #0b0912;
+  padding:24px;
+}
+
+.title{
+  font-size:clamp(28px,6vw,54px);
+  text-align:center;
+  color:#fff1a8;
+  text-shadow:4px 4px #0b0912;
+  margin-bottom:6px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#cfc7e9;
+  margin-bottom:22px;
+}
+
+.menu-section{
+  border:3px solid #51456e;
+  background:#1b172b;
+  padding:16px;
+  margin-top:14px;
+}
+
+.menu-section h2{
+  color:#fff1a8;
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+label{
+  display:block;
+  color:#dcd6ef;
+  margin:10px 0 6px;
+}
+
+input[type="text"],
+input[type="file"]{
+  width:100%;
+  background:#0f0d18;
+  border:2px solid #655984;
   color:white;
+  padding:10px;
 }
 
-.logo{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.logo h1{
-  margin:0;
-  font-size:clamp(30px,7vw,58px);
-  letter-spacing:3px;
-  color:#fff6d5;
-  text-shadow:
-    4px 4px 0 #332052,
-    7px 7px 0 #332052;
-}
-
-.logo p{
-  margin:10px 0 0;
-  color:#ead9ff;
-  font-size:13px;
-}
-
-.field-title{
-  margin-top:18px;
-  margin-bottom:7px;
-  font-size:13px;
-  color:#fff1bb;
-}
-
-.name-input{
-  width:100%;
-  border:4px solid #21142f;
-  background:#f6edff;
-  color:#241631;
-  padding:12px;
-  outline:none;
-}
-
-.upload-area{
-  border:4px dashed #dcb8ff;
-  background:#59358e;
-  padding:15px;
-  text-align:center;
-}
-
-.upload-button{
-  display:inline-block;
-  cursor:pointer;
-  background:#f3bd53;
-  color:#321d27;
-  border:4px solid #251522;
-  padding:10px 15px;
-  box-shadow:4px 4px 0 #251522;
-  font-weight:bold;
-}
-
-.upload-button:active{
-  transform:translate(3px,3px);
-  box-shadow:1px 1px 0 #251522;
-}
-
-#characterFile{
-  display:none;
-}
-
-.preview{
-  width:130px;
-  height:130px;
-  margin:15px auto 10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#332052;
-  border:4px solid #21142f;
-  overflow:hidden;
-}
-
-.preview img{
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-}
-
-.preview-placeholder{
-  color:#bda8d8;
-  font-size:11px;
-  padding:15px;
-}
-
-.asset-row{
+.npc-upload{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:8px;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
-.asset-card{
-  background:#59358e;
-  border:3px solid #3a235d;
-  padding:8px;
-  text-align:center;
-  font-size:10px;
-  color:#ead9ff;
+.npc-card{
+  border:2px solid #51456e;
+  padding:12px;
+  background:#211c34;
 }
 
-.asset-card input{
+.npc-card strong{
+  display:block;
+  color:#fff1a8;
+  margin-bottom:8px;
+}
+
+.start-btn{
   width:100%;
-  margin-top:6px;
-  font-size:9px;
-}
-
-.start{
-  width:100%;
-  margin-top:22px;
-  padding:15px;
-  border:5px solid #211522;
-  background:#f3bd53;
-  color:#321d27;
+  margin-top:20px;
+  padding:16px;
+  border:4px solid #0b0912;
+  background:#fff1a8;
+  color:#171329;
   font-weight:bold;
-  font-size:17px;
-  cursor:pointer;
-  box-shadow:6px 6px 0 #211522;
+  font-size:20px;
+  box-shadow:6px 6px 0 #0b0912;
 }
 
-.start:active{
-  transform:translate(5px,5px);
-  box-shadow:1px 1px 0 #211522;
+.start-btn:active{
+  transform:translate(4px,4px);
+  box-shadow:2px 2px 0 #0b0912;
 }
 
 /* =========================
@@ -194,527 +144,531 @@ button,input{
   position:fixed;
   inset:0;
   overflow:hidden;
-  background:#78b9dd;
+  background:#6fa7a0;
 }
 
-/* céu */
-.sky{
+#world{
   position:absolute;
-  inset:0 0 48%;
-  background:
-    linear-gradient(#70b5df 0 60%,#9ed3e5);
-  z-index:0;
-}
-
-.cloud{
-  position:absolute;
-  width:90px;
-  height:25px;
-  background:#e9f4ef;
-  box-shadow:
-    20px -15px 0 #e9f4ef,
-    50px -8px 0 #e9f4ef,
-    70px 4px 0 #e9f4ef;
-  opacity:.8;
-}
-
-.c1{left:8%;top:12%}
-.c2{left:65%;top:20%;transform:scale(.7)}
-.c3{left:40%;top:7%;transform:scale(.55)}
-
-/*
-  O mundo é uma camada enorme.
-  A parte inferior é inclinada para criar
-  a sensação de perspectiva.
-*/
-.world{
-  position:absolute;
-  width:2800px;
-  height:1900px;
-  left:50%;
-  top:40%;
-  transform:translate(-50%,-8%);
-  transform-origin:center;
-  z-index:2;
-}
-
-.ground{
-  position:absolute;
+  width:3600px;
+  height:2600px;
   left:0;
   top:0;
-  width:100%;
-  height:100%;
-  background-color:#68a94f;
-
-  /* textura pixelada feita em CSS */
-  background-image:
-    radial-gradient(circle,#4e913f 0 2px,transparent 3px),
-    radial-gradient(circle,#81bd5d 0 2px,transparent 3px),
-    linear-gradient(45deg,
-      transparent 0 47%,
-      rgba(55,111,48,.25) 48% 52%,
-      transparent 53% 100%);
-  background-size:43px 43px,67px 67px,31px 31px;
-
-  border-top:8px solid #477d3e;
+  overflow:hidden;
 }
 
-/* caminhos */
+/* Água */
+.water{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.08) 25%,
+      transparent 25% 50%,
+      rgba(255,255,255,.06) 50% 75%,
+      transparent 75%
+    );
+  background-size:42px 42px;
+  background-color:#57949c;
+}
+
+/* Ilha principal */
+.island{
+  position:absolute;
+  left:180px;
+  top:150px;
+  width:3240px;
+  height:2300px;
+
+  /* chão mais orgânico, sem aquele padrão de bolinhas */
+  background:
+    radial-gradient(ellipse at 20% 30%,rgba(255,255,255,.07),transparent 18%),
+    radial-gradient(ellipse at 75% 60%,rgba(0,0,0,.06),transparent 20%),
+    radial-gradient(ellipse at 45% 80%,rgba(255,255,255,.05),transparent 15%),
+    #79a95d;
+
+  border:18px solid #31583c;
+  border-radius:48% 52% 45% 55% / 50% 44% 56% 48%;
+  box-shadow:
+    inset 0 0 0 8px #96bd70,
+    inset 0 0 0 14px #527d49;
+}
+
+/* pequenas manchas orgânicas no chão */
+.ground-patch{
+  position:absolute;
+  background:#6c994f;
+  opacity:.55;
+  image-rendering:pixelated;
+}
+
+.patch1{
+  width:160px;
+  height:70px;
+  left:480px;
+  top:500px;
+  border-radius:70% 30% 60% 40%;
+  transform:rotate(-12deg);
+}
+
+.patch2{
+  width:230px;
+  height:90px;
+  left:1800px;
+  top:350px;
+  border-radius:40% 60% 30% 70%;
+  transform:rotate(8deg);
+}
+
+.patch3{
+  width:190px;
+  height:100px;
+  left:2450px;
+  top:1450px;
+  border-radius:65% 35% 55% 45%;
+}
+
+.patch4{
+  width:140px;
+  height:65px;
+  left:800px;
+  top:1750px;
+  border-radius:30% 70% 60% 40%;
+}
+
+/* Caminhos */
 .path{
   position:absolute;
-  background:#c6a565;
-  border:5px solid #8b7047;
-  box-shadow:inset 0 0 0 4px rgba(240,207,135,.25);
+  background:#d4b477;
+  border:5px solid #96764c;
+  box-shadow:inset 0 0 0 4px #e2c68f;
+  border-radius:45px;
 }
 
 .path.main{
-  width:430px;
-  height:1800px;
-  left:1190px;
-  top:50px;
+  width:2500px;
+  height:150px;
+  left:350px;
+  top:1120px;
   transform:rotate(-3deg);
 }
 
-.path.cross{
-  width:2400px;
-  height:260px;
-  left:200px;
-  top:760px;
+.path.vertical{
+  width:150px;
+  height:1600px;
+  left:1530px;
+  top:420px;
   transform:rotate(2deg);
 }
 
-/* água */
-.water{
-  position:absolute;
-  left:30px;
-  top:110px;
-  width:500px;
-  height:1700px;
-  background:#429ec1;
-  border:9px solid #286f91;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 22px,
-      rgba(177,235,239,.35) 23px 28px,
-      transparent 29px 55px
-    );
-}
-
-/* ilha/arena central */
-.arena{
-  position:absolute;
-  left:940px;
-  top:590px;
-  width:700px;
-  height:450px;
-  background:#d6b46f;
-  border:10px solid #785d3d;
-  box-shadow:
-    inset 0 0 0 7px #f0d38b,
-    12px 12px 0 rgba(45,66,39,.35);
-}
-
-.arena-inner{
-  position:absolute;
-  inset:55px;
-  border:8px solid #6d4b38;
-  background:#83bd5b;
-  background-image:
-    linear-gradient(90deg,
-      transparent 48%,
-      rgba(255,255,255,.3) 49% 51%,
-      transparent 52%);
-}
-
-.arena-title{
-  position:absolute;
-  left:50%;
-  top:-38px;
-  transform:translateX(-50%);
-  padding:8px 14px;
-  background:#52336f;
-  border:5px solid #25172f;
-  color:#fff2b9;
-  white-space:nowrap;
-  font-weight:bold;
-  z-index:4;
-}
-
-/* faixas de chegada */
-.finish{
-  position:absolute;
-  width:180px;
-  height:55px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #fff 0 20px,
-      #30283b 20px 40px
-    );
-  border:5px solid #29202e;
-}
-
-/* decoração pixel */
-.tree{
-  position:absolute;
-  width:90px;
+.path.diagonal{
+  width:1500px;
   height:130px;
-  z-index:8;
+  left:900px;
+  top:650px;
+  transform:rotate(23deg);
 }
 
-.tree .trunk{
+/* Água interna */
+.pond{
   position:absolute;
-  width:25px;
-  height:55px;
-  left:33px;
-  bottom:0;
-  background:#70472d;
-  border:4px solid #4d3024;
+  background:#4d8e9c;
+  border:9px solid #315e6a;
+  border-radius:50%;
 }
 
-.tree .leaves{
-  position:absolute;
-  left:5px;
-  top:0;
-  width:80px;
-  height:90px;
-  background:#3f873c;
-  border:5px solid #286238;
-  box-shadow:
-    15px -12px 0 #56a84a,
-    42px 2px 0 #4b9b43,
-    25px 18px 0 #65b34f;
+.pond.one{
+  width:470px;
+  height:270px;
+  left:350px;
+  top:350px;
 }
 
-.flower{
-  position:absolute;
-  width:18px;
-  height:18px;
-  z-index:5;
-}
-
-.flower:before,
-.flower:after{
-  content:"";
-  position:absolute;
-  width:8px;
-  height:8px;
-  background:#f3d25b;
-  border:2px solid #b18b39;
-}
-
-.flower:before{left:0;top:4px}
-.flower:after{left:8px;top:4px}
-
-.rock{
-  position:absolute;
-  width:65px;
-  height:35px;
-  background:#7f817c;
-  border:5px solid #555a56;
-  transform:skew(-10deg);
-  z-index:5;
-}
-
-/* bandeiras */
-.flag{
-  position:absolute;
-  width:80px;
-  height:100px;
-  z-index:9;
-}
-
-.flag .pole{
-  position:absolute;
-  width:7px;
-  height:100px;
-  left:5px;
-  background:#e8d5a3;
-  border:2px solid #765d42;
-}
-
-.flag .cloth{
-  position:absolute;
-  left:12px;
-  top:5px;
-  width:60px;
-  height:35px;
-  background:#e95a73;
-  border:4px solid #582a43;
-}
-
-/* placas */
-.sign{
-  position:absolute;
-  padding:10px 15px;
-  background:#76523a;
-  color:#fff0ba;
-  border:5px solid #493126;
-  font-size:13px;
-  font-weight:bold;
-  z-index:20;
-  white-space:nowrap;
+.pond.two{
+  width:500px;
+  height:300px;
+  right:260px;
+  bottom:330px;
 }
 
 /* =========================
-   PERSONAGEM
+   ÁRVORES
+========================= */
+
+.tree{
+  position:absolute;
+  width:70px;
+  height:110px;
+}
+
+.tree::before{
+  content:"";
+  position:absolute;
+  width:28px;
+  height:55px;
+  left:21px;
+  bottom:0;
+  background:#704a35;
+  border:4px solid #493024;
+}
+
+.tree::after{
+  content:"";
+  position:absolute;
+  width:72px;
+  height:72px;
+  left:0;
+  top:0;
+  background:#356b43;
+  border:6px solid #244d32;
+  border-radius:45% 55% 48% 52%;
+  box-shadow:
+    -18px 18px 0 #447d48,
+    18px 16px 0 #2e603c;
+}
+
+.t1{left:350px;top:250px}
+.t2{left:850px;top:330px}
+.t3{left:1250px;top:250px}
+.t4{left:2100px;top:280px}
+.t5{left:2700px;top:380px}
+.t6{left:3100px;top:700px}
+.t7{left:400px;top:1800px}
+.t8{left:1000px;top:2050px}
+.t9{left:2200px;top:2000px}
+.t10{left:2900px;top:1850px}
+.t11{left:3100px;top:1400px}
+
+/* =========================
+   FLORES
+========================= */
+
+.flower{
+  position:absolute;
+  width:14px;
+  height:14px;
+  background:#fff0a8;
+  box-shadow:
+    0 -9px #f7d6e6,
+    9px 0 #f7d6e6,
+    0 9px #f7d6e6,
+    -9px 0 #f7d6e6;
+}
+
+/* =========================
+   CENTRO / PORTAL
+========================= */
+
+.portal-area{
+  position:absolute;
+  left:1350px;
+  top:930px;
+  width:430px;
+  height:400px;
+  text-align:center;
+}
+
+.portal{
+  width:250px;
+  height:250px;
+  margin:auto;
+  border:12px solid #33204e;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,#f5d5ff 0 8%,#a77bd8 9% 20%,#5b397d 21% 35%,#241b3b 36% 100%);
+  box-shadow:
+    0 0 0 12px #8e68b8,
+    0 0 50px rgba(207,150,255,.7);
+  animation:pulse 2s infinite alternate;
+}
+
+.portal.closed{
+  filter:grayscale(.8);
+  opacity:.55;
+  animation:none;
+}
+
+.portal-label{
+  margin-top:25px;
+  background:#171329;
+  border:3px solid #fff1a8;
+  padding:10px;
+  color:#fff1a8;
+}
+
+@keyframes pulse{
+  from{transform:scale(.96)}
+  to{transform:scale(1.04)}
+}
+
+/* =========================
+   NPC
+========================= */
+
+.npc{
+  position:absolute;
+  width:120px;
+  height:145px;
+  transform:translate(-50%,-50%);
+  z-index:20;
+  text-align:center;
+}
+
+.npc-image{
+  width:100px;
+  height:100px;
+  margin:auto;
+  object-fit:contain;
+  image-rendering:auto;
+  filter:drop-shadow(5px 6px 0 rgba(0,0,0,.35));
+}
+
+.npc-fallback{
+  width:85px;
+  height:85px;
+  margin:auto;
+  border:5px solid #171329;
+  background:#f0c98d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  color:#171329;
+}
+
+.npc-name{
+  display:inline-block;
+  margin-top:5px;
+  padding:4px 7px;
+  background:#171329;
+  border:2px solid #fff1a8;
+  color:#fff1a8;
+  font-weight:bold;
+}
+
+.npc.near .npc-name{
+  animation:blink .7s infinite alternate;
+}
+
+@keyframes blink{
+  from{transform:translateY(0)}
+  to{transform:translateY(-4px)}
+}
+
+/* =========================
+   PLAYER
 ========================= */
 
 #player{
   position:absolute;
-  width:100px;
-  height:120px;
-  left:50%;
-  top:50%;
-  z-index:100;
-  pointer-events:none;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  transform:translate(-50%,-50%);
-  transition:transform .06s linear;
-}
-
-#player img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  object-position:center bottom;
-  filter:drop-shadow(5px 6px 0 rgba(31,40,29,.35));
-}
-
-.default-player{
-  width:60px;
-  height:70px;
-  background:#f1b84e;
-  border:5px solid #392b30;
-  position:relative;
-}
-
-.default-player:before{
-  content:"";
-  position:absolute;
-  width:36px;
-  height:36px;
-  background:#f3c977;
-  border:4px solid #392b30;
-  border-radius:50%;
-  left:7px;
-  top:-35px;
-}
-
-.default-player:after{
-  content:"";
-  position:absolute;
-  width:10px;
-  height:10px;
-  background:#392b30;
-  left:15px;
-  top:-18px;
-  box-shadow:18px 0 #392b30;
-}
-
-/* NPCs */
-.npc{
-  position:absolute;
-  width:90px;
+  width:110px;
   height:110px;
-  z-index:70;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-}
-
-.npc img{
-  width:100%;
-  height:100%;
+  transform:translate(-50%,-50%);
+  z-index:50;
   object-fit:contain;
-  filter:drop-shadow(5px 5px 0 rgba(31,40,29,.3));
-}
-
-.npc-label{
-  position:absolute;
-  bottom:-22px;
-  background:#291b35;
-  color:#fff2bc;
-  border:3px solid #170e21;
-  padding:4px 7px;
-  font-size:10px;
-  white-space:nowrap;
+  image-rendering:auto;
+  filter:drop-shadow(6px 7px 0 rgba(0,0,0,.4));
 }
 
 /* =========================
- HUD
+   HUD
 ========================= */
 
-.hud{
+#hud{
   position:fixed;
-  left:15px;
-  top:15px;
-  z-index:500;
-  background:#342049;
-  border:5px solid #180e24;
-  color:#fff1c2;
-  padding:10px 13px;
-  box-shadow:5px 5px 0 rgba(0,0,0,.3);
-  font-size:12px;
-}
-
-.hud b{
-  color:#f5c95b;
-}
-
-.top-right{
-  position:fixed;
-  right:15px;
-  top:15px;
-  z-index:500;
+  z-index:80;
+  top:12px;
+  left:12px;
+  right:12px;
   display:flex;
-  gap:7px;
+  justify-content:space-between;
+  pointer-events:none;
 }
 
-.hud-button{
-  background:#f0c35b;
-  color:#302033;
-  border:4px solid #1c1225;
-  padding:8px 10px;
-  cursor:pointer;
-  box-shadow:4px 4px 0 #1c1225;
-  font-weight:bold;
+.hud-box{
+  pointer-events:auto;
+  background:#171329e8;
+  border:3px solid #fff1a8;
+  padding:10px;
+  box-shadow:4px 4px 0 #0b0912;
 }
 
-/* interação */
-#interact{
-  display:none;
-  position:fixed;
-  left:50%;
-  bottom:100px;
-  transform:translateX(-50%);
-  z-index:700;
-  background:#f0c35b;
-  border:5px solid #23152c;
-  box-shadow:6px 6px 0 #23152c;
-  padding:12px 20px;
-  color:#2b1930;
-  font-weight:bold;
-}
-
-/* diálogo */
-#dialog{
-  display:none;
-  position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%);
-  width:min(700px,90vw);
-  z-index:800;
-  background:#4d316b;
-  border:6px solid #1e1228;
-  box-shadow:8px 8px 0 #1e1228;
+#chatButton,
+#mapButton{
+  border:2px solid #fff1a8;
+  background:#30274a;
   color:white;
-  padding:18px;
+  padding:8px 12px;
+  margin-left:5px;
 }
 
-#dialogName{
-  color:#f3ca5e;
-  font-weight:bold;
+/* =========================
+   CHAT
+========================= */
+
+#chatPanel{
+  position:fixed;
+  z-index:90;
+  right:15px;
+  bottom:15px;
+  width:min(360px,90vw);
+  display:none;
+  background:#171329;
+  border:4px solid #fff1a8;
+  padding:12px;
+}
+
+#messages{
+  height:180px;
+  overflow:auto;
+  background:#0c0a13;
+  padding:8px;
   margin-bottom:8px;
 }
 
-#dialogText{
-  font-size:13px;
-  line-height:1.5;
+.chat-row{
+  margin-bottom:6px;
 }
 
-#closeDialog{
-  float:right;
-  background:#ef6f78;
-  border:3px solid #271522;
-  padding:5px 8px;
-  cursor:pointer;
+#chatInput{
+  width:100%;
+  padding:9px;
+  background:#29223e;
+  border:2px solid #62557e;
+  color:white;
 }
 
-/* chat */
-.chat{
+/* =========================
+   DIALOGUE
+========================= */
+
+#dialogue{
   position:fixed;
+  z-index:120;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  width:min(700px,92vw);
+  background:#211b34;
+  border:5px solid #0b0912;
+  box-shadow:8px 8px 0 #0b0912;
+  padding:18px;
+  display:none;
+}
+
+#dialogueName{
+  color:#fff1a8;
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+#dialogueText{
+  line-height:1.5;
+  margin-bottom:14px;
+}
+
+.dialogue-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.dialogue-actions button{
+  border:3px solid #0b0912;
+  background:#fff1a8;
+  color:#171329;
+  padding:10px 14px;
+  font-weight:bold;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+#mobileControls{
+  position:fixed;
+  z-index:100;
   left:15px;
   bottom:15px;
-  width:260px;
-  z-index:600;
+  display:grid;
+  grid-template-columns:55px 55px 55px;
+  grid-template-rows:55px 55px;
+  gap:5px;
 }
 
-.chat-box{
-  height:100px;
-  overflow:hidden;
-  background:rgba(35,20,49,.9);
-  border:4px solid #1a1023;
-  color:#eee1ff;
-  padding:8px;
-  font-size:10px;
-}
-
-.chat-input{
-  width:100%;
-  border:4px solid #1a1023;
-  padding:8px;
-  background:#f8f1ff;
-}
-
-/* controles mobile */
-.mobile-controls{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:600;
-  width:170px;
-  height:150px;
-}
-
-.move-btn{
-  position:absolute;
-  width:52px;
-  height:52px;
-  border:4px solid #211522;
-  background:rgba(240,195,91,.9);
-  color:#312032;
+.ctrl{
+  border:3px solid #0b0912;
+  background:#fff1a8dd;
+  color:#171329;
   font-weight:bold;
-  user-select:none;
+  font-size:20px;
   touch-action:none;
 }
 
-.up{left:59px;top:0}
-.left{left:0;top:55px}
-.down{left:59px;top:55px}
-.right{left:118px;top:55px}
+.up{grid-column:2}
+.left{grid-column:1;grid-row:2}
+.down{grid-column:2;grid-row:2}
+.right{grid-column:3;grid-row:2}
 
-@media(max-width:700px){
-  .menu-box{
-    padding:18px;
-  }
+#interactBtn{
+  position:fixed;
+  z-index:100;
+  right:18px;
+  bottom:18px;
+  border:4px solid #0b0912;
+  background:#fff1a8;
+  color:#171329;
+  padding:15px 18px;
+  font-weight:bold;
+  display:none;
+}
 
-  .asset-row{
+/* =========================
+   EVENT BAR
+========================= */
+
+#eventBar{
+  position:fixed;
+  z-index:80;
+  top:75px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#171329e8;
+  border:3px solid #fff1a8;
+  padding:9px 16px;
+  text-align:center;
+}
+
+#eventStatus{
+  color:#fff1a8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:600px){
+  .npc-upload{
     grid-template-columns:1fr;
   }
 
-  .chat{
-    width:200px;
-    bottom:10px;
-    left:10px;
+  .npc{
+    width:90px;
   }
 
-  .hud{
-    font-size:9px;
+  .npc-image{
+    width:75px;
+    height:75px;
   }
 
-  .top-right{
-    top:10px;
-    right:10px;
+  #player{
+    width:85px;
+    height:85px;
   }
 
-  .mobile-controls{
-    transform:scale(.8);
-    transform-origin:bottom right;
+  #eventBar{
+    top:70px;
+    width:90%;
   }
 }
 </style>
@@ -723,280 +677,744 @@ button,input{
 <body>
 
 <!-- =========================
- MENU
+     MENU
 ========================= -->
 
-<section id="menu">
+<div id="menu">
 
   <div class="menu-box">
 
-    <div class="logo">
-      <h1>THE ATTORNEYS</h1>
-      <p>O torneio começa aqui.</p>
+    <div class="title">THE ATTORNEYS</div>
+    <div class="subtitle">
+      O torneio começa aqui.
     </div>
 
-    <div class="field-title">NOME DO JOGADOR</div>
+    <div class="menu-section">
 
-    <input
-      id="playerName"
-      class="name-input"
-      maxlength="18"
-      placeholder="Digite seu nome..."
-    >
+      <h2>🐾 SEU PARTICIPANTE</h2>
 
-    <div class="field-title">ESCOLHA SEU PERSONAGEM</div>
+      <label>Nome</label>
+      <input id="playerName" type="text" maxlength="20" placeholder="Seu nome...">
 
-    <div class="upload-area">
+      <label>Imagem do seu personagem</label>
+      <input id="playerImageInput" type="file" accept="image/*">
 
-      <div class="preview" id="preview">
-        <div class="preview-placeholder">
-          SUA IMAGEM<br><br>
-          Ela será o seu personagem no mapa.
-        </div>
-      </div>
-
-      <label class="upload-button" for="characterFile">
-        📁 ESCOLHER IMAGEM
-      </label>
-
-      <input
-        id="characterFile"
-        type="file"
-        accept="image/*"
-      >
-
-      <p style="font-size:10px;color:#dfc9f4;margin-bottom:0">
-        PNG, JPG, WEBP ou outra imagem.
-        <br>
-        A imagem escolhida será o próprio personagem.
+      <p style="margin-top:8px;color:#aaa">
+        A imagem escolhida será o próprio personagem andando pelo mapa.
       </p>
 
     </div>
 
-    <div class="field-title">PERSONALIZAÇÃO DO MUNDO</div>
+    <div class="menu-section">
 
-    <div class="asset-row">
+      <h2>🔊 VOZES DOS NPCs</h2>
 
-      <label class="asset-card">
-        🌿 GRAMA
-        <input id="grassFile" type="file" accept="image/*">
-      </label>
+      <div class="npc-upload">
 
-      <label class="asset-card">
-        🌳 ÁRVORE
-        <input id="treeFile" type="file" accept="image/*">
-      </label>
+        <div class="npc-card">
+          <strong>🦆 Burguinho</strong>
+          <label>Imagem</label>
+          <input id="imgBurguinho" type="file" accept="image/*">
+          <label>Som / voz</label>
+          <input id="audioBurguinho" type="file" accept="audio/*">
+          <small>Sem áudio: o jogo faz um “QUACK!” automaticamente.</small>
+        </div>
 
-      <label class="asset-card">
-        🌸 FLORES
-        <input id="flowerFile" type="file" accept="image/*">
-      </label>
+        <div class="npc-card">
+          <strong>🌙 Yume</strong>
+          <label>Imagem</label>
+          <input id="imgYume" type="file" accept="image/*">
+          <label>Som / voz</label>
+          <input id="audioYume" type="file" accept="audio/*">
+        </div>
 
+        <div class="npc-card">
+          <strong>🎀 Melanie</strong>
+          <label>Imagem</label>
+          <input id="imgMelanie" type="file" accept="image/*">
+          <label>Som / voz</label>
+          <input id="audioMelanie" type="file" accept="audio/*">
+          <small>Escolha aqui o trecho de “Play Date” que você quiser usar.</small>
+        </div>
+
+        <div class="npc-card">
+          <strong>🫀 Oliver</strong>
+          <label>Imagem</label>
+          <input id="imgOliver" type="file" accept="image/*">
+          <label>Som / voz</label>
+          <input id="audioOliver" type="file" accept="audio/*">
+          <small>Sem áudio: ele manda um “oninoninon”.</small>
+        </div>
+
+        <div class="npc-card">
+          <strong>👽 Rick</strong>
+          <label>Imagem</label>
+          <input id="imgRick" type="file" accept="image/*">
+          <label>Som / voz</label>
+          <input id="audioRick" type="file" accept="audio/*">
+        </div>
+
+        <div class="npc-card">
+          <strong>🧪 Morty</strong>
+          <label>Imagem</label>
+          <input id="imgMorty" type="file" accept="image/*">
+          <label>Som / voz</label>
+          <input id="audioMorty" type="file" accept="audio/*">
+        </div>
+
+        <div class="npc-card">
+          <strong>🤖 Robô de Informações</strong>
+          <label>Imagem</label>
+          <input id="imgRobot" type="file" accept="image/*">
+          <label>Som / voz</label>
+          <input id="audioRobot" type="file" accept="audio/*">
+        </div>
+
+      </div>
     </div>
 
-    <button class="start" id="startButton">
+    <button class="start-btn" id="startGame">
       ▶ ENTRAR NO TORNEIO
     </button>
 
   </div>
-
-</section>
+</div>
 
 
 <!-- =========================
- GAME
+     GAME
 ========================= -->
 
-<section id="game">
+<div id="game">
 
-  <div class="sky">
-    <div class="cloud c1"></div>
-    <div class="cloud c2"></div>
-    <div class="cloud c3"></div>
-  </div>
-
-  <div class="world" id="world">
-
-    <div class="ground" id="ground"></div>
+  <div id="world">
 
     <div class="water"></div>
 
-    <div class="path main"></div>
-    <div class="path cross"></div>
+    <div class="island">
 
-    <div class="arena">
-      <div class="arena-title">ARENA PRINCIPAL</div>
-      <div class="arena-inner"></div>
+      <div class="ground-patch patch1"></div>
+      <div class="ground-patch patch2"></div>
+      <div class="ground-patch patch3"></div>
+      <div class="ground-patch patch4"></div>
+
+      <div class="pond one"></div>
+      <div class="pond two"></div>
+
+      <div class="path main"></div>
+      <div class="path vertical"></div>
+      <div class="path diagonal"></div>
+
+      <!-- árvores -->
+      <div class="tree t1"></div>
+      <div class="tree t2"></div>
+      <div class="tree t3"></div>
+      <div class="tree t4"></div>
+      <div class="tree t5"></div>
+      <div class="tree t6"></div>
+      <div class="tree t7"></div>
+      <div class="tree t8"></div>
+      <div class="tree t9"></div>
+      <div class="tree t10"></div>
+      <div class="tree t11"></div>
+
+      <!-- flores -->
+      <div class="flower" style="left:600px;top:500px"></div>
+      <div class="flower" style="left:720px;top:800px"></div>
+      <div class="flower" style="left:1100px;top:1450px"></div>
+      <div class="flower" style="left:1900px;top:600px"></div>
+      <div class="flower" style="left:2300px;top:1100px"></div>
+      <div class="flower" style="left:2700px;top:1500px"></div>
+      <div class="flower" style="left:1800px;top:1800px"></div>
+      <div class="flower" style="left:850px;top:1900px"></div>
+
+      <!-- PORTAL -->
+      <div class="portal-area">
+        <div id="portal" class="portal closed"></div>
+        <div class="portal-label" id="portalLabel">
+          PORTAL FECHADO<br>
+          Aguarde a próxima prova.
+        </div>
+      </div>
+
+      <!-- NPCs -->
+      <div class="npc" id="npcBurguinho" data-name="Burguinho" style="left:700px;top:950px">
+        <div class="npc-fallback">DUCK</div>
+        <div class="npc-name">Burguinho</div>
+      </div>
+
+      <div class="npc" id="npcYume" data-name="Yume" style="left:1050px;top:1300px">
+        <div class="npc-fallback">YUME</div>
+        <div class="npc-name">Yume</div>
+      </div>
+
+      <div class="npc" id="npcMelanie" data-name="Melanie" style="left:2200px;top:850px">
+        <div class="npc-fallback">MEL</div>
+        <div class="npc-name">Melanie</div>
+      </div>
+
+      <div class="npc" id="npcOliver" data-name="Oliver" style="left:2500px;top:1250px">
+        <div class="npc-fallback">OT</div>
+        <div class="npc-name">Oliver</div>
+      </div>
+
+      <div class="npc" id="npcRick" data-name="Rick" style="left:600px;top:1550px">
+        <div class="npc-fallback">RICK</div>
+        <div class="npc-name">Rick</div>
+      </div>
+
+      <div class="npc" id="npcMorty" data-name="Morty" style="left:2750px;top:600px">
+        <div class="npc-fallback">MORTY</div>
+        <div class="npc-name">Morty</div>
+      </div>
+
+      <div class="npc" id="npcRobot" data-name="Robô de Informações" style="left:1800px;top:1450px">
+        <div class="npc-fallback">INFO</div>
+        <div class="npc-name">Robô</div>
+      </div>
+
+      <!-- PLAYER -->
+      <img id="player" alt="Seu personagem" style="left:1530px;top:1120px">
+
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud">
+
+    <div class="hud-box">
+      🏆 <span id="hudName">Participante</span>
     </div>
 
-    <div class="finish" style="left:1010px;top:120px"></div>
-
-    <!-- árvores -->
-    <div class="tree" style="left:650px;top:180px">
-      <div class="leaves"></div><div class="trunk"></div>
-    </div>
-
-    <div class="tree" style="left:810px;top:300px">
-      <div class="leaves"></div><div class="trunk"></div>
-    </div>
-
-    <div class="tree" style="left:1740px;top:220px">
-      <div class="leaves"></div><div class="trunk"></div>
-    </div>
-
-    <div class="tree" style="left:2010px;top:500px">
-      <div class="leaves"></div><div class="trunk"></div>
-    </div>
-
-    <div class="tree" style="left:1950px;top:1250px">
-      <div class="leaves"></div><div class="trunk"></div>
-    </div>
-
-    <div class="tree" style="left:680px;top:1250px">
-      <div class="leaves"></div><div class="trunk"></div>
-    </div>
-
-    <!-- pedras -->
-    <div class="rock" style="left:530px;top:620px"></div>
-    <div class="rock" style="left:1830px;top:800px"></div>
-    <div class="rock" style="left:500px;top:1450px"></div>
-
-    <!-- flores -->
-    <div class="flower" style="left:750px;top:560px"></div>
-    <div class="flower" style="left:830px;top:610px"></div>
-    <div class="flower" style="left:1740px;top:610px"></div>
-    <div class="flower" style="left:1840px;top:650px"></div>
-    <div class="flower" style="left:800px;top:1120px"></div>
-    <div class="flower" style="left:1730px;top:1180px"></div>
-
-    <!-- bandeiras -->
-    <div class="flag" style="left:970px;top:500px">
-      <div class="pole"></div><div class="cloth"></div>
-    </div>
-
-    <div class="flag" style="left:1590px;top:500px">
-      <div class="pole"></div><div class="cloth"></div>
-    </div>
-
-    <div class="flag" style="left:1000px;top:1030px">
-      <div class="pole"></div><div class="cloth"></div>
-    </div>
-
-    <div class="flag" style="left:1580px;top:1030px">
-      <div class="pole"></div><div class="cloth"></div>
-    </div>
-
-    <!-- placas -->
-    <div class="sign" style="left:820px;top:420px">
-      → ARENA PRINCIPAL
-    </div>
-
-    <div class="sign" style="left:1700px;top:710px">
-      ÁREA DAS PROVAS
-    </div>
-
-    <div class="sign" style="left:850px;top:1250px">
-      🏁 LARGADA
-    </div>
-
-    <!-- NPCs -->
-    <div class="npc" id="npcBurguinho" style="left:1220px;top:450px">
-      <div class="default-player" style="background:#f1d45b"></div>
-      <div class="npc-label">BURGUINHO</div>
-    </div>
-
-    <div class="npc" id="npcInfo" style="left:1660px;top:850px">
-      <div class="default-player" style="background:#75c5dc"></div>
-      <div class="npc-label">YUME</div>
-    </div>
-
-    <div class="npc" id="npcOliver" style="left:700px;top:850px">
-      <div class="default-player" style="background:#9b68c7"></div>
-      <div class="npc-label">OLIVER TREE</div>
-    </div>
-
-    <div class="npc" id="npcMelanie" style="left:1800px;top:1050px">
-      <div class="default-player" style="background:#d879a0"></div>
-      <div class="npc-label">MELANIE MARTINEZ</div>
-    </div>
-
-    <!-- jogador -->
-    <div id="player">
-      <div class="default-player"></div>
+    <div class="hud-box">
+      <button id="chatButton">💬 CHAT</button>
+      <button id="mapButton">🗺 MAPA</button>
     </div>
 
   </div>
 
-
-  <div class="hud">
-    <div>🏆 <b>THE ATTORNEYS</b></div>
-    <div>Jogador: <span id="hudName">---</span></div>
-    <div>Evento: <span id="hudEvent">Exploração</span></div>
+  <div id="eventBar">
+    PRÓXIMA PROVA:
+    <span id="eventStatus">aguardando...</span>
   </div>
 
-  <div class="top-right">
-    <button class="hud-button" id="mapButton">MAPA</button>
-    <button class="hud-button" id="menuButton">MENU</button>
-  </div>
+  <!-- CHAT -->
+  <div id="chatPanel">
 
-  <button id="interact">INTERAGIR</button>
-
-  <div id="dialog">
-    <button id="closeDialog">X</button>
-    <div id="dialogName"></div>
-    <div id="dialogText"></div>
-  </div>
-
-  <div class="chat">
-    <div class="chat-box" id="chatBox">
-      <div>⚡ Bem-vindo ao The Attorneys!</div>
+    <div id="messages">
+      <div class="chat-row"><b>Sistema:</b> Bem-vindo ao The Attorneys!</div>
     </div>
-    <input
-      class="chat-input"
-      id="chatInput"
-      maxlength="80"
-      placeholder="Escreva no chat..."
-    >
+
+    <input id="chatInput" placeholder="Escreva uma mensagem e aperte Enter">
+
   </div>
 
-  <div class="mobile-controls">
-    <button class="move-btn up" data-key="up">▲</button>
-    <button class="move-btn left" data-key="left">◀</button>
-    <button class="move-btn down" data-key="down">▼</button>
-    <button class="move-btn right" data-key="right">▶</button>
+  <!-- DIALOGUE -->
+  <div id="dialogue">
+
+    <div id="dialogueName">NPC</div>
+
+    <div id="dialogueText">
+      ...
+    </div>
+
+    <div class="dialogue-actions">
+      <button id="replayAudio">🔊 REPETIR FALA</button>
+      <button id="closeDialogue">FECHAR</button>
+    </div>
+
   </div>
 
-</section>
+  <!-- MOBILE -->
+  <div id="mobileControls">
+
+    <button class="ctrl up" data-dir="up">▲</button>
+    <button class="ctrl left" data-dir="left">◀</button>
+    <button class="ctrl down" data-dir="down">▼</button>
+    <button class="ctrl right" data-dir="right">▶</button>
+
+  </div>
+
+  <button id="interactBtn">💬 INTERAGIR</button>
+
+</div>
 
 
 <script>
 /* =========================================================
    THE ATTORNEYS
-   Sistema principal
 ========================================================= */
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
 
-const player = document.getElementById("player");
 const world = document.getElementById("world");
+const island = document.querySelector(".island");
+const player = document.getElementById("player");
 
 const playerNameInput = document.getElementById("playerName");
-const characterFile = document.getElementById("characterFile");
-const preview = document.getElementById("preview");
-
-const startButton = document.getElementById("startButton");
+const playerImageInput = document.getElementById("playerImageInput");
 
 const hudName = document.getElementById("hudName");
 
-let playerImage = null;
+const dialogue = document.getElementById("dialogue");
+const dialogueName = document.getElementById("dialogueName");
+const dialogueText = document.getElementById("dialogueText");
 
-let position = {
-  x: 1350,
-  y: 950
+const interactBtn = document.getElementById("interactBtn");
+
+const portal = document.getElementById("portal");
+const portalLabel = document.getElementById("portalLabel");
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+const playerState = {
+  x:1530,
+  y:1120,
+  speed:5
 };
 
-const speed = 7;
+let playerImageURL = null;
+
+playerImageInput.addEventListener("change",()=>{
+  const file = playerImageInput.files[0];
+
+  if(!file) return;
+
+  if(playerImageURL){
+    URL.revokeObjectURL(playerImageURL);
+  }
+
+  playerImageURL = URL.createObjectURL(file);
+  player.src = playerImageURL;
+});
+
+
+/* =========================================================
+   NPC DATA
+========================================================= */
+
+const npcs = {
+
+  Burguinho:{
+    element:document.getElementById("npcBurguinho"),
+    imageInput:document.getElementById("imgBurguinho"),
+    audioInput:document.getElementById("audioBurguinho"),
+    fallbackText:"QUACK!",
+    dialogue:"QUACK! QUACK! 🦆"
+  },
+
+  Yume:{
+    element:document.getElementById("npcYume"),
+    imageInput:document.getElementById("imgYume"),
+    audioInput:document.getElementById("audioYume"),
+    fallbackText:"Oi! :33",
+    dialogue:"Oiii! Bem-vindo ao The Attorneys :33"
+  },
+
+  Melanie:{
+    element:document.getElementById("npcMelanie"),
+    imageInput:document.getElementById("imgMelanie"),
+    audioInput:document.getElementById("audioMelanie"),
+    fallbackText:"",
+    dialogue:"♪ ... ♪"
+  },
+
+  Oliver:{
+    element:document.getElementById("npcOliver"),
+    imageInput:document.getElementById("imgOliver"),
+    audioInput:document.getElementById("audioOliver"),
+    fallbackText:"oninoninon",
+    dialogue:"ONINONINON 🫀"
+  },
+
+  Rick:{
+    element:document.getElementById("npcRick"),
+    imageInput:document.getElementById("imgRick"),
+    audioInput:document.getElementById("audioRick"),
+    fallbackText:"...",
+    dialogue:"Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!"
+  },
+
+  Morty:{
+    element:document.getElementById("npcMorty"),
+    imageInput:document.getElementById("imgMorty"),
+    audioInput:document.getElementById("audioMorty"),
+    fallbackText:"...",
+    dialogue:"— P-porra, Rick! Onde é que a gente tá, cara?!"
+  },
+
+  Robot:{
+    element:document.getElementById("npcRobot"),
+    imageInput:document.getElementById("imgRobot"),
+    audioInput:document.getElementById("audioRobot"),
+    fallbackText:"INFO",
+    dialogue:"Olá, participante. Posso fornecer informações sobre o torneio."
+  }
+
+};
+
+
+/* =========================================================
+   ÁUDIO
+========================================================= */
+
+let currentAudio = null;
+let currentNPC = null;
+
+function stopAudio(){
+
+  if(currentAudio){
+    currentAudio.pause();
+
+    try{
+      currentAudio.currentTime = 0;
+    }catch(e){}
+
+    currentAudio = null;
+  }
+
+}
+
+
+/* Arquivos de áudio escolhidos no menu */
+
+function getAudioFile(npc){
+
+  if(!npc || !npc.audioInput) return null;
+
+  const file = npc.audioInput.files[0];
+
+  if(!file) return null;
+
+  return file;
+
+}
+
+
+/* Voz sintetizada */
+
+function speakText(text){
+
+  if(!("speechSynthesis" in window)) return;
+
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  utterance.lang = "pt-BR";
+  utterance.rate = 1;
+  utterance.pitch = 1;
+
+  speechSynthesis.speak(utterance);
+}
+
+
+/* QUACK */
+function makeQuack(){
+
+  try{
+
+    const AudioContext =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+    if(!AudioContext) return;
+
+    const ctx = new AudioContext();
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "sawtooth";
+
+    osc.frequency.setValueAtTime(480,ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(
+      170,
+      ctx.currentTime + .18
+    );
+
+    gain.gain.setValueAtTime(.001,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      .35,
+      ctx.currentTime + .025
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      ctx.currentTime + .22
+    );
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+    osc.stop(ctx.currentTime + .23);
+
+  }catch(e){
+
+    speakText("Quack!");
+
+  }
+
+}
+
+
+/* =========================================================
+   FALA DO NPC
+========================================================= */
+
+function playNPCSound(name){
+
+  const npc = npcs[name];
+
+  if(!npc) return;
+
+  stopAudio();
+
+  const file = getAudioFile(npc);
+
+  if(file){
+
+    const url = URL.createObjectURL(file);
+
+    currentAudio = new Audio(url);
+
+    currentAudio.volume = 1;
+
+    currentAudio.play().catch(()=>{});
+
+    currentAudio.addEventListener("ended",()=>{
+      URL.revokeObjectURL(url);
+    },{
+      once:true
+    });
+
+    return;
+  }
+
+  /* sons padrão */
+
+  if(name === "Burguinho"){
+    makeQuack();
+    return;
+  }
+
+  if(name === "Oliver"){
+    speakText("oninoninon");
+    return;
+  }
+
+  if(name === "Yume"){
+    speakText("Oiii! Bem-vindo ao The Attorneys!");
+    return;
+  }
+
+  if(name === "Rick"){
+    speakText("Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!");
+    return;
+  }
+
+  if(name === "Morty"){
+    speakText("— P-porra, Rick! Onde é que a gente tá, cara?!");
+    return;
+  }
+
+  if(name === "Robot"){
+    speakText("Olá, participante. Posso fornecer informações sobre o torneio.");
+    return;
+  }
+
+  /* Melanie sem arquivo não toca nada,
+     porque o áudio dela será selecionado pelo usuário. */
+
+}
+
+
+/* =========================================================
+   IMAGENS DOS NPCs
+========================================================= */
+
+for(const name in npcs){
+
+  const npc = npcs[name];
+
+  npc.imageInput.addEventListener("change",()=>{
+
+    const file = npc.imageInput.files[0];
+
+    if(!file) return;
+
+    const old = npc.element.querySelector(".npc-image");
+
+    if(old) old.remove();
+
+    const fallback =
+      npc.element.querySelector(".npc-fallback");
+
+    if(fallback) fallback.remove();
+
+    const img = document.createElement("img");
+
+    img.className = "npc-image";
+    img.alt = name;
+
+    img.src = URL.createObjectURL(file);
+
+    npc.element.prepend(img);
+
+  });
+
+}
+
+
+/* =========================================================
+   INTERAÇÃO
+========================================================= */
+
+let nearbyNPC = null;
+
+function distance(a,b){
+
+  return Math.hypot(
+    a.x-b.x,
+    a.y-b.y
+  );
+
+}
+
+function getNPCPosition(element){
+
+  return {
+    x:parseFloat(element.style.left),
+    y:parseFloat(element.style.top)
+  };
+
+}
+
+
+function updateNearbyNPC(){
+
+  let closest = null;
+  let closestDistance = Infinity;
+
+  for(const name in npcs){
+
+    const pos = getNPCPosition(npcs[name].element);
+
+    const d = distance(
+      playerState,
+      pos
+    );
+
+    if(d < closestDistance){
+
+      closestDistance = d;
+      closest = name;
+
+    }
+
+  }
+
+  if(closestDistance < 190){
+
+    nearbyNPC = closest;
+
+    for(const name in npcs){
+
+      npcs[name].element.classList.toggle(
+        "near",
+        name === closest
+      );
+
+    }
+
+    interactBtn.style.display = "block";
+
+  }else{
+
+    nearbyNPC = null;
+
+    for(const name in npcs){
+
+      npcs[name].element.classList.remove("near");
+
+    }
+
+    interactBtn.style.display = "none";
+
+  }
+
+}
+
+
+function interact(){
+
+  if(!nearbyNPC) return;
+
+  const npc = npcs[nearbyNPC];
+
+  currentNPC = nearbyNPC;
+
+  dialogueName.textContent =
+    npc.element.dataset.name;
+
+  dialogueText.textContent =
+    npc.dialogue;
+
+  dialogue.style.display = "block";
+
+  playNPCSound(nearbyNPC);
+
+}
+
+
+/* PC */
+
+document.addEventListener("keydown",(e)=>{
+
+  if(e.key.toLowerCase() === "e"){
+
+    interact();
+
+  }
+
+});
+
+
+interactBtn.addEventListener("click",interact);
+
+
+/* repetir */
+
+document.getElementById("replayAudio")
+  .addEventListener("click",()=>{
+
+    if(currentNPC){
+
+      playNPCSound(currentNPC);
+
+    }
+
+  });
+
+
+document.getElementById("closeDialogue")
+  .addEventListener("click",()=>{
+
+    dialogue.style.display = "none";
+
+    stopAudio();
+
+  });
+
+
+/* =========================================================
+   MOVIMENTO
+========================================================= */
 
 const keys = {
   up:false,
@@ -1005,393 +1423,325 @@ const keys = {
   right:false
 };
 
-let nearbyNPC = null;
 
+window.addEventListener("keydown",(e)=>{
 
-/* =========================================================
-   UPLOAD DO PERSONAGEM
-========================================================= */
-
-characterFile.addEventListener("change", function(){
-
-  const file = this.files[0];
-
-  if(!file) return;
-
-  const url = URL.createObjectURL(file);
-
-  playerImage = url;
-
-  preview.innerHTML = `
-    <img src="${url}" alt="Seu personagem">
-  `;
-});
-
-
-/* =========================================================
-   OUTROS UPLOADS
-========================================================= */
-
-const grassFile = document.getElementById("grassFile");
-const treeFile = document.getElementById("treeFile");
-const flowerFile = document.getElementById("flowerFile");
-
-grassFile.addEventListener("change",function(){
-
-  const file = this.files[0];
-
-  if(!file) return;
-
-  const url = URL.createObjectURL(file);
-
-  document.getElementById("ground").style.backgroundImage =
-    `url("${url}")`;
-
-  document.getElementById("ground").style.backgroundSize =
-    "256px 256px";
-});
-
-treeFile.addEventListener("change",function(){
-
-  const file = this.files[0];
-
-  if(!file) return;
-
-  const url = URL.createObjectURL(file);
-
-  document.querySelectorAll(".tree .leaves").forEach(el=>{
-    el.style.backgroundImage=`url("${url}")`;
-    el.style.backgroundSize="contain";
-    el.style.backgroundRepeat="no-repeat";
-    el.style.backgroundColor="transparent";
-    el.style.border="0";
-    el.style.boxShadow="none";
-  });
-});
-
-flowerFile.addEventListener("change",function(){
-
-  const file = this.files[0];
-
-  if(!file) return;
-
-  const url = URL.createObjectURL(file);
-
-  document.querySelectorAll(".flower").forEach(el=>{
-    el.style.backgroundImage=`url("${url}")`;
-    el.style.backgroundSize="contain";
-    el.style.backgroundRepeat="no-repeat";
-    el.style.width="45px";
-    el.style.height="45px";
-  });
-});
-
-
-/* =========================================================
-   INICIAR
-========================================================= */
-
-startButton.addEventListener("click",()=>{
-
-  const name =
-    playerNameInput.value.trim() || "Participante";
-
-  hudName.textContent = name;
-
-  if(playerImage){
-
-    player.innerHTML =
-      `<img src="${playerImage}" alt="${name}">`;
-
-  }else{
-
-    player.innerHTML =
-      `<div class="default-player"></div>`;
-
-  }
-
-  menu.style.display="none";
-  game.style.display="block";
-
-  position.x=1350;
-  position.y=950;
-
-  updateCamera();
-
-  addChat(
-    "Sistema",
-    name + " entrou no torneio!"
-  );
-});
-
-
-/* =========================================================
-   TECLADO
-========================================================= */
-
-document.addEventListener("keydown",e=>{
-
-  if(e.key==="ArrowUp" || e.key.toLowerCase()==="w")
+  if(e.key === "ArrowUp" || e.key.toLowerCase()==="w")
     keys.up=true;
 
-  if(e.key==="ArrowDown" || e.key.toLowerCase()==="s")
+  if(e.key === "ArrowDown" || e.key.toLowerCase()==="s")
     keys.down=true;
 
-  if(e.key==="ArrowLeft" || e.key.toLowerCase()==="a")
+  if(e.key === "ArrowLeft" || e.key.toLowerCase()==="a")
     keys.left=true;
 
-  if(e.key==="ArrowRight" || e.key.toLowerCase()==="d")
+  if(e.key === "ArrowRight" || e.key.toLowerCase()==="d")
     keys.right=true;
 
-  if(e.key==="e" || e.key==="E"){
-    if(nearbyNPC) openNPC(nearbyNPC);
-  }
 });
 
-document.addEventListener("keyup",e=>{
 
-  if(e.key==="ArrowUp" || e.key.toLowerCase()==="w")
+window.addEventListener("keyup",(e)=>{
+
+  if(e.key === "ArrowUp" || e.key.toLowerCase()==="w")
     keys.up=false;
 
-  if(e.key==="ArrowDown" || e.key.toLowerCase()==="s")
+  if(e.key === "ArrowDown" || e.key.toLowerCase()==="s")
     keys.down=false;
 
-  if(e.key==="ArrowLeft" || e.key.toLowerCase()==="a")
+  if(e.key === "ArrowLeft" || e.key.toLowerCase()==="a")
     keys.left=false;
 
-  if(e.key==="ArrowRight" || e.key.toLowerCase()==="d")
+  if(e.key === "ArrowRight" || e.key.toLowerCase()==="d")
     keys.right=false;
+
+});
+
+
+/* controles mobile */
+
+document.querySelectorAll(".ctrl").forEach(button=>{
+
+  const dir = button.dataset.dir;
+
+  const start = (e)=>{
+    e.preventDefault();
+    keys[dir]=true;
+  };
+
+  const stop = (e)=>{
+    e.preventDefault();
+    keys[dir]=false;
+  };
+
+  button.addEventListener("pointerdown",start);
+  button.addEventListener("pointerup",stop);
+  button.addEventListener("pointercancel",stop);
+  button.addEventListener("pointerleave",stop);
+
 });
 
 
 /* =========================================================
-   CONTROLES MOBILE
+   LIMITES DO MUNDO
 ========================================================= */
 
-document.querySelectorAll(".move-btn").forEach(btn=>{
+function clampPlayer(){
 
-  const key = btn.dataset.key;
+  /*
+    A ilha começa em 180,150.
+    O player não pode sair dela.
+  */
 
-  function start(e){
-    e.preventDefault();
-    keys[key]=true;
-  }
+  const minX = 300;
+  const maxX = 3300;
 
-  function stop(e){
-    e.preventDefault();
-    keys[key]=false;
-  }
+  const minY = 270;
+  const maxY = 2330;
 
-  btn.addEventListener("touchstart",start,{passive:false});
-  btn.addEventListener("touchend",stop,{passive:false});
-  btn.addEventListener("touchcancel",stop,{passive:false});
+  playerState.x =
+    Math.max(minX,
+      Math.min(maxX,playerState.x));
 
-  btn.addEventListener("mousedown",start);
-  btn.addEventListener("mouseup",stop);
-  btn.addEventListener("mouseleave",stop);
-});
+  playerState.y =
+    Math.max(minY,
+      Math.min(maxY,playerState.y));
 
-
-/* =========================================================
-   MOVIMENTO
-========================================================= */
-
-function movement(){
-
-  if(game.style.display==="none") return;
-
-  let moved=false;
-
-  if(keys.up){
-    position.y-=speed;
-    moved=true;
-  }
-
-  if(keys.down){
-    position.y+=speed;
-    moved=true;
-  }
-
-  if(keys.left){
-    position.x-=speed;
-    moved=true;
-  }
-
-  if(keys.right){
-    position.x+=speed;
-    moved=true;
-  }
-
-  /* limites do mapa */
-
-  position.x=Math.max(100,Math.min(2700,position.x));
-  position.y=Math.max(80,Math.min(1780,position.y));
-
-  if(moved){
-    updateCamera();
-    checkNPC();
-  }
-
-  requestAnimationFrame(movement);
 }
 
 
 /* =========================================================
-   CÂMERA / PERSPECTIVA
+   CÂMERA
 ========================================================= */
 
 function updateCamera(){
 
   /*
-    A câmera acompanha o jogador.
-    O mundo se move ao contrário.
+    A câmera NÃO fica presa na parte de baixo.
+
+    Ela calcula onde o player está no mundo
+    e tenta mantê-lo no centro da tela.
+
+    Só para quando chega no verdadeiro limite
+    do mapa.
   */
 
-  const screenX=window.innerWidth/2;
-  const screenY=window.innerHeight*0.57;
+  const screenW = window.innerWidth;
+  const screenH = window.innerHeight;
 
-  let worldX=position.x;
-  let worldY=position.y;
+  let cameraX =
+    playerState.x - screenW / 2;
 
-  let offsetX=screenX-worldX;
-  let offsetY=screenY-worldY;
+  let cameraY =
+    playerState.y - screenH / 2;
 
-  const maxX=0;
-  const minX=window.innerWidth-2800;
 
-  const maxY=window.innerHeight*.45;
-  const minY=window.innerHeight-1900;
+  const maxCameraX =
+    world.offsetWidth - screenW;
 
-  offsetX=Math.min(maxX,Math.max(minX,offsetX));
-  offsetY=Math.min(maxY,Math.max(minY,offsetY));
+  const maxCameraY =
+    world.offsetHeight - screenH;
+
+
+  cameraX =
+    Math.max(0,
+      Math.min(maxCameraX,cameraX));
+
+  cameraY =
+    Math.max(0,
+      Math.min(maxCameraY,cameraY));
+
 
   world.style.transform =
-    `translate(${offsetX}px,${offsetY}px)`;
+    `translate(${-cameraX}px,${-cameraY}px)`;
 
-  /*
-    personagem fica no centro,
-    mas sua escala muda levemente com a profundidade.
-  */
-
-  const depth =
-    Math.max(.78,Math.min(1.18,
-      .78 + position.y/1900*.4
-    ));
-
-  player.style.transform =
-    `translate(-50%,-50%) scale(${depth})`;
 }
 
 
 /* =========================================================
-   NPC
+   GAME LOOP
 ========================================================= */
 
-const npcs = [
-  {
-    id:"npcBurguinho",
-    name:"Burguinho",
-    text:"Quack"
-  },
-  {
-    id:"npcInfo",
-    name:"Yume",
-    text:"Posso te mostrar as regras, próximas provas, participantes e calendário do torneio."
-  },
-  {
-    id:"npcOliver",
-    name:"Oliver Tree",
-    text:"Oninoninon."
-  },
-  {
-    id:"npcMelanie",
-    name:"Melanie Martinez",
-    text:"Next to the salad"
+function gameLoop(){
+
+  let dx=0;
+  let dy=0;
+
+  if(keys.up) dy-=1;
+  if(keys.down) dy+=1;
+  if(keys.left) dx-=1;
+  if(keys.right) dx+=1;
+
+
+  /* movimento diagonal não fica mais rápido */
+
+  if(dx !== 0 && dy !== 0){
+
+    const factor =
+      1 / Math.sqrt(2);
+
+    dx*=factor;
+    dy*=factor;
+
   }
-];
 
-function checkNPC(){
 
-  nearbyNPC=null;
+  playerState.x += dx * playerState.speed;
+  playerState.y += dy * playerState.speed;
 
-  const px=position.x;
-  const py=position.y;
+  clampPlayer();
 
-  for(const npc of npcs){
 
-    const el=document.getElementById(npc.id);
+  player.style.left =
+    playerState.x+"px";
 
-    const x=parseFloat(el.style.left);
-    const y=parseFloat(el.style.top);
+  player.style.top =
+    playerState.y+"px";
 
-    const distance=Math.hypot(
-      px-x,
-      py-y
-    );
 
-    if(distance<180){
+  updateNearbyNPC();
+  updateCamera();
 
-      nearbyNPC=npc;
 
-      break;
+  requestAnimationFrame(gameLoop);
+
+}
+
+
+/* =========================================================
+   PORTAL
+========================================================= */
+
+let portalOpen = false;
+
+function openPortal(){
+
+  portalOpen = true;
+
+  portal.classList.remove("closed");
+
+  portalLabel.innerHTML =
+    "✨ PORTAL ABERTO ✨<br>ENTRE PARA A PRÓXIMA PROVA!";
+
+  document.getElementById("eventStatus")
+    .textContent =
+    "PORTAL ABERTO!";
+
+}
+
+
+/* temporariamente abre depois de 15 segundos */
+
+setTimeout(openPortal,15000);
+
+
+/* =========================================================
+   MENU → JOGO
+========================================================= */
+
+document.getElementById("startGame")
+  .addEventListener("click",()=>{
+
+    const name =
+      playerNameInput.value.trim() ||
+      "Participante";
+
+    hudName.textContent = name;
+
+    if(!player.src){
+
+      /* personagem padrão simples */
+
+      player.src =
+        "data:image/svg+xml;charset=UTF-8,"+
+        encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="120"
+               height="120"
+               viewBox="0 0 120 120">
+
+            <rect x="25" y="20"
+                  width="70" height="70"
+                  rx="18"
+                  fill="#f3d6a4"
+                  stroke="#171329"
+                  stroke-width="7"/>
+
+            <circle cx="48" cy="53"
+                    r="7"
+                    fill="#171329"/>
+
+            <circle cx="72" cy="53"
+                    r="7"
+                    fill="#171329"/>
+
+            <path d="M48 72 Q60 82 72 72"
+                  fill="none"
+                  stroke="#171329"
+                  stroke-width="5"/>
+
+          </svg>
+        `);
+
     }
-  }
 
-  const button=document.getElementById("interact");
+    menu.style.display="none";
+    game.style.display="block";
 
-  if(nearbyNPC){
-    button.style.display="block";
-    button.textContent =
-      "INTERAGIR • "+nearbyNPC.name;
-  }else{
-    button.style.display="none";
-  }
-}
+    gameLoop();
 
-document.getElementById("interact")
-.addEventListener("click",()=>{
-  if(nearbyNPC) openNPC(nearbyNPC);
-});
-
-function openNPC(npc){
-
-  document.getElementById("dialogName")
-    .textContent=npc.name;
-
-  document.getElementById("dialogText")
-    .textContent=npc.text;
-
-  document.getElementById("dialog")
-    .style.display="block";
-}
-
-document.getElementById("closeDialog")
-.addEventListener("click",()=>{
-  document.getElementById("dialog")
-    .style.display="none";
-});
+  });
 
 
 /* =========================================================
    CHAT
 ========================================================= */
 
-function addChat(name,text){
+const chatPanel =
+  document.getElementById("chatPanel");
 
-  const box=document.getElementById("chatBox");
+document.getElementById("chatButton")
+  .addEventListener("click",()=>{
 
-  const line=document.createElement("div");
+    chatPanel.style.display =
+      chatPanel.style.display === "block"
+        ? "none"
+        : "block";
 
-  line.innerHTML =
-    `<b>${escapeHTML(name)}:</b> ${escapeHTML(text)}`;
+  });
 
-  box.appendChild(line);
 
-  while(box.children.length>8)
-    box.removeChild(box.firstChild);
+document.getElementById("chatInput")
+  .addEventListener("keydown",(e)=>{
 
-  box.scrollTop=box.scrollHeight;
-}
+    if(e.key !== "Enter") return;
+
+    const text =
+      e.target.value.trim();
+
+    if(!text) return;
+
+    const row =
+      document.createElement("div");
+
+    row.className="chat-row";
+
+    row.innerHTML =
+      `<b>${escapeHTML(hudName.textContent)}:</b> ${escapeHTML(text)}`;
+
+    document.getElementById("messages")
+      .appendChild(row);
+
+    e.target.value="";
+
+    const messages =
+      document.getElementById("messages");
+
+    messages.scrollTop =
+      messages.scrollHeight;
+
+  });
+
 
 function escapeHTML(text){
 
@@ -1401,56 +1751,31 @@ function escapeHTML(text){
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
+
 }
 
-document.getElementById("chatInput")
-.addEventListener("keydown",e=>{
-
-  if(e.key==="Enter"){
-
-    const input=e.target;
-    const text=input.value.trim();
-
-    if(!text) return;
-
-    addChat(
-      playerNameInput.value.trim() || "Participante",
-      text
-    );
-
-    input.value="";
-  }
-});
-
 
 /* =========================================================
-   BOTÕES
+   MAP BUTTON
 ========================================================= */
-
-document.getElementById("menuButton")
-.addEventListener("click",()=>{
-
-  game.style.display="none";
-  menu.style.display="flex";
-});
 
 document.getElementById("mapButton")
-.addEventListener("click",()=>{
+  .addEventListener("click",()=>{
 
-  addChat(
-    "Mapa",
-    "Você está na região central do torneio."
-  );
-});
+    alert(
+      "🗺 MAPA\n\n"+
+      "Você está no Lobby do The Attorneys.\n\n"+
+      "🦆 Burguinho\n"+
+      "🌙 Yume\n"+
+      "🎀 Melanie\n"+
+      "🫀 Oliver\n"+
+      "👽 Rick\n"+
+      "🧪 Morty\n"+
+      "🤖 Robô\n\n"+
+      "✨ O portal leva para a próxima prova."
+    );
 
-
-/* =========================================================
-   LOOP
-========================================================= */
-
-movement();
-
-window.addEventListener("resize",updateCamera);
+  });
 
 </script>
 
