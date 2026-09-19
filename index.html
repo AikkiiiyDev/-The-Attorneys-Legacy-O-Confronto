@@ -6,6 +6,7 @@
 <title>The Attorneys</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -33,11 +34,19 @@ input{
   position:fixed;
   inset:0;
   z-index:9999;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   background:
-    radial-gradient(circle at center,#48347c 0%,#211638 45%,#100c1b 100%);
+    radial-gradient(
+      circle at center,
+      #48347c 0%,
+      #211638 45%,
+      #100c1b 100%
+    );
+
   color:white;
   padding:20px;
 }
@@ -45,10 +54,16 @@ input{
 .menu-box{
   width:min(500px,94vw);
   padding:30px;
+
   border-radius:25px;
+
   background:rgba(20,15,35,.94);
+
   border:3px solid rgba(255,255,255,.15);
-  box-shadow:0 20px 70px rgba(0,0,0,.5);
+
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.5);
+
   text-align:center;
 }
 
@@ -65,20 +80,28 @@ input{
 .menu-box input[type="text"]{
   width:100%;
   padding:14px;
+
   border:0;
   border-radius:12px;
   outline:none;
+
   margin-bottom:15px;
+
   background:#2e2646;
   color:white;
 }
 
 .file-label{
   display:block;
+
   padding:14px;
+
   border-radius:12px;
+
   background:#403260;
+
   cursor:pointer;
+
   margin-bottom:15px;
 }
 
@@ -102,28 +125,39 @@ input{
 #playerPreview{
   width:100px;
   height:120px;
+
   object-fit:contain;
-  image-rendering:auto;
+
   border-radius:15px;
+
   background:rgba(255,255,255,.05);
 }
 
 #fileName{
   display:block;
+
   margin-top:7px;
+
   font-size:12px;
+
   color:#aaa;
+
   word-break:break-word;
 }
 
 #startGame{
   width:100%;
+
   padding:15px;
+
   border:0;
   border-radius:14px;
+
   cursor:pointer;
+
   background:#a97cff;
   color:white;
+
   font-weight:bold;
   font-size:18px;
 }
@@ -132,6 +166,7 @@ input{
   background:#b994ff;
 }
 
+
 /* =========================
    GAME
 ========================= */
@@ -139,19 +174,26 @@ input{
 #game{
   position:fixed;
   inset:0;
+
   overflow:hidden;
+
   background:#82b95f;
 }
 
 #world{
   position:absolute;
+
   left:0;
   top:0;
+
   width:3600px;
   height:2600px;
+
   transform-origin:top left;
+
   will-change:transform;
 }
+
 
 /* =========================
    CHÃO
@@ -159,39 +201,69 @@ input{
 
 #island{
   position:absolute;
+
   left:0;
   top:0;
+
   width:3600px;
   height:2600px;
+
   overflow:hidden;
+
   background:#8fc66b;
+
   z-index:0;
 }
 
 #grass{
   position:absolute;
+
   left:0;
   top:0;
+
   width:100%;
   height:100%;
+
   object-fit:cover;
+
   z-index:0;
+
   pointer-events:none;
   user-select:none;
 }
 
-/* camada natural sobre o chão */
 .ground-overlay{
   position:absolute;
+
   inset:0;
+
   z-index:1;
+
   pointer-events:none;
+
   background:
-    radial-gradient(circle at 15% 25%,rgba(255,255,255,.06) 0 3px,transparent 4px),
-    radial-gradient(circle at 72% 65%,rgba(40,80,30,.05) 0 4px,transparent 5px),
-    radial-gradient(circle at 40% 80%,rgba(255,255,255,.04) 0 3px,transparent 4px);
-  background-size:180px 180px,230px 230px,200px 200px;
+    radial-gradient(
+      circle at 15% 25%,
+      rgba(255,255,255,.06) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 72% 65%,
+      rgba(40,80,30,.05) 0 4px,
+      transparent 5px
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(255,255,255,.04) 0 3px,
+      transparent 4px
+    );
+
+  background-size:
+    180px 180px,
+    230px 230px,
+    200px 200px;
 }
+
 
 /* =========================
    CAMINHOS
@@ -199,52 +271,70 @@ input{
 
 .path{
   position:absolute;
+
   z-index:2;
+
   background:#d7bd83;
+
   border-radius:999px;
+
   opacity:.95;
 }
 
 .path.one{
   width:2800px;
   height:150px;
+
   left:400px;
   top:1210px;
+
   transform:rotate(-4deg);
 }
 
 .path.two{
   width:150px;
   height:2100px;
+
   left:1725px;
   top:250px;
+
   transform:rotate(5deg);
 }
 
 .path.three{
   width:1200px;
   height:120px;
+
   left:800px;
   top:700px;
+
   transform:rotate(18deg);
 }
 
+
 /* =========================
-   NATUREZA
+   ÁGUA
 ========================= */
 
 .pond{
   position:absolute;
+
   z-index:2;
+
   border-radius:50%;
+
   background:#6db4d5;
+
   border:8px solid rgba(255,255,255,.18);
-  box-shadow:inset 0 0 0 8px rgba(30,100,130,.12);
+
+  box-shadow:
+    inset 0 0 0 8px rgba(30,100,130,.12);
 }
 
 .pond.one{
   width:420px;
   height:260px;
+
   left:250px;
   top:300px;
 }
@@ -252,17 +342,28 @@ input{
 .pond.two{
   width:500px;
   height:280px;
+
   right:250px;
   bottom:260px;
 }
 
+
+/* =========================
+   ARBUSTOS
+========================= */
+
 .bush{
   position:absolute;
+
   z-index:3;
+
   width:120px;
   height:75px;
+
   border-radius:60%;
+
   background:#4f963f;
+
   box-shadow:
     25px -15px 0 #5ba847,
     55px 0 0 #478d38,
@@ -276,14 +377,26 @@ input{
 .bush.b5{left:1450px;top:400px}
 .bush.b6{left:2200px;top:2050px}
 
+
+/* =========================
+   PEDRAS
+========================= */
+
 .rock{
   position:absolute;
+
   z-index:3;
+
   width:80px;
   height:55px;
-  border-radius:50% 55% 45% 50%;
+
+  border-radius:
+    50% 55% 45% 50%;
+
   background:#77756c;
-  box-shadow:inset 10px 8px 0 rgba(255,255,255,.15);
+
+  box-shadow:
+    inset 10px 8px 0 rgba(255,255,255,.15);
 }
 
 .rock.r1{left:950px;top:350px}
@@ -292,49 +405,207 @@ input{
 .rock.r4{left:750px;top:2200px}
 .rock.r5{left:2100px;top:400px}
 
+
 /* =========================
-   NPCS
+   PORTAL
+========================= */
+
+#portal{
+  position:absolute;
+
+  z-index:25;
+
+  left:1650px;
+  top:1000px;
+
+  width:300px;
+  height:390px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  pointer-events:none;
+
+  opacity:.25;
+
+  transform:scale(.75);
+
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+.portal-ring{
+  position:absolute;
+
+  width:230px;
+  height:230px;
+
+  border-radius:50%;
+
+  border:12px solid #7e62ff;
+
+  box-shadow:
+    0 0 20px #7e62ff,
+    0 0 50px rgba(126,98,255,.7),
+    inset 0 0 25px #7e62ff;
+
+  animation:
+    portalSpin 5s linear infinite;
+}
+
+.portal-core{
+  position:absolute;
+
+  width:165px;
+  height:165px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #d9ccff 0%,
+      #8c6dff 25%,
+      #4830a8 55%,
+      #17102e 100%
+    );
+
+  box-shadow:
+    0 0 30px #8c6dff,
+    inset 0 0 30px #24135c;
+
+  animation:
+    portalPulse 1.6s ease-in-out infinite;
+}
+
+.portal-text{
+  position:absolute;
+
+  top:315px;
+
+  color:white;
+
+  font-weight:bold;
+
+  font-size:18px;
+
+  letter-spacing:3px;
+
+  text-shadow:
+    0 0 10px #8c6dff;
+}
+
+#portal.portal-open{
+  opacity:1;
+
+  transform:scale(1);
+
+  pointer-events:auto;
+
+  cursor:pointer;
+}
+
+#portal.portal-open:hover{
+  transform:scale(1.08);
+}
+
+@keyframes portalSpin{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+@keyframes portalPulse{
+
+  0%,100%{
+    transform:scale(.92);
+  }
+
+  50%{
+    transform:scale(1.08);
+  }
+
+}
+
+
+/* =========================
+   NPC
 ========================= */
 
 .npc{
   position:absolute;
+
   z-index:30;
+
   width:150px;
   height:150px;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   cursor:pointer;
-  transition:filter .15s,transform .15s;
+
+  user-select:none;
+
+  will-change:left,top,transform,filter;
 }
 
 .npc img{
   max-width:150px;
   max-height:125px;
+
   object-fit:contain;
+
   pointer-events:none;
   user-select:none;
 }
 
 .npc-name{
   position:absolute;
+
   left:50%;
   top:-8px;
-  transform:translate(-50%,-100%);
+
+  transform:
+    translate(-50%,-100%);
+
   white-space:nowrap;
+
   padding:6px 10px;
+
   border-radius:10px;
+
   background:rgba(20,15,35,.85);
+
   color:white;
+
   font-size:14px;
+
   font-weight:bold;
+
   pointer-events:none;
 }
 
 .npc.near{
-  filter:drop-shadow(0 0 12px #fff);
+  filter:
+    drop-shadow(
+      0 0 12px #fff
+    );
+
   transform:scale(1.06);
 }
+
 
 /* posições */
 
@@ -378,35 +649,55 @@ input{
   top:1150px;
 }
 
+
 /* =========================
    PLAYER
 ========================= */
 
 #playerCharacter{
   position:absolute;
+
   z-index:50;
+
   width:104px;
   height:124px;
+
   object-fit:contain;
+
   user-select:none;
   pointer-events:none;
-  image-rendering:auto;
-  filter:drop-shadow(0 5px 3px rgba(0,0,0,.3));
+
+  filter:
+    drop-shadow(
+      0 5px 3px rgba(0,0,0,.3)
+    );
 }
 
 #playerNameTag{
   position:absolute;
+
   z-index:60;
-  transform:translateX(-50%);
+
+  transform:
+    translateX(-50%);
+
   white-space:nowrap;
+
   padding:5px 9px;
+
   border-radius:9px;
+
   background:rgba(20,15,35,.9);
+
   color:white;
+
   font-weight:bold;
+
   font-size:14px;
+
   pointer-events:none;
 }
+
 
 /* =========================
    HUD
@@ -414,28 +705,45 @@ input{
 
 #top-left{
   position:fixed;
+
   z-index:500;
+
   left:15px;
   top:15px;
+
   padding:10px 14px;
+
   border-radius:12px;
+
   background:rgba(20,15,35,.82);
+
   color:white;
+
   font-weight:bold;
 }
 
 #timer{
   position:fixed;
+
   z-index:500;
+
   left:50%;
   top:15px;
-  transform:translateX(-50%);
+
+  transform:
+    translateX(-50%);
+
   padding:10px 18px;
+
   border-radius:14px;
+
   background:rgba(20,15,35,.82);
+
   color:white;
+
   font-weight:bold;
 }
+
 
 /* =========================
    CHAT
@@ -443,44 +751,65 @@ input{
 
 #chat{
   position:fixed;
+
   z-index:500;
+
   left:15px;
   bottom:15px;
+
   width:min(360px,90vw);
+
   background:rgba(20,15,35,.88);
+
   border-radius:16px;
+
   padding:12px;
+
   color:white;
 }
 
 #chatLog{
   height:110px;
+
   overflow-y:auto;
+
   font-size:13px;
+
   line-height:1.5;
+
   margin-bottom:8px;
 }
 
 .chat-row{
   display:flex;
+
   gap:7px;
 }
 
 #chatInput{
   min-width:0;
+
   flex:1;
+
   padding:9px;
+
   border:0;
+
   border-radius:9px;
+
   outline:none;
 }
 
 #chatSend{
   border:0;
+
   border-radius:9px;
+
   padding:9px 12px;
+
   cursor:pointer;
 }
+
 
 /* =========================
    INTERAÇÃO
@@ -488,24 +817,39 @@ input{
 
 #interact{
   position:fixed;
+
   z-index:600;
+
   left:50%;
   bottom:25px;
-  transform:translateX(-50%);
+
+  transform:
+    translateX(-50%);
+
   display:none;
+
   border:0;
+
   border-radius:14px;
+
   padding:13px 25px;
+
   background:#a97cff;
+
   color:white;
+
   font-weight:bold;
+
   cursor:pointer;
-  box-shadow:0 8px 25px rgba(0,0,0,.3);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.3);
 }
 
 #interact:hover{
   background:#bb98ff;
 }
+
 
 /* =========================
    DIÁLOGO
@@ -513,68 +857,108 @@ input{
 
 #dialog{
   position:fixed;
+
   z-index:1000;
+
   left:50%;
   top:50%;
-  transform:translate(-50%,-50%) scale(.95);
+
+  transform:
+    translate(-50%,-50%)
+    scale(.95);
+
   width:min(520px,90vw);
+
   max-height:90vh;
+
   overflow:auto;
+
   padding:22px;
+
   border-radius:22px;
+
   background:rgba(25,19,42,.97);
-  border:2px solid rgba(255,255,255,.15);
+
+  border:
+    2px solid
+    rgba(255,255,255,.15);
+
   color:white;
-  box-shadow:0 20px 80px rgba(0,0,0,.55);
+
+  box-shadow:
+    0 20px 80px rgba(0,0,0,.55);
+
   opacity:0;
+
   pointer-events:none;
+
   transition:.18s ease;
 }
 
 #dialog.show{
   opacity:1;
+
   pointer-events:auto;
-  transform:translate(-50%,-50%) scale(1);
+
+  transform:
+    translate(-50%,-50%)
+    scale(1);
 }
 
 #dialogTitle{
   font-size:24px;
+
   margin-bottom:10px;
 }
 
 #dialogText{
   color:#ddd7ee;
+
   line-height:1.5;
+
   margin-bottom:15px;
 }
 
 #audioContainer{
   margin-top:10px;
+
   display:flex;
+
   justify-content:center;
 }
 
 #audioContainer iframe{
   width:110px;
   height:200px;
+
   border:0;
+
   border-radius:10px;
 }
 
 .dialog-buttons{
   display:flex;
+
   justify-content:center;
+
   gap:10px;
+
   flex-wrap:wrap;
+
   margin-top:12px;
 }
 
 .dialog-buttons button{
   border:0;
+
   border-radius:11px;
+
   padding:10px 15px;
+
   cursor:pointer;
+
   color:white;
+
   background:#55417e;
 }
 
@@ -582,27 +966,42 @@ input{
   background:#6b5299;
 }
 
+
 /* =========================
-   MOBILE
+   CONTROLES MOBILE
 ========================= */
 
 #mobileControls{
   position:fixed;
+
   z-index:700;
+
   right:15px;
   bottom:20px;
+
   display:grid;
-  grid-template-columns:repeat(3,52px);
-  grid-template-rows:repeat(2,52px);
+
+  grid-template-columns:
+    repeat(3,52px);
+
+  grid-template-rows:
+    repeat(2,52px);
+
   gap:7px;
 }
 
 #mobileControls button{
   border:0;
+
   border-radius:14px;
-  background:rgba(20,15,35,.75);
+
+  background:
+    rgba(20,15,35,.75);
+
   color:white;
+
   font-size:21px;
+
   touch-action:none;
 }
 
@@ -624,6 +1023,11 @@ input{
   grid-column:3;
   grid-row:2;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -661,11 +1065,14 @@ input{
   .npc-name{
     font-size:12px;
   }
+
 }
+
 </style>
 </head>
 
 <body>
+
 
 <!-- =========================
      MENU
@@ -688,7 +1095,10 @@ input{
       placeholder="Nome do jogador"
     >
 
-    <label class="file-label" for="playerImageInput">
+    <label
+      class="file-label"
+      for="playerImageInput"
+    >
       🖼️ Escolher imagem do personagem
     </label>
 
@@ -699,8 +1109,14 @@ input{
     >
 
     <div id="previewArea">
-      <img id="playerPreview" alt="Prévia do personagem">
+
+      <img
+        id="playerPreview"
+        alt="Prévia do personagem"
+      >
+
       <span id="fileName"></span>
+
     </div>
 
     <button id="startGame">
@@ -722,7 +1138,9 @@ input{
 
     <div id="island">
 
-      <!-- O PNG agora é o chão -->
+
+      <!-- CHÃO -->
+
       <img
         id="grass"
         src="https://wallpapercave.com/wp/wp10944792.png"
@@ -731,16 +1149,25 @@ input{
 
       <div class="ground-overlay"></div>
 
-      <!-- caminhos -->
+
+      <!-- CAMINHOS -->
+
       <div class="path one"></div>
+
       <div class="path two"></div>
+
       <div class="path three"></div>
 
-      <!-- água -->
+
+      <!-- ÁGUA -->
+
       <div class="pond one"></div>
+
       <div class="pond two"></div>
 
-      <!-- arbustos -->
+
+      <!-- ARBUSTOS -->
+
       <div class="bush b1"></div>
       <div class="bush b2"></div>
       <div class="bush b3"></div>
@@ -748,7 +1175,9 @@ input{
       <div class="bush b5"></div>
       <div class="bush b6"></div>
 
-      <!-- pedras -->
+
+      <!-- PEDRAS -->
+
       <div class="rock r1"></div>
       <div class="rock r2"></div>
       <div class="rock r3"></div>
@@ -757,7 +1186,27 @@ input{
 
 
       <!-- =========================
-           NPC BURGUINHO
+           PORTAL
+      ========================== -->
+
+      <div
+        id="portal"
+        class="portal-closed"
+      >
+
+        <div class="portal-ring"></div>
+
+        <div class="portal-core"></div>
+
+        <div class="portal-text">
+          PORTAL
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           BURGUINHO
       ========================== -->
 
       <div
@@ -779,7 +1228,7 @@ input{
 
 
       <!-- =========================
-           NPC YUME
+           YUME
       ========================== -->
 
       <div
@@ -811,7 +1260,7 @@ input{
       >
 
         <div class="npc-name">
-          Melanie
+          Melanie Martinez
         </div>
 
         <img
@@ -921,13 +1370,13 @@ input{
       >
 
         <div class="npc-name">
-          Jotaro
+          Jotaro Kujo
         </div>
 
-       <img
-  src="https://www.kindpng.com/picc/m/98-985032_jotaro-kujo-png-transparent-png.png"
-  alt="Jotaro"
->
+        <img
+          src="https://www.kindpng.com/picc/m/98-985032_jotaro-kujo-png-transparent-png.png"
+          alt="Jotaro"
+        >
 
       </div>
 
@@ -970,7 +1419,8 @@ input{
   <div id="chat">
 
     <div id="chatLog">
-      <b>Sistema:</b> Bem-vindo ao lobby!
+      <b>Sistema:</b>
+      Bem-vindo ao lobby!
     </div>
 
     <div class="chat-row">
@@ -1067,24 +1517,46 @@ input{
    ELEMENTOS
 ========================= */
 
-const $ = id => document.getElementById(id);
+const $ =
+  id => document.getElementById(id);
 
-const menu = $("menu");
-const game = $("game");
-const world = $("world");
-const player = $("playerCharacter");
-const tag = $("playerNameTag");
+const menu =
+  $("menu");
 
-const dialog = $("dialog");
-const dialogTitle = $("dialogTitle");
-const dialogText = $("dialogText");
+const game =
+  $("game");
 
-const nearButton = $("interact");
+const world =
+  $("world");
+
+const player =
+  $("playerCharacter");
+
+const tag =
+  $("playerNameTag");
+
+const dialog =
+  $("dialog");
+
+const dialogTitle =
+  $("dialogTitle");
+
+const dialogText =
+  $("dialogText");
+
+const nearButton =
+  $("interact");
+
+const portal =
+  $("portal");
+
 
 let x = 1750;
+
 let y = 1250;
 
 let cameraX = 0;
+
 let cameraY = 0;
 
 let keys = new Set();
@@ -1092,6 +1564,8 @@ let keys = new Set();
 let playerImage = "";
 
 let running = false;
+
+let portalOpen = false;
 
 const speed = 6;
 
@@ -1106,7 +1580,7 @@ const texts = {
     "QUACK!",
 
   yume:
-    "Oi! Explore o lobby enquanto espera a próxima prova:333.",
+    "Oi! Explore o lobby enquanto espera a próxima prova. :33",
 
   melanie:
     "Abuelita, open the door.",
@@ -1219,27 +1693,33 @@ const AUDIO_IFRAMES = {
 
 
 /* =========================
-   ESCOLHER PLAYER
+   ESCOLHER IMAGEM
 ========================= */
 
-$("playerImageInput").addEventListener(
+$("playerImageInput")
+.addEventListener(
   "change",
   e => {
 
-    const f = e.target.files[0];
+    const f =
+      e.target.files[0];
 
     if(
       !f ||
       !f.type.startsWith("image/")
     ){
+
       return;
+
     }
 
-    const r = new FileReader();
+    const reader =
+      new FileReader();
 
-    r.onload = () => {
+    reader.onload = () => {
 
-      playerImage = r.result;
+      playerImage =
+        reader.result;
 
       $("playerPreview").src =
         playerImage;
@@ -1249,63 +1729,253 @@ $("playerImageInput").addEventListener(
         .add("show");
 
       $("fileName")
-        .textContent = f.name;
+        .textContent =
+        f.name;
 
     };
 
-    r.readAsDataURL(f);
+    reader.readAsDataURL(f);
 
   }
 );
 
 
 /* =========================
-   COMEÇAR
+   COMEÇAR JOGO
 ========================= */
 
-$("startGame").onclick = () => {
+$("startGame").onclick =
+  () => {
 
-  player.src =
-    playerImage ||
-    "data:image/svg+xml;charset=utf-8," +
-    encodeURIComponent(
-      `
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="100"
-        height="120"
-      >
-        <text
-          x="50"
-          y="75"
-          text-anchor="middle"
-          font-size="65"
+    player.src =
+      playerImage ||
+      "data:image/svg+xml;charset=utf-8," +
+      encodeURIComponent(`
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100"
+          height="120"
         >
-          🧑
-        </text>
-      </svg>
-      `
-    );
+          <text
+            x="50"
+            y="75"
+            text-anchor="middle"
+            font-size="65"
+          >
+            🧑
+          </text>
+        </svg>
+      `);
 
-  const n =
-    $("playerNameInput")
+    const name =
+      $("playerNameInput")
       .value
       .trim() ||
-    "Jogador";
+      "Jogador";
 
-  tag.textContent = n;
+    tag.textContent =
+      name;
 
-  $("top-left").textContent = n;
+    $("top-left")
+      .textContent =
+      name;
 
-  menu.style.display = "none";
+    menu.style.display =
+      "none";
 
-  game.hidden = false;
+    game.hidden =
+      false;
 
-  running = true;
+    running =
+      true;
 
-  requestAnimationFrame(loop);
+    requestAnimationFrame(
+      loop
+    );
 
-};
+    /*
+      O portal abre depois
+      de 20 segundos.
+    */
+
+    setTimeout(
+      openPortal,
+      20000
+    );
+
+  };
+
+
+/* =========================
+   NPCS ANDANDO
+========================= */
+
+const npcWalkers = [];
+
+document
+  .querySelectorAll(".npc")
+  .forEach(npc => {
+
+    /*
+      offsetLeft/offsetTop
+      pega a posição real,
+      inclusive quando ela veio
+      do CSS.
+    */
+
+    const startX =
+      npc.offsetLeft;
+
+    const startY =
+      npc.offsetTop;
+
+    npcWalkers.push({
+
+      el:npc,
+
+      x:startX,
+
+      y:startY,
+
+      homeX:startX,
+
+      homeY:startY,
+
+      range:180,
+
+      dx:0,
+
+      dy:0,
+
+      nextMove:0
+
+    });
+
+  });
+
+
+function chooseNPCMove(npc){
+
+  const angle =
+    Math.random() *
+    Math.PI *
+    2;
+
+  const speed =
+    0.25 +
+    Math.random() *
+    0.35;
+
+  npc.dx =
+    Math.cos(angle) *
+    speed;
+
+  npc.dy =
+    Math.sin(angle) *
+    speed;
+
+  npc.nextMove =
+    performance.now() +
+    1200 +
+    Math.random() *
+    2500;
+
+}
+
+
+function updateNPCs(){
+
+  const now =
+    performance.now();
+
+  npcWalkers
+    .forEach(npc => {
+
+      if(
+        now >=
+        npc.nextMove
+      ){
+
+        chooseNPCMove(
+          npc
+        );
+
+      }
+
+      npc.x +=
+        npc.dx;
+
+      npc.y +=
+        npc.dy;
+
+
+      if(
+        npc.x <
+        npc.homeX -
+        npc.range ||
+
+        npc.x >
+        npc.homeX +
+        npc.range
+      ){
+
+        npc.dx *= -1;
+
+      }
+
+
+      if(
+        npc.y <
+        npc.homeY -
+        npc.range ||
+
+        npc.y >
+        npc.homeY +
+        npc.range
+      ){
+
+        npc.dy *= -1;
+
+      }
+
+
+      npc.x =
+        Math.max(
+          npc.homeX -
+          npc.range,
+
+          Math.min(
+            npc.homeX +
+            npc.range,
+
+            npc.x
+          )
+        );
+
+
+      npc.y =
+        Math.max(
+          npc.homeY -
+          npc.range,
+
+          Math.min(
+            npc.homeY +
+            npc.range,
+
+            npc.y
+          )
+        );
+
+
+      npc.el.style.left =
+        npc.x + "px";
+
+      npc.el.style.top =
+        npc.y + "px";
+
+    });
+
+}
 
 
 /* =========================
@@ -1314,9 +1984,11 @@ $("startGame").onclick = () => {
 
 function nearest(){
 
-  let best = null;
+  let best =
+    null;
 
-  let dist = Infinity;
+  let dist =
+    Infinity;
 
   document
     .querySelectorAll(".npc")
@@ -1324,24 +1996,30 @@ function nearest(){
 
       const d =
         Math.hypot(
+
           x -
           (
-            parseFloat(n.style.left) +
+            n.offsetLeft +
             75
           ),
 
           y -
           (
-            parseFloat(n.style.top) +
+            n.offsetTop +
             65
           )
+
         );
 
-      if(d < dist){
+      if(
+        d < dist
+      ){
 
-        dist = d;
+        dist =
+          d;
 
-        best = n;
+        best =
+          n;
 
       }
 
@@ -1360,7 +2038,8 @@ function nearest(){
 
 function interact(){
 
-  const n = nearest();
+  const n =
+    nearest();
 
   if(!n){
 
@@ -1410,34 +2089,39 @@ function interact(){
    REPETIR ÁUDIO
 ========================= */
 
-$("replayAudio").onclick = () => {
+$("replayAudio").onclick =
+  () => {
 
-  const n = nearest();
+    const n =
+      nearest();
 
-  if(!n){
-    return;
-  }
+    if(!n){
 
-  const id =
-    n.dataset.id;
+      return;
 
-  const audioContainer =
-    $("audioContainer");
+    }
 
-  audioContainer.innerHTML = "";
+    const id =
+      n.dataset.id;
 
-  setTimeout(
-    () => {
+    const audioContainer =
+      $("audioContainer");
 
-      audioContainer.innerHTML =
-        AUDIO_IFRAMES[id] ||
-        "";
+    audioContainer.innerHTML =
+      "";
 
-    },
-    50
-  );
+    setTimeout(
+      () => {
 
-};
+        audioContainer.innerHTML =
+          AUDIO_IFRAMES[id] ||
+          "";
+
+      },
+      50
+    );
+
+  };
 
 
 /* =========================
@@ -1460,59 +2144,66 @@ $("closeDialog").onclick =
       .remove("show");
 
     $("audioContainer")
-      .innerHTML = "";
+      .innerHTML =
+      "";
 
   };
 
 
 /* =========================
-   CLICAR NO NPC
+   CLICAR NPC
 ========================= */
 
 document
   .querySelectorAll(".npc")
   .forEach(n => {
 
-    n.onclick = () => {
+    n.onclick =
+      () => {
 
-      const nx =
-        parseFloat(n.style.left) +
-        75;
+        const nx =
+          n.offsetLeft +
+          75;
 
-      const ny =
-        parseFloat(n.style.top) +
-        65;
+        const ny =
+          n.offsetTop +
+          65;
 
-      if(
-        Math.hypot(
-          x - nx,
-          y - ny
-        ) <= 230
-      ){
+        const distance =
+          Math.hypot(
+            x - nx,
+            y - ny
+          );
 
-        interact();
+        if(
+          distance <= 230
+        ){
 
-      }else{
+          interact();
 
-        dialogTitle.textContent =
-          "Muito longe";
+        }else{
 
-        dialogText.textContent =
-          "Aproxime-se do personagem para interagir.";
+          dialogTitle.textContent =
+            "Muito longe";
 
-        $("audioContainer")
-          .innerHTML = "";
+          dialogText.textContent =
+            "Aproxime-se do personagem para interagir.";
 
-        $("replayAudio")
-          .style.display = "none";
+          $("audioContainer")
+            .innerHTML =
+            "";
 
-        dialog
-          .classList
-          .add("show");
+          $("replayAudio")
+            .style.display =
+            "none";
 
-      }
+          dialog
+            .classList
+            .add("show");
 
-    };
+        }
+
+      };
 
   });
 
@@ -1521,65 +2212,78 @@ document
    TECLADO
 ========================= */
 
-window.onkeydown = e => {
+window.onkeydown =
+  e => {
 
-  const active =
-    document.activeElement;
+    const active =
+      document.activeElement;
 
-  if(
-    active &&
-    (
-      active.tagName === "INPUT" ||
-      active.tagName === "TEXTAREA" ||
-      active.isContentEditable
-    )
-  ){
+    if(
+      active &&
+      (
+        active.tagName ===
+        "INPUT" ||
 
-    return;
+        active.tagName ===
+        "TEXTAREA" ||
 
-  }
+        active.isContentEditable
+      )
+    ){
 
-  if(
-    e.key.toLowerCase() === "e"
-  ){
+      return;
 
-    e.preventDefault();
-
-    interact();
-
-  }
-
-  if(
-    [
-      "ArrowUp",
-      "ArrowDown",
-      "ArrowLeft",
-      "ArrowRight",
-      "w",
-      "a",
-      "s",
-      "d",
-      "W",
-      "A",
-      "S",
-      "D"
-    ].includes(e.key)
-  ){
-
-    e.preventDefault();
-
-    keys.add(e.key);
-
-  }
-
-};
+    }
 
 
-window.onkeyup = e => {
+    if(
+      e.key.toLowerCase() ===
+      "e"
+    ){
 
-  keys.delete(e.key);
+      e.preventDefault();
 
-};
+      interact();
+
+    }
+
+
+    if(
+      [
+        "ArrowUp",
+        "ArrowDown",
+        "ArrowLeft",
+        "ArrowRight",
+        "w",
+        "a",
+        "s",
+        "d",
+        "W",
+        "A",
+        "S",
+        "D"
+      ].includes(e.key)
+    ){
+
+      e.preventDefault();
+
+      keys.add(
+        e.key
+      );
+
+    }
+
+  };
+
+
+window.onkeyup =
+  e => {
+
+    keys.delete(
+      e.key
+    );
+
+  };
 
 
 /* =========================
@@ -1590,54 +2294,60 @@ document
   .querySelectorAll(
     "#mobileControls button"
   )
-  .forEach(b => {
+  .forEach(button => {
 
-    b.onpointerdown = e => {
+    button.onpointerdown =
+      e => {
 
-      e.preventDefault();
+        e.preventDefault();
 
-      keys.add(
-        b.dataset.key
-      );
+        keys.add(
+          button.dataset.key
+        );
 
-    };
+      };
 
-    b.onpointerup = () => {
+    button.onpointerup =
+      () => {
 
-      keys.delete(
-        b.dataset.key
-      );
+        keys.delete(
+          button.dataset.key
+        );
 
-    };
+      };
 
-    b.onpointerleave = () => {
+    button.onpointerleave =
+      () => {
 
-      keys.delete(
-        b.dataset.key
-      );
+        keys.delete(
+          button.dataset.key
+        );
 
-    };
+      };
 
-    b.onpointercancel = () => {
+    button.onpointercancel =
+      () => {
 
-      keys.delete(
-        b.dataset.key
-      );
+        keys.delete(
+          button.dataset.key
+        );
 
-    };
+      };
 
   });
 
 
 /* =========================
-   MOVIMENTO
+   MOVIMENTO PLAYER
 ========================= */
 
 function move(){
 
-  let dx = 0;
+  let dx =
+    0;
 
-  let dy = 0;
+  let dy =
+    0;
 
 
   if(
@@ -1646,7 +2356,8 @@ function move(){
     keys.has("W")
   ){
 
-    dy -= speed;
+    dy -=
+      speed;
 
   }
 
@@ -1657,7 +2368,8 @@ function move(){
     keys.has("S")
   ){
 
-    dy += speed;
+    dy +=
+      speed;
 
   }
 
@@ -1668,7 +2380,8 @@ function move(){
     keys.has("A")
   ){
 
-    dx -= speed;
+    dx -=
+      speed;
 
   }
 
@@ -1679,21 +2392,27 @@ function move(){
     keys.has("D")
   ){
 
-    dx += speed;
+    dx +=
+      speed;
 
   }
 
 
-  /* diagonal não fica mais rápida */
+  /* diagonal normalizada */
 
-  if(dx !== 0 && dy !== 0){
+  if(
+    dx !== 0 &&
+    dy !== 0
+  ){
 
     const factor =
       1 / Math.sqrt(2);
 
-    dx *= factor;
+    dx *=
+      factor;
 
-    dy *= factor;
+    dy *=
+      factor;
 
   }
 
@@ -1701,8 +2420,10 @@ function move(){
   x =
     Math.max(
       180,
+
       Math.min(
         3420,
+
         x + dx
       )
     );
@@ -1711,8 +2432,10 @@ function move(){
   y =
     Math.max(
       160,
+
       Math.min(
         2440,
+
         y + dy
       )
     );
@@ -1721,7 +2444,128 @@ function move(){
 
 
 /* =========================
-   ATUALIZAR
+   PORTAL
+========================= */
+
+function openPortal(){
+
+  portalOpen =
+    true;
+
+  portal
+    .classList
+    .remove(
+      "portal-closed"
+    );
+
+  portal
+    .classList
+    .add(
+      "portal-open"
+    );
+
+  $("timer")
+    .textContent =
+    "🌀 PORTAL ABERTO!";
+
+}
+
+
+function closePortal(){
+
+  portalOpen =
+    false;
+
+  portal
+    .classList
+    .remove(
+      "portal-open"
+    );
+
+  portal
+    .classList
+    .add(
+      "portal-closed"
+    );
+
+}
+
+
+/* =========================
+   ENTRAR NO PORTAL
+========================= */
+
+portal.onclick =
+  () => {
+
+    if(!portalOpen){
+
+      return;
+
+    }
+
+    const portalX =
+      1800;
+
+    const portalY =
+      1170;
+
+    const distance =
+      Math.hypot(
+        x - portalX,
+        y - portalY
+      );
+
+
+    if(
+      distance <= 300
+    ){
+
+      dialogTitle.textContent =
+        "🌀 Próxima prova";
+
+      dialogText.textContent =
+        "O portal está aberto! A próxima prova espera por você.";
+
+      $("audioContainer")
+        .innerHTML =
+        "";
+
+      $("replayAudio")
+        .style.display =
+        "none";
+
+      dialog
+        .classList
+        .add("show");
+
+    }else{
+
+      dialogTitle.textContent =
+        "🌀 Portal";
+
+      dialogText.textContent =
+        "Aproxime-se do portal para entrar na próxima prova.";
+
+      $("audioContainer")
+        .innerHTML =
+        "";
+
+      $("replayAudio")
+        .style.display =
+        "none";
+
+      dialog
+        .classList
+        .add("show");
+
+    }
+
+  };
+
+
+/* =========================
+   ATUALIZAR JOGO
 ========================= */
 
 function update(){
@@ -1762,13 +2606,7 @@ function update(){
       : "none";
 
 
-  /*
-    CÂMERA
-
-    Ela acompanha o player
-    para cima, baixo, esquerda
-    e direita.
-  */
+  /* câmera */
 
   const w =
     game.clientWidth;
@@ -1780,8 +2618,10 @@ function update(){
   cameraX =
     Math.max(
       0,
+
       Math.min(
         3600 - w,
+
         x - w / 2
       )
     );
@@ -1790,8 +2630,10 @@ function update(){
   cameraY =
     Math.max(
       0,
+
       Math.min(
         2600 - h,
+
         y - h / 2
       )
     );
@@ -1804,16 +2646,20 @@ function update(){
 
 
 /* =========================
-   LOOP DO JOGO
+   LOOP
 ========================= */
 
 function loop(){
 
   if(!running){
+
     return;
+
   }
 
   move();
+
+  updateNPCs();
 
   update();
 
@@ -1834,47 +2680,50 @@ $("chatSend").onclick =
     const input =
       $("chatInput");
 
-    const v =
+    const value =
       input.value.trim();
 
-    if(v){
+    if(value){
+
+      const safe =
+        value.replace(
+          /[<>]/g,
+          ""
+        );
 
       $("chatLog").innerHTML +=
-        `<br><b>Você:</b> ${
-          v.replace(
-            /[<>]/g,
-            ""
-          )
-        }`;
+        `<br><b>Você:</b> ${safe}`;
 
       $("chatLog").scrollTop =
         $("chatLog").scrollHeight;
 
-      input.value = "";
+      input.value =
+        "";
 
     }
 
   };
 
 
-/* enviar chat com Enter */
+$("chatInput")
+  .addEventListener(
+    "keydown",
+    e => {
 
-$("chatInput").addEventListener(
-  "keydown",
-  e => {
+      if(
+        e.key ===
+        "Enter"
+      ){
 
-    if(
-      e.key === "Enter"
-    ){
+        e.preventDefault();
 
-      e.preventDefault();
+        $("chatSend")
+          .click();
 
-      $("chatSend").click();
+      }
 
     }
-
-  }
-);
+  );
 
 </script>
 
