@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Attorneys</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>The Attorneys</title>
 
 <style>
 *{
@@ -16,9 +16,8 @@ html,body{
   width:100%;
   height:100%;
   overflow:hidden;
-  background:#111;
-  font-family:Arial,Helvetica,sans-serif;
-  user-select:none;
+  background:#171021;
+  font-family:Arial,sans-serif;
 }
 
 button,input{
@@ -26,17 +25,15 @@ button,input{
 }
 
 #game{
-  position:relative;
-  width:100vw;
-  height:100vh;
+  position:fixed;
+  inset:0;
   overflow:hidden;
-  background:#171126;
+  background:#171021;
 }
 
 #camera{
   position:absolute;
-  width:100%;
-  height:100%;
+  inset:0;
   overflow:hidden;
 }
 
@@ -46,7 +43,7 @@ button,input{
   height:2600px;
   left:0;
   top:0;
-  transform-origin:top left;
+  will-change:transform;
 }
 
 #grass{
@@ -58,306 +55,262 @@ button,input{
   z-index:0;
 }
 
-.groundShade{
+#ground{
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(circle at 30% 30%,rgba(255,255,255,.08),transparent 22%),
-    radial-gradient(circle at 70% 65%,rgba(0,0,0,.08),transparent 28%),
-    rgba(65,125,54,.12);
   z-index:1;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.08),transparent 18%),
+    radial-gradient(circle at 80% 70%,rgba(0,0,0,.08),transparent 25%),
+    rgba(71,130,57,.15);
   pointer-events:none;
 }
 
+/* CAMINHOS */
+
 .path{
   position:absolute;
-  background:#d5b77a;
-  border:7px solid rgba(104,77,44,.35);
-  border-radius:100px;
   z-index:2;
-  box-shadow:
-    inset 0 0 0 5px rgba(255,241,184,.25),
-    0 8px 0 rgba(53,61,35,.16);
+  background:#d4b477;
+  border:7px solid rgba(89,66,39,.45);
+  border-radius:120px;
+  box-shadow:inset 0 0 0 6px rgba(255,245,190,.22);
 }
 
-.path.main{
-  width:2800px;
+.path1{
+  width:2900px;
   height:230px;
-  left:400px;
+  left:350px;
   top:1080px;
   transform:rotate(-2deg);
 }
 
-.path.cross{
+.path2{
   width:230px;
   height:1900px;
-  left:1690px;
+  left:1685px;
   top:350px;
 }
 
+/* ÁGUA */
+
 .pond{
   position:absolute;
-  width:500px;
-  height:330px;
+  z-index:2;
   border-radius:50%;
   background:
-    radial-gradient(circle at 35% 30%,#9eeaff,transparent 18%),
-    linear-gradient(#36b7df,#187ab4);
-  border:14px solid #e8d28c;
-  z-index:2;
-  box-shadow:
-    0 12px 0 rgba(36,70,38,.22),
-    inset 0 0 30px rgba(0,0,0,.15);
+    radial-gradient(circle at 30% 25%,#a7edff,transparent 18%),
+    linear-gradient(#39bde4,#197ab3);
+  border:13px solid #e6ce8b;
+  box-shadow:0 12px 0 rgba(30,55,30,.2);
 }
 
-.pond.one{
-  left:420px;
-  top:330px;
+.pond1{
+  width:510px;
+  height:330px;
+  left:350px;
+  top:300px;
 }
 
-.pond.two{
-  right:360px;
-  bottom:350px;
-  width:600px;
-  height:360px;
+.pond2{
+  width:570px;
+  height:350px;
+  right:350px;
+  bottom:300px;
 }
+
+/* DECORAÇÃO */
 
 .tree{
   position:absolute;
-  width:120px;
-  height:150px;
   z-index:4;
-  pointer-events:none;
+  width:130px;
+  height:170px;
 }
 
-.tree:before{
-  content:"";
+.tree .leaf{
   position:absolute;
-  width:82px;
-  height:82px;
+  width:90px;
+  height:90px;
   border-radius:50%;
-  background:#397b38;
-  left:19px;
+  background:#397d38;
   top:0;
+  left:20px;
   box-shadow:
-    30px 15px 0 #4c8e3f,
-    -20px 22px 0 #326c35;
+    35px 12px 0 #4c8e42,
+    -22px 25px 0 #316c34;
 }
 
-.tree:after{
-  content:"";
+.tree .trunk{
   position:absolute;
-  width:30px;
-  height:70px;
-  background:#744d2b;
-  left:45px;
-  top:72px;
+  width:32px;
+  height:80px;
+  background:#744b2a;
+  left:50px;
+  top:75px;
   border-radius:8px;
 }
 
 .flower{
   position:absolute;
-  font-size:42px;
   z-index:3;
-  pointer-events:none;
+  font-size:42px;
 }
 
 .rock{
   position:absolute;
-  width:75px;
-  height:42px;
-  border-radius:55% 45% 45% 55%;
-  background:#6f7066;
-  border:5px solid #55574e;
   z-index:3;
-}
-
-.flag{
-  position:absolute;
-  width:100px;
-  height:120px;
-  z-index:4;
-}
-
-.flag:before{
-  content:"";
-  position:absolute;
-  left:10px;
-  top:0;
-  width:8px;
-  height:120px;
-  background:#543927;
-}
-
-.flag:after{
-  content:"THE ATTORNEYS";
-  position:absolute;
-  left:18px;
-  top:12px;
-  width:75px;
-  height:45px;
-  background:#ffdb58;
-  color:#37250f;
-  font-size:10px;
-  font-weight:900;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  border:4px solid #5d4021;
+  width:70px;
+  height:40px;
+  border-radius:50%;
+  background:#707169;
+  border:5px solid #565850;
 }
 
 /* PORTAL */
 
 #portal{
   position:absolute;
+  z-index:50;
   left:1660px;
-  top:920px;
+  top:875px;
   width:280px;
-  height:400px;
-  z-index:8;
-  pointer-events:none;
+  height:430px;
+  cursor:pointer;
 }
 
-.portalRing{
+#portalRing{
   position:absolute;
-  left:20px;
-  top:20px;
-  width:240px;
+  left:15px;
+  top:25px;
+  width:250px;
   height:360px;
-  border:18px solid #5b4de4;
+  border-radius:50%;
+  border:20px solid #7055ff;
+  background:
+    radial-gradient(ellipse,#e9caff 0%,#805dff 30%,#271358 68%,#080412 100%);
+  box-shadow:
+    0 0 25px #765cff,
+    0 0 70px rgba(110,70,255,.75),
+    inset 0 0 35px #10052e;
+  opacity:.95;
+  animation:portalFloat 1.4s infinite alternate;
+}
+
+#portalCore{
+  position:absolute;
+  left:65px;
+  top:65px;
+  width:150px;
+  height:300px;
   border-radius:50%;
   background:
-    radial-gradient(ellipse,#d8b6ff 0%,#7659ff 35%,#27145d 70%,#08051b 100%);
-  box-shadow:
-    0 0 30px #735cff,
-    0 0 70px rgba(106,74,255,.8),
-    inset 0 0 35px #13082e;
-  transform:scale(.35);
-  opacity:.35;
-  transition:1.2s;
-}
-
-.portalCore{
-  position:absolute;
-  left:62px;
-  top:62px;
-  width:156px;
-  height:316px;
-  border-radius:50%;
-  background:radial-gradient(ellipse,#fff,#cda8ff 10%,#6546ef 30%,#160b42 70%);
-  opacity:0;
-  transition:1.2s;
-}
-
-.portalText{
-  position:absolute;
-  top:-55px;
-  width:100%;
-  text-align:center;
-  font-size:22px;
-  font-weight:1000;
-  color:white;
-  text-shadow:0 3px 0 #25174d;
-  opacity:0;
-  transition:.6s;
-}
-
-.portal-open .portalRing{
-  transform:scale(1);
-  opacity:1;
-  animation:portalPulse 1.5s infinite alternate;
-}
-
-.portal-open .portalCore{
-  opacity:1;
+    radial-gradient(ellipse,#fff 0%,#d9aaff 10%,#704cff 35%,#190936 75%);
   animation:portalCore 1s infinite alternate;
 }
 
-.portal-open .portalText{
-  opacity:1;
+#portalLabel{
+  position:absolute;
+  top:-35px;
+  width:100%;
+  text-align:center;
+  color:white;
+  font-size:21px;
+  font-weight:1000;
+  text-shadow:0 4px 0 #24164d;
 }
 
-.portal-closed .portalRing{
-  transform:scale(.35);
-  opacity:.35;
+#portalState{
+  position:absolute;
+  bottom:-20px;
+  width:100%;
+  text-align:center;
+  color:#ffe87b;
+  font-weight:1000;
+  text-shadow:0 3px 0 #27183f;
 }
 
-@keyframes portalPulse{
-  from{filter:hue-rotate(0deg);transform:scale(1)}
-  to{filter:hue-rotate(35deg);transform:scale(1.07)}
+@keyframes portalFloat{
+  from{transform:scale(1)}
+  to{transform:scale(1.06)}
 }
 
 @keyframes portalCore{
   from{transform:scale(.96)}
-  to{transform:scale(1.05)}
+  to{transform:scale(1.04)}
 }
 
 /* NPC */
 
 .npc{
   position:absolute;
+  z-index:30;
   width:150px;
   height:190px;
-  z-index:20;
-  transition:none;
   cursor:pointer;
-  pointer-events:auto;
 }
 
-.npc img{
+.npcImage{
   position:absolute;
   left:15px;
-  bottom:25px;
+  bottom:20px;
   width:120px;
-  height:125px;
+  height:130px;
   object-fit:contain;
-  filter:drop-shadow(0 7px 3px rgba(0,0,0,.28));
+  filter:drop-shadow(0 8px 4px rgba(0,0,0,.3));
   pointer-events:none;
 }
 
 .npcName{
   position:absolute;
+  z-index:3;
   left:50%;
   transform:translateX(-50%);
-  top:-8px;
-  white-space:nowrap;
+  top:-4px;
   padding:7px 12px;
-  background:rgba(20,14,35,.9);
-  color:white;
-  border:2px solid rgba(255,255,255,.8);
   border-radius:12px;
+  background:rgba(24,15,39,.94);
+  color:white;
+  border:2px solid white;
+  white-space:nowrap;
   font-size:14px;
-  font-weight:900;
-  box-shadow:0 4px 0 rgba(0,0,0,.25);
+  font-weight:1000;
   pointer-events:none;
 }
 
-.npc:hover img{
-  transform:translateY(-5px);
+.npc.near .npcImage{
+  filter:
+    drop-shadow(0 8px 4px rgba(0,0,0,.3))
+    drop-shadow(0 0 15px #fff16e);
 }
 
-.npc.near img{
-  filter:
-    drop-shadow(0 7px 3px rgba(0,0,0,.28))
-    drop-shadow(0 0 13px #fff27c);
+.npcFallback{
+  position:absolute;
+  left:25px;
+  bottom:30px;
+  width:100px;
+  height:100px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:65px;
 }
 
 /* PLAYER */
 
 #player{
   position:absolute;
-  width:125px;
-  height:170px;
-  z-index:30;
+  z-index:40;
+  width:140px;
+  height:180px;
   pointer-events:none;
 }
 
 #playerImage{
   position:absolute;
-  width:115px;
-  height:125px;
-  left:5px;
+  width:125px;
+  height:135px;
+  left:8px;
   bottom:20px;
   object-fit:contain;
   filter:drop-shadow(0 8px 4px rgba(0,0,0,.35));
@@ -365,13 +318,14 @@ button,input{
 
 #playerFallback{
   position:absolute;
-  width:100%;
-  height:125px;
+  left:0;
+  bottom:15px;
+  width:140px;
+  height:130px;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:80px;
-  bottom:15px;
 }
 
 #playerName{
@@ -379,23 +333,23 @@ button,input{
   left:50%;
   transform:translateX(-50%);
   top:0;
-  white-space:nowrap;
-  padding:6px 12px;
+  padding:7px 12px;
   border-radius:12px;
-  background:#241633;
+  background:#241631;
+  border:2px solid white;
   color:white;
-  font-weight:900;
-  border:2px solid #fff;
-  box-shadow:0 4px 0 rgba(0,0,0,.25);
+  white-space:nowrap;
+  font-size:14px;
+  font-weight:1000;
 }
 
 /* HUD */
 
 #hud{
-  position:absolute;
+  position:fixed;
+  z-index:200;
   top:15px;
   left:15px;
-  z-index:100;
   display:flex;
   gap:10px;
   flex-wrap:wrap;
@@ -403,76 +357,73 @@ button,input{
 
 .hudBox{
   padding:11px 16px;
-  border-radius:15px;
-  background:rgba(24,17,43,.9);
+  background:rgba(27,18,44,.92);
   color:white;
   border:2px solid rgba(255,255,255,.3);
-  font-weight:900;
-  box-shadow:0 5px 0 rgba(0,0,0,.2);
+  border-radius:15px;
+  font-weight:1000;
+  box-shadow:0 5px 0 rgba(0,0,0,.25);
 }
 
 #timer{
-  color:#ffe675;
+  color:#ffe578;
 }
 
 /* MENU */
 
 #menu{
-  position:absolute;
+  position:fixed;
   inset:0;
-  z-index:500;
+  z-index:1000;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:
-    radial-gradient(circle at center,rgba(86,47,132,.5),rgba(9,7,19,.96));
   padding:20px;
+  background:radial-gradient(circle,#4b3171,#09070f 80%);
 }
 
 .menuBox{
   width:min(520px,95vw);
-  max-height:90vh;
-  overflow:auto;
   padding:30px;
   border-radius:28px;
-  background:#211733;
-  border:3px solid #8065c8;
+  background:#211630;
   color:white;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  border:3px solid #8065c8;
+  box-shadow:0 20px 70px rgba(0,0,0,.65);
 }
 
 .menuBox h1{
-  font-size:42px;
   text-align:center;
-  margin-bottom:8px;
+  font-size:42px;
+  margin-bottom:10px;
 }
 
 .menuBox p{
   text-align:center;
   opacity:.75;
+  line-height:1.4;
   margin-bottom:25px;
 }
 
 .menuBox label{
   display:block;
-  font-weight:900;
-  margin:16px 0 7px;
+  margin:15px 0 7px;
+  font-weight:1000;
 }
 
-.menuBox input[type="text"],
-.menuBox input[type="file"]{
+.menuBox input{
   width:100%;
   padding:13px;
   border-radius:12px;
-  border:2px solid #65518d;
-  background:#130e20;
+  border:2px solid #654f8d;
+  background:#120c1c;
   color:white;
 }
 
-.startButton{
+#startButton{
   width:100%;
-  margin-top:22px;
   padding:16px;
+  margin-top:22px;
   border:0;
   border-radius:15px;
   background:#7659ee;
@@ -482,27 +433,22 @@ button,input{
   cursor:pointer;
 }
 
-.startButton:hover{
-  filter:brightness(1.15);
-}
-
 /* INTERAÇÃO */
 
 #interact{
-  position:absolute;
+  position:fixed;
+  z-index:250;
   left:50%;
   bottom:100px;
   transform:translateX(-50%);
-  z-index:200;
   display:none;
-  min-width:210px;
   padding:15px 25px;
   border:3px solid white;
   border-radius:16px;
-  background:#2d1d50;
+  background:#30204e;
   color:white;
-  font-size:18px;
   font-weight:1000;
+  font-size:18px;
   cursor:pointer;
   box-shadow:0 7px 0 rgba(0,0,0,.3);
 }
@@ -511,21 +457,21 @@ button,input{
   display:block;
 }
 
-/* DIALOG */
+/* DIÁLOGO */
 
 #dialog{
-  position:absolute;
+  position:fixed;
+  z-index:400;
   left:50%;
-  bottom:30px;
+  bottom:25px;
   transform:translateX(-50%);
-  width:min(700px,94vw);
-  z-index:300;
+  width:min(720px,94vw);
   display:none;
   padding:20px;
   border-radius:20px;
-  background:rgba(25,17,40,.97);
-  border:3px solid #c7aaff;
+  background:rgba(25,16,40,.98);
   color:white;
+  border:3px solid #c7aaff;
   box-shadow:0 15px 50px rgba(0,0,0,.6);
 }
 
@@ -534,10 +480,10 @@ button,input{
 }
 
 #dialogName{
-  font-size:20px;
+  color:#d9c6ff;
+  font-size:21px;
   font-weight:1000;
-  margin-bottom:10px;
-  color:#d8c6ff;
+  margin-bottom:8px;
 }
 
 #dialogText{
@@ -548,26 +494,25 @@ button,input{
 
 .dialogButtons{
   display:flex;
-  gap:10px;
+  gap:8px;
   flex-wrap:wrap;
 }
 
 .dialogButtons button{
   padding:10px 15px;
-  border-radius:12px;
-  border:2px solid #8b71c7;
-  background:#39265c;
+  border-radius:11px;
+  border:2px solid #8064bd;
+  background:#3a275a;
   color:white;
-  font-weight:900;
+  font-weight:1000;
   cursor:pointer;
 }
 
 #audioArea{
-  margin-top:15px;
-  display:none;
-  background:#130d20;
-  border-radius:15px;
-  padding:12px;
+  margin-top:14px;
+  padding:10px;
+  background:#100a18;
+  border-radius:14px;
   text-align:center;
 }
 
@@ -580,15 +525,15 @@ button,input{
 /* CHAT */
 
 #chat{
-  position:absolute;
+  position:fixed;
+  z-index:180;
   right:15px;
   bottom:15px;
   width:300px;
-  z-index:150;
-  background:rgba(25,17,40,.92);
-  border:2px solid rgba(255,255,255,.25);
-  border-radius:17px;
   padding:12px;
+  border-radius:17px;
+  background:rgba(25,17,40,.94);
+  border:2px solid rgba(255,255,255,.25);
   color:white;
 }
 
@@ -611,27 +556,27 @@ button,input{
 #chatInput{
   min-width:0;
   flex:1;
-  padding:9px;
   border:0;
   border-radius:9px;
+  padding:9px;
 }
 
 #chatForm button{
-  padding:9px 12px;
   border:0;
   border-radius:9px;
   background:#7355db;
   color:white;
-  font-weight:900;
+  padding:9px 12px;
+  font-weight:1000;
 }
 
 /* MOBILE */
 
 #mobileControls{
-  position:absolute;
-  left:20px;
-  bottom:20px;
-  z-index:160;
+  position:fixed;
+  z-index:190;
+  left:15px;
+  bottom:15px;
   display:none;
 }
 
@@ -644,11 +589,10 @@ button,input{
 
 .dpad button{
   border:2px solid white;
-  background:rgba(35,23,54,.85);
-  color:white;
   border-radius:12px;
+  background:rgba(35,23,54,.88);
+  color:white;
   font-size:24px;
-  font-weight:900;
 }
 
 .up{grid-column:2}
@@ -657,28 +601,22 @@ button,input{
 .right{grid-column:3;grid-row:2}
 
 @media(max-width:700px){
-  #chat{
-    width:230px;
-    right:10px;
-    bottom:10px;
-  }
-
   #mobileControls{
     display:block;
   }
 
+  #chat{
+    width:230px;
+    bottom:10px;
+    right:10px;
+  }
+
   #interact{
-    bottom:175px;
+    bottom:170px;
   }
 
   .menuBox h1{
     font-size:31px;
-  }
-}
-
-@media(min-width:701px){
-  #mobileControls{
-    display:none;
   }
 }
 </style>
@@ -688,786 +626,952 @@ button,input{
 
 <div id="game">
 
-  <div id="camera">
-    <div id="world">
+<div id="camera">
 
-      <img
-        id="grass"
-        src="https://wallpapercave.com/wp/wp10944792.png"
-        alt=""
-      >
+<div id="world">
 
-      <div class="groundShade"></div>
+<img id="grass"
+src="https://wallpapercave.com/wp/wp10944792.png"
+alt="">
 
-      <div class="path main"></div>
-      <div class="path cross"></div>
+<div id="ground"></div>
 
-      <div class="pond one"></div>
-      <div class="pond two"></div>
+<div class="path path1"></div>
+<div class="path path2"></div>
 
-      <div class="tree" style="left:260px;top:260px"></div>
-      <div class="tree" style="left:850px;top:500px"></div>
-      <div class="tree" style="left:3100px;top:350px"></div>
-      <div class="tree" style="left:2850px;top:2050px"></div>
-      <div class="tree" style="left:500px;top:2050px"></div>
-      <div class="tree" style="left:2100px;top:2050px"></div>
-      <div class="tree" style="left:3200px;top:1500px"></div>
+<div class="pond pond1"></div>
+<div class="pond pond2"></div>
 
-      <div class="flower" style="left:700px;top:800px">🌼</div>
-      <div class="flower" style="left:920px;top:1880px">🌸</div>
-      <div class="flower" style="left:2850px;top:900px">🌷</div>
-      <div class="flower" style="left:3150px;top:1850px">🌻</div>
-      <div class="flower" style="left:1300px;top:500px">🌺</div>
 
-      <div class="rock" style="left:1050px;top:650px"></div>
-      <div class="rock" style="left:1400px;top:1880px"></div>
-      <div class="rock" style="left:2650px;top:520px"></div>
-      <div class="rock" style="left:3100px;top:1200px"></div>
+<!-- ÁRVORES -->
 
-      <div class="flag" style="left:1450px;top:820px"></div>
-      <div class="flag" style="left:2070px;top:820px"></div>
-      <div class="flag" style="left:1450px;top:1420px"></div>
-      <div class="flag" style="left:2070px;top:1420px"></div>
+<div class="tree" style="left:250px;top:220px">
+  <div class="leaf"></div>
+  <div class="trunk"></div>
+</div>
 
-      <!-- PORTAL -->
+<div class="tree" style="left:900px;top:450px">
+  <div class="leaf"></div>
+  <div class="trunk"></div>
+</div>
 
-      <div id="portal" class="portal-closed">
-        <div class="portalText">PORTAL DA PROVA</div>
-        <div class="portalRing"></div>
-        <div class="portalCore"></div>
-      </div>
+<div class="tree" style="left:3100px;top:300px">
+  <div class="leaf"></div>
+  <div class="trunk"></div>
+</div>
 
-      <!-- NPCs -->
+<div class="tree" style="left:2900px;top:2050px">
+  <div class="leaf"></div>
+  <div class="trunk"></div>
+</div>
 
-      <div
-        class="npc"
-        data-id="oliver"
-        data-name="Oliver Tree"
-        data-x="1200"
-        data-y="900"
-        data-range="180"
-      >
-        <div class="npcName">Oliver Tree</div>
-        <img src="https://i.pinimg.com/736x/c7/f3/7f/c7f37f8a6488b8f5fd78eb124e1d5b7d.jpg" alt="Oliver">
-      </div>
+<div class="tree" style="left:450px;top:2050px">
+  <div class="leaf"></div>
+  <div class="trunk"></div>
+</div>
 
-      <div
-        class="npc"
-        data-id="melanie"
-        data-name="Melanie Martinez"
-        data-x="2450"
-        data-y="900"
-        data-range="180"
-      >
-        <div class="npcName">Melanie Martinez</div>
-        <img src="https://i.pinimg.com/736x/a1/26/60/a12660f3c13e52558b47d0fc39963556.jpg" alt="Melanie">
-      </div>
+<div class="tree" style="left:2150px;top:2100px">
+  <div class="leaf"></div>
+  <div class="trunk"></div>
+</div>
 
-      <div
-        class="npc"
-        data-id="burguinho"
-        data-name="Burguinho"
-        data-x="800"
-        data-y="1300"
-        data-range="170"
-      >
-        <div class="npcName">Burguinho</div>
-        <img src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png" alt="Burguinho">
-      </div>
 
-      <div
-        class="npc"
-        data-id="rick"
-        data-name="Rick"
-        data-x="1050"
-        data-y="1650"
-        data-range="170"
-      >
-        <div class="npcName">Rick</div>
-        <img src="https://pngimg.com/uploads/rick_morty/rick_morty_PNG8.png" alt="Rick">
-      </div>
+<!-- FLORES -->
 
-      <div
-        class="npc"
-        data-id="morty"
-        data-name="Morty"
-        data-x="1300"
-        data-y="1650"
-        data-range="170"
-      >
-        <div class="npcName">Morty</div>
-        <img
-          src="https://www.pngkey.com/png/detail/312-3121346_morty-smith.png"
-          alt="Morty"
-        >
-      </div>
+<div class="flower" style="left:700px;top:800px">🌼</div>
+<div class="flower" style="left:950px;top:1850px">🌸</div>
+<div class="flower" style="left:2800px;top:850px">🌷</div>
+<div class="flower" style="left:3150px;top:1800px">🌻</div>
+<div class="flower" style="left:1250px;top:500px">🌺</div>
 
-      <div
-        class="npc"
-        data-id="robot"
-        data-name="Robô de Informações"
-        data-x="2400"
-        data-y="1650"
-        data-range="180"
-      >
-        <div class="npcName">Robô</div>
-        <img src="https://pngimg.com/uploads/robot/robot_PNG96.png" alt="Robô">
-      </div>
 
-      <div
-        class="npc"
-        data-id="yume"
-        data-name="Yume"
-        data-x="2700"
-        data-y="1250"
-        data-range="170"
-      >
-        <div class="npcName">Yume</div>
-        <img
-          src="https://static.wikia.nocookie.net/melanie-martinez/images/f/f5/Circle_-_in_-_stop_-_motion.webp/revision/latest/scale-to-width-down/250?cb=20260603173801"
-          alt="Yume"
-        >
-      </div>
+<!-- PEDRAS -->
 
-      <div
-        class="npc"
-        data-id="jotaro"
-        data-name="Jotaro"
-        data-x="2800"
-        data-y="1850"
-        data-range="180"
-      >
-        <div class="npcName">Jotaro</div>
-        <img
-          src="https://www.kindpng.com/picc/m/98-985032_jotaro-kujo-png-transparent-png.png"
-          alt="Jotaro"
-        >
-      </div>
+<div class="rock" style="left:1050px;top:650px"></div>
+<div class="rock" style="left:1400px;top:1850px"></div>
+<div class="rock" style="left:2650px;top:520px"></div>
+<div class="rock" style="left:3100px;top:1200px"></div>
 
-      <!-- PLAYER -->
 
-      <div id="player">
-        <div id="playerName">Player</div>
-        <div id="playerFallback">🐱</div>
-        <img id="playerImage" alt="Player" style="display:none">
-      </div>
+<!-- PORTAL -->
 
+<div id="portal">
+  <div id="portalLabel">🌀 PORTAL DA PROVA</div>
+  <div id="portalRing"></div>
+  <div id="portalCore"></div>
+  <div id="portalState">FECHADO</div>
+</div>
+
+
+<!-- NPC OLIVER -->
+
+<div class="npc"
+     data-id="oliver"
+     data-name="Oliver Tree"
+     data-x="1150"
+     data-y="850">
+
+  <div class="npcName">Oliver Tree</div>
+
+  <img class="npcImage"
+       src="https://i.pinimg.com/736x/c7/f3/7f/c7f37f8a6488b8f5fd78eb124e1d5b7d.jpg"
+       alt="Oliver Tree">
+
+</div>
+
+
+<!-- NPC MELANIE -->
+
+<div class="npc"
+     data-id="melanie"
+     data-name="Melanie Martinez"
+     data-x="2450"
+     data-y="850">
+
+  <div class="npcName">Melanie Martinez</div>
+
+  <img class="npcImage"
+       src="https://i.pinimg.com/736x/a1/26/60/a12660f3c13e52558b47d0fc39963556.jpg"
+       alt="Melanie">
+
+</div>
+
+
+<!-- BURGUINHO -->
+
+<div class="npc"
+     data-id="burguinho"
+     data-name="Burguinho"
+     data-x="750"
+     data-y="1250">
+
+  <div class="npcName">Burguinho</div>
+
+  <img class="npcImage"
+       src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png"
+       alt="Burguinho">
+
+</div>
+
+
+<!-- RICK -->
+
+<div class="npc"
+     data-id="rick"
+     data-name="Rick"
+     data-x="1000"
+     data-y="1600">
+
+  <div class="npcName">Rick</div>
+
+  <img class="npcImage"
+       src="https://pngimg.com/uploads/rick_morty/rick_morty_PNG8.png"
+       alt="Rick">
+
+</div>
+
+
+<!-- MORTY -->
+
+<div class="npc"
+     data-id="morty"
+     data-name="Morty"
+     data-x="1300"
+     data-y="1600">
+
+  <div class="npcName">Morty</div>
+
+  <img class="npcImage"
+       src="https://www.pngkey.com/png/detail/312-3121346_morty-smith.png"
+       alt="Morty">
+
+</div>
+
+
+<!-- ROBÔ -->
+
+<div class="npc"
+     data-id="robot"
+     data-name="Robô de Informações"
+     data-x="2400"
+     data-y="1600">
+
+  <div class="npcName">Robô</div>
+
+  <img class="npcImage"
+       src="https://pngimg.com/uploads/robot/robot_PNG96.png"
+       alt="Robô">
+
+</div>
+
+
+<!-- YUME -->
+
+<div class="npc"
+     data-id="yume"
+     data-name="Yume"
+     data-x="2700"
+     data-y="1200">
+
+  <div class="npcName">Yume</div>
+
+  <img class="npcImage"
+       src="https://static.wikia.nocookie.net/melanie-martinez/images/f/f5/Circle_-_in_-_stop_-_motion.webp/revision/latest/scale-to-width-down/250?cb=20260603173801"
+       alt="Yume">
+
+</div>
+
+
+<!-- JOTARO -->
+
+<div class="npc"
+     data-id="jotaro"
+     data-name="Jotaro"
+     data-x="2800"
+     data-y="1800">
+
+  <div class="npcName">Jotaro</div>
+
+  <img class="npcImage"
+       src="https://www.kindpng.com/picc/m/98-985032_jotaro-kujo-png-transparent-png.png"
+       alt="Jotaro">
+
+</div>
+
+
+<!-- PLAYER -->
+
+<div id="player">
+
+  <div id="playerName">Player</div>
+
+  <div id="playerFallback">🐱</div>
+
+  <img id="playerImage"
+       style="display:none"
+       alt="Player">
+
+</div>
+
+</div>
+</div>
+
+
+<!-- HUD -->
+
+<div id="hud">
+
+  <div class="hudBox">
+    🏝️ THE ATTORNEYS
+  </div>
+
+  <div class="hudBox" id="timer">
+    ⏳ Entrando no lobby...
+  </div>
+
+</div>
+
+
+<!-- INTERAGIR -->
+
+<button id="interact">
+  💬 INTERAGIR —
+  <span id="interactName"></span>
+</button>
+
+
+<!-- DIÁLOGO -->
+
+<div id="dialog">
+
+  <div id="dialogName"></div>
+
+  <div id="dialogText"></div>
+
+  <div class="dialogButtons">
+
+    <button id="closeDialog">
+      Fechar
+    </button>
+
+    <button id="replayAudio">
+      🔊 Reproduzir áudio
+    </button>
+
+  </div>
+
+  <div id="audioArea"></div>
+
+</div>
+
+
+<!-- CHAT -->
+
+<div id="chat">
+
+  <div id="chatMessages">
+    <div class="chatLine">
+      <b>Sistema:</b> Bem-vindo ao lobby!
     </div>
   </div>
 
-  <!-- HUD -->
+  <form id="chatForm">
 
-  <div id="hud">
-    <div class="hudBox">🏝️ ATTORNEYS</div>
-    <div class="hudBox" id="timer">⏳ Portal fechando...</div>
-  </div>
+    <input
+      id="chatInput"
+      maxlength="100"
+      autocomplete="off"
+      placeholder="Digite..."
+    >
 
-  <!-- INTERACT -->
+    <button type="submit">
+      ➤
+    </button>
 
-  <button id="interact">
-    💬 INTERAGIR <span id="interactName"></span>
-  </button>
+  </form>
 
-  <!-- DIALOG -->
+</div>
 
-  <div id="dialog">
 
-    <div id="dialogName">NPC</div>
+<!-- CONTROLES MOBILE -->
 
-    <div id="dialogText"></div>
+<div id="mobileControls">
 
-    <div class="dialogButtons">
-      <button id="closeDialog">Fechar</button>
-      <button id="replayAudio">🔊 Reproduzir áudio</button>
-    </div>
+  <div class="dpad">
 
-    <div id="audioArea"></div>
+    <button class="up" data-key="up">▲</button>
 
-  </div>
+    <button class="left" data-key="left">◀</button>
 
-  <!-- CHAT -->
+    <button class="down" data-key="down">▼</button>
 
-  <div id="chat">
-
-    <div id="chatMessages">
-      <div class="chatLine"><b>Sistema:</b> Bem-vindo ao lobby!</div>
-    </div>
-
-    <form id="chatForm">
-      <input
-        id="chatInput"
-        maxlength="100"
-        placeholder="Digite..."
-        autocomplete="off"
-      >
-      <button type="submit">➤</button>
-    </form>
-
-  </div>
-
-  <!-- MOBILE -->
-
-  <div id="mobileControls">
-
-    <div class="dpad">
-
-      <button class="up" data-key="ArrowUp">▲</button>
-      <button class="left" data-key="ArrowLeft">◀</button>
-      <button class="down" data-key="ArrowDown">▼</button>
-      <button class="right" data-key="ArrowRight">▶</button>
-
-    </div>
-
-  </div>
-
-  <!-- MENU -->
-
-  <div id="menu">
-
-    <div class="menuBox">
-
-      <h1>THE ATTORNEYS</h1>
-
-      <p>
-        Bem-vindo ao lobby da competição.
-        Escolha seu nome e sua aparência.
-      </p>
-
-      <label for="nameInput">Nome do jogador</label>
-
-      <input
-        id="nameInput"
-        type="text"
-        maxlength="20"
-        placeholder="Seu nome..."
-      >
-
-      <label for="playerFile">Sua imagem / personagem</label>
-
-      <input
-        id="playerFile"
-        type="file"
-        accept="image/*"
-      >
-
-      <button class="startButton" id="startButton">
-        ENTRAR NO LOBBY
-      </button>
-
-    </div>
+    <button class="right" data-key="right">▶</button>
 
   </div>
 
 </div>
 
+
+<!-- MENU -->
+
+<div id="menu">
+
+  <div class="menuBox">
+
+    <h1>THE ATTORNEYS</h1>
+
+    <p>
+      Entre no lobby da competição,
+      escolha seu nome e sua própria imagem.
+    </p>
+
+    <label>Nome</label>
+
+    <input
+      id="nameInput"
+      type="text"
+      maxlength="20"
+      placeholder="Seu nome..."
+    >
+
+    <label>Sua imagem / personagem</label>
+
+    <input
+      id="playerFile"
+      type="file"
+      accept="image/*"
+    >
+
+    <button id="startButton">
+      ENTRAR NO LOBBY
+    </button>
+
+  </div>
+
+</div>
+
+</div>
+
+
 <script>
 /* =========================================================
-   THE ATTORNEYS
-   Tudo fica neste único HTML.
+   CONFIGURAÇÃO
 ========================================================= */
 
-const $ = id => document.getElementById(id);
+const worldWidth = 3600;
+const worldHeight = 2600;
 
-const world = $("world");
-const camera = $("camera");
-const player = $("player");
-const playerImage = $("playerImage");
-const playerFallback = $("playerFallback");
-const playerName = $("playerName");
-const menu = $("menu");
-const startButton = $("startButton");
-const nameInput = $("nameInput");
-const playerFile = $("playerFile");
-
-const interact = $("interact");
-const interactName = $("interactName");
-
-const dialog = $("dialog");
-const dialogName = $("dialogName");
-const dialogText = $("dialogText");
-const closeDialog = $("closeDialog");
-const replayAudio = $("replayAudio");
-const audioArea = $("audioArea");
-
-const portal = $("portal");
-const timer = $("timer");
-
-const chatForm = $("chatForm");
-const chatInput = $("chatInput");
-const chatMessages = $("chatMessages");
-
-/* =========================================================
-   PLAYER
-========================================================= */
-
-const playerState = {
+const player = {
   x:1800,
   y:1500,
   speed:5,
-  name:"Player",
-  image:null
+  name:"Player"
 };
+
+let running = false;
+let nearestNPC = null;
+let currentNPC = null;
+let portalOpen = false;
 
 const keys = {
-  ArrowUp:false,
-  ArrowDown:false,
-  ArrowLeft:false,
-  ArrowRight:false,
-  w:false,
-  a:false,
-  s:false,
-  d:false
+  up:false,
+  down:false,
+  left:false,
+  right:false
 };
 
-let gameStarted = false;
-let closestNPC = null;
-let currentNPC = null;
+const npcList = [];
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const world =
+  document.getElementById("world");
+
+const playerElement =
+  document.getElementById("player");
+
+const playerImage =
+  document.getElementById("playerImage");
+
+const playerFallback =
+  document.getElementById("playerFallback");
+
+const playerName =
+  document.getElementById("playerName");
+
+const menu =
+  document.getElementById("menu");
+
+const startButton =
+  document.getElementById("startButton");
+
+const nameInput =
+  document.getElementById("nameInput");
+
+const playerFile =
+  document.getElementById("playerFile");
+
+const interact =
+  document.getElementById("interact");
+
+const interactName =
+  document.getElementById("interactName");
+
+const dialog =
+  document.getElementById("dialog");
+
+const dialogName =
+  document.getElementById("dialogName");
+
+const dialogText =
+  document.getElementById("dialogText");
+
+const closeDialog =
+  document.getElementById("closeDialog");
+
+const replayAudio =
+  document.getElementById("replayAudio");
+
+const audioArea =
+  document.getElementById("audioArea");
+
+const portal =
+  document.getElementById("portal");
+
+const portalState =
+  document.getElementById("portalState");
+
+const timer =
+  document.getElementById("timer");
+
 
 /* =========================================================
    NPCS
 ========================================================= */
 
-const npcWalkers = [];
+const npcElements =
+  Array.from(document.querySelectorAll(".npc"));
 
-const npcElements = Array.from(document.querySelectorAll(".npc"));
+const fallbackEmoji = {
+  oliver:"🌳",
+  melanie:"🦋",
+  burguinho:"🦆",
+  rick:"🧪",
+  morty:"😰",
+  robot:"🤖",
+  yume:"🌙",
+  jotaro:"⭐"
+};
 
-npcElements.forEach((el,index) => {
+npcElements.forEach((element,index) => {
 
-  const startX = Number(el.dataset.x);
-  const startY = Number(el.dataset.y);
-  const range = Number(el.dataset.range) || 160;
+  const npc = {
 
-  el.style.left = startX + "px";
-  el.style.top = startY + "px";
+    element,
 
-  npcWalkers.push({
-    el,
-    id:el.dataset.id,
-    name:el.dataset.name,
+    id:element.dataset.id,
 
-    x:startX,
-    y:startY,
+    name:element.dataset.name,
 
-    homeX:startX,
-    homeY:startY,
+    x:Number(element.dataset.x),
 
-    range,
+    y:Number(element.dataset.y),
+
+    homeX:Number(element.dataset.x),
+
+    homeY:Number(element.dataset.y),
+
+    range:180,
 
     dx:0,
+
     dy:0,
 
-    speed:0.45 + Math.random() * 0.6,
+    speed:.7 + Math.random()*.7,
 
-    nextMove:performance.now() + 500 + Math.random()*1500,
+    nextChange:Date.now() + 500 + Math.random()*1000
 
-    moving:false
-  });
+  };
+
+  element.style.left =
+    npc.x + "px";
+
+  element.style.top =
+    npc.y + "px";
+
 
   /*
-    Caso uma imagem externa falhe, o NPC ainda fica visível
-    com uma representação simples em vez de desaparecer.
+    Fallback caso a imagem falhe.
   */
-  const img = el.querySelector("img");
 
-  img.addEventListener("error",() => {
-    img.style.display = "none";
+  const image =
+    element.querySelector(".npcImage");
 
-    const fallback = document.createElement("div");
+  image.addEventListener("error",() => {
 
-    fallback.style.position = "absolute";
-    fallback.style.left = "25px";
-    fallback.style.bottom = "30px";
-    fallback.style.width = "100px";
-    fallback.style.height = "100px";
-    fallback.style.display = "flex";
-    fallback.style.alignItems = "center";
-    fallback.style.justifyContent = "center";
-    fallback.style.fontSize = "65px";
+    image.style.display = "none";
 
-    const emojis = {
-      oliver:"🌳",
-      melanie:"🦋",
-      burguinho:"🦆",
-      rick:"🧪",
-      morty:"😰",
-      robot:"🤖",
-      yume:"🌙",
-      jotaro:"⭐"
-    };
+    if(
+      element.querySelector(".npcFallback")
+    ) return;
 
-    fallback.textContent = emojis[el.dataset.id] || "👤";
+    const fallback =
+      document.createElement("div");
 
-    el.appendChild(fallback);
+    fallback.className =
+      "npcFallback";
+
+    fallback.textContent =
+      fallbackEmoji[npc.id] || "👤";
+
+    element.appendChild(fallback);
+
   });
 
+
+  /*
+    Clique direto no NPC.
+    Não depende da distância.
+  */
+
+  element.addEventListener("click",event => {
+
+    event.stopPropagation();
+
+    openNPC(npc);
+
+  });
+
+
+  npcList.push(npc);
+
 });
+
 
 /* =========================================================
    ÁUDIOS
 ========================================================= */
 
-const npcAudio = {
+const sounds = {
 
   rick:
-    "https://www.myinstants.com/instant/wubba-lubba-dub-dub-2-23931/embed/",
+  "https://www.myinstants.com/instant/wubba-lubba-dub-dub-2-23931/embed/",
 
   morty:
-    "https://www.myinstants.com/instant/pringels-morty-39542/embed/",
+  "https://www.myinstants.com/instant/pringels-morty-39542/embed/",
 
   oliver:
-    "https://www.myinstants.com/instant/onionioni-rip-oliver-tree-74616/embed/",
+  "https://www.myinstants.com/instant/onionioni-rip-oliver-tree-74616/embed/",
 
   burguinho:
-    "https://www.myinstants.com/instant/mac-quack-83896/embed/",
+  "https://www.myinstants.com/instant/mac-quack-83896/embed/",
 
   melanie:
-    "https://www.myinstants.com/instant/abuelita-open-the-door-83986/embed/",
+  "https://www.myinstants.com/instant/abuelita-open-the-door-83986/embed/",
 
   jotaro:
-    "https://www.myinstants.com/instant/yare-yare-daze-jotaro-kujo-444/embed/",
+  "https://www.myinstants.com/instant/yare-yare-daze-jotaro-kujo-444/embed/",
 
   robot:
-    "https://www.myinstants.com/instant/full-powerrobotic-voice/embed/",
+  "https://www.myinstants.com/instant/full-powerrobotic-voice/embed/",
 
   yume:
-    "https://www.myinstants.com/instant/full-powerrobotic-voice/embed/"
+  "https://www.myinstants.com/instant/full-powerrobotic-voice/embed/"
 };
+
 
 /* =========================================================
    DIÁLOGOS
 ========================================================= */
 
-const npcDialogs = {
+const dialogue = {
 
   rick:
-    "Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!",
+  "Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!",
 
   morty:
-    "P-porra, Rick! Onde é que a gente tá, cara?!",
+  "P-porra, Rick! Onde é que a gente tá, cara?!",
 
   oliver:
-    "Oninoninon",
+  "WOAH NELLY! Você chegou ao lobby.",
 
   burguinho:
-    "QUACK!",
+  "QUACK! Bem-vindo ao The Attorneys!",
 
   melanie:
-    "Abuelita open the door!",
+  "Bem-vindo. A próxima prova pode ser um pouquinho... estranha.",
 
   robot:
-    "Olá, competidor. Posso informar sobre a próxima prova, regras, mapa, calendário, participantes, perguntas frequentes ou áudios.",
+  "Olá, competidor. Posso informar sobre a próxima prova, regras, mapa, calendário, participantes ou perguntas frequentes.",
 
   yume:
-    "Oi! Explore bastante o lobby enquanto espera a próxima prova :33",
+  "Oi! Explore bastante o lobby enquanto espera a próxima prova :33",
 
   jotaro:
-    "Yare yare daze..."
+  "Yare yare daze..."
 };
 
-/* =========================================================
-   CONTROLES DO TECLADO
-========================================================= */
-
-window.addEventListener("keydown",event => {
-
-  const key = event.key;
-
-  if(key === "ArrowUp" ||
-     key === "ArrowDown" ||
-     key === "ArrowLeft" ||
-     key === "ArrowRight" ||
-     key.toLowerCase() === "w" ||
-     key.toLowerCase() === "a" ||
-     key.toLowerCase() === "s" ||
-     key.toLowerCase() === "d"){
-
-    event.preventDefault();
-  }
-
-  if(key === "e" || key === "E"){
-    if(closestNPC){
-      interactWithNPC(closestNPC);
-    }
-    return;
-  }
-
-  if(key === "Escape"){
-    closeNPCDialog();
-    return;
-  }
-
-  if(key === "ArrowUp") keys.ArrowUp = true;
-  if(key === "ArrowDown") keys.ArrowDown = true;
-  if(key === "ArrowLeft") keys.ArrowLeft = true;
-  if(key === "ArrowRight") keys.ArrowRight = true;
-
-  if(key.toLowerCase() === "w") keys.w = true;
-  if(key.toLowerCase() === "a") keys.a = true;
-  if(key.toLowerCase() === "s") keys.s = true;
-  if(key.toLowerCase() === "d") keys.d = true;
-});
-
-window.addEventListener("keyup",event => {
-
-  if(event.key === "ArrowUp") keys.ArrowUp = false;
-  if(event.key === "ArrowDown") keys.ArrowDown = false;
-  if(event.key === "ArrowLeft") keys.ArrowLeft = false;
-  if(event.key === "ArrowRight") keys.ArrowRight = false;
-
-  if(event.key.toLowerCase() === "w") keys.w = false;
-  if(event.key.toLowerCase() === "a") keys.a = false;
-  if(event.key.toLowerCase() === "s") keys.s = false;
-  if(event.key.toLowerCase() === "d") keys.d = false;
-});
-
-/* =========================================================
-   MOVIMENTO DO PLAYER
-========================================================= */
-
-function movePlayer(){
-
-  if(!gameStarted) return;
-
-  let dx = 0;
-  let dy = 0;
-
-  if(keys.ArrowUp || keys.w) dy -= 1;
-  if(keys.ArrowDown || keys.s) dy += 1;
-  if(keys.ArrowLeft || keys.a) dx -= 1;
-  if(keys.ArrowRight || keys.d) dx += 1;
-
-  if(dx !== 0 || dy !== 0){
-
-    const length = Math.sqrt(dx*dx + dy*dy);
-
-    dx /= length;
-    dy /= length;
-
-    playerState.x += dx * playerState.speed;
-    playerState.y += dy * playerState.speed;
-  }
-
-  /*
-    Limites reais do mundo.
-  */
-
-  playerState.x = Math.max(
-    60,
-    Math.min(3540,playerState.x)
-  );
-
-  playerState.y = Math.max(
-    80,
-    Math.min(2510,playerState.y)
-  );
-}
 
 /* =========================================================
    MOVIMENTO DOS NPCS
 ========================================================= */
 
-function chooseNPCMove(npc){
+function chooseNPCDirection(npc){
 
-  const angle = Math.random() * Math.PI * 2;
+  const angle =
+    Math.random() * Math.PI * 2;
 
-  npc.speed = 0.45 + Math.random() * 0.75;
+  npc.speed =
+    .6 + Math.random() * .8;
 
-  npc.dx = Math.cos(angle) * npc.speed;
-  npc.dy = Math.sin(angle) * npc.speed;
+  npc.dx =
+    Math.cos(angle) * npc.speed;
 
-  npc.nextMove =
-    performance.now() +
+  npc.dy =
+    Math.sin(angle) * npc.speed;
+
+  npc.nextChange =
+    Date.now() +
     1000 +
-    Math.random() * 2600;
+    Math.random()*2200;
 
-  npc.moving = true;
 }
+
+
+/* =========================================================
+   ATUALIZA NPC
+========================================================= */
 
 function updateNPCs(){
 
-  const now = performance.now();
+  const now =
+    Date.now();
 
-  npcWalkers.forEach(npc => {
+  npcList.forEach(npc => {
 
-    if(now >= npc.nextMove){
-      chooseNPCMove(npc);
+    if(now >= npc.nextChange){
+
+      chooseNPCDirection(npc);
+
     }
 
-    /*
-      Calcula a posição futura.
-    */
+    let nextX =
+      npc.x + npc.dx;
 
-    let nextX = npc.x + npc.dx;
-    let nextY = npc.y + npc.dy;
+    let nextY =
+      npc.y + npc.dy;
 
-    const minX = npc.homeX - npc.range;
-    const maxX = npc.homeX + npc.range;
 
-    const minY = npc.homeY - npc.range;
-    const maxY = npc.homeY + npc.range;
+    const minX =
+      npc.homeX - npc.range;
 
-    /*
-      Se bater no limite, muda de direção.
-    */
+    const maxX =
+      npc.homeX + npc.range;
 
-    if(nextX < minX || nextX > maxX){
+    const minY =
+      npc.homeY - npc.range;
 
-      npc.dx *= -1;
+    const maxY =
+      npc.homeY + npc.range;
 
-      nextX = npc.x + npc.dx;
+
+    if(nextX < minX){
+
+      nextX = minX;
+
+      npc.dx =
+        Math.abs(npc.dx);
+
     }
 
-    if(nextY < minY || nextY > maxY){
+    if(nextX > maxX){
 
-      npc.dy *= -1;
+      nextX = maxX;
 
-      nextY = npc.y + npc.dy;
+      npc.dx =
+        -Math.abs(npc.dx);
+
     }
 
-    npc.x = Math.max(minX,Math.min(maxX,nextX));
-    npc.y = Math.max(minY,Math.min(maxY,nextY));
+    if(nextY < minY){
 
-    npc.el.style.left = npc.x + "px";
-    npc.el.style.top = npc.y + "px";
+      nextY = minY;
+
+      npc.dy =
+        Math.abs(npc.dy);
+
+    }
+
+    if(nextY > maxY){
+
+      nextY = maxY;
+
+      npc.dy =
+        -Math.abs(npc.dy);
+
+    }
+
+
+    npc.x = nextX;
+    npc.y = nextY;
+
+
+    npc.element.style.left =
+      npc.x + "px";
+
+    npc.element.style.top =
+      npc.y + "px";
 
   });
+
 }
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+function updatePlayer(){
+
+  let dx = 0;
+  let dy = 0;
+
+  if(keys.up) dy -= 1;
+  if(keys.down) dy += 1;
+  if(keys.left) dx -= 1;
+  if(keys.right) dx += 1;
+
+
+  if(dx !== 0 || dy !== 0){
+
+    const length =
+      Math.sqrt(dx*dx + dy*dy);
+
+    dx /= length;
+    dy /= length;
+
+    player.x +=
+      dx * player.speed;
+
+    player.y +=
+      dy * player.speed;
+
+  }
+
+
+  player.x =
+    Math.max(
+      50,
+      Math.min(
+        worldWidth-190,
+        player.x
+      )
+    );
+
+  player.y =
+    Math.max(
+      50,
+      Math.min(
+        worldHeight-220,
+        player.y
+      )
+    );
+
+
+  playerElement.style.left =
+    player.x + "px";
+
+  playerElement.style.top =
+    player.y + "px";
+
+}
+
 
 /* =========================================================
    DISTÂNCIA
 ========================================================= */
 
-function distanceBetween(x1,y1,x2,y2){
+function distance(a,b){
 
-  const dx = x1 - x2;
-  const dy = y1 - y2;
+  const dx =
+    a.x - b.x;
 
-  return Math.sqrt(dx*dx + dy*dy);
+  const dy =
+    a.y - b.y;
+
+  return Math.sqrt(
+    dx*dx + dy*dy
+  );
+
 }
+
 
 /* =========================================================
    NPC MAIS PRÓXIMO
 ========================================================= */
 
-function findClosestNPC(){
+function checkNearestNPC(){
 
-  let nearest = null;
-  let nearestDistance = Infinity;
+  let closest = null;
+  let closestDistance = Infinity;
 
-  npcWalkers.forEach(npc => {
 
-    /*
-      Usamos o centro aproximado do NPC.
-    */
+  const playerPoint = {
+    x:player.x + 70,
+    y:player.y + 90
+  };
 
-    const npcCenterX = npc.x + 75;
-    const npcCenterY = npc.y + 90;
 
-    const d = distanceBetween(
-      playerState.x + 62,
-      playerState.y + 85,
-      npcCenterX,
-      npcCenterY
-    );
+  npcList.forEach(npc => {
 
-    if(d < nearestDistance){
+    const npcPoint = {
+      x:npc.x + 75,
+      y:npc.y + 95
+    };
 
-      nearestDistance = d;
-      nearest = npc;
+
+    const d =
+      distance(
+        playerPoint,
+        npcPoint
+      );
+
+
+    if(
+      d < closestDistance
+    ){
+
+      closestDistance = d;
+      closest = npc;
+
     }
 
   });
 
-  /*
-    190 px = distância de interação.
-    */
-
-  if(nearest && nearestDistance <= 190){
-
-    return nearest;
-  }
-
-  return null;
-}
-
-/* =========================================================
-   ATUALIZA INTERAÇÃO
-========================================================= */
-
-function updateInteraction(){
-
-  const npc = findClosestNPC();
 
   /*
-    Remove destaque anterior.
+    A área de interação agora é grande.
+    300px no mapa.
   */
 
-  npcWalkers.forEach(n => {
-    n.el.classList.remove("near");
-  });
+  if(
+    closest &&
+    closestDistance <= 300
+  ){
 
-  closestNPC = npc;
+    nearestNPC = closest;
 
-  if(npc){
-
-    npc.el.classList.add("near");
+    closest.element
+      .classList.add("near");
 
     interact.classList.add("show");
 
     interactName.textContent =
-      " — " + npc.name;
+      closest.name;
 
   }else{
+
+    nearestNPC = null;
+
+    npcList.forEach(npc => {
+      npc.element
+        .classList.remove("near");
+    });
 
     interact.classList.remove("show");
 
     interactName.textContent = "";
+
   }
+
 }
 
+
 /* =========================================================
-   INTERAÇÃO
+   ABRIR NPC
 ========================================================= */
 
-function interactWithNPC(npc){
-
-  if(!npc) return;
+function openNPC(npc){
 
   currentNPC = npc;
 
-  dialogName.textContent = npc.name;
+  dialogName.textContent =
+    npc.name;
 
   dialogText.textContent =
-    npcDialogs[npc.id] ||
-    "Olá! Bem-vindo ao The Attorneys.";
+    dialogue[npc.id] ||
+    "Olá!";
+
 
   audioArea.innerHTML = "";
-  audioArea.style.display = "none";
 
-  dialog.classList.add("show");
+  if(sounds[npc.id]){
 
-  /*
-    Coloca o iframe somente quando interage.
-    Isso evita carregar oito players de áudio ao mesmo tempo.
-  */
+    const iframe =
+      document.createElement("iframe");
 
-  if(npcAudio[npc.id]){
-
-    const iframe = document.createElement("iframe");
+    iframe.src =
+      sounds[npc.id];
 
     iframe.width = "110";
     iframe.height = "200";
-
-    iframe.src = npcAudio[npc.id];
 
     iframe.frameBorder = "0";
     iframe.scrolling = "no";
     iframe.allow = "autoplay";
 
     audioArea.appendChild(iframe);
+
   }
 
+
+  dialog.classList.add("show");
+
 }
+
 
 /* =========================================================
    BOTÃO INTERAGIR
@@ -1475,423 +1579,192 @@ function interactWithNPC(npc){
 
 interact.addEventListener("click",() => {
 
-  if(closestNPC){
-    interactWithNPC(closestNPC);
+  if(nearestNPC){
+
+    openNPC(nearestNPC);
+
   }
 
 });
 
-/* =========================================================
-   CLICAR DIRETO NO NPC
-========================================================= */
-
-npcElements.forEach(npcElement => {
-
-  npcElement.addEventListener("click",event => {
-
-    event.stopPropagation();
-
-    const npc = npcWalkers.find(
-      n => n.el === npcElement
-    );
-
-    if(!npc) return;
-
-    const d = distanceBetween(
-      playerState.x + 62,
-      playerState.y + 85,
-      npc.x + 75,
-      npc.y + 90
-    );
-
-    if(d <= 260){
-
-      interactWithNPC(npc);
-
-    }else{
-
-      /*
-        Não abre a conversa se estiver longe.
-      */
-
-      timer.textContent =
-        "💬 Chegue mais perto de " + npc.name;
-
-      setTimeout(() => {
-
-        if(portalOpen){
-          timer.textContent = "🌀 PORTAL ABERTO!";
-        }
-
-      },1800);
-
-    }
-
-  });
-
-});
 
 /* =========================================================
-   FECHAR DIÁLOGO
+   FECHAR
 ========================================================= */
 
-function closeNPCDialog(){
+closeDialog.addEventListener(
+  "click",
+  () => {
 
-  dialog.classList.remove("show");
+    dialog.classList.remove("show");
 
-  audioArea.innerHTML = "";
-  audioArea.style.display = "none";
+    audioArea.innerHTML = "";
 
-  currentNPC = null;
-}
+    currentNPC = null;
 
-closeDialog.addEventListener("click",closeNPCDialog);
+  }
+);
+
 
 /* =========================================================
    REPLAY
 ========================================================= */
 
-replayAudio.addEventListener("click",() => {
-
-  if(!currentNPC) return;
-
-  audioArea.innerHTML = "";
-
-  if(npcAudio[currentNPC.id]){
-
-    const iframe = document.createElement("iframe");
-
-    iframe.width = "110";
-    iframe.height = "200";
-
-    iframe.src =
-      npcAudio[currentNPC.id];
-
-    iframe.frameBorder = "0";
-    iframe.scrolling = "no";
-    iframe.allow = "autoplay";
-
-    audioArea.appendChild(iframe);
-
-    audioArea.style.display = "block";
-  }
-
-});
-
-/* =========================================================
-   PLAYER / ARQUIVO
-========================================================= */
-
-playerFile.addEventListener("change",event => {
-
-  const file = event.target.files[0];
-
-  if(!file) return;
-
-  if(!file.type.startsWith("image/")){
-
-    alert("Escolha uma imagem.");
-
-    playerFile.value = "";
-
-    return;
-  }
-
-  const reader = new FileReader();
-
-  reader.onload = () => {
-
-    playerState.image = reader.result;
-
-    playerImage.src = reader.result;
-    playerImage.style.display = "block";
-
-    playerFallback.style.display = "none";
-  };
-
-  reader.readAsDataURL(file);
-
-});
-
-/* =========================================================
-   START
-========================================================= */
-
-startButton.addEventListener("click",() => {
-
-  const typedName =
-    nameInput.value.trim();
-
-  playerState.name =
-    typedName || "Player";
-
-  playerName.textContent =
-    playerState.name;
-
-  gameStarted = true;
-
-  menu.style.display = "none";
-
-  /*
-    Começa todos os NPCs imediatamente.
-  */
-
-  npcWalkers.forEach((npc,index) => {
-
-    npc.nextMove =
-      performance.now() +
-      200 +
-      index * 120;
-
-    chooseNPCMove(npc);
-
-  });
-
-  timer.textContent =
-    "⏳ Portal abrindo em 20s...";
-
-});
-
-/* =========================================================
-   CÂMERA
-========================================================= */
-
-function updateCamera(){
-
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-
-  /*
-    O player é mantido perto do centro.
-  */
-
-  let camX =
-    playerState.x -
-    screenWidth / 2;
-
-  let camY =
-    playerState.y -
-    screenHeight / 2;
-
-  /*
-    Não deixa a câmera sair do mundo.
-  */
-
-  const maxCamX =
-    3600 - screenWidth;
-
-  const maxCamY =
-    2600 - screenHeight;
-
-  camX =
-    Math.max(
-      0,
-      Math.min(maxCamX,camX)
-    );
-
-  camY =
-    Math.max(
-      0,
-      Math.min(maxCamY,camY)
-    );
-
-  world.style.transform =
-    "translate(" +
-    (-camX) +
-    "px," +
-    (-camY) +
-    "px)";
-
-}
-
-/* =========================================================
-   POSIÇÃO DO PLAYER
-========================================================= */
-
-function updatePlayer(){
-
-  player.style.left =
-    playerState.x + "px";
-
-  player.style.top =
-    playerState.y + "px";
-}
-
-/* =========================================================
-   PORTAL
-========================================================= */
-
-let portalOpen = false;
-
-function openPortal(){
-
-  portalOpen = true;
-
-  portal.classList.remove(
-    "portal-closed"
-  );
-
-  portal.classList.add(
-    "portal-open"
-  );
-
-  timer.textContent =
-    "🌀 PORTAL ABERTO!";
-}
-
-function closePortal(){
-
-  portalOpen = false;
-
-  portal.classList.remove(
-    "portal-open"
-  );
-
-  portal.classList.add(
-    "portal-closed"
-  );
-
-}
-
-/*
-  Portal abre 20 segundos depois de entrar.
-*/
-
-setTimeout(() => {
-
-  if(gameStarted){
-    openPortal();
-  }else{
-
-    /*
-      Se o jogador ainda estiver no menu,
-      o portal abre quando começar.
-    */
-
-  }
-
-},20000);
-
-/*
-  Quando começa, também agenda o portal.
-*/
-
-startButton.addEventListener("click",() => {
-
-  setTimeout(() => {
-
-    openPortal();
-
-  },20000);
-
-});
-
-/* =========================================================
-   CLIQUE NO PORTAL
-========================================================= */
-
-portal.addEventListener("click",() => {
-
-  if(!portalOpen) return;
-
-  const portalX = 1800;
-  const portalY = 1110;
-
-  const d = distanceBetween(
-    playerState.x,
-    playerState.y,
-    portalX,
-    portalY
-  );
-
-  if(d <= 360){
-
-    dialogName.textContent =
-      "🌀 Próxima prova";
-
-    dialogText.textContent =
-      "O portal está aberto! A próxima prova espera por você.";
+replayAudio.addEventListener(
+  "click",
+  () => {
+
+    if(!currentNPC) return;
 
     audioArea.innerHTML = "";
-    audioArea.style.display = "none";
 
-    dialog.classList.add("show");
+    if(sounds[currentNPC.id]){
 
-  }else{
+      const iframe =
+        document.createElement("iframe");
 
-    timer.textContent =
-      "🌀 Aproxime-se do portal!";
+      iframe.src =
+        sounds[currentNPC.id];
 
-    setTimeout(() => {
+      iframe.width = "110";
+      iframe.height = "200";
 
-      if(portalOpen){
-        timer.textContent =
-          "🌀 PORTAL ABERTO!";
-      }
+      iframe.frameBorder = "0";
+      iframe.scrolling = "no";
+      iframe.allow = "autoplay";
 
-    },1500);
+      audioArea.appendChild(iframe);
+
+    }
 
   }
+);
 
-});
-
-/* =========================================================
-   CHAT
-========================================================= */
-
-chatForm.addEventListener("submit",event => {
-
-  event.preventDefault();
-
-  const text =
-    chatInput.value.trim();
-
-  if(!text) return;
-
-  const line =
-    document.createElement("div");
-
-  line.className = "chatLine";
-
-  line.innerHTML =
-    "<b>" +
-    escapeHTML(playerState.name) +
-    ":</b> " +
-    escapeHTML(text);
-
-  chatMessages.appendChild(line);
-
-  chatMessages.scrollTop =
-    chatMessages.scrollHeight;
-
-  chatInput.value = "";
-
-});
 
 /* =========================================================
-   SEGURANÇA DO CHAT
+   TECLADO
 ========================================================= */
 
-function escapeHTML(text){
+window.addEventListener(
+  "keydown",
+  event => {
 
-  return text
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
+    if(
+      event.key === "ArrowUp" ||
+      event.key.toLowerCase() === "w"
+    ){
+
+      keys.up = true;
+
+    }
+
+    if(
+      event.key === "ArrowDown" ||
+      event.key.toLowerCase() === "s"
+    ){
+
+      keys.down = true;
+
+    }
+
+    if(
+      event.key === "ArrowLeft" ||
+      event.key.toLowerCase() === "a"
+    ){
+
+      keys.left = true;
+
+    }
+
+    if(
+      event.key === "ArrowRight" ||
+      event.key.toLowerCase() === "d"
+    ){
+
+      keys.right = true;
+
+    }
+
+
+    if(
+      event.key === "e" ||
+      event.key === "E"
+    ){
+
+      if(nearestNPC){
+
+        openNPC(nearestNPC);
+
+      }
+
+    }
+
+
+    if(event.key === "Escape"){
+
+      dialog.classList.remove("show");
+
+    }
+
+  }
+);
+
+
+window.addEventListener(
+  "keyup",
+  event => {
+
+    if(
+      event.key === "ArrowUp" ||
+      event.key.toLowerCase() === "w"
+    ){
+
+      keys.up = false;
+
+    }
+
+    if(
+      event.key === "ArrowDown" ||
+      event.key.toLowerCase() === "s"
+    ){
+
+      keys.down = false;
+
+    }
+
+    if(
+      event.key === "ArrowLeft" ||
+      event.key.toLowerCase() === "a"
+    ){
+
+      keys.left = false;
+
+    }
+
+    if(
+      event.key === "ArrowRight" ||
+      event.key.toLowerCase() === "d"
+    ){
+
+      keys.right = false;
+
+    }
+
+  }
+);
+
 
 /* =========================================================
-   CONTROLES MOBILE
+   MOBILE
 ========================================================= */
 
-document.querySelectorAll(
-  "#mobileControls button"
-).forEach(button => {
+document
+.querySelectorAll("#mobileControls button")
+.forEach(button => {
 
   const key =
     button.dataset.key;
+
 
   button.addEventListener(
     "pointerdown",
@@ -1900,8 +1773,10 @@ document.querySelectorAll(
       event.preventDefault();
 
       keys[key] = true;
+
     }
   );
+
 
   button.addEventListener(
     "pointerup",
@@ -1910,72 +1785,335 @@ document.querySelectorAll(
       event.preventDefault();
 
       keys[key] = false;
+
     }
   );
+
 
   button.addEventListener(
     "pointercancel",
     () => {
-      keys[key] = false;
-    }
-  );
 
-  button.addEventListener(
-    "pointerleave",
-    () => {
       keys[key] = false;
+
     }
   );
 
 });
 
+
 /* =========================================================
-   LOOP PRINCIPAL
+   IMAGEM DO PLAYER
 ========================================================= */
 
-function gameLoop(){
+playerFile.addEventListener(
+  "change",
+  event => {
+
+    const file =
+      event.target.files[0];
+
+    if(!file) return;
+
+
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+      () => {
+
+        playerImage.src =
+          reader.result;
+
+        playerImage.style.display =
+          "block";
+
+        playerFallback.style.display =
+          "none";
+
+      };
+
+
+    reader.readAsDataURL(file);
+
+  }
+);
+
+
+/* =========================================================
+   INICIAR
+========================================================= */
+
+startButton.addEventListener(
+  "click",
+  () => {
+
+    const name =
+      nameInput.value.trim();
+
+    player.name =
+      name || "Player";
+
+    playerName.textContent =
+      player.name;
+
+    menu.style.display =
+      "none";
+
+    running = true;
+
+
+    /*
+      NPCs começam a andar
+      imediatamente.
+    */
+
+    npcList.forEach(
+      npc => chooseNPCDirection(npc)
+    );
+
+
+    /*
+      Portal abre em 5 segundos.
+    */
+
+    timer.textContent =
+      "🌀 Portal abrindo em 5s...";
+
+
+    setTimeout(
+      openPortal,
+      5000
+    );
+
+  }
+);
+
+
+/* =========================================================
+   PORTAL
+========================================================= */
+
+function openPortal(){
+
+  portalOpen = true;
+
+  portalState.textContent =
+    "ABERTO!";
+
+  portalState.style.color =
+    "#8dffbb";
+
+  timer.textContent =
+    "🌀 PORTAL ABERTO!";
+
+}
+
+
+portal.addEventListener(
+  "click",
+  () => {
+
+    if(!portalOpen){
+
+      timer.textContent =
+        "🌀 O portal ainda está fechado!";
+
+      return;
+
+    }
+
+
+    const portalPoint = {
+      x:1800,
+      y:1080
+    };
+
+
+    const playerPoint = {
+      x:player.x,
+      y:player.y
+    };
+
+
+    if(
+      distance(
+        playerPoint,
+        portalPoint
+      ) <= 500
+    ){
+
+      dialogName.textContent =
+        "🌀 PORTAL DA PROVA";
+
+      dialogText.textContent =
+        "O portal está aberto! A próxima prova espera por você.";
+
+      audioArea.innerHTML = "";
+
+      dialog.classList.add("show");
+
+    }else{
+
+      timer.textContent =
+        "🌀 Chegue mais perto do portal!";
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   CÂMERA
+========================================================= */
+
+function updateCamera(){
+
+  const screenWidth =
+    window.innerWidth;
+
+  const screenHeight =
+    window.innerHeight;
+
+
+  let cameraX =
+    player.x -
+    screenWidth/2;
+
+  let cameraY =
+    player.y -
+    screenHeight/2;
+
+
+  cameraX =
+    Math.max(
+      0,
+      Math.min(
+        worldWidth-screenWidth,
+        cameraX
+      )
+    );
+
+
+  cameraY =
+    Math.max(
+      0,
+      Math.min(
+        worldHeight-screenHeight,
+        cameraY
+      )
+    );
+
+
+  world.style.transform =
+    "translate(" +
+    (-cameraX) +
+    "px," +
+    (-cameraY) +
+    "px)";
+
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+document
+.getElementById("chatForm")
+.addEventListener(
+  "submit",
+  event => {
+
+    event.preventDefault();
+
+
+    const input =
+      document.getElementById("chatInput");
+
+    const text =
+      input.value.trim();
+
+
+    if(!text) return;
+
+
+    const message =
+      document.createElement("div");
+
+    message.className =
+      "chatLine";
+
+
+    message.textContent =
+      player.name +
+      ": " +
+      text;
+
+
+    document
+      .getElementById("chatMessages")
+      .appendChild(message);
+
+
+    input.value = "";
+
+  }
+);
+
+
+/* =========================================================
+   LOOP
+========================================================= */
+
+function loop(){
 
   /*
-    NPCs andam sempre.
+    NPCs SEMPRE atualizam.
   */
 
   updateNPCs();
 
+
   /*
-    Player só anda depois de entrar.
+    Player atualiza se o jogo começou.
   */
 
-  movePlayer();
+  if(running){
 
-  updatePlayer();
+    updatePlayer();
 
-  updateInteraction();
+    checkNearestNPC();
 
-  updateCamera();
+    updateCamera();
 
-  requestAnimationFrame(gameLoop);
+  }
+
+
+  requestAnimationFrame(loop);
+
 }
 
+
 /* =========================================================
-   POSIÇÃO INICIAL
+   INICIALIZAÇÃO
 ========================================================= */
 
-updatePlayer();
+npcList.forEach(
+  npc => chooseNPCDirection(npc)
+);
+
+playerElement.style.left =
+  player.x + "px";
+
+playerElement.style.top =
+  player.y + "px";
+
 updateCamera();
 
-/*
-  COMEÇA O LOOP IMEDIATAMENTE.
-  Isso é importante: NPCs não dependem
-  do menu para o loop existir.
-*/
-
-npcWalkers.forEach((npc,index) => {
-
-  chooseNPCMove(npc);
-
-});
-
-gameLoop();
+loop();
 
 </script>
 
