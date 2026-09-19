@@ -2,621 +2,470 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Attorneys</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box}
 
 html,body{
+  margin:0;
   width:100%;
   height:100%;
   overflow:hidden;
-  background:#171021;
-  font-family:Arial,sans-serif;
-}
-
-button,input{
-  font-family:inherit;
+  background:#111;
+  color:#fff;
+  font-family:Arial,sans-serif
 }
 
 #game{
-  position:fixed;
-  inset:0;
+  position:relative;
+  width:100vw;
+  height:100vh;
   overflow:hidden;
-  background:#171021;
+  background:#76a95f
 }
 
 #camera{
   position:absolute;
-  inset:0;
-  overflow:hidden;
+  left:0;
+  top:0;
+  will-change:transform
 }
 
 #world{
   position:absolute;
   width:3600px;
   height:2600px;
-  left:0;
-  top:0;
-  will-change:transform;
-}
-
-#grass{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:0;
-}
-
-#ground{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(255,255,255,.08),transparent 18%),
-    radial-gradient(circle at 80% 70%,rgba(0,0,0,.08),transparent 25%),
-    rgba(71,130,57,.15);
-  pointer-events:none;
-}
-
-/* CAMINHOS */
-
-.path{
-  position:absolute;
-  z-index:2;
-  background:#d4b477;
-  border:7px solid rgba(89,66,39,.45);
-  border-radius:120px;
-  box-shadow:inset 0 0 0 6px rgba(255,245,190,.22);
-}
-
-.path1{
-  width:2900px;
-  height:230px;
-  left:350px;
-  top:1080px;
-  transform:rotate(-2deg);
-}
-
-.path2{
-  width:230px;
-  height:1900px;
-  left:1685px;
-  top:350px;
+  background-image:url('https://wallpapercave.com/wp/wp10944792.png');
+  background-size:900px 900px;
+  background-repeat:repeat
 }
 
 /* ÁGUA */
-
-.pond{
+.water{
   position:absolute;
-  z-index:2;
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 30% 25%,#a7edff,transparent 18%),
-    linear-gradient(#39bde4,#197ab3);
-  border:13px solid #e6ce8b;
-  box-shadow:0 12px 0 rgba(30,55,30,.2);
-}
-
-.pond1{
-  width:510px;
-  height:330px;
-  left:350px;
-  top:300px;
-}
-
-.pond2{
-  width:570px;
-  height:350px;
-  right:350px;
-  bottom:300px;
-}
-
-/* DECORAÇÃO */
-
-.tree{
-  position:absolute;
-  z-index:4;
-  width:130px;
-  height:170px;
-}
-
-.tree .leaf{
-  position:absolute;
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#397d38;
-  top:0;
-  left:20px;
+  overflow:hidden;
+  border:7px solid rgba(40,85,105,.28);
+  border-radius:48% 52% 55% 45%/48% 43% 57% 52%;
+  background-image:url('https://i.pinimg.com/736x/c9/72/6b/c9726bab742049fb59eb7f46237ddb93.jpg');
+  background-size:cover;
+  background-position:center;
   box-shadow:
-    35px 12px 0 #4c8e42,
-    -22px 25px 0 #316c34;
+    inset 0 0 0 5px rgba(255,255,255,.08),
+    0 8px 0 rgba(40,70,35,.16)
 }
 
-.tree .trunk{
-  position:absolute;
-  width:32px;
-  height:80px;
-  background:#744b2a;
-  left:50px;
-  top:75px;
-  border-radius:8px;
+.water.w1{
+  left:130px;
+  top:260px;
+  width:700px;
+  height:420px
 }
 
+.water.w2{
+  right:170px;
+  bottom:210px;
+  width:760px;
+  height:440px
+}
+
+.water.w3{
+  left:1350px;
+  top:150px;
+  width:510px;
+  height:280px
+}
+
+/* FLORES */
 .flower{
   position:absolute;
-  z-index:3;
-  font-size:42px;
+  width:56px;
+  height:56px;
+  background:url('https://png.pngtree.com/png-clipart/20231024/ourmid/pngtree-flower-pixel-morada-png-image_10066281.png') center/contain no-repeat;
+  filter:drop-shadow(0 3px 2px rgba(0,0,0,.2))
+}
+
+/* PORTAL */
+.portal{
+  position:absolute;
+  left:1650px;
+  top:790px;
+  width:300px;
+  height:380px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:15;
+  filter:drop-shadow(0 10px 10px rgba(0,0,0,.3))
+}
+
+.portal img{
+  width:100%;
+  height:100%;
+  object-fit:contain
+}
+
+.portal.closed{
+  opacity:.45;
+  filter:grayscale(.3) drop-shadow(0 10px 10px rgba(0,0,0,.25))
+}
+
+.portal.open{
+  animation:portalPulse 1.2s ease-in-out infinite alternate
+}
+
+@keyframes portalPulse{
+  to{transform:scale(1.06)}
+}
+
+/* NATUREZA */
+.tree{
+  position:absolute;
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #83c86a 0 16%,
+      #4d963f 17% 55%,
+      #367034 56%
+    );
+  box-shadow:0 12px 0 rgba(45,76,30,.25)
 }
 
 .rock{
   position:absolute;
-  z-index:3;
   width:70px;
-  height:40px;
-  border-radius:50%;
-  background:#707169;
-  border:5px solid #565850;
-}
-
-/* PORTAL */
-
-#portal{
-  position:absolute;
-  z-index:50;
-  left:1660px;
-  top:875px;
-  width:280px;
-  height:430px;
-  cursor:pointer;
-}
-
-#portalRing{
-  position:absolute;
-  left:15px;
-  top:25px;
-  width:250px;
-  height:360px;
-  border-radius:50%;
-  border:20px solid #7055ff;
-  background:
-    radial-gradient(ellipse,#e9caff 0%,#805dff 30%,#271358 68%,#080412 100%);
+  height:38px;
+  border-radius:55% 45% 45% 55%;
+  background:#777;
   box-shadow:
-    0 0 25px #765cff,
-    0 0 70px rgba(110,70,255,.75),
-    inset 0 0 35px #10052e;
-  opacity:.95;
-  animation:portalFloat 1.4s infinite alternate;
+    inset 8px 5px 0 #999,
+    0 7px 0 rgba(40,55,35,.2)
 }
 
-#portalCore{
+.path{
   position:absolute;
-  left:65px;
-  top:65px;
-  width:150px;
-  height:300px;
+  background:#b99a6a;
   border-radius:50%;
-  background:
-    radial-gradient(ellipse,#fff 0%,#d9aaff 10%,#704cff 35%,#190936 75%);
-  animation:portalCore 1s infinite alternate;
+  opacity:.85;
+  transform:rotate(-7deg);
+  box-shadow:inset 0 0 0 5px rgba(255,255,255,.08)
 }
 
-#portalLabel{
-  position:absolute;
-  top:-35px;
-  width:100%;
-  text-align:center;
-  color:white;
-  font-size:21px;
-  font-weight:1000;
-  text-shadow:0 4px 0 #24164d;
+.path.p1{
+  left:600px;
+  top:1130px;
+  width:2450px;
+  height:150px
 }
 
-#portalState{
-  position:absolute;
-  bottom:-20px;
-  width:100%;
-  text-align:center;
-  color:#ffe87b;
-  font-weight:1000;
-  text-shadow:0 3px 0 #27183f;
+.path.p2{
+  left:1500px;
+  top:450px;
+  width:170px;
+  height:1700px;
+  transform:rotate(6deg)
 }
 
-@keyframes portalFloat{
-  from{transform:scale(1)}
-  to{transform:scale(1.06)}
-}
-
-@keyframes portalCore{
-  from{transform:scale(.96)}
-  to{transform:scale(1.04)}
-}
-
-/* NPC */
-
-.npc{
+/* PERSONAGENS */
+#player,.npc{
   position:absolute;
   z-index:30;
-  width:150px;
-  height:190px;
-  cursor:pointer;
+  text-align:center;
+  user-select:none;
+  cursor:pointer
 }
 
-.npcImage{
-  position:absolute;
-  left:15px;
-  bottom:20px;
-  width:120px;
-  height:130px;
+.actor-img{
+  width:96px;
+  height:96px;
   object-fit:contain;
-  filter:drop-shadow(0 8px 4px rgba(0,0,0,.3));
-  pointer-events:none;
+  display:block;
+  margin:auto;
+  filter:drop-shadow(0 6px 4px rgba(0,0,0,.28))
 }
 
-.npcName{
-  position:absolute;
-  z-index:3;
-  left:50%;
-  transform:translateX(-50%);
-  top:-4px;
-  padding:7px 12px;
-  border-radius:12px;
-  background:rgba(24,15,39,.94);
-  color:white;
-  border:2px solid white;
-  white-space:nowrap;
+.name{
+  margin-top:4px;
+  padding:3px 8px;
+  border-radius:9px;
+  background:rgba(15,15,15,.75);
   font-size:14px;
-  font-weight:1000;
-  pointer-events:none;
+  font-weight:800;
+  white-space:nowrap;
+  text-shadow:0 1px 2px #000
 }
 
-.npc.near .npcImage{
-  filter:
-    drop-shadow(0 8px 4px rgba(0,0,0,.3))
-    drop-shadow(0 0 15px #fff16e);
+.npc.moving .actor-img{
+  animation:bob .45s ease-in-out infinite alternate
 }
 
-.npcFallback{
-  position:absolute;
-  left:25px;
-  bottom:30px;
-  width:100px;
-  height:100px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:65px;
+@keyframes bob{
+  to{transform:translateY(-4px)}
 }
-
-/* PLAYER */
 
 #player{
-  position:absolute;
-  z-index:40;
-  width:140px;
-  height:180px;
-  pointer-events:none;
+  z-index:40
 }
 
-#playerImage{
-  position:absolute;
-  width:125px;
-  height:135px;
-  left:8px;
-  bottom:20px;
-  object-fit:contain;
-  filter:drop-shadow(0 8px 4px rgba(0,0,0,.35));
-}
-
-#playerFallback{
-  position:absolute;
-  left:0;
-  bottom:15px;
-  width:140px;
-  height:130px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:80px;
-}
-
-#playerName{
+.player-ring{
   position:absolute;
   left:50%;
+  top:91px;
   transform:translateX(-50%);
-  top:0;
-  padding:7px 12px;
-  border-radius:12px;
-  background:#241631;
-  border:2px solid white;
-  color:white;
-  white-space:nowrap;
-  font-size:14px;
-  font-weight:1000;
+  width:75px;
+  height:18px;
+  border-radius:50%;
+  background:rgba(0,0,0,.25);
+  z-index:-1
 }
 
 /* HUD */
-
 #hud{
-  position:fixed;
-  z-index:200;
-  top:15px;
-  left:15px;
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:100
+}
+
+.panel{
+  pointer-events:auto;
+  background:rgba(17,17,24,.92);
+  border:2px solid rgba(255,255,255,.18);
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35)
+}
+
+#topbar{
+  position:absolute;
+  left:12px;
+  right:12px;
+  top:12px;
   display:flex;
   gap:10px;
-  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center
 }
 
-.hudBox{
-  padding:11px 16px;
-  background:rgba(27,18,44,.92);
-  color:white;
-  border:2px solid rgba(255,255,255,.3);
-  border-radius:15px;
-  font-weight:1000;
-  box-shadow:0 5px 0 rgba(0,0,0,.25);
+.brand{
+  padding:10px 14px;
+  font-weight:900;
+  font-size:18px
 }
 
-#timer{
-  color:#ffe578;
+.count{
+  padding:10px 14px;
+  font-weight:900
 }
 
-/* MENU */
-
-#menu{
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:radial-gradient(circle,#4b3171,#09070f 80%);
-}
-
-.menuBox{
-  width:min(520px,95vw);
-  padding:30px;
-  border-radius:28px;
-  background:#211630;
-  color:white;
-  border:3px solid #8065c8;
-  box-shadow:0 20px 70px rgba(0,0,0,.65);
-}
-
-.menuBox h1{
-  text-align:center;
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.menuBox p{
-  text-align:center;
-  opacity:.75;
-  line-height:1.4;
-  margin-bottom:25px;
-}
-
-.menuBox label{
-  display:block;
-  margin:15px 0 7px;
-  font-weight:1000;
-}
-
-.menuBox input{
-  width:100%;
-  padding:13px;
-  border-radius:12px;
-  border:2px solid #654f8d;
-  background:#120c1c;
-  color:white;
-}
-
-#startButton{
-  width:100%;
-  padding:16px;
-  margin-top:22px;
+.menuBtn{
+  pointer-events:auto;
   border:0;
-  border-radius:15px;
-  background:#7659ee;
-  color:white;
-  font-size:18px;
-  font-weight:1000;
-  cursor:pointer;
+  color:#fff;
+  background:#6d4bd8;
+  border-radius:12px;
+  padding:11px 14px;
+  font-weight:800;
+  cursor:pointer
 }
 
 /* INTERAÇÃO */
-
-#interact{
-  position:fixed;
-  z-index:250;
+#interaction{
+  position:absolute;
   left:50%;
-  bottom:100px;
+  bottom:34px;
   transform:translateX(-50%);
   display:none;
-  padding:15px 25px;
-  border:3px solid white;
-  border-radius:16px;
-  background:#30204e;
-  color:white;
-  font-weight:1000;
-  font-size:18px;
-  cursor:pointer;
-  box-shadow:0 7px 0 rgba(0,0,0,.3);
+  gap:10px;
+  align-items:center;
+  padding:12px 16px
 }
 
-#interact.show{
-  display:block;
+.interaction-text{
+  font-weight:900
+}
+
+.action{
+  border:0;
+  background:#fff;
+  color:#15151c;
+  border-radius:10px;
+  padding:9px 14px;
+  font-weight:900;
+  cursor:pointer
 }
 
 /* DIÁLOGO */
-
 #dialog{
-  position:fixed;
-  z-index:400;
+  position:absolute;
   left:50%;
-  bottom:25px;
+  bottom:28px;
   transform:translateX(-50%);
-  width:min(720px,94vw);
+  width:min(620px,calc(100vw - 24px));
   display:none;
-  padding:20px;
-  border-radius:20px;
-  background:rgba(25,16,40,.98);
-  color:white;
-  border:3px solid #c7aaff;
-  box-shadow:0 15px 50px rgba(0,0,0,.6);
+  padding:16px
 }
 
-#dialog.show{
-  display:block;
+.dialog-row{
+  display:flex;
+  gap:14px;
+  align-items:flex-start
 }
 
-#dialogName{
-  color:#d9c6ff;
-  font-size:21px;
-  font-weight:1000;
-  margin-bottom:8px;
+.dialog-img{
+  width:76px;
+  height:76px;
+  object-fit:contain
 }
 
-#dialogText{
+.dialog-name{
+  font-weight:900;
   font-size:18px;
-  line-height:1.45;
-  margin-bottom:15px;
+  margin-bottom:6px
 }
 
-.dialogButtons{
+.dialog-text{
+  line-height:1.4
+}
+
+.dialog-actions{
+  margin-top:12px;
   display:flex;
   gap:8px;
-  flex-wrap:wrap;
+  flex-wrap:wrap
 }
 
-.dialogButtons button{
-  padding:10px 15px;
-  border-radius:11px;
-  border:2px solid #8064bd;
-  background:#3a275a;
-  color:white;
-  font-weight:1000;
-  cursor:pointer;
+.close{
+  background:#7b59df;
+  color:#fff
 }
 
-#audioArea{
-  margin-top:14px;
-  padding:10px;
-  background:#100a18;
-  border-radius:14px;
-  text-align:center;
+.sound{
+  background:#2d9c70;
+  color:#fff
 }
 
-#audioArea iframe{
-  width:110px;
-  height:200px;
-  border:0;
-}
-
-/* CHAT */
-
-#chat{
-  position:fixed;
-  z-index:180;
-  right:15px;
-  bottom:15px;
-  width:300px;
-  padding:12px;
-  border-radius:17px;
-  background:rgba(25,17,40,.94);
-  border:2px solid rgba(255,255,255,.25);
-  color:white;
-}
-
-#chatMessages{
-  height:100px;
+/* MENU */
+#menu{
+  position:absolute;
+  right:12px;
+  top:70px;
+  width:min(370px,calc(100vw - 24px));
+  max-height:calc(100vh - 90px);
   overflow:auto;
-  font-size:13px;
-  margin-bottom:8px;
-}
-
-.chatLine{
-  margin-bottom:5px;
-}
-
-#chatForm{
-  display:flex;
-  gap:5px;
-}
-
-#chatInput{
-  min-width:0;
-  flex:1;
-  border:0;
-  border-radius:9px;
-  padding:9px;
-}
-
-#chatForm button{
-  border:0;
-  border-radius:9px;
-  background:#7355db;
-  color:white;
-  padding:9px 12px;
-  font-weight:1000;
-}
-
-/* MOBILE */
-
-#mobileControls{
-  position:fixed;
-  z-index:190;
-  left:15px;
-  bottom:15px;
   display:none;
+  padding:16px;
+  pointer-events:auto
 }
 
-.dpad{
+.menu-section{
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.1)
+}
+
+.menu-section:last-child{
+  border-bottom:0
+}
+
+.menu-section h3{
+  margin:0 0 8px
+}
+
+.menu-section label{
+  display:block;
+  font-size:13px;
+  margin:8px 0 4px;
+  color:#ccc
+}
+
+.menu-section input[type=text],
+.menu-section input[type=file]{
+  width:100%;
+  padding:9px;
+  border-radius:9px;
+  border:1px solid #555;
+  background:#222;
+  color:#fff
+}
+
+.small{
+  font-size:12px;
+  color:#aaa;
+  line-height:1.35
+}
+
+/* CONTROLES */
+#controls{
+  position:absolute;
+  left:12px;
+  bottom:20px;
   display:grid;
-  grid-template-columns:55px 55px 55px;
-  grid-template-rows:55px 55px 55px;
+  grid-template-columns:repeat(3,46px);
   gap:5px;
+  pointer-events:auto
 }
 
-.dpad button{
-  border:2px solid white;
+.ctrl{
+  height:46px;
+  border:0;
   border-radius:12px;
-  background:rgba(35,23,54,.88);
-  color:white;
-  font-size:24px;
+  background:rgba(20,20,25,.82);
+  color:#fff;
+  font-size:19px;
+  font-weight:900
 }
 
-.up{grid-column:2}
-.left{grid-column:1;grid-row:2}
-.down{grid-column:2;grid-row:3}
-.right{grid-column:3;grid-row:2}
+.blank{
+  visibility:hidden
+}
 
-@media(max-width:700px){
-  #mobileControls{
-    display:block;
+#offline{
+  position:absolute;
+  right:12px;
+  bottom:20px;
+  padding:8px 10px;
+  font-size:12px;
+  display:none
+}
+
+.online{
+  color:#80e5ae
+}
+
+.offline{
+  color:#ffb6b6
+}
+
+@media(max-width:600px){
+
+  .actor-img{
+    width:82px;
+    height:82px
   }
 
-  #chat{
-    width:230px;
-    bottom:10px;
-    right:10px;
+  .name{
+    font-size:12px
   }
 
-  #interact{
-    bottom:170px;
+  .portal{
+    width:220px;
+    height:280px
   }
 
-  .menuBox h1{
-    font-size:31px;
+  .brand{
+    font-size:15px
+  }
+
+  .count{
+    font-size:13px
+  }
+
+  .menuBtn{
+    padding:9px 11px
   }
 }
 </style>
@@ -626,392 +475,495 @@ button,input{
 
 <div id="game">
 
-<div id="camera">
+  <div id="camera">
+
+    <div id="world">
+
+      <!-- ÁGUA -->
+      <div class="water w1"></div>
+      <div class="water w2"></div>
+      <div class="water w3"></div>
+
+      <!-- CAMINHOS -->
+      <div class="path p1"></div>
+      <div class="path p2"></div>
+
+      <!-- PORTAL -->
+      <div class="portal closed" id="portal">
+        <img
+          src="https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png"
+          alt="Portal para a prova"
+        >
+      </div>
+
+      <!-- ÁRVORES -->
+      <div class="tree" style="left:920px;top:250px"></div>
+      <div class="tree" style="left:1110px;top:600px"></div>
+      <div class="tree" style="left:2850px;top:330px"></div>
+      <div class="tree" style="left:3070px;top:1450px"></div>
+      <div class="tree" style="left:420px;top:1880px"></div>
+      <div class="tree" style="left:2520px;top:2160px"></div>
+
+      <!-- PEDRAS -->
+      <div class="rock" style="left:1060px;top:1030px"></div>
+      <div class="rock" style="left:2360px;top:600px"></div>
+      <div class="rock" style="left:2780px;top:1840px"></div>
+
+      <!-- FLORES -->
+      <div class="flower" style="left:780px;top:830px"></div>
+      <div class="flower" style="left:860px;top:890px"></div>
+      <div class="flower" style="left:1220px;top:1390px"></div>
+      <div class="flower" style="left:1310px;top:1460px"></div>
+      <div class="flower" style="left:2180px;top:1430px"></div>
+      <div class="flower" style="left:2260px;top:1510px"></div>
+      <div class="flower" style="left:2980px;top:920px"></div>
+      <div class="flower" style="left:3060px;top:990px"></div>
+
+      <!-- BURGUINHO -->
+      <div
+        class="npc"
+        id="npc-burguinho"
+        data-id="burguinho"
+        data-x="680"
+        data-y="930"
+      >
+        <img
+          class="actor-img"
+          src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png"
+          alt="Burguinho"
+        >
+        <div class="name">Burguinho</div>
+      </div>
+
+      <!-- YUME -->
+      <div
+        class="npc"
+        id="npc-yume"
+        data-id="yume"
+        data-x="1180"
+        data-y="820"
+      >
+        <img
+          class="actor-img"
+          src="https://static.wikia.nocookie.net/melanie-martinez/images/f/f5/Circle_-_in_-_stop_-_motion.webp/revision/latest/scale-to-width-down/250?cb=20260603173801"
+          alt="Yume"
+        >
+        <div class="name">Yume</div>
+      </div>
+
+      <!-- MELANIE -->
+      <div
+        class="npc"
+        id="npc-melanie"
+        data-id="melanie"
+        data-x="2250"
+        data-y="840"
+      >
+        <img
+          class="actor-img"
+          src="https://i.pinimg.com/736x/a1/26/60/a12660f3c13e52558b47d0fc39963556.jpg"
+          alt="Melanie Martinez"
+        >
+        <div class="name">Melanie</div>
+      </div>
+
+      <!-- RICK -->
+      <div
+        class="npc"
+        id="npc-rick"
+        data-id="rick"
+        data-x="2660"
+        data-y="940"
+      >
+        <img
+          class="actor-img"
+          src="https://pngimg.com/uploads/rick_morty/rick_morty_PNG8.png"
+          alt="Rick"
+        >
+        <div class="name">Rick</div>
+      </div>
+
+      <!-- MORTY -->
+      <div
+        class="npc"
+        id="npc-morty"
+        data-id="morty"
+        data-x="2810"
+        data-y="1080"
+      >
+        <img
+          class="actor-img"
+          src="https://www.pngall.com/wp-content/uploads/15/Morty-PNG-Clipart.png"
+          alt="Morty"
+        >
+        <div class="name">Morty</div>
+      </div>
+
+      <!-- OLIVER -->
+      <div
+        class="npc"
+        id="npc-oliver"
+        data-id="oliver"
+        data-x="820"
+        data-y="1660"
+      >
+        <img
+          class="actor-img"
+          src="https://i.pinimg.com/736x/c7/f3/7f/c7f37f8a6488b8f5fd78eb124e1d5b7d.jpg"
+          alt="Oliver Tree"
+        >
+        <div class="name">Oliver Tree</div>
+      </div>
+
+      <!-- ROBÔ -->
+      <div
+        class="npc"
+        id="npc-robot"
+        data-id="robot"
+        data-x="2030"
+        data-y="1700"
+      >
+        <img
+          class="actor-img"
+          src="https://pngimg.com/uploads/robot/robot_PNG96.png"
+          alt="Robô"
+        >
+        <div class="name">Robô</div>
+      </div>
+
+      <!-- JOTARO -->
+      <div
+        class="npc"
+        id="npc-jotaro"
+        data-id="jotaro"
+        data-x="2860"
+        data-y="1950"
+      >
+        <img
+          class="actor-img"
+          src="https://www.kindpng.com/picc/m/98-985032_jotaro-kujo-png-transparent-png.png"
+          alt="Jotaro"
+        >
+        <div class="name">Jotaro</div>
+      </div>
+
+      <!-- PLAYER -->
+      <div
+        id="player"
+        style="left:1750px;top:1250px"
+      >
+        <div class="player-ring"></div>
+
+        <img
+          id="playerImg"
+          class="actor-img"
+          src="https://png.pngtree.com/png-vector/20240723/ourmid/pngtree-cute-cat-png-image_12971680.png"
+          alt="Jogador"
+        >
+
+        <div class="name" id="playerName">
+          Jogador
+        </div>
+      </div>
 
-<div id="world">
-
-<img id="grass"
-src="https://wallpapercave.com/wp/wp10944792.png"
-alt="">
-
-<div id="ground"></div>
-
-<div class="path path1"></div>
-<div class="path path2"></div>
-
-<div class="pond pond1"></div>
-<div class="pond pond2"></div>
-
-
-<!-- ÁRVORES -->
-
-<div class="tree" style="left:250px;top:220px">
-  <div class="leaf"></div>
-  <div class="trunk"></div>
-</div>
-
-<div class="tree" style="left:900px;top:450px">
-  <div class="leaf"></div>
-  <div class="trunk"></div>
-</div>
-
-<div class="tree" style="left:3100px;top:300px">
-  <div class="leaf"></div>
-  <div class="trunk"></div>
-</div>
-
-<div class="tree" style="left:2900px;top:2050px">
-  <div class="leaf"></div>
-  <div class="trunk"></div>
-</div>
-
-<div class="tree" style="left:450px;top:2050px">
-  <div class="leaf"></div>
-  <div class="trunk"></div>
-</div>
-
-<div class="tree" style="left:2150px;top:2100px">
-  <div class="leaf"></div>
-  <div class="trunk"></div>
-</div>
-
-
-<!-- FLORES -->
-
-<div class="flower" style="left:700px;top:800px">🌼</div>
-<div class="flower" style="left:950px;top:1850px">🌸</div>
-<div class="flower" style="left:2800px;top:850px">🌷</div>
-<div class="flower" style="left:3150px;top:1800px">🌻</div>
-<div class="flower" style="left:1250px;top:500px">🌺</div>
-
-
-<!-- PEDRAS -->
-
-<div class="rock" style="left:1050px;top:650px"></div>
-<div class="rock" style="left:1400px;top:1850px"></div>
-<div class="rock" style="left:2650px;top:520px"></div>
-<div class="rock" style="left:3100px;top:1200px"></div>
-
-
-<!-- PORTAL -->
-
-<div id="portal">
-  <div id="portalLabel">🌀 PORTAL DA PROVA</div>
-  <div id="portalRing"></div>
-  <div id="portalCore"></div>
-  <div id="portalState">FECHADO</div>
-</div>
-
-
-<!-- NPC OLIVER -->
-
-<div class="npc"
-     data-id="oliver"
-     data-name="Oliver Tree"
-     data-x="1150"
-     data-y="850">
-
-  <div class="npcName">Oliver Tree</div>
-
-  <img class="npcImage"
-       src="https://i.pinimg.com/736x/c7/f3/7f/c7f37f8a6488b8f5fd78eb124e1d5b7d.jpg"
-       alt="Oliver Tree">
-
-</div>
-
-
-<!-- NPC MELANIE -->
-
-<div class="npc"
-     data-id="melanie"
-     data-name="Melanie Martinez"
-     data-x="2450"
-     data-y="850">
-
-  <div class="npcName">Melanie Martinez</div>
-
-  <img class="npcImage"
-       src="https://i.pinimg.com/736x/a1/26/60/a12660f3c13e52558b47d0fc39963556.jpg"
-       alt="Melanie">
-
-</div>
-
-
-<!-- BURGUINHO -->
-
-<div class="npc"
-     data-id="burguinho"
-     data-name="Burguinho"
-     data-x="750"
-     data-y="1250">
-
-  <div class="npcName">Burguinho</div>
-
-  <img class="npcImage"
-       src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png"
-       alt="Burguinho">
-
-</div>
-
-
-<!-- RICK -->
-
-<div class="npc"
-     data-id="rick"
-     data-name="Rick"
-     data-x="1000"
-     data-y="1600">
-
-  <div class="npcName">Rick</div>
-
-  <img class="npcImage"
-       src="https://pngimg.com/uploads/rick_morty/rick_morty_PNG8.png"
-       alt="Rick">
-
-</div>
-
-
-<!-- MORTY -->
-
-<div class="npc"
-     data-id="morty"
-     data-name="Morty"
-     data-x="1300"
-     data-y="1600">
-
-  <div class="npcName">Morty</div>
-
-  <img class="npcImage"
-       src="https://www.pngall.com/wp-content/uploads/15/Morty-PNG-Clipart.png"
-       alt="Morty">
-
-</div>
-
-
-<!-- ROBÔ -->
-
-<div class="npc"
-     data-id="robot"
-     data-name="Robô de Informações"
-     data-x="2400"
-     data-y="1600">
-
-  <div class="npcName">Robô</div>
-
-  <img class="npcImage"
-       src="https://pngimg.com/uploads/robot/robot_PNG96.png"
-       alt="Robô">
-
-</div>
-
-
-<!-- YUME -->
-
-<div class="npc"
-     data-id="yume"
-     data-name="Yume"
-     data-x="2700"
-     data-y="1200">
-
-  <div class="npcName">Yume</div>
-
-  <img class="npcImage"
-       src="https://static.wikia.nocookie.net/melanie-martinez/images/f/f5/Circle_-_in_-_stop_-_motion.webp/revision/latest/scale-to-width-down/250?cb=20260603173801"
-       alt="Yume">
-
-</div>
-
-
-<!-- JOTARO -->
-
-<div class="npc"
-     data-id="jotaro"
-     data-name="Jotaro"
-     data-x="2800"
-     data-y="1800">
-
-  <div class="npcName">Jotaro</div>
-
-  <img class="npcImage"
-       src="https://www.kindpng.com/picc/m/98-985032_jotaro-kujo-png-transparent-png.png"
-       alt="Jotaro">
-
-</div>
-
-
-<!-- PLAYER -->
-
-<div id="player">
-
-  <div id="playerName">Player</div>
-
-  <div id="playerFallback">🐱</div>
-
-  <img id="playerImage"
-       style="display:none"
-       alt="Player">
-
-</div>
-
-</div>
-</div>
-
-
-<!-- HUD -->
-
-<div id="hud">
-
-  <div class="hudBox">
-    🏝️ THE ATTORNEYS
-  </div>
-
-  <div class="hudBox" id="timer">
-    ⏳ Entrando no lobby...
-  </div>
-
-</div>
-
-
-<!-- INTERAGIR -->
-
-<button id="interact">
-  💬 INTERAGIR —
-  <span id="interactName"></span>
-</button>
-
-
-<!-- DIÁLOGO -->
-
-<div id="dialog">
-
-  <div id="dialogName"></div>
-
-  <div id="dialogText"></div>
-
-  <div class="dialogButtons">
-
-    <button id="closeDialog">
-      Fechar
-    </button>
-
-    <button id="replayAudio">
-      🔊 Reproduzir áudio
-    </button>
-
-  </div>
-
-  <div id="audioArea"></div>
-
-</div>
-
-
-<!-- CHAT -->
-
-<div id="chat">
-
-  <div id="chatMessages">
-    <div class="chatLine">
-      <b>Sistema:</b> Bem-vindo ao lobby!
     </div>
   </div>
 
-  <form id="chatForm">
+  <!-- HUD -->
+  <div id="hud">
 
-    <input
-      id="chatInput"
-      maxlength="100"
-      autocomplete="off"
-      placeholder="Digite..."
+    <div id="topbar">
+
+      <div class="panel brand">
+        ⚖️ THE ATTORNEYS
+      </div>
+
+      <div class="panel count" id="count">
+        Portal abre em 5s
+      </div>
+
+      <button class="menuBtn" id="menuBtn">
+        ⚙️ Menu
+      </button>
+
+    </div>
+
+    <!-- INTERAÇÃO -->
+    <div id="interaction" class="panel">
+
+      <span
+        class="interaction-text"
+        id="interactionText"
+      >
+        INTERAGIR
+      </span>
+
+      <button
+        class="action"
+        id="interactBtn"
+      >
+        E / TOCAR
+      </button>
+
+    </div>
+
+    <!-- DIÁLOGO -->
+    <div id="dialog" class="panel">
+
+      <div class="dialog-row">
+
+        <img
+          id="dialogImg"
+          class="dialog-img"
+          alt=""
+        >
+
+        <div>
+
+          <div
+            id="dialogName"
+            class="dialog-name"
+          ></div>
+
+          <div
+            id="dialogText"
+            class="dialog-text"
+          ></div>
+
+          <div class="dialog-actions">
+
+            <button
+              class="action sound"
+              id="soundBtn"
+            >
+              🔊 Repetir áudio
+            </button>
+
+            <button
+              class="action close"
+              id="closeBtn"
+            >
+              Fechar
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <div id="menu" class="panel">
+
+      <div class="menu-section">
+
+        <h3>🎮 Jogador</h3>
+
+        <label>Nome</label>
+
+        <input
+          id="nameInput"
+          type="text"
+          maxlength="24"
+          placeholder="Seu nome"
+        >
+
+        <label>Imagem do jogador</label>
+
+        <input
+          id="playerFile"
+          type="file"
+          accept="image/*"
+        >
+
+        <div class="small">
+          A imagem escolhida é o próprio personagem que anda pelo mapa.
+        </div>
+
+      </div>
+
+      <div class="menu-section">
+
+        <h3>🔊 Áudios dos NPCs</h3>
+
+        <label>Melanie</label>
+
+        <input
+          id="melanieAudio"
+          type="file"
+          accept="audio/*"
+        >
+
+        <label>Robô</label>
+
+        <input
+          id="robotAudio"
+          type="file"
+          accept="audio/*"
+        >
+
+        <div class="small">
+          Os áudios da Melanie e do Robô já estão embutidos neste HTML.
+          Você pode substituir pelos seus próprios arquivos.
+        </div>
+
+      </div>
+
+      <div class="menu-section">
+
+        <h3>🧪 Teste</h3>
+
+        <button
+          class="action"
+          id="soundTest"
+        >
+          🔊 Testar som da Melanie
+        </button>
+
+        <div
+          class="small"
+          id="soundStatus"
+        >
+          Clique em um NPC e depois em INTERAGIR.
+        </div>
+
+      </div>
+
+      <div class="menu-section">
+
+        <div class="small">
+          O lobby é a área de espera.
+          Quando o portal abrir, entre nele para começar a prova.
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CONTROLES MOBILE -->
+    <div id="controls">
+
+      <button class="ctrl blank"></button>
+
+      <button
+        class="ctrl"
+        data-key="up"
+      >
+        ▲
+      </button>
+
+      <button class="ctrl blank"></button>
+
+      <button
+        class="ctrl"
+        data-key="left"
+      >
+        ◀
+      </button>
+
+      <button
+        class="ctrl"
+        data-key="down"
+      >
+        ▼
+      </button>
+
+      <button
+        class="ctrl"
+        data-key="right"
+      >
+        ▶
+      </button>
+
+    </div>
+
+    <div
+      id="offline"
+      class="panel offline"
     >
-
-    <button type="submit">
-      ➤
-    </button>
-
-  </form>
-
-</div>
-
-
-<!-- CONTROLES MOBILE -->
-
-<div id="mobileControls">
-
-  <div class="dpad">
-
-    <button class="up" data-key="up">▲</button>
-
-    <button class="left" data-key="left">◀</button>
-
-    <button class="down" data-key="down">▼</button>
-
-    <button class="right" data-key="right">▶</button>
+      Offline — movimento local ativo
+    </div>
 
   </div>
-
 </div>
-
-
-<!-- MENU -->
-
-<div id="menu">
-
-  <div class="menuBox">
-
-    <h1>THE ATTORNEYS</h1>
-
-    <p>
-      Entre no lobby da competição,
-      escolha seu nome e sua própria imagem.
-    </p>
-
-    <label>Nome</label>
-
-    <input
-      id="nameInput"
-      type="text"
-      maxlength="20"
-      placeholder="Seu nome..."
-    >
-
-    <label>Sua imagem / personagem</label>
-
-    <input
-      id="playerFile"
-      type="file"
-      accept="image/*"
-    >
-
-    <button id="startButton">
-      ENTRAR NO LOBBY
-    </button>
-
-  </div>
-
-</div>
-
-</div>
-
 
 <script>
+
 /* =========================================================
-   CONFIGURAÇÃO
+   REFERÊNCIAS
 ========================================================= */
 
-const worldWidth = 3600;
-const worldHeight = 2600;
+const world =
+  document.getElementById('world');
 
-const player = {
-  x:1800,
-  y:1500,
-  speed:5,
-  name:"Player"
-};
+const camera =
+  document.getElementById('camera');
 
-let running = false;
-let nearestNPC = null;
-let currentNPC = null;
+const game =
+  document.getElementById('game');
+
+const player =
+  document.getElementById('player');
+
+const playerImg =
+  document.getElementById('playerImg');
+
+const playerName =
+  document.getElementById('playerName');
+
+const dialog =
+  document.getElementById('dialog');
+
+const interaction =
+  document.getElementById('interaction');
+
+const interactionText =
+  document.getElementById('interactionText');
+
+const dialogImg =
+  document.getElementById('dialogImg');
+
+const dialogName =
+  document.getElementById('dialogName');
+
+const dialogText =
+  document.getElementById('dialogText');
+
+const count =
+  document.getElementById('count');
+
+const portal =
+  document.getElementById('portal');
+
+const menu =
+  document.getElementById('menu');
+
+const soundStatus =
+  document.getElementById('soundStatus');
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+let px = 1750;
+let py = 1250;
+
+let speed = 6;
+
+let nearNpc = null;
+
+let currentNpc = null;
+
 let portalOpen = false;
+
+let dialogOpen = false;
+
+
+/* =========================================================
+   TECLAS
+========================================================= */
 
 const keys = {
   up:false,
@@ -1020,431 +972,369 @@ const keys = {
   right:false
 };
 
-const npcList = [];
-
 
 /* =========================================================
-   ELEMENTOS
+   DADOS DOS NPCS
 ========================================================= */
 
-const world =
-  document.getElementById("world");
+const npcData = {
 
-const playerElement =
-  document.getElementById("player");
+  burguinho:{
+    name:'Burguinho',
+    text:'Quack!'
+  },
 
-const playerImage =
-  document.getElementById("playerImage");
+  yume:{
+    name:'Yume',
+    text:'Explore o lobby enquanto espera a próxima prova.:33'
+  },
 
-const playerFallback =
-  document.getElementById("playerFallback");
+  melanie:{
+    name:'Melanie',
+    text: 'Abuelita open the door'
+  },
 
-const playerName =
-  document.getElementById("playerName");
+  rick:{
+    name:'Rick',
+    text:'Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!'
+  },
 
-const menu =
-  document.getElementById("menu");
+  morty:{
+    name:'Morty',
+    text:'P-porra, Rick! Onde é que a gente tá, cara?!'
+  },
 
-const startButton =
-  document.getElementById("startButton");
+  oliver:{
+    name:'Oliver Tree',
+    text:'Oninoninon'
+  },
 
-const nameInput =
-  document.getElementById("nameInput");
+  robot:{
+    name:'Robô',
+    text:'Sistema online. Próxima prova: consulte o calendário.'
+  },
 
-const playerFile =
-  document.getElementById("playerFile");
+  jotaro:{
+    name:'Jotaro',
+    text:'Yare yare daze.'
+  }
 
-const interact =
-  document.getElementById("interact");
-
-const interactName =
-  document.getElementById("interactName");
-
-const dialog =
-  document.getElementById("dialog");
-
-const dialogName =
-  document.getElementById("dialogName");
-
-const dialogText =
-  document.getElementById("dialogText");
-
-const closeDialog =
-  document.getElementById("closeDialog");
-
-const replayAudio =
-  document.getElementById("replayAudio");
-
-const audioArea =
-  document.getElementById("audioArea");
-
-const portal =
-  document.getElementById("portal");
-
-const portalState =
-  document.getElementById("portalState");
-
-const timer =
-  document.getElementById("timer");
+};
 
 
 /* =========================================================
    NPCS
 ========================================================= */
 
-const npcElements =
-  Array.from(document.querySelectorAll(".npc"));
+const npcs =
+  [...document.querySelectorAll('.npc')].map(el => {
 
-const fallbackEmoji = {
-  oliver:"🌳",
-  melanie:"🦋",
-  burguinho:"🦆",
-  rick:"🧪",
-  morty:"😰",
-  robot:"🤖",
-  yume:"🌙",
-  jotaro:"⭐"
+    const id =
+      el.dataset.id;
+
+    return {
+
+      el,
+
+      id,
+
+      x:+el.dataset.x,
+
+      y:+el.dataset.y,
+
+      homeX:+el.dataset.x,
+
+      homeY:+el.dataset.y,
+
+      dx:0,
+
+      dy:0,
+
+      next:0,
+
+      speed:1 + Math.random() * .7
+
+    };
+
+  });
+
+
+/* =========================================================
+   ÁUDIOS EMBUTIDOS
+========================================================= */
+
+/*
+  IMPORTANTE:
+
+  Os dois MP3 estão embutidos diretamente no HTML.
+
+  Melanie:
+  abuelita-open-the-door.mp3
+
+  Robô:
+  aqua-teen-eft-fant_8.mp3
+*/
+
+
+const MELANIE_AUDIO =
+'DATA_AUDIO_MELANIE';
+
+const ROBOT_AUDIO =
+'DATA_AUDIO_ROBOT';
+
+
+const audios = {
+
+  melanie:
+    new Audio(MELANIE_AUDIO),
+
+  robot:
+    new Audio(ROBOT_AUDIO)
+
 };
 
-npcElements.forEach((element,index) => {
 
-  const npc = {
+Object.values(audios).forEach(audio => {
 
-    element,
+  audio.preload = 'auto';
 
-    id:element.dataset.id,
-
-    name:element.dataset.name,
-
-    x:Number(element.dataset.x),
-
-    y:Number(element.dataset.y),
-
-    homeX:Number(element.dataset.x),
-
-    homeY:Number(element.dataset.y),
-
-    range:180,
-
-    dx:0,
-
-    dy:0,
-
-    speed:.7 + Math.random()*.7,
-
-    nextChange:Date.now() + 500 + Math.random()*1000
-
-  };
-
-  element.style.left =
-    npc.x + "px";
-
-  element.style.top =
-    npc.y + "px";
-
-
-  /*
-    Fallback caso a imagem falhe.
-  */
-
-  const image =
-    element.querySelector(".npcImage");
-
-  image.addEventListener("error",() => {
-
-    image.style.display = "none";
-
-    if(
-      element.querySelector(".npcFallback")
-    ) return;
-
-    const fallback =
-      document.createElement("div");
-
-    fallback.className =
-      "npcFallback";
-
-    fallback.textContent =
-      fallbackEmoji[npc.id] || "👤";
-
-    element.appendChild(fallback);
-
-  });
-
-
-  /*
-    Clique direto no NPC.
-    Não depende da distância.
-  */
-
-  element.addEventListener("click",event => {
-
-    event.stopPropagation();
-
-    openNPC(npc);
-
-  });
-
-
-  npcList.push(npc);
+  audio.volume = 1;
 
 });
 
 
 /* =========================================================
-   ÁUDIOS
+   IMAGEM DO PLAYER
 ========================================================= */
 
-const sounds = {
+function setPlayerImage(src){
 
-  rick:
-  "https://www.myinstants.com/instant/wubba-lubba-dub-dub-2-23931/embed/",
-
-  morty:
-  "https://www.myinstants.com/instant/pringels-morty-39542/embed/",
-
-  oliver:
-  "https://www.myinstants.com/instant/onionioni-rip-oliver-tree-74616/embed/",
-
-  burguinho:
-  "https://www.myinstants.com/instant/mac-quack-83896/embed/",
-
-  melanie:
-  "https://www.myinstants.com/instant/abuelita-open-the-door-83986/embed/",
-
-  jotaro:
-  "https://www.myinstants.com/instant/yare-yare-daze-jotaro-kujo-444/embed/",
-
-  robot:
-  "https://www.myinstants.com/instant/full-powerrobotic-voice/embed/",
-
-  yume:
-  "https://www.myinstants.com/instant/full-powerrobotic-voice/embed/"
-};
-
-
-/* =========================================================
-   DIÁLOGOS
-========================================================= */
-
-const dialogue = {
-
-  rick:
-  "Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!",
-
-  morty:
-  "P-porra, Rick! Onde é que a gente tá, cara?!",
-
-  oliver:
-  "Oninoninon",
-
-  burguinho:
-  "QUACK!!",
-
-  melanie:
-  "Abuelita open the door",
-
-  robot:
-  "Olá, competidor. Posso informar sobre a próxima prova, regras, mapa, calendário, participantes ou perguntas frequentes.",
-
-  yume:
-  "Oi! Explore bastante o lobby enquanto espera a próxima prova :33",
-
-  jotaro:
-  "Yare yare daze..."
-};
-
-
-/* =========================================================
-   MOVIMENTO DOS NPCS
-========================================================= */
-
-function chooseNPCDirection(npc){
-
-  const angle =
-    Math.random() * Math.PI * 2;
-
-  npc.speed =
-    .6 + Math.random() * .8;
-
-  npc.dx =
-    Math.cos(angle) * npc.speed;
-
-  npc.dy =
-    Math.sin(angle) * npc.speed;
-
-  npc.nextChange =
-    Date.now() +
-    1000 +
-    Math.random()*2200;
+  playerImg.src = src;
 
 }
 
 
 /* =========================================================
-   ATUALIZA NPC
+   NOME DO PLAYER
 ========================================================= */
 
-function updateNPCs(){
+document
+  .getElementById('nameInput')
+  .addEventListener('input', e => {
 
-  const now =
-    Date.now();
+    const value =
+      e.target.value.trim();
 
-  npcList.forEach(npc => {
-
-    if(now >= npc.nextChange){
-
-      chooseNPCDirection(npc);
-
-    }
-
-    let nextX =
-      npc.x + npc.dx;
-
-    let nextY =
-      npc.y + npc.dy;
-
-
-    const minX =
-      npc.homeX - npc.range;
-
-    const maxX =
-      npc.homeX + npc.range;
-
-    const minY =
-      npc.homeY - npc.range;
-
-    const maxY =
-      npc.homeY + npc.range;
-
-
-    if(nextX < minX){
-
-      nextX = minX;
-
-      npc.dx =
-        Math.abs(npc.dx);
-
-    }
-
-    if(nextX > maxX){
-
-      nextX = maxX;
-
-      npc.dx =
-        -Math.abs(npc.dx);
-
-    }
-
-    if(nextY < minY){
-
-      nextY = minY;
-
-      npc.dy =
-        Math.abs(npc.dy);
-
-    }
-
-    if(nextY > maxY){
-
-      nextY = maxY;
-
-      npc.dy =
-        -Math.abs(npc.dy);
-
-    }
-
-
-    npc.x = nextX;
-    npc.y = nextY;
-
-
-    npc.element.style.left =
-      npc.x + "px";
-
-    npc.element.style.top =
-      npc.y + "px";
+    playerName.textContent =
+      value || 'Jogador';
 
   });
 
-}
+
+/* =========================================================
+   UPLOAD DA IMAGEM
+========================================================= */
+
+document
+  .getElementById('playerFile')
+  .addEventListener('change', e => {
+
+    const file =
+      e.target.files[0];
+
+    if(!file) return;
+
+    setPlayerImage(
+      URL.createObjectURL(file)
+    );
+
+  });
 
 
 /* =========================================================
-   PLAYER
+   SUBSTITUIR ÁUDIO DA MELANIE
 ========================================================= */
 
-function updatePlayer(){
+document
+  .getElementById('melanieAudio')
+  .addEventListener('change', e => {
 
-  let dx = 0;
-  let dy = 0;
+    const file =
+      e.target.files[0];
 
-  if(keys.up) dy -= 1;
-  if(keys.down) dy += 1;
-  if(keys.left) dx -= 1;
-  if(keys.right) dx += 1;
+    if(!file) return;
 
+    audios.melanie.src =
+      URL.createObjectURL(file);
 
-  if(dx !== 0 || dy !== 0){
+    audios.melanie.load();
 
-    const length =
-      Math.sqrt(dx*dx + dy*dy);
+    soundStatus.textContent =
+      'Áudio da Melanie substituído!';
 
-    dx /= length;
-    dy /= length;
-
-    player.x +=
-      dx * player.speed;
-
-    player.y +=
-      dy * player.speed;
-
-  }
+  });
 
 
-  player.x =
-    Math.max(
-      50,
-      Math.min(
-        worldWidth-190,
-        player.x
-      )
-    );
+/* =========================================================
+   SUBSTITUIR ÁUDIO DO ROBÔ
+========================================================= */
 
-  player.y =
-    Math.max(
-      50,
-      Math.min(
-        worldHeight-220,
-        player.y
-      )
-    );
+document
+  .getElementById('robotAudio')
+  .addEventListener('change', e => {
+
+    const file =
+      e.target.files[0];
+
+    if(!file) return;
+
+    audios.robot.src =
+      URL.createObjectURL(file);
+
+    audios.robot.load();
+
+    soundStatus.textContent =
+      'Áudio do Robô substituído!';
+
+  });
 
 
-  playerElement.style.left =
-    player.x + "px";
+/* =========================================================
+   MENU
+========================================================= */
 
-  playerElement.style.top =
-    player.y + "px";
+document
+  .getElementById('menuBtn')
+  .onclick = () => {
 
-}
+    menu.style.display =
+      menu.style.display === 'block'
+        ? 'none'
+        : 'block';
+
+  };
 
 
 /* =========================================================
    DISTÂNCIA
 ========================================================= */
 
-function distance(a,b){
+function dist(a,b,c,d){
 
-  const dx =
-    a.x - b.x;
-
-  const dy =
-    a.y - b.y;
-
-  return Math.sqrt(
-    dx*dx + dy*dy
+  return Math.hypot(
+    a-c,
+    b-d
   );
+
+}
+
+
+/* =========================================================
+   MOVIMENTO DOS NPCS
+========================================================= */
+
+function chooseNpc(n){
+
+  n.next =
+    performance.now() +
+    800 +
+    Math.random() * 1800;
+
+  const ang =
+    Math.random() *
+    Math.PI *
+    2;
+
+  n.dx =
+    Math.cos(ang);
+
+  n.dy =
+    Math.sin(ang);
+
+}
+
+
+function updateNpcs(t){
+
+  for(const n of npcs){
+
+    if(t > n.next){
+
+      chooseNpc(n);
+
+    }
+
+    const home =
+      dist(
+        n.x,
+        n.y,
+        n.homeX,
+        n.homeY
+      );
+
+    if(home > 150){
+
+      const ang =
+        Math.atan2(
+          n.homeY - n.y,
+          n.homeX - n.x
+        );
+
+      n.dx =
+        n.dx * .7 +
+        Math.cos(ang) * .3;
+
+      n.dy =
+        n.dy * .7 +
+        Math.sin(ang) * .3;
+
+    }
+
+    const len =
+      Math.hypot(
+        n.dx,
+        n.dy
+      ) || 1;
+
+    n.x +=
+      n.dx / len *
+      n.speed;
+
+    n.y +=
+      n.dy / len *
+      n.speed;
+
+    n.x =
+      Math.max(
+        80,
+        Math.min(
+          3520,
+          n.x
+        )
+      );
+
+    n.y =
+      Math.max(
+        80,
+        Math.min(
+          2520,
+          n.y
+        )
+      );
+
+    n.el.style.left =
+      n.x + 'px';
+
+    n.el.style.top =
+      n.y + 'px';
+
+    n.el.classList.toggle(
+      'moving',
+      Math.abs(n.dx) +
+      Math.abs(n.dy) > .1
+    );
+
+  }
 
 }
 
@@ -1453,77 +1343,117 @@ function distance(a,b){
    NPC MAIS PRÓXIMO
 ========================================================= */
 
-function checkNearestNPC(){
+function updateNear(){
 
-  let closest = null;
-  let closestDistance = Infinity;
+  let best = null;
 
+  let bestD = Infinity;
 
-  const playerPoint = {
-    x:player.x + 70,
-    y:player.y + 90
-  };
-
-
-  npcList.forEach(npc => {
-
-    const npcPoint = {
-      x:npc.x + 75,
-      y:npc.y + 95
-    };
-
+  for(const n of npcs){
 
     const d =
-      distance(
-        playerPoint,
-        npcPoint
+      dist(
+        px,
+        py,
+        n.x,
+        n.y
       );
 
+    if(d < bestD){
 
-    if(
-      d < closestDistance
-    ){
+      bestD = d;
 
-      closestDistance = d;
-      closest = npc;
+      best = n;
+
+    }
+
+  }
+
+  nearNpc =
+    bestD < 260
+      ? best
+      : null;
+
+  if(
+    !dialogOpen &&
+    nearNpc
+  ){
+
+    interaction.style.display =
+      'flex';
+
+    interactionText.textContent =
+      'INTERAGIR • ' +
+      npcData[nearNpc.id].name;
+
+  }
+
+  else if(!dialogOpen){
+
+    interaction.style.display =
+      'none';
+
+  }
+
+}
+
+
+/* =========================================================
+   TOCAR ÁUDIO
+========================================================= */
+
+function playNpcAudio(id){
+
+  const audio =
+    audios[id];
+
+  if(!audio){
+
+    soundStatus.textContent =
+      'Este NPC ainda não tem áudio.';
+
+    return;
+
+  }
+
+  Object.values(audios).forEach(other => {
+
+    if(other !== audio){
+
+      other.pause();
+
+      other.currentTime = 0;
 
     }
 
   });
 
+  audio.currentTime = 0;
 
-  /*
-    A área de interação agora é grande.
-    300px no mapa.
-  */
+  const promise =
+    audio.play();
 
-  if(
-    closest &&
-    closestDistance <= 300
-  ){
+  if(promise){
 
-    nearestNPC = closest;
+    promise
+      .then(() => {
 
-    closest.element
-      .classList.add("near");
+        soundStatus.textContent =
+          '🔊 Áudio tocando: ' +
+          npcData[id].name;
 
-    interact.classList.add("show");
+      })
+      .catch(error => {
 
-    interactName.textContent =
-      closest.name;
+        console.warn(
+          'Áudio bloqueado:',
+          error
+        );
 
-  }else{
+        soundStatus.textContent =
+          'Clique novamente em INTERAGIR para tocar o áudio.';
 
-    nearestNPC = null;
-
-    npcList.forEach(npc => {
-      npc.element
-        .classList.remove("near");
-    });
-
-    interact.classList.remove("show");
-
-    interactName.textContent = "";
+      });
 
   }
 
@@ -1534,41 +1464,36 @@ function checkNearestNPC(){
    ABRIR NPC
 ========================================================= */
 
-function openNPC(npc){
+function openNpc(n){
 
-  currentNPC = npc;
+  currentNpc = n;
+
+  dialogOpen = true;
+
+  interaction.style.display =
+    'none';
+
+  const data =
+    npcData[n.id];
 
   dialogName.textContent =
-    npc.name;
+    data.name;
 
   dialogText.textContent =
-    dialogue[npc.id] ||
-    "Olá!";
+    data.text;
 
+  dialogImg.src =
+    n.el.querySelector('img').src;
 
-  audioArea.innerHTML = "";
+  dialog.style.display =
+    'block';
 
-  if(sounds[npc.id]){
+  /*
+    O áudio é iniciado exatamente
+    durante a interação do jogador.
+  */
 
-    const iframe =
-      document.createElement("iframe");
-
-    iframe.src =
-      sounds[npc.id];
-
-    iframe.width = "110";
-    iframe.height = "200";
-
-    iframe.frameBorder = "0";
-    iframe.scrolling = "no";
-    iframe.allow = "autoplay";
-
-    audioArea.appendChild(iframe);
-
-  }
-
-
-  dialog.classList.add("show");
+  playNpcAudio(n.id);
 
 }
 
@@ -1577,68 +1502,326 @@ function openNPC(npc){
    BOTÃO INTERAGIR
 ========================================================= */
 
-interact.addEventListener("click",() => {
+document
+  .getElementById('interactBtn')
+  .onclick = () => {
 
-  if(nearestNPC){
+    if(nearNpc){
 
-    openNPC(nearestNPC);
-
-  }
-
-});
-
-
-/* =========================================================
-   FECHAR
-========================================================= */
-
-closeDialog.addEventListener(
-  "click",
-  () => {
-
-    dialog.classList.remove("show");
-
-    audioArea.innerHTML = "";
-
-    currentNPC = null;
-
-  }
-);
-
-
-/* =========================================================
-   REPLAY
-========================================================= */
-
-replayAudio.addEventListener(
-  "click",
-  () => {
-
-    if(!currentNPC) return;
-
-    audioArea.innerHTML = "";
-
-    if(sounds[currentNPC.id]){
-
-      const iframe =
-        document.createElement("iframe");
-
-      iframe.src =
-        sounds[currentNPC.id];
-
-      iframe.width = "110";
-      iframe.height = "200";
-
-      iframe.frameBorder = "0";
-      iframe.scrolling = "no";
-      iframe.allow = "autoplay";
-
-      audioArea.appendChild(iframe);
+      openNpc(nearNpc);
 
     }
 
+  };
+
+
+/* =========================================================
+   FECHAR DIÁLOGO
+========================================================= */
+
+document
+  .getElementById('closeBtn')
+  .onclick = () => {
+
+    dialog.style.display =
+      'none';
+
+    dialogOpen =
+      false;
+
+    currentNpc =
+      null;
+
+    updateNear();
+
+  };
+
+
+/* =========================================================
+   REPETIR ÁUDIO
+========================================================= */
+
+document
+  .getElementById('soundBtn')
+  .onclick = () => {
+
+    if(currentNpc){
+
+      playNpcAudio(
+        currentNpc.id
+      );
+
+    }
+
+  };
+
+
+/* =========================================================
+   TESTE DE ÁUDIO
+========================================================= */
+
+document
+  .getElementById('soundTest')
+  .onclick = () => {
+
+    playNpcAudio('melanie');
+
+  };
+
+
+/* =========================================================
+   CLIQUE DIRETO NOS NPCS
+========================================================= */
+
+for(const n of npcs){
+
+  n.el.addEventListener(
+    'click',
+    () => openNpc(n)
+  );
+
+}
+
+
+/* =========================================================
+   PORTAL
+========================================================= */
+
+function tryPortal(){
+
+  if(!portalOpen){
+
+    dialogName.textContent =
+      'Portal';
+
+    dialogText.textContent =
+      'O portal ainda está fechado. Aguarde a próxima prova.';
+
+    dialogImg.src =
+      'https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png';
+
+    dialog.style.display =
+      'block';
+
+    dialogOpen =
+      true;
+
+    return;
+
   }
+
+
+  if(
+    dist(
+      px,
+      py,
+      1800,
+      980
+    ) < 500
+  ){
+
+    dialogName.textContent =
+      'Portal';
+
+    dialogText.textContent =
+      'A prova está pronta! Clique em ENTRAR para atravessar.';
+
+    dialogImg.src =
+      'https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png';
+
+
+    const old =
+      document.getElementById(
+        'portalEnter'
+      );
+
+
+    if(!old){
+
+      const button =
+        document.createElement(
+          'button'
+        );
+
+      button.id =
+        'portalEnter';
+
+      button.className =
+        'action close';
+
+      button.textContent =
+        'ENTRAR NA PROVA';
+
+
+      button.onclick = () => {
+
+        dialogText.textContent =
+          'A prova seria carregada aqui. O lobby continua sendo o mapa de espera.';
+
+        button.remove();
+
+      };
+
+
+      document
+        .querySelector('.dialog-actions')
+        .prepend(button);
+
+    }
+
+
+    dialog.style.display =
+      'block';
+
+    dialogOpen =
+      true;
+
+  }
+
+  else{
+
+    dialogName.textContent =
+      'Portal';
+
+    dialogText.textContent =
+      'Chegue mais perto do portal para entrar.';
+
+    dialogImg.src =
+      'https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png';
+
+    dialog.style.display =
+      'block';
+
+    dialogOpen =
+      true;
+
+  }
+
+}
+
+
+portal.addEventListener(
+  'click',
+  tryPortal
 );
+
+
+/* =========================================================
+   MOVIMENTO DO PLAYER
+========================================================= */
+
+function move(){
+
+  let dx =
+    (keys.right ? 1 : 0) -
+    (keys.left ? 1 : 0);
+
+  let dy =
+    (keys.down ? 1 : 0) -
+    (keys.up ? 1 : 0);
+
+
+  if(dx || dy){
+
+    const len =
+      Math.hypot(dx,dy);
+
+    px +=
+      dx / len *
+      speed;
+
+    py +=
+      dy / len *
+      speed;
+
+
+    px =
+      Math.max(
+        30,
+        Math.min(
+          3470,
+          px
+        )
+      );
+
+
+    py =
+      Math.max(
+        30,
+        Math.min(
+          2470,
+          py
+        )
+      );
+
+
+    player.style.left =
+      px + 'px';
+
+    player.style.top =
+      py + 'px';
+
+  }
+
+}
+
+
+/* =========================================================
+   CÂMERA
+========================================================= */
+
+function updateCamera(){
+
+  const gw = 3600;
+
+  const gh = 2600;
+
+  const vw =
+    game.clientWidth;
+
+  const vh =
+    game.clientHeight;
+
+
+  const cx =
+    vw / 2 -
+    px -
+    48;
+
+
+  const cy =
+    vh / 2 -
+    py -
+    48;
+
+
+  const minX =
+    Math.min(
+      0,
+      vw - gw
+    );
+
+
+  const minY =
+    Math.min(
+      0,
+      vh - gh
+    );
+
+
+  camera.style.transform =
+    `translate(
+      ${Math.max(
+        minX,
+        Math.min(0,cx)
+      )}px,
+      ${Math.max(
+        minY,
+        Math.min(0,cy)
+      )}px
+    )`;
+
+}
 
 
 /* =========================================================
@@ -1646,39 +1829,46 @@ replayAudio.addEventListener(
 ========================================================= */
 
 window.addEventListener(
-  "keydown",
-  event => {
+  'keydown',
+  e => {
+
+    const k =
+      e.key.toLowerCase();
+
 
     if(
-      event.key === "ArrowUp" ||
-      event.key.toLowerCase() === "w"
+      ['arrowup','w']
+      .includes(k)
     ){
 
       keys.up = true;
 
     }
 
+
     if(
-      event.key === "ArrowDown" ||
-      event.key.toLowerCase() === "s"
+      ['arrowdown','s']
+      .includes(k)
     ){
 
       keys.down = true;
 
     }
 
+
     if(
-      event.key === "ArrowLeft" ||
-      event.key.toLowerCase() === "a"
+      ['arrowleft','a']
+      .includes(k)
     ){
 
       keys.left = true;
 
     }
 
+
     if(
-      event.key === "ArrowRight" ||
-      event.key.toLowerCase() === "d"
+      ['arrowright','d']
+      .includes(k)
     ){
 
       keys.right = true;
@@ -1687,22 +1877,12 @@ window.addEventListener(
 
 
     if(
-      event.key === "e" ||
-      event.key === "E"
+      k === 'e' &&
+      nearNpc &&
+      !dialogOpen
     ){
 
-      if(nearestNPC){
-
-        openNPC(nearestNPC);
-
-      }
-
-    }
-
-
-    if(event.key === "Escape"){
-
-      dialog.classList.remove("show");
+      openNpc(nearNpc);
 
     }
 
@@ -1711,39 +1891,46 @@ window.addEventListener(
 
 
 window.addEventListener(
-  "keyup",
-  event => {
+  'keyup',
+  e => {
+
+    const k =
+      e.key.toLowerCase();
+
 
     if(
-      event.key === "ArrowUp" ||
-      event.key.toLowerCase() === "w"
+      ['arrowup','w']
+      .includes(k)
     ){
 
       keys.up = false;
 
     }
 
+
     if(
-      event.key === "ArrowDown" ||
-      event.key.toLowerCase() === "s"
+      ['arrowdown','s']
+      .includes(k)
     ){
 
       keys.down = false;
 
     }
 
+
     if(
-      event.key === "ArrowLeft" ||
-      event.key.toLowerCase() === "a"
+      ['arrowleft','a']
+      .includes(k)
     ){
 
       keys.left = false;
 
     }
 
+
     if(
-      event.key === "ArrowRight" ||
-      event.key.toLowerCase() === "d"
+      ['arrowright','d']
+      .includes(k)
     ){
 
       keys.right = false;
@@ -1755,339 +1942,121 @@ window.addEventListener(
 
 
 /* =========================================================
-   MOBILE
+   CONTROLES MOBILE
 ========================================================= */
 
 document
-.querySelectorAll("#mobileControls button")
-.forEach(button => {
+  .querySelectorAll('.ctrl')
+  .forEach(button => {
 
-  const key =
-    button.dataset.key;
+    const key =
+      button.dataset.key;
+
+    if(!key) return;
 
 
-  button.addEventListener(
-    "pointerdown",
-    event => {
+    const on = e => {
 
-      event.preventDefault();
+      e.preventDefault();
 
       keys[key] = true;
 
-    }
-  );
-
-
-  button.addEventListener(
-    "pointerup",
-    event => {
-
-      event.preventDefault();
-
-      keys[key] = false;
-
-    }
-  );
-
-
-  button.addEventListener(
-    "pointercancel",
-    () => {
-
-      keys[key] = false;
-
-    }
-  );
-
-});
-
-
-/* =========================================================
-   IMAGEM DO PLAYER
-========================================================= */
-
-playerFile.addEventListener(
-  "change",
-  event => {
-
-    const file =
-      event.target.files[0];
-
-    if(!file) return;
-
-
-    const reader =
-      new FileReader();
-
-
-    reader.onload =
-      () => {
-
-        playerImage.src =
-          reader.result;
-
-        playerImage.style.display =
-          "block";
-
-        playerFallback.style.display =
-          "none";
-
-      };
-
-
-    reader.readAsDataURL(file);
-
-  }
-);
-
-
-/* =========================================================
-   INICIAR
-========================================================= */
-
-startButton.addEventListener(
-  "click",
-  () => {
-
-    const name =
-      nameInput.value.trim();
-
-    player.name =
-      name || "Player";
-
-    playerName.textContent =
-      player.name;
-
-    menu.style.display =
-      "none";
-
-    running = true;
-
-
-    /*
-      NPCs começam a andar
-      imediatamente.
-    */
-
-    npcList.forEach(
-      npc => chooseNPCDirection(npc)
-    );
-
-
-    /*
-      Portal abre em 5 segundos.
-    */
-
-    timer.textContent =
-      "🌀 Portal abrindo em 5s...";
-
-
-    setTimeout(
-      openPortal,
-      5000
-    );
-
-  }
-);
-
-
-/* =========================================================
-   PORTAL
-========================================================= */
-
-function openPortal(){
-
-  portalOpen = true;
-
-  portalState.textContent =
-    "ABERTO!";
-
-  portalState.style.color =
-    "#8dffbb";
-
-  timer.textContent =
-    "🌀 PORTAL ABERTO!";
-
-}
-
-
-portal.addEventListener(
-  "click",
-  () => {
-
-    if(!portalOpen){
-
-      timer.textContent =
-        "🌀 O portal ainda está fechado!";
-
-      return;
-
-    }
-
-
-    const portalPoint = {
-      x:1800,
-      y:1080
     };
 
 
-    const playerPoint = {
-      x:player.x,
-      y:player.y
+    const off = e => {
+
+      e.preventDefault();
+
+      keys[key] = false;
+
     };
 
 
-    if(
-      distance(
-        playerPoint,
-        portalPoint
-      ) <= 500
-    ){
+    button.addEventListener(
+      'pointerdown',
+      on
+    );
 
-      dialogName.textContent =
-        "🌀 PORTAL DA PROVA";
+    button.addEventListener(
+      'pointerup',
+      off
+    );
 
-      dialogText.textContent =
-        "O portal está aberto! A próxima prova espera por você.";
+    button.addEventListener(
+      'pointercancel',
+      off
+    );
 
-      audioArea.innerHTML = "";
+    button.addEventListener(
+      'pointerleave',
+      off
+    );
 
-      dialog.classList.add("show");
+  });
 
-    }else{
 
-      timer.textContent =
-        "🌀 Chegue mais perto do portal!";
+/* =========================================================
+   CONTAGEM DO PORTAL
+========================================================= */
+
+let start =
+  performance.now();
+
+
+function loop(t){
+
+  move();
+
+  updateNpcs(t);
+
+  updateNear();
+
+  updateCamera();
+
+
+  if(!portalOpen){
+
+    const left =
+      Math.max(
+        0,
+        5000 -
+        (t - start)
+      );
+
+
+    count.textContent =
+      left > 0
+        ? 'Portal abre em ' +
+          Math.ceil(
+            left / 1000
+          ) +
+          's'
+
+        : 'Portal aberto!';
+
+
+    if(left <= 0){
+
+      portalOpen =
+        true;
+
+      portal.classList.remove(
+        'closed'
+      );
+
+      portal.classList.add(
+        'open'
+      );
 
     }
 
   }
-);
 
+  else{
 
-/* =========================================================
-   CÂMERA
-========================================================= */
-
-function updateCamera(){
-
-  const screenWidth =
-    window.innerWidth;
-
-  const screenHeight =
-    window.innerHeight;
-
-
-  let cameraX =
-    player.x -
-    screenWidth/2;
-
-  let cameraY =
-    player.y -
-    screenHeight/2;
-
-
-  cameraX =
-    Math.max(
-      0,
-      Math.min(
-        worldWidth-screenWidth,
-        cameraX
-      )
-    );
-
-
-  cameraY =
-    Math.max(
-      0,
-      Math.min(
-        worldHeight-screenHeight,
-        cameraY
-      )
-    );
-
-
-  world.style.transform =
-    "translate(" +
-    (-cameraX) +
-    "px," +
-    (-cameraY) +
-    "px)";
-
-}
-
-
-/* =========================================================
-   CHAT
-========================================================= */
-
-document
-.getElementById("chatForm")
-.addEventListener(
-  "submit",
-  event => {
-
-    event.preventDefault();
-
-
-    const input =
-      document.getElementById("chatInput");
-
-    const text =
-      input.value.trim();
-
-
-    if(!text) return;
-
-
-    const message =
-      document.createElement("div");
-
-    message.className =
-      "chatLine";
-
-
-    message.textContent =
-      player.name +
-      ": " +
-      text;
-
-
-    document
-      .getElementById("chatMessages")
-      .appendChild(message);
-
-
-    input.value = "";
-
-  }
-);
-
-
-/* =========================================================
-   LOOP
-========================================================= */
-
-function loop(){
-
-  /*
-    NPCs SEMPRE atualizam.
-  */
-
-  updateNPCs();
-
-
-  /*
-    Player atualiza se o jogo começou.
-  */
-
-  if(running){
-
-    updatePlayer();
-
-    checkNearestNPC();
-
-    updateCamera();
+    count.textContent =
+      'Portal aberto • entre na prova';
 
   }
 
@@ -2098,22 +2067,50 @@ function loop(){
 
 
 /* =========================================================
-   INICIALIZAÇÃO
+   STATUS OFFLINE
 ========================================================= */
 
-npcList.forEach(
-  npc => chooseNPCDirection(npc)
+window.addEventListener(
+  'online',
+  () => {
+
+    document
+      .getElementById('offline')
+      .style.display =
+      'none';
+
+  }
 );
 
-playerElement.style.left =
-  player.x + "px";
 
-playerElement.style.top =
-  player.y + "px";
+window.addEventListener(
+  'offline',
+  () => {
 
-updateCamera();
+    document
+      .getElementById('offline')
+      .style.display =
+      'block';
 
-loop();
+  }
+);
+
+
+if(!navigator.onLine){
+
+  document
+    .getElementById('offline')
+    .style.display =
+    'block';
+
+}
+
+
+/* =========================================================
+   INICIAR
+========================================================= */
+
+requestAnimationFrame(loop);
 
 </script>
 
