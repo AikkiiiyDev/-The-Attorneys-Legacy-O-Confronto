@@ -1,2118 +1,1593 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Attorneys</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE ATTORNEYS</title>
 
 <style>
-*{box-sizing:border-box}
-
-html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#111;
-  color:#fff;
-  font-family:Arial,sans-serif
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-#game{
-  position:relative;
-  width:100vw;
-  height:100vh;
-  overflow:hidden;
-  background:#76a95f
+body{
+    overflow:hidden;
+    background:#09070d;
+    font-family:Arial,sans-serif;
+    image-rendering:pixelated;
+    color:white;
 }
 
-#camera{
-  position:absolute;
-  left:0;
-  top:0;
-  will-change:transform
+button,input{
+    font:inherit;
 }
 
-#world{
-  position:absolute;
-  width:3600px;
-  height:2600px;
-  background-image:url('https://wallpapercave.com/wp/wp10944792.png');
-  background-size:900px 900px;
-  background-repeat:repeat
-}
+/* =========================
+   MENU
+========================= */
 
-/* ÁGUA */
-.water{
-  position:absolute;
-  overflow:hidden;
-  border:7px solid rgba(40,85,105,.28);
-  border-radius:48% 52% 55% 45%/48% 43% 57% 52%;
-  background-image:url('https://i.pinimg.com/736x/c9/72/6b/c9726bab742049fb59eb7f46237ddb93.jpg');
-  background-size:cover;
-  background-position:center;
-  box-shadow:
-    inset 0 0 0 5px rgba(255,255,255,.08),
-    0 8px 0 rgba(40,70,35,.16)
-}
-
-.water.w1{
-  left:130px;
-  top:260px;
-  width:700px;
-  height:420px
-}
-
-.water.w2{
-  right:170px;
-  bottom:210px;
-  width:760px;
-  height:440px
-}
-
-.water.w3{
-  left:1350px;
-  top:150px;
-  width:510px;
-  height:280px
-}
-
-/* FLORES */
-.flower{
-  position:absolute;
-  width:56px;
-  height:56px;
-  background:url('https://png.pngtree.com/png-clipart/20231024/ourmid/pngtree-flower-pixel-morada-png-image_10066281.png') center/contain no-repeat;
-  filter:drop-shadow(0 3px 2px rgba(0,0,0,.2))
-}
-
-/* PORTAL */
-.portal{
-  position:absolute;
-  left:1650px;
-  top:790px;
-  width:300px;
-  height:380px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  z-index:15;
-  filter:drop-shadow(0 10px 10px rgba(0,0,0,.3))
-}
-
-.portal img{
-  width:100%;
-  height:100%;
-  object-fit:contain
-}
-
-.portal.closed{
-  opacity:.45;
-  filter:grayscale(.3) drop-shadow(0 10px 10px rgba(0,0,0,.25))
-}
-
-.portal.open{
-  animation:portalPulse 1.2s ease-in-out infinite alternate
-}
-
-@keyframes portalPulse{
-  to{transform:scale(1.06)}
-}
-
-/* NATUREZA */
-.tree{
-  position:absolute;
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  background:
-    radial-gradient(
-      circle at 35% 30%,
-      #83c86a 0 16%,
-      #4d963f 17% 55%,
-      #367034 56%
-    );
-  box-shadow:0 12px 0 rgba(45,76,30,.25)
-}
-
-.rock{
-  position:absolute;
-  width:70px;
-  height:38px;
-  border-radius:55% 45% 45% 55%;
-  background:#777;
-  box-shadow:
-    inset 8px 5px 0 #999,
-    0 7px 0 rgba(40,55,35,.2)
-}
-
-.path{
-  position:absolute;
-  background:#b99a6a;
-  border-radius:50%;
-  opacity:.85;
-  transform:rotate(-7deg);
-  box-shadow:inset 0 0 0 5px rgba(255,255,255,.08)
-}
-
-.path.p1{
-  left:600px;
-  top:1130px;
-  width:2450px;
-  height:150px
-}
-
-.path.p2{
-  left:1500px;
-  top:450px;
-  width:170px;
-  height:1700px;
-  transform:rotate(6deg)
-}
-
-/* PERSONAGENS */
-#player,.npc{
-  position:absolute;
-  z-index:30;
-  text-align:center;
-  user-select:none;
-  cursor:pointer
-}
-
-.actor-img{
-  width:96px;
-  height:96px;
-  object-fit:contain;
-  display:block;
-  margin:auto;
-  filter:drop-shadow(0 6px 4px rgba(0,0,0,.28))
-}
-
-.name{
-  margin-top:4px;
-  padding:3px 8px;
-  border-radius:9px;
-  background:rgba(15,15,15,.75);
-  font-size:14px;
-  font-weight:800;
-  white-space:nowrap;
-  text-shadow:0 1px 2px #000
-}
-
-.npc.moving .actor-img{
-  animation:bob .45s ease-in-out infinite alternate
-}
-
-@keyframes bob{
-  to{transform:translateY(-4px)}
-}
-
-#player{
-  z-index:40
-}
-
-.player-ring{
-  position:absolute;
-  left:50%;
-  top:91px;
-  transform:translateX(-50%);
-  width:75px;
-  height:18px;
-  border-radius:50%;
-  background:rgba(0,0,0,.25);
-  z-index:-1
-}
-
-/* HUD */
-#hud{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:100
-}
-
-.panel{
-  pointer-events:auto;
-  background:rgba(17,17,24,.92);
-  border:2px solid rgba(255,255,255,.18);
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.35)
-}
-
-#topbar{
-  position:absolute;
-  left:12px;
-  right:12px;
-  top:12px;
-  display:flex;
-  gap:10px;
-  justify-content:space-between;
-  align-items:center
-}
-
-.brand{
-  padding:10px 14px;
-  font-weight:900;
-  font-size:18px
-}
-
-.count{
-  padding:10px 14px;
-  font-weight:900
-}
-
-.menuBtn{
-  pointer-events:auto;
-  border:0;
-  color:#fff;
-  background:#6d4bd8;
-  border-radius:12px;
-  padding:11px 14px;
-  font-weight:800;
-  cursor:pointer
-}
-
-/* INTERAÇÃO */
-#interaction{
-  position:absolute;
-  left:50%;
-  bottom:34px;
-  transform:translateX(-50%);
-  display:none;
-  gap:10px;
-  align-items:center;
-  padding:12px 16px
-}
-
-.interaction-text{
-  font-weight:900
-}
-
-.action{
-  border:0;
-  background:#fff;
-  color:#15151c;
-  border-radius:10px;
-  padding:9px 14px;
-  font-weight:900;
-  cursor:pointer
-}
-
-/* DIÁLOGO */
-#dialog{
-  position:absolute;
-  left:50%;
-  bottom:28px;
-  transform:translateX(-50%);
-  width:min(620px,calc(100vw - 24px));
-  display:none;
-  padding:16px
-}
-
-.dialog-row{
-  display:flex;
-  gap:14px;
-  align-items:flex-start
-}
-
-.dialog-img{
-  width:76px;
-  height:76px;
-  object-fit:contain
-}
-
-.dialog-name{
-  font-weight:900;
-  font-size:18px;
-  margin-bottom:6px
-}
-
-.dialog-text{
-  line-height:1.4
-}
-
-.dialog-actions{
-  margin-top:12px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap
-}
-
-.close{
-  background:#7b59df;
-  color:#fff
-}
-
-.sound{
-  background:#2d9c70;
-  color:#fff
-}
-
-/* MENU */
 #menu{
-  position:absolute;
-  right:12px;
-  top:70px;
-  width:min(370px,calc(100vw - 24px));
-  max-height:calc(100vh - 90px);
-  overflow:auto;
-  display:none;
-  padding:16px;
-  pointer-events:auto
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle,#3d2460,#181022 55%,#09070d);
 }
 
-.menu-section{
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,.1)
+.menuBox{
+    width:min(90%,520px);
+    padding:35px;
+    background:#17121f;
+    border:4px solid #a879ff;
+    border-radius:20px;
+    box-shadow:0 0 0 6px #321e4d,0 20px 60px #000;
+    text-align:center;
 }
 
-.menu-section:last-child{
-  border-bottom:0
+.logo{
+    font-size:42px;
+    font-weight:900;
+    letter-spacing:3px;
+    color:#dfc3ff;
+    text-shadow:4px 4px #492d68;
 }
 
-.menu-section h3{
-  margin:0 0 8px
+.subtitle{
+    margin-top:8px;
+    color:#bba8cb;
 }
 
-.menu-section label{
-  display:block;
-  font-size:13px;
-  margin:8px 0 4px;
-  color:#ccc
+.menuBox input[type="text"]{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    border:2px solid #76519d;
+    border-radius:10px;
+    background:#0c0910;
+    color:white;
+    outline:none;
 }
 
-.menu-section input[type=text],
-.menu-section input[type=file]{
-  width:100%;
-  padding:9px;
-  border-radius:9px;
-  border:1px solid #555;
-  background:#222;
-  color:#fff
+.fileLabel{
+    display:block;
+    margin-top:12px;
+    padding:12px;
+    border:2px dashed #76519d;
+    border-radius:10px;
+    color:#cdbce0;
+    cursor:pointer;
 }
 
-.small{
-  font-size:12px;
-  color:#aaa;
-  line-height:1.35
+#imageInput{
+    display:none;
 }
 
-/* CONTROLES */
-#controls{
-  position:absolute;
-  left:12px;
-  bottom:20px;
-  display:grid;
-  grid-template-columns:repeat(3,46px);
-  gap:5px;
-  pointer-events:auto
+#preview{
+    display:none;
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    margin:15px auto 0;
+    border:3px solid #a879ff;
+    border-radius:12px;
 }
 
-.ctrl{
-  height:46px;
-  border:0;
-  border-radius:12px;
-  background:rgba(20,20,25,.82);
-  color:#fff;
-  font-size:19px;
-  font-weight:900
+.mainButton{
+    width:100%;
+    margin-top:18px;
+    padding:15px;
+    border:0;
+    border-radius:10px;
+    background:#8958c5;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.blank{
-  visibility:hidden
+.mainButton:hover{
+    background:#a26fe0;
 }
 
-#offline{
-  position:absolute;
-  right:12px;
-  bottom:20px;
-  padding:8px 10px;
-  font-size:12px;
-  display:none
+/* =========================
+   TELAS
+========================= */
+
+.screen{
+    position:fixed;
+    inset:0;
+    display:none;
 }
 
-.online{
-  color:#80e5ae
+#lobby,
+#proof{
+    overflow:hidden;
 }
 
-.offline{
-  color:#ffb6b6
+/* =========================
+   MUNDO
+========================= */
+
+.world{
+    position:absolute;
+    width:3600px;
+    height:2600px;
+
+    /*
+       COLOQUE AQUI A IMAGEM DO CHÃO
+       QUE VOCÊ VAI MANDAR.
+    */
+    background-image:url("https://pbs.twimg.com/media/CMoFncEXAAEff0n.png");
+    background-size:900px 900px;
+    background-repeat:repeat;
 }
 
-@media(max-width:600px){
+/* =========================
+   LOBBY
+========================= */
 
-  .actor-img{
-    width:82px;
-    height:82px
-  }
+.lobbyPath{
+    position:absolute;
+    background:#9b7049;
+    border:5px solid #765032;
+    border-radius:70px;
+}
 
-  .name{
-    font-size:12px
-  }
+.pathA{
+    left:500px;
+    top:1200px;
+    width:2600px;
+    height:180px;
+}
 
-  .portal{
+.pathB{
+    left:1700px;
+    top:600px;
+    width:180px;
+    height:1400px;
+}
+
+.tree{
+    position:absolute;
+    width:145px;
+    height:145px;
+    border-radius:50%;
+    background:#2b683d;
+    border:11px solid #183d27;
+    box-shadow:inset 15px 10px #478752;
+}
+
+.tree:after{
+    content:"";
+    position:absolute;
+    width:38px;
+    height:70px;
+    background:#65462d;
+    left:42px;
+    top:115px;
+    z-index:-1;
+}
+
+.flower{
+    position:absolute;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#d08aff;
+    box-shadow:
+        14px 0 #ff79b7,
+        0 14px #87a5ff,
+        14px 14px #ffd26f;
+}
+
+.pond{
+    position:absolute;
+    width:480px;
+    height:280px;
+    border-radius:50%;
+    overflow:hidden;
+    border:8px solid #594d70;
+    background-image:url("https://i.pinimg.com/736x/c9/72/6b/c9726bab742049fb59eb7f46237ddb93.jpg");
+    background-size:cover;
+}
+
+/* =========================
+   NPC
+========================= */
+
+.npc{
+    position:absolute;
+    width:110px;
+    height:125px;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    cursor:pointer;
+    z-index:20;
+}
+
+.npc img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+}
+
+.npcName{
+    position:absolute;
+    top:-27px;
+    left:50%;
+    transform:translateX(-50%);
+    white-space:nowrap;
+    background:#17121f;
+    border:2px solid #a879ff;
+    border-radius:7px;
+    padding:5px 8px;
+    font-weight:bold;
+    font-size:13px;
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.player{
+    position:absolute;
+    width:95px;
+    height:110px;
+    transform:translate(-50%,-50%);
+    z-index:100;
+    pointer-events:none;
+    text-align:center;
+}
+
+.player img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+}
+
+.playerName{
+    position:absolute;
+    top:-25px;
+    left:50%;
+    transform:translateX(-50%);
+    white-space:nowrap;
+    background:#17121f;
+    border:2px solid #d5adff;
+    border-radius:7px;
+    padding:4px 8px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* =========================
+   PORTAL
+========================= */
+
+.portal{
+    position:absolute;
+    width:190px;
+    height:230px;
+    left:1770px;
+    top:420px;
+    transform:translate(-50%,-50%);
+    cursor:pointer;
+    z-index:15;
+    object-fit:contain;
+}
+
+.portalText{
+    position:absolute;
+    left:1770px;
+    top:535px;
+    transform:translateX(-50%);
+    background:#17121fdd;
+    border:2px solid #c18aff;
+    padding:7px 12px;
+    border-radius:8px;
+    white-space:nowrap;
+    font-weight:bold;
+}
+
+/* =========================
+   HUD
+========================= */
+
+.hud{
+    position:fixed;
+    top:15px;
+    left:15px;
+    z-index:500;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.hudBox{
+    padding:10px 14px;
+    border-radius:10px;
+    background:#17121fee;
+    border:2px solid #9b69dc;
+}
+
+/* =========================
+   DIALOGO
+========================= */
+
+.dialog{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%);
+    width:min(90%,700px);
+    padding:18px;
+    background:#17121fee;
+    border:3px solid #a879ff;
+    border-radius:15px;
+    z-index:800;
+    display:none;
+}
+
+.dialogTitle{
+    color:#d7b5ff;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.dialog button{
+    margin-top:12px;
+    padding:9px 15px;
+    border:0;
+    border-radius:8px;
+    background:#8958c5;
+    color:white;
+}
+
+/* =========================
+   EQUIPE
+========================= */
+
+#teamScreen{
+    background:
+        radial-gradient(circle at center,#38204f,#120d19 65%);
+    z-index:7000;
+    align-items:center;
+    justify-content:center;
+}
+
+.teamBox{
+    width:min(92%,700px);
+    padding:30px;
+    background:#17121f;
+    border:4px solid #a879ff;
+    border-radius:20px;
+    text-align:center;
+}
+
+.teamBox h1{
+    color:#dcbaff;
+    margin-bottom:8px;
+}
+
+.teamBox p{
+    color:#c6b9d0;
+    margin-bottom:20px;
+}
+
+.teams{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.team{
+    min-height:220px;
+    padding:18px;
+    background:#0f0b14;
+    border:3px solid #62447e;
+    border-radius:15px;
+}
+
+.team h2{
+    color:#d6a8ff;
+    margin-bottom:15px;
+}
+
+.playerChoice{
+    width:100%;
+    padding:10px;
+    margin-top:7px;
+    border:2px solid #4d3761;
+    border-radius:8px;
+    background:#21182b;
+    color:white;
+    cursor:pointer;
+}
+
+.playerChoice.selected{
+    border-color:#c38aff;
+    background:#37204c;
+}
+
+.startProof{
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+    border:0;
+    border-radius:10px;
+    background:#8958c5;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#teamStatus{
+    margin-top:15px;
+    color:#cdbde0;
+}
+
+/* =========================
+   PROVA
+========================= */
+
+#proof{
+    background:#111;
+}
+
+#proofWorld{
+    position:absolute;
+    width:3600px;
+    height:2600px;
+    background-image:url("COLOQUE_AQUI_A_IMAGEM_DO_CHAO");
+    background-size:900px 900px;
+    background-repeat:repeat;
+}
+
+.proofPath{
+    position:absolute;
+    background:#9b7049;
+    border:5px solid #765032;
+    border-radius:70px;
+}
+
+.clueNPC{
+    position:absolute;
+    width:105px;
+    height:120px;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    cursor:pointer;
+    z-index:20;
+}
+
+.clueNPC img{
+    width:85px;
+    height:85px;
+    object-fit:contain;
+}
+
+.clueName{
+    position:absolute;
+    top:-25px;
+    left:50%;
+    transform:translateX(-50%);
+    white-space:nowrap;
+    background:#17121f;
+    border:2px solid #a879ff;
+    border-radius:7px;
+    padding:4px 8px;
+    font-weight:bold;
+}
+
+#treasure{
+    position:absolute;
     width:220px;
-    height:280px
-  }
+    height:240px;
+    object-fit:contain;
+    transform:translate(-50%,-50%);
+    cursor:pointer;
+    display:none;
+    z-index:50;
+}
 
-  .brand{
-    font-size:15px
-  }
+#treasureLabel{
+    position:absolute;
+    display:none;
+    transform:translate(-50%,-50%);
+    background:#17121f;
+    border:2px solid #d5a6ff;
+    padding:7px 12px;
+    border-radius:8px;
+    white-space:nowrap;
+    font-weight:bold;
+    z-index:51;
+}
 
-  .count{
-    font-size:13px
-  }
+/* =========================
+   FINAL
+========================= */
 
-  .menuBtn{
-    padding:9px 11px
-  }
+#finish{
+    background:#09070dee;
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+}
+
+.finishBox{
+    width:min(90%,550px);
+    padding:30px;
+    background:#181120;
+    border:4px solid #d4a8ff;
+    border-radius:20px;
+    text-align:center;
+}
+
+.finishBox h1{
+    color:#e0bdff;
+    font-size:36px;
+}
+
+#pickle{
+    width:220px;
+    height:220px;
+    object-fit:contain;
+    margin:15px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+#mobile{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    z-index:900;
+    display:none;
+    grid-template-columns:55px 55px 55px;
+    grid-template-rows:55px 55px;
+    gap:5px;
+}
+
+.mobileBtn{
+    width:55px;
+    height:55px;
+    border-radius:12px;
+    border:2px solid #b98bea;
+    background:#21152ddd;
+    color:white;
+    font-size:22px;
+}
+
+.up{grid-column:2}
+.left{grid-column:1;grid-row:2}
+.down{grid-column:2;grid-row:2}
+.right{grid-column:3;grid-row:2}
+
+@media(max-width:700px){
+    #mobile{
+        display:grid;
+    }
+
+    .teams{
+        grid-template-columns:1fr;
+    }
+
+    .logo{
+        font-size:30px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="game">
+<!-- =========================
+     MENU
+========================= -->
 
-  <div id="camera">
+<section id="menu">
 
-    <div id="world">
+<div class="menuBox">
 
-      <!-- ÁGUA -->
-      <div class="water w1"></div>
-      <div class="water w2"></div>
-      <div class="water w3"></div>
+    <div class="logo">THE ATTORNEYS</div>
 
-      <!-- CAMINHOS -->
-      <div class="path p1"></div>
-      <div class="path p2"></div>
-
-      <!-- PORTAL -->
-      <div class="portal closed" id="portal">
-        <img
-          src="https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png"
-          alt="Portal para a prova"
-        >
-      </div>
-
-      <!-- ÁRVORES -->
-      <div class="tree" style="left:920px;top:250px"></div>
-      <div class="tree" style="left:1110px;top:600px"></div>
-      <div class="tree" style="left:2850px;top:330px"></div>
-      <div class="tree" style="left:3070px;top:1450px"></div>
-      <div class="tree" style="left:420px;top:1880px"></div>
-      <div class="tree" style="left:2520px;top:2160px"></div>
-
-      <!-- PEDRAS -->
-      <div class="rock" style="left:1060px;top:1030px"></div>
-      <div class="rock" style="left:2360px;top:600px"></div>
-      <div class="rock" style="left:2780px;top:1840px"></div>
-
-      <!-- FLORES -->
-      <div class="flower" style="left:780px;top:830px"></div>
-      <div class="flower" style="left:860px;top:890px"></div>
-      <div class="flower" style="left:1220px;top:1390px"></div>
-      <div class="flower" style="left:1310px;top:1460px"></div>
-      <div class="flower" style="left:2180px;top:1430px"></div>
-      <div class="flower" style="left:2260px;top:1510px"></div>
-      <div class="flower" style="left:2980px;top:920px"></div>
-      <div class="flower" style="left:3060px;top:990px"></div>
-
-      <!-- BURGUINHO -->
-      <div
-        class="npc"
-        id="npc-burguinho"
-        data-id="burguinho"
-        data-x="680"
-        data-y="930"
-      >
-        <img
-          class="actor-img"
-          src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png"
-          alt="Burguinho"
-        >
-        <div class="name">Burguinho</div>
-      </div>
-
-      <!-- YUME -->
-      <div
-        class="npc"
-        id="npc-yume"
-        data-id="yume"
-        data-x="1180"
-        data-y="820"
-      >
-        <img
-          class="actor-img"
-          src="https://static.wikia.nocookie.net/melanie-martinez/images/f/f5/Circle_-_in_-_stop_-_motion.webp/revision/latest/scale-to-width-down/250?cb=20260603173801"
-          alt="Yume"
-        >
-        <div class="name">Yume</div>
-      </div>
-
-      <!-- MELANIE -->
-      <div
-        class="npc"
-        id="npc-melanie"
-        data-id="melanie"
-        data-x="2250"
-        data-y="840"
-      >
-        <img
-          class="actor-img"
-          src="https://i.pinimg.com/736x/a1/26/60/a12660f3c13e52558b47d0fc39963556.jpg"
-          alt="Melanie Martinez"
-        >
-        <div class="name">Melanie</div>
-      </div>
-
-      <!-- RICK -->
-      <div
-        class="npc"
-        id="npc-rick"
-        data-id="rick"
-        data-x="2660"
-        data-y="940"
-      >
-        <img
-          class="actor-img"
-          src="https://pngimg.com/uploads/rick_morty/rick_morty_PNG8.png"
-          alt="Rick"
-        >
-        <div class="name">Rick</div>
-      </div>
-
-      <!-- MORTY -->
-      <div
-        class="npc"
-        id="npc-morty"
-        data-id="morty"
-        data-x="2810"
-        data-y="1080"
-      >
-        <img
-          class="actor-img"
-          src="https://www.pngall.com/wp-content/uploads/15/Morty-PNG-Clipart.png"
-          alt="Morty"
-        >
-        <div class="name">Morty</div>
-      </div>
-
-      <!-- OLIVER -->
-      <div
-        class="npc"
-        id="npc-oliver"
-        data-id="oliver"
-        data-x="820"
-        data-y="1660"
-      >
-        <img
-          class="actor-img"
-          src="https://i.pinimg.com/736x/c7/f3/7f/c7f37f8a6488b8f5fd78eb124e1d5b7d.jpg"
-          alt="Oliver Tree"
-        >
-        <div class="name">Oliver Tree</div>
-      </div>
-
-      <!-- ROBÔ -->
-      <div
-        class="npc"
-        id="npc-robot"
-        data-id="robot"
-        data-x="2030"
-        data-y="1700"
-      >
-        <img
-          class="actor-img"
-          src="https://pngimg.com/uploads/robot/robot_PNG96.png"
-          alt="Robô"
-        >
-        <div class="name">Robô</div>
-      </div>
-
-      <!-- JOTARO -->
-      <div
-        class="npc"
-        id="npc-jotaro"
-        data-id="jotaro"
-        data-x="2860"
-        data-y="1950"
-      >
-        <img
-          class="actor-img"
-          src="https://www.kindpng.com/picc/m/98-985032_jotaro-kujo-png-transparent-png.png"
-          alt="Jotaro"
-        >
-        <div class="name">Jotaro</div>
-      </div>
-
-      <!-- PLAYER -->
-      <div
-        id="player"
-        style="left:1750px;top:1250px"
-      >
-        <div class="player-ring"></div>
-
-        <img
-          id="playerImg"
-          class="actor-img"
-          src="https://png.pngtree.com/png-vector/20240723/ourmid/pngtree-cute-cat-png-image_12971680.png"
-          alt="Jogador"
-        >
-
-        <div class="name" id="playerName">
-          Jogador
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- HUD -->
-  <div id="hud">
-
-    <div id="topbar">
-
-      <div class="panel brand">
-        ⚖️ THE ATTORNEYS
-      </div>
-
-      <div class="panel count" id="count">
-        Portal abre em 5s
-      </div>
-
-      <button class="menuBtn" id="menuBtn">
-        ⚙️ Menu
-      </button>
-
+    <div class="subtitle">
+        Uma nova prova está esperando...
     </div>
 
-    <!-- INTERAÇÃO -->
-    <div id="interaction" class="panel">
-
-      <span
-        class="interaction-text"
-        id="interactionText"
-      >
-        INTERAGIR
-      </span>
-
-      <button
-        class="action"
-        id="interactBtn"
-      >
-        E / TOCAR
-      </button>
-
-    </div>
-
-    <!-- DIÁLOGO -->
-    <div id="dialog" class="panel">
-
-      <div class="dialog-row">
-
-        <img
-          id="dialogImg"
-          class="dialog-img"
-          alt=""
-        >
-
-        <div>
-
-          <div
-            id="dialogName"
-            class="dialog-name"
-          ></div>
-
-          <div
-            id="dialogText"
-            class="dialog-text"
-          ></div>
-
-          <div class="dialog-actions">
-
-            <button
-              class="action sound"
-              id="soundBtn"
-            >
-              🔊 Repetir áudio
-            </button>
-
-            <button
-              class="action close"
-              id="closeBtn"
-            >
-              Fechar
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- MENU -->
-    <div id="menu" class="panel">
-
-      <div class="menu-section">
-
-        <h3>🎮 Jogador</h3>
-
-        <label>Nome</label>
-
-        <input
-          id="nameInput"
-          type="text"
-          maxlength="24"
-          placeholder="Seu nome"
-        >
-
-        <label>Imagem do jogador</label>
-
-        <input
-          id="playerFile"
-          type="file"
-          accept="image/*"
-        >
-
-        <div class="small">
-          A imagem escolhida é o próprio personagem que anda pelo mapa.
-        </div>
-
-      </div>
-
-      <div class="menu-section">
-
-        <h3>🔊 Áudios dos NPCs</h3>
-
-        <label>Melanie</label>
-
-        <input
-          id="melanieAudio"
-          type="file"
-          accept="audio/*"
-        >
-
-        <label>Robô</label>
-
-        <input
-          id="robotAudio"
-          type="file"
-          accept="audio/*"
-        >
-
-        <div class="small">
-          Os áudios da Melanie e do Robô já estão embutidos neste HTML.
-          Você pode substituir pelos seus próprios arquivos.
-        </div>
-
-      </div>
-
-      <div class="menu-section">
-
-        <h3>🧪 Teste</h3>
-
-        <button
-          class="action"
-          id="soundTest"
-        >
-          🔊 Testar som da Melanie
-        </button>
-
-        <div
-          class="small"
-          id="soundStatus"
-        >
-          Clique em um NPC e depois em INTERAGIR.
-        </div>
-
-      </div>
-
-      <div class="menu-section">
-
-        <div class="small">
-          O lobby é a área de espera.
-          Quando o portal abrir, entre nele para começar a prova.
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- CONTROLES MOBILE -->
-    <div id="controls">
-
-      <button class="ctrl blank"></button>
-
-      <button
-        class="ctrl"
-        data-key="up"
-      >
-        ▲
-      </button>
-
-      <button class="ctrl blank"></button>
-
-      <button
-        class="ctrl"
-        data-key="left"
-      >
-        ◀
-      </button>
-
-      <button
-        class="ctrl"
-        data-key="down"
-      >
-        ▼
-      </button>
-
-      <button
-        class="ctrl"
-        data-key="right"
-      >
-        ▶
-      </button>
-
-    </div>
-
-    <div
-      id="offline"
-      class="panel offline"
+    <input
+        id="nameInput"
+        type="text"
+        maxlength="18"
+        placeholder="Digite seu nome"
     >
-      Offline — movimento local ativo
+
+    <label class="fileLabel" for="imageInput">
+        🖼️ Escolher imagem do personagem
+    </label>
+
+    <input
+        id="imageInput"
+        type="file"
+        accept="image/*"
+    >
+
+    <img id="preview">
+
+    <button class="mainButton" id="enterLobby">
+        ENTRAR NO LOBBY
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     LOBBY
+========================= -->
+
+<section id="lobby" class="screen">
+
+    <div id="lobbyWorld" class="world">
+
+        <div class="lobbyPath pathA"></div>
+        <div class="lobbyPath pathB"></div>
+
+        <div class="pond" style="left:400px;top:400px"></div>
+
+        <div class="tree" style="left:150px;top:150px"></div>
+        <div class="tree" style="left:600px;top:500px"></div>
+        <div class="tree" style="left:3100px;top:200px"></div>
+        <div class="tree" style="left:3200px;top:1900px"></div>
+        <div class="tree" style="left:250px;top:2100px"></div>
+        <div class="tree" style="left:2800px;top:2200px"></div>
+
+        <div class="flower" style="left:800px;top:900px"></div>
+        <div class="flower" style="left:1200px;top:1700px"></div>
+        <div class="flower" style="left:2400px;top:700px"></div>
+        <div class="flower" style="left:2900px;top:1700px"></div>
+
+        <!-- NPCS DO LOBBY -->
+
+        <div class="npc" style="left:800px;top:1050px">
+            <div class="npcName">Burguinho</div>
+            <img src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-duck-animal-png-image_14602800.png">
+        </div>
+
+        <div class="npc" style="left:1100px;top:1300px">
+            <div class="npcName">Yume</div>
+            <img src="https://static.wikia.nocookie.net/melanie-martinez/images/f/f5/Circle_-_in_-_stop_-_motion.webp/revision/latest/scale-to-width-down/250?cb=20260603173801">
+        </div>
+
+        <div class="npc" style="left:1400px;top:1050px">
+            <div class="npcName">Melanie</div>
+            <img src="https://i.pinimg.com/736x/a1/26/60/a12660f3c13e52558b47d0fc39963556.jpg">
+        </div>
+
+        <div class="npc" style="left:2000px;top:1050px">
+            <div class="npcName">Oliver</div>
+            <img src="https://i.pinimg.com/736x/c7/f3/7f/c7f37f8a6488b8f5fd78eb124e1d5b7d.jpg">
+        </div>
+
+        <div class="npc" style="left:2350px;top:1350px">
+            <div class="npcName">Rick</div>
+            <img src="https://pngimg.com/uploads/rick_morty/rick_morty_PNG8.png">
+        </div>
+
+        <div class="npc" style="left:2700px;top:1000px">
+            <div class="npcName">Morty</div>
+            <img src="https://pngimg.com/uploads/rick_morty/morty_PNG18.png">
+        </div>
+
+        <div class="npc" style="left:3000px;top:1400px">
+            <div class="npcName">Jotaro</div>
+            <img src="https://static.wikia.nocookie.net/shonenheroes/images/4/4b/Jotaro_Kujo.png/revision/latest?cb=20231223053813">
+        </div>
+
+        <!-- PORTAL -->
+
+        <img
+            class="portal"
+            id="portal"
+            src="https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png"
+            alt="Portal"
+        >
+
+        <div class="portalText">
+            🌀 ENTRAR NA PRÓXIMA PROVA
+        </div>
+
+        <!-- PLAYER -->
+
+        <div class="player" id="lobbyPlayer">
+            <div class="playerName" id="lobbyPlayerName">
+                Jogador
+            </div>
+            <img id="lobbyPlayerImage">
+        </div>
+
     </div>
 
-  </div>
+    <div class="hud">
+        <div class="hudBox">🏝️ LOBBY</div>
+        <div class="hudBox">👥 Jogadores: <span id="playerCount">1</span></div>
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ESCOLHA DE EQUIPE
+========================= -->
+
+<section id="teamScreen" class="screen">
+
+<div class="teamBox">
+
+    <h1>👥 ESCOLHA SUA EQUIPE</h1>
+
+    <p>
+        Escolha com quem você quer ficar na Prova 01.
+    </p>
+
+    <div class="teams">
+
+        <div class="team">
+
+            <h2>🟣 EQUIPE A</h2>
+
+            <div id="teamA"></div>
+
+        </div>
+
+        <div class="team">
+
+            <h2>🔵 EQUIPE B</h2>
+
+            <div id="teamB"></div>
+
+        </div>
+
+    </div>
+
+    <div id="teamStatus">
+        Você ainda não escolheu uma equipe.
+    </div>
+
+    <button class="startProof" id="startProof">
+        COMEÇAR PROVA 01
+    </button>
+
 </div>
+
+</section>
+
+
+<!-- =========================
+     PROVA 01
+========================= -->
+
+<section id="proof" class="screen">
+
+    <div id="proofWorld">
+
+        <div class="proofPath" style="left:450px;top:1200px;width:2700px;height:170px"></div>
+
+        <!-- PUDIM -->
+
+        <div class="clueNPC" data-clue="pudim" style="left:700px;top:1100px">
+
+            <div class="clueName">Pudim</div>
+
+            <img src="https://via.placeholder.com/90?text=PUDIM">
+
+        </div>
+
+        <!-- ASRIEL -->
+
+        <div class="clueNPC" data-clue="asriel" style="left:1050px;top:1200px">
+
+            <div class="clueName">Asriel</div>
+
+            <img src="https://via.placeholder.com/90?text=WAFFLE">
+
+        </div>
+
+        <!-- TELEFONE -->
+
+        <div class="clueNPC" data-clue="telefone" style="left:1450px;top:750px">
+
+            <div class="clueName">Telefone</div>
+
+            <img src="https://via.placeholder.com/90?text=PHONE">
+
+        </div>
+
+        <!-- SKIBID -->
+
+        <div class="clueNPC" data-clue="skibid" style="left:1900px;top:1250px">
+
+            <div class="clueName">Skibid</div>
+
+            <img src="https://via.placeholder.com/90?text=TOILET">
+
+        </div>
+
+        <!-- FLOR -->
+
+        <div class="clueNPC" data-clue="flor" style="left:2250px;top:1700px">
+
+            <div class="clueName">Flor</div>
+
+            <img src="https://png.pngtree.com/png-clipart/20231024/ourmid/pngtree-flower-pixel-morada-png-image_10066281.png">
+
+        </div>
+
+        <!-- HEDER -->
+
+        <div class="clueNPC" data-clue="heder" style="left:2700px;top:1250px">
+
+            <div class="clueName">Heder</div>
+
+            <img src="https://via.placeholder.com/90?text=HEDER">
+
+        </div>
+
+        <!-- ABACAXI -->
+
+        <div class="clueNPC" data-clue="abacaxi" style="left:3000px;top:1900px">
+
+            <div class="clueName">Abacaxi</div>
+
+            <img src="https://via.placeholder.com/90?text=PINEAPPLE">
+
+        </div>
+
+        <!-- PICKLE RICK -->
+
+        <img
+            id="treasure"
+            src="COLOQUE_AQUI_A_IMAGEM_DO_PICKLE_RICK"
+            alt="Pickle Rick"
+        >
+
+        <div id="treasureLabel">
+            🥒 PICKLE RICK
+        </div>
+
+    </div>
+
+    <div class="hud">
+
+        <div class="hudBox">🗺️ PROVA 01</div>
+
+        <div class="hudBox">
+            Pistas: <span id="clueCount">0/7</span>
+        </div>
+
+        <div class="hudBox">
+            Equipe: <span id="currentTeam">—</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DIALOGO
+========================= -->
+
+<div class="dialog" id="dialog">
+
+    <div class="dialogTitle" id="dialogTitle">
+        Personagem
+    </div>
+
+    <div id="dialogText"></div>
+
+    <button id="closeDialog">
+        Fechar
+    </button>
+
+</div>
+
+
+<!-- =========================
+     CONTROLES
+========================= -->
+
+<div id="mobile">
+
+    <button class="mobileBtn up" data-key="w">▲</button>
+    <button class="mobileBtn left" data-key="a">◀</button>
+    <button class="mobileBtn down" data-key="s">▼</button>
+    <button class="mobileBtn right" data-key="d">▶</button>
+
+</div>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section id="finish" class="screen">
+
+<div class="finishBox">
+
+    <h1>🎉 TESOURO ENCONTRADO!</h1>
+
+    <p style="margin-top:10px">
+        Sua equipe encontrou o tesouro!
+    </p>
+
+    <img
+        id="pickle"
+        src="COLOQUE_AQUI_A_IMAGEM_DO_PICKLE_RICK"
+        alt="Pickle Rick"
+    >
+
+    <p>
+        🥒 PICKLE RICK
+    </p>
+
+</div>
+
+</section>
+
 
 <script>
 
-/* =========================================================
-   REFERÊNCIAS
-========================================================= */
+/* =========================
+   ESTADO
+========================= */
 
-const world =
-  document.getElementById('world');
+const menu = document.getElementById("menu");
+const lobby = document.getElementById("lobby");
+const teamScreen = document.getElementById("teamScreen");
+const proof = document.getElementById("proof");
+const finish = document.getElementById("finish");
 
-const camera =
-  document.getElementById('camera');
+const nameInput = document.getElementById("nameInput");
+const imageInput = document.getElementById("imageInput");
+const preview = document.getElementById("preview");
 
-const game =
-  document.getElementById('game');
+const lobbyPlayer = document.getElementById("lobbyPlayer");
+const lobbyPlayerImage = document.getElementById("lobbyPlayerImage");
+const lobbyPlayerName = document.getElementById("lobbyPlayerName");
 
-const player =
-  document.getElementById('player');
+const portal = document.getElementById("portal");
 
-const playerImg =
-  document.getElementById('playerImg');
+const teamA = document.getElementById("teamA");
+const teamB = document.getElementById("teamB");
+const teamStatus = document.getElementById("teamStatus");
 
-const playerName =
-  document.getElementById('playerName');
+const currentTeam = document.getElementById("currentTeam");
+const clueCount = document.getElementById("clueCount");
 
-const dialog =
-  document.getElementById('dialog');
+const dialog = document.getElementById("dialog");
+const dialogTitle = document.getElementById("dialogTitle");
+const dialogText = document.getElementById("dialogText");
 
-const interaction =
-  document.getElementById('interaction');
+let playerName = "";
+let playerImage = "";
 
-const interactionText =
-  document.getElementById('interactionText');
+let playerX = 900;
+let playerY = 1300;
 
-const dialogImg =
-  document.getElementById('dialogImg');
+let keys = new Set();
 
-const dialogName =
-  document.getElementById('dialogName');
+let selectedTeam = null;
 
-const dialogText =
-  document.getElementById('dialogText');
+let cluesFound = new Set();
 
-const count =
-  document.getElementById('count');
+let proofX = 900;
+let proofY = 1300;
 
-const portal =
-  document.getElementById('portal');
-
-const menu =
-  document.getElementById('menu');
-
-const soundStatus =
-  document.getElementById('soundStatus');
+const speed = 7;
 
 
-/* =========================================================
-   PLAYER
-========================================================= */
+/* =========================
+   IMAGEM
+========================= */
 
-let px = 1750;
-let py = 1250;
+imageInput.addEventListener("change",function(){
 
-let speed = 6;
+    const file = imageInput.files[0];
 
-let nearNpc = null;
+    if(!file) return;
 
-let currentNpc = null;
+    const reader = new FileReader();
 
-let portalOpen = false;
+    reader.onload = function(e){
 
-let dialogOpen = false;
+        playerImage = e.target.result;
 
-
-/* =========================================================
-   TECLAS
-========================================================= */
-
-const keys = {
-  up:false,
-  down:false,
-  left:false,
-  right:false
-};
-
-
-/* =========================================================
-   DADOS DOS NPCS
-========================================================= */
-
-const npcData = {
-
-  burguinho:{
-    name:'Burguinho',
-    text:'Quack!'
-  },
-
-  yume:{
-    name:'Yume',
-    text:'Explore o lobby enquanto espera a próxima prova.:33'
-  },
-
-  melanie:{
-    name:'Melanie',
-    text: 'Abuelita open the door'
-  },
-
-  rick:{
-    name:'Rick',
-    text:'Para de ser um idiota, Morty! A gente tá onde eu quiser que a gente esteja!'
-  },
-
-  morty:{
-    name:'Morty',
-    text:'P-porra, Rick! Onde é que a gente tá, cara?!'
-  },
-
-  oliver:{
-    name:'Oliver Tree',
-    text:'Oninoninon'
-  },
-
-  robot:{
-    name:'Robô',
-    text:'Sistema online. Próxima prova: consulte o calendário.'
-  },
-
-  jotaro:{
-    name:'Jotaro',
-    text:'Yare yare daze.'
-  }
-
-};
-
-
-/* =========================================================
-   NPCS
-========================================================= */
-
-const npcs =
-  [...document.querySelectorAll('.npc')].map(el => {
-
-    const id =
-      el.dataset.id;
-
-    return {
-
-      el,
-
-      id,
-
-      x:+el.dataset.x,
-
-      y:+el.dataset.y,
-
-      homeX:+el.dataset.x,
-
-      homeY:+el.dataset.y,
-
-      dx:0,
-
-      dy:0,
-
-      next:0,
-
-      speed:1 + Math.random() * .7
+        preview.src = playerImage;
+        preview.style.display = "block";
 
     };
 
-  });
-
-
-/* =========================================================
-   ÁUDIOS EMBUTIDOS
-========================================================= */
-
-/*
-  IMPORTANTE:
-
-  Os dois MP3 estão embutidos diretamente no HTML.
-
-  Melanie:
-  abuelita-open-the-door.mp3
-
-  Robô:
-  aqua-teen-eft-fant_8.mp3
-*/
-
-
-const MELANIE_AUDIO =
-'DATA_AUDIO_MELANIE';
-
-const ROBOT_AUDIO =
-'DATA_AUDIO_ROBOT';
-
-
-const audios = {
-
-  melanie:
-    new Audio(MELANIE_AUDIO),
-
-  robot:
-    new Audio(ROBOT_AUDIO)
-
-};
-
-
-Object.values(audios).forEach(audio => {
-
-  audio.preload = 'auto';
-
-  audio.volume = 1;
+    reader.readAsDataURL(file);
 
 });
 
 
-/* =========================================================
-   IMAGEM DO PLAYER
-========================================================= */
+/* =========================
+   ENTRAR NO LOBBY
+========================= */
 
-function setPlayerImage(src){
+document.getElementById("enterLobby").addEventListener("click",function(){
 
-  playerImg.src = src;
+    playerName = nameInput.value.trim();
 
-}
+    if(!playerName){
+
+        alert("Digite seu nome primeiro!");
+
+        return;
+    }
+
+    if(playerImage){
+
+        lobbyPlayerImage.src = playerImage;
+
+    }else{
+
+        lobbyPlayerImage.src =
+            "https://via.placeholder.com/90?text=YOU";
+
+    }
+
+    lobbyPlayerName.textContent = playerName;
+
+    menu.style.display = "none";
+    lobby.style.display = "block";
+
+    updateLobby();
+
+});
 
 
-/* =========================================================
-   NOME DO PLAYER
-========================================================= */
+/* =========================
+   MOVIMENTO
+========================= */
 
-document
-  .getElementById('nameInput')
-  .addEventListener('input', e => {
+document.addEventListener("keydown",function(e){
 
-    const value =
-      e.target.value.trim();
+    const key = e.key.toLowerCase();
 
-    playerName.textContent =
-      value || 'Jogador';
+    if([
+        "w","a","s","d",
+        "arrowup","arrowdown",
+        "arrowleft","arrowright"
+    ].includes(key)){
 
-  });
+        keys.add(key);
+        e.preventDefault();
+
+    }
+
+});
 
 
-/* =========================================================
-   UPLOAD DA IMAGEM
-========================================================= */
+document.addEventListener("keyup",function(e){
 
-document
-  .getElementById('playerFile')
-  .addEventListener('change', e => {
+    keys.delete(e.key.toLowerCase());
 
-    const file =
-      e.target.files[0];
+});
 
-    if(!file) return;
 
-    setPlayerImage(
-      URL.createObjectURL(file)
+/* =========================
+   LOOP LOBBY
+========================= */
+
+function updateLobby(){
+
+    if(lobby.style.display !== "block") return;
+
+    let dx = 0;
+    let dy = 0;
+
+    if(keys.has("w") || keys.has("arrowup")) dy--;
+    if(keys.has("s") || keys.has("arrowdown")) dy++;
+    if(keys.has("a") || keys.has("arrowleft")) dx--;
+    if(keys.has("d") || keys.has("arrowright")) dx++;
+
+    if(dx || dy){
+
+        const length = Math.hypot(dx,dy);
+
+        playerX += dx / length * speed;
+        playerY += dy / length * speed;
+
+    }
+
+    playerX = Math.max(50,Math.min(3550,playerX));
+    playerY = Math.max(50,Math.min(2550,playerY));
+
+    lobbyPlayer.style.left = playerX + "px";
+    lobbyPlayer.style.top = playerY + "px";
+
+    camera(
+        document.getElementById("lobbyWorld"),
+        playerX,
+        playerY
     );
 
-  });
-
-
-/* =========================================================
-   SUBSTITUIR ÁUDIO DA MELANIE
-========================================================= */
-
-document
-  .getElementById('melanieAudio')
-  .addEventListener('change', e => {
-
-    const file =
-      e.target.files[0];
-
-    if(!file) return;
-
-    audios.melanie.src =
-      URL.createObjectURL(file);
-
-    audios.melanie.load();
-
-    soundStatus.textContent =
-      'Áudio da Melanie substituído!';
-
-  });
-
-
-/* =========================================================
-   SUBSTITUIR ÁUDIO DO ROBÔ
-========================================================= */
-
-document
-  .getElementById('robotAudio')
-  .addEventListener('change', e => {
-
-    const file =
-      e.target.files[0];
-
-    if(!file) return;
-
-    audios.robot.src =
-      URL.createObjectURL(file);
-
-    audios.robot.load();
-
-    soundStatus.textContent =
-      'Áudio do Robô substituído!';
-
-  });
-
-
-/* =========================================================
-   MENU
-========================================================= */
-
-document
-  .getElementById('menuBtn')
-  .onclick = () => {
-
-    menu.style.display =
-      menu.style.display === 'block'
-        ? 'none'
-        : 'block';
-
-  };
-
-
-/* =========================================================
-   DISTÂNCIA
-========================================================= */
-
-function dist(a,b,c,d){
-
-  return Math.hypot(
-    a-c,
-    b-d
-  );
+    requestAnimationFrame(updateLobby);
 
 }
 
 
-/* =========================================================
-   MOVIMENTO DOS NPCS
-========================================================= */
+/* =========================
+   CAMERA
+========================= */
 
-function chooseNpc(n){
+function camera(world,x,y){
 
-  n.next =
-    performance.now() +
-    800 +
-    Math.random() * 1800;
+    const maxX = 3600 - window.innerWidth;
+    const maxY = 2600 - window.innerHeight;
 
-  const ang =
-    Math.random() *
-    Math.PI *
-    2;
+    let cx = x - window.innerWidth / 2;
+    let cy = y - window.innerHeight / 2;
 
-  n.dx =
-    Math.cos(ang);
+    cx = Math.max(0,Math.min(maxX,cx));
+    cy = Math.max(0,Math.min(maxY,cy));
 
-  n.dy =
-    Math.sin(ang);
+    world.style.transform =
+        `translate(${-cx}px,${-cy}px)`;
 
 }
 
 
-function updateNpcs(t){
-
-  for(const n of npcs){
-
-    if(t > n.next){
-
-      chooseNpc(n);
-
-    }
-
-    const home =
-      dist(
-        n.x,
-        n.y,
-        n.homeX,
-        n.homeY
-      );
-
-    if(home > 150){
-
-      const ang =
-        Math.atan2(
-          n.homeY - n.y,
-          n.homeX - n.x
-        );
-
-      n.dx =
-        n.dx * .7 +
-        Math.cos(ang) * .3;
-
-      n.dy =
-        n.dy * .7 +
-        Math.sin(ang) * .3;
-
-    }
-
-    const len =
-      Math.hypot(
-        n.dx,
-        n.dy
-      ) || 1;
-
-    n.x +=
-      n.dx / len *
-      n.speed;
-
-    n.y +=
-      n.dy / len *
-      n.speed;
-
-    n.x =
-      Math.max(
-        80,
-        Math.min(
-          3520,
-          n.x
-        )
-      );
-
-    n.y =
-      Math.max(
-        80,
-        Math.min(
-          2520,
-          n.y
-        )
-      );
-
-    n.el.style.left =
-      n.x + 'px';
-
-    n.el.style.top =
-      n.y + 'px';
-
-    n.el.classList.toggle(
-      'moving',
-      Math.abs(n.dx) +
-      Math.abs(n.dy) > .1
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   NPC MAIS PRÓXIMO
-========================================================= */
-
-function updateNear(){
-
-  let best = null;
-
-  let bestD = Infinity;
-
-  for(const n of npcs){
-
-    const d =
-      dist(
-        px,
-        py,
-        n.x,
-        n.y
-      );
-
-    if(d < bestD){
-
-      bestD = d;
-
-      best = n;
-
-    }
-
-  }
-
-  nearNpc =
-    bestD < 260
-      ? best
-      : null;
-
-  if(
-    !dialogOpen &&
-    nearNpc
-  ){
-
-    interaction.style.display =
-      'flex';
-
-    interactionText.textContent =
-      'INTERAGIR • ' +
-      npcData[nearNpc.id].name;
-
-  }
-
-  else if(!dialogOpen){
-
-    interaction.style.display =
-      'none';
-
-  }
-
-}
-
-
-/* =========================================================
-   TOCAR ÁUDIO
-========================================================= */
-
-function playNpcAudio(id){
-
-  const audio =
-    audios[id];
-
-  if(!audio){
-
-    soundStatus.textContent =
-      'Este NPC ainda não tem áudio.';
-
-    return;
-
-  }
-
-  Object.values(audios).forEach(other => {
-
-    if(other !== audio){
-
-      other.pause();
-
-      other.currentTime = 0;
-
-    }
-
-  });
-
-  audio.currentTime = 0;
-
-  const promise =
-    audio.play();
-
-  if(promise){
-
-    promise
-      .then(() => {
-
-        soundStatus.textContent =
-          '🔊 Áudio tocando: ' +
-          npcData[id].name;
-
-      })
-      .catch(error => {
-
-        console.warn(
-          'Áudio bloqueado:',
-          error
-        );
-
-        soundStatus.textContent =
-          'Clique novamente em INTERAGIR para tocar o áudio.';
-
-      });
-
-  }
-
-}
-
-
-/* =========================================================
-   ABRIR NPC
-========================================================= */
-
-function openNpc(n){
-
-  currentNpc = n;
-
-  dialogOpen = true;
-
-  interaction.style.display =
-    'none';
-
-  const data =
-    npcData[n.id];
-
-  dialogName.textContent =
-    data.name;
-
-  dialogText.textContent =
-    data.text;
-
-  dialogImg.src =
-    n.el.querySelector('img').src;
-
-  dialog.style.display =
-    'block';
-
-  /*
-    O áudio é iniciado exatamente
-    durante a interação do jogador.
-  */
-
-  playNpcAudio(n.id);
-
-}
-
-
-/* =========================================================
-   BOTÃO INTERAGIR
-========================================================= */
-
-document
-  .getElementById('interactBtn')
-  .onclick = () => {
-
-    if(nearNpc){
-
-      openNpc(nearNpc);
-
-    }
-
-  };
-
-
-/* =========================================================
-   FECHAR DIÁLOGO
-========================================================= */
-
-document
-  .getElementById('closeBtn')
-  .onclick = () => {
-
-    dialog.style.display =
-      'none';
-
-    dialogOpen =
-      false;
-
-    currentNpc =
-      null;
-
-    updateNear();
-
-  };
-
-
-/* =========================================================
-   REPETIR ÁUDIO
-========================================================= */
-
-document
-  .getElementById('soundBtn')
-  .onclick = () => {
-
-    if(currentNpc){
-
-      playNpcAudio(
-        currentNpc.id
-      );
-
-    }
-
-  };
-
-
-/* =========================================================
-   TESTE DE ÁUDIO
-========================================================= */
-
-document
-  .getElementById('soundTest')
-  .onclick = () => {
-
-    playNpcAudio('melanie');
-
-  };
-
-
-/* =========================================================
-   CLIQUE DIRETO NOS NPCS
-========================================================= */
-
-for(const n of npcs){
-
-  n.el.addEventListener(
-    'click',
-    () => openNpc(n)
-  );
-
-}
-
-
-/* =========================================================
+/* =========================
    PORTAL
-========================================================= */
+========================= */
 
-function tryPortal(){
+portal.addEventListener("click",function(){
 
-  if(!portalOpen){
+    const px = playerX;
+    const py = playerY;
 
-    dialogName.textContent =
-      'Portal';
+    const portalX = 1770;
+    const portalY = 420;
 
-    dialogText.textContent =
-      'O portal ainda está fechado. Aguarde a próxima prova.';
+    const distance =
+        Math.hypot(px-portalX,py-portalY);
 
-    dialogImg.src =
-      'https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png';
+    if(distance > 250){
 
-    dialog.style.display =
-      'block';
-
-    dialogOpen =
-      true;
-
-    return;
-
-  }
-
-
-  if(
-    dist(
-      px,
-      py,
-      1800,
-      980
-    ) < 500
-  ){
-
-    dialogName.textContent =
-      'Portal';
-
-    dialogText.textContent =
-      'A prova está pronta! Clique em ENTRAR para atravessar.';
-
-    dialogImg.src =
-      'https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png';
-
-
-    const old =
-      document.getElementById(
-        'portalEnter'
-      );
-
-
-    if(!old){
-
-      const button =
-        document.createElement(
-          'button'
+        showDialog(
+            "Portal",
+            "Chegue mais perto do portal para entrar na prova!"
         );
 
-      button.id =
-        'portalEnter';
-
-      button.className =
-        'action close';
-
-      button.textContent =
-        'ENTRAR NA PROVA';
-
-
-      button.onclick = () => {
-
-        dialogText.textContent =
-          'A prova seria carregada aqui. O lobby continua sendo o mapa de espera.';
-
-        button.remove();
-
-      };
-
-
-      document
-        .querySelector('.dialog-actions')
-        .prepend(button);
+        return;
 
     }
 
+    openTeamScreen();
 
-    dialog.style.display =
-      'block';
+});
 
-    dialogOpen =
-      true;
 
-  }
+/* =========================
+   E TAMBÉM ENTER
+========================= */
 
-  else{
+document.addEventListener("keydown",function(e){
 
-    dialogName.textContent =
-      'Portal';
+    if(e.key.toLowerCase() !== "e") return;
 
-    dialogText.textContent =
-      'Chegue mais perto do portal para entrar.';
+    if(lobby.style.display !== "block") return;
 
-    dialogImg.src =
-      'https://www.pngall.com/wp-content/uploads/3/Portal-PNG.png';
+    const distance =
+        Math.hypot(
+            playerX-1770,
+            playerY-420
+        );
 
-    dialog.style.display =
-      'block';
+    if(distance <= 250){
 
-    dialogOpen =
-      true;
+        openTeamScreen();
 
-  }
+    }
+
+});
+
+
+/* =========================
+   TELA DE EQUIPE
+========================= */
+
+function openTeamScreen(){
+
+    lobby.style.display = "none";
+
+    teamScreen.style.display = "flex";
+
+    createTeamPlayers();
 
 }
 
 
-portal.addEventListener(
-  'click',
-  tryPortal
-);
+/* =========================
+   JOGADORES
+========================= */
+
+/*
+   Por enquanto há jogadores de exemplo
+   para a interface funcionar.
+
+   Quando ligarmos o WebSocket,
+   esta lista será substituída pelos
+   jogadores reais conectados.
+*/
+
+const players = [
+    {id:"me",name:"VOCÊ"},
+    {id:"p2",name:"Jogador 2"},
+    {id:"p3",name:"Jogador 3"},
+    {id:"p4",name:"Jogador 4"},
+    {id:"p5",name:"Jogador 5"}
+];
+
+function createTeamPlayers(){
+
+    teamA.innerHTML = "";
+    teamB.innerHTML = "";
+
+    players.forEach(p => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "playerChoice";
+        button.textContent =
+            p.id === "me"
+            ? playerName
+            : p.name;
+
+        button.addEventListener("click",function(){
+
+            selectedTeam = "A";
+
+            teamStatus.textContent =
+                `Você escolheu a EQUIPE A.`;
+
+            currentTeam.textContent = "A";
+
+            document
+                .querySelectorAll(".playerChoice")
+                .forEach(b => b.classList.remove("selected"));
+
+            button.classList.add("selected");
+
+        });
+
+        teamA.appendChild(button);
 
 
-/* =========================================================
-   MOVIMENTO DO PLAYER
-========================================================= */
+        const buttonB =
+            document.createElement("button");
 
-function move(){
+        buttonB.className = "playerChoice";
+        buttonB.textContent =
+            p.id === "me"
+            ? playerName
+            : p.name;
 
-  let dx =
-    (keys.right ? 1 : 0) -
-    (keys.left ? 1 : 0);
+        buttonB.addEventListener("click",function(){
 
-  let dy =
-    (keys.down ? 1 : 0) -
-    (keys.up ? 1 : 0);
+            selectedTeam = "B";
 
+            teamStatus.textContent =
+                `Você escolheu a EQUIPE B.`;
 
-  if(dx || dy){
+            currentTeam.textContent = "B";
 
-    const len =
-      Math.hypot(dx,dy);
+            document
+                .querySelectorAll(".playerChoice")
+                .forEach(b => b.classList.remove("selected"));
 
-    px +=
-      dx / len *
-      speed;
+            buttonB.classList.add("selected");
 
-    py +=
-      dy / len *
-      speed;
+        });
 
+        teamB.appendChild(buttonB);
 
-    px =
-      Math.max(
-        30,
-        Math.min(
-          3470,
-          px
-        )
-      );
-
-
-    py =
-      Math.max(
-        30,
-        Math.min(
-          2470,
-          py
-        )
-      );
-
-
-    player.style.left =
-      px + 'px';
-
-    player.style.top =
-      py + 'px';
-
-  }
-
-}
-
-
-/* =========================================================
-   CÂMERA
-========================================================= */
-
-function updateCamera(){
-
-  const gw = 3600;
-
-  const gh = 2600;
-
-  const vw =
-    game.clientWidth;
-
-  const vh =
-    game.clientHeight;
-
-
-  const cx =
-    vw / 2 -
-    px -
-    48;
-
-
-  const cy =
-    vh / 2 -
-    py -
-    48;
-
-
-  const minX =
-    Math.min(
-      0,
-      vw - gw
-    );
-
-
-  const minY =
-    Math.min(
-      0,
-      vh - gh
-    );
-
-
-  camera.style.transform =
-    `translate(
-      ${Math.max(
-        minX,
-        Math.min(0,cx)
-      )}px,
-      ${Math.max(
-        minY,
-        Math.min(0,cy)
-      )}px
-    )`;
+    });
 
 }
 
 
-/* =========================================================
-   TECLADO
-========================================================= */
+/* =========================
+   COMEÇAR PROVA
+========================= */
 
-window.addEventListener(
-  'keydown',
-  e => {
+document.getElementById("startProof")
+.addEventListener("click",function(){
 
-    const k =
-      e.key.toLowerCase();
+    if(!selectedTeam){
 
+        alert("Escolha uma equipe primeiro!");
 
-    if(
-      ['arrowup','w']
-      .includes(k)
-    ){
-
-      keys.up = true;
+        return;
 
     }
 
+    teamScreen.style.display = "none";
+    proof.style.display = "block";
 
-    if(
-      ['arrowdown','s']
-      .includes(k)
-    ){
+    proofX = 900;
+    proofY = 1300;
 
-      keys.down = true;
+    startProof();
 
-    }
+});
 
 
-    if(
-      ['arrowleft','a']
-      .includes(k)
-    ){
+/* =========================
+   PROVA
+========================= */
 
-      keys.left = true;
+function startProof(){
 
-    }
+    cluesFound.clear();
 
+    clueCount.textContent = "0/7";
 
-    if(
-      ['arrowright','d']
-      .includes(k)
-    ){
-
-      keys.right = true;
-
-    }
-
-
-    if(
-      k === 'e' &&
-      nearNpc &&
-      !dialogOpen
-    ){
-
-      openNpc(nearNpc);
-
-    }
-
-  }
-);
-
-
-window.addEventListener(
-  'keyup',
-  e => {
-
-    const k =
-      e.key.toLowerCase();
-
-
-    if(
-      ['arrowup','w']
-      .includes(k)
-    ){
-
-      keys.up = false;
-
-    }
-
-
-    if(
-      ['arrowdown','s']
-      .includes(k)
-    ){
-
-      keys.down = false;
-
-    }
-
-
-    if(
-      ['arrowleft','a']
-      .includes(k)
-    ){
-
-      keys.left = false;
-
-    }
-
-
-    if(
-      ['arrowright','d']
-      .includes(k)
-    ){
-
-      keys.right = false;
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   CONTROLES MOBILE
-========================================================= */
-
-document
-  .querySelectorAll('.ctrl')
-  .forEach(button => {
-
-    const key =
-      button.dataset.key;
-
-    if(!key) return;
-
-
-    const on = e => {
-
-      e.preventDefault();
-
-      keys[key] = true;
-
-    };
-
-
-    const off = e => {
-
-      e.preventDefault();
-
-      keys[key] = false;
-
-    };
-
-
-    button.addEventListener(
-      'pointerdown',
-      on
-    );
-
-    button.addEventListener(
-      'pointerup',
-      off
-    );
-
-    button.addEventListener(
-      'pointercancel',
-      off
-    );
-
-    button.addEventListener(
-      'pointerleave',
-      off
-    );
-
-  });
-
-
-/* =========================================================
-   CONTAGEM DO PORTAL
-========================================================= */
-
-let start =
-  performance.now();
-
-
-function loop(t){
-
-  move();
-
-  updateNpcs(t);
-
-  updateNear();
-
-  updateCamera();
-
-
-  if(!portalOpen){
-
-    const left =
-      Math.max(
-        0,
-        5000 -
-        (t - start)
-      );
-
-
-    count.textContent =
-      left > 0
-        ? 'Portal abre em ' +
-          Math.ceil(
-            left / 1000
-          ) +
-          's'
-
-        : 'Portal aberto!';
-
-
-    if(left <= 0){
-
-      portalOpen =
-        true;
-
-      portal.classList.remove(
-        'closed'
-      );
-
-      portal.classList.add(
-        'open'
-      );
-
-    }
-
-  }
-
-  else{
-
-    count.textContent =
-      'Portal aberto • entre na prova';
-
-  }
-
-
-  requestAnimationFrame(loop);
+    requestAnimationFrame(updateProof);
 
 }
 
 
-/* =========================================================
-   STATUS OFFLINE
-========================================================= */
+function updateProof(){
 
-window.addEventListener(
-  'online',
-  () => {
+    if(proof.style.display !== "block") return;
 
-    document
-      .getElementById('offline')
-      .style.display =
-      'none';
+    let dx = 0;
+    let dy = 0;
 
-  }
-);
+    if(keys.has("w") || keys.has("arrowup")) dy--;
+    if(keys.has("s") || keys.has("arrowdown")) dy++;
+    if(keys.has("a") || keys.has("arrowleft")) dx--;
+    if(keys.has("d") || keys.has("arrowright")) dx++;
 
+    if(dx || dy){
 
-window.addEventListener(
-  'offline',
-  () => {
+        const length = Math.hypot(dx,dy);
 
-    document
-      .getElementById('offline')
-      .style.display =
-      'block';
+        proofX += dx / length * speed;
+        proofY += dy / length * speed;
 
-  }
-);
+    }
 
+    proofX = Math.max(50,Math.min(3550,proofX));
+    proofY = Math.max(50,Math.min(2550,proofY));
 
-if(!navigator.onLine){
+    camera(
+        document.getElementById("proofWorld"),
+        proofX,
+        proofY
+    );
 
-  document
-    .getElementById('offline')
-    .style.display =
-    'block';
+    requestAnimationFrame(updateProof);
 
 }
 
 
-/* =========================================================
-   INICIAR
-========================================================= */
+/* =========================
+   PISTAS
+========================= */
 
-requestAnimationFrame(loop);
+const riddles = {
+
+    pudim:
+    "Procurem aquele que guarda uma pequena coleção de sóis. Não são estrelas, nem lâmpadas. São quadrados, dourados e ficam melhor quando alguém os devora.",
+
+    asriel:
+    "Ele não possui pernas, mas consegue atravessar continentes em segundos. Não possui boca, mas pode responder quando alguém fala com ele. E, estranhamente, costuma ficar esperando por uma chamada.",
+
+    telefone:
+    "Conheço alguém que passa o dia sentado, escondido em um lugar onde ninguém gostaria de morar. Não procure por uma porta. Procure pelo lugar onde a água desaparece.",
+
+    skibid:
+    "Ela possui uma cabeça, mas não pensa. Possui um corpo, mas não anda. Quando morre, deixa sementes para nascer novamente. E quanto mais bonita fica, mais perto você está dela.",
+
+    flor:
+    "O próximo não é pequeno. Não é rápido. E se ele quisesse te perseguir, provavelmente você teria bastante tempo para fugir. Procure aquele que carrega milhões de anos nas costas.",
+
+    heder:
+    "Procurem aquele que usa uma coroa sem ser rei. Sua pele parece uma armadura. Mas não nasceu para lutar. E, se você cortar sua cabeça, ainda encontrará algo doce.",
+
+    abacaxi:
+    "A última resposta é verde, azeda e estranhamente famosa. Não é exatamente uma pessoa... mas alguém resolveu transformar uma pessoa em algo que combina perfeitamente com ela. Procure o Rick que ninguém esperaria encontrar."
+
+};
+
+
+document.querySelectorAll(".clueNPC").forEach(npc => {
+
+    npc.addEventListener("click",function(){
+
+        const x =
+            parseFloat(npc.style.left);
+
+        const y =
+            parseFloat(npc.style.top);
+
+        const distance =
+            Math.hypot(proofX-x,proofY-y);
+
+        if(distance > 220){
+
+            showDialog(
+                npc.dataset.clue.toUpperCase(),
+                "Você está longe demais. Chegue mais perto."
+            );
+
+            return;
+
+        }
+
+        const id = npc.dataset.clue;
+
+        showDialog(
+            npc.querySelector(".clueName").textContent,
+            riddles[id]
+        );
+
+        if(!cluesFound.has(id)){
+
+            cluesFound.add(id);
+
+            clueCount.textContent =
+                `${cluesFound.size}/7`;
+
+        }
+
+        if(id === "abacaxi"){
+
+            setTimeout(() => {
+
+                const treasure =
+                    document.getElementById("treasure");
+
+                treasure.style.left = "3250px";
+                treasure.style.top = "850px";
+                treasure.style.display = "block";
+
+                const label =
+                    document.getElementById("treasureLabel");
+
+                label.style.left = "3250px";
+                label.style.top = "700px";
+                label.style.display = "block";
+
+            },400);
+
+        }
+
+    });
+
+});
+
+
+/* =========================
+   PICKLE RICK
+========================= */
+
+document.getElementById("treasure")
+.addEventListener("click",function(){
+
+    const x = 3250;
+    const y = 850;
+
+    const distance =
+        Math.hypot(proofX-x,proofY-y);
+
+    if(distance > 260){
+
+        showDialog(
+            "Pickle Rick",
+            "Está perto... mas você ainda precisa chegar até ele!"
+        );
+
+        return;
+
+    }
+
+    proof.style.display = "none";
+    finish.style.display = "flex";
+
+});
+
+
+/* =========================
+   DIALOGO
+========================= */
+
+function showDialog(title,text){
+
+    document.getElementById("dialogTitle")
+        .textContent = title;
+
+    document.getElementById("dialogText")
+        .textContent = text;
+
+    dialog.style.display = "block";
+
+}
+
+document.getElementById("closeDialog")
+.addEventListener("click",function(){
+
+    dialog.style.display = "none";
+
+});
+
+
+/* =========================
+   MOBILE
+========================= */
+
+document.querySelectorAll(".mobileBtn")
+.forEach(button => {
+
+    const key = button.dataset.key;
+
+    button.addEventListener("pointerdown",function(){
+
+        keys.add(key);
+
+    });
+
+    button.addEventListener("pointerup",function(){
+
+        keys.delete(key);
+
+    });
+
+    button.addEventListener("pointerleave",function(){
+
+        keys.delete(key);
+
+    });
+
+});
 
 </script>
 
 </body>
 </html>
+```
